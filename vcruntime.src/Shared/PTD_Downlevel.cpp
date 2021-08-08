@@ -1,0 +1,2 @@
+﻿
+thread_local int VC_LTL_UCRT_CatchStateInParent;

@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+ * 项目：VC-LTL
+ * 文件：VC-LTL.targets
+ * 用途：适用于 Visual Studio 的 VC-LTL 工具集的属性页配置文件
+ *
+ * 许可：MIT
+ *
+ * 作者：mingkuang (mingkuang AT live.com)
+ * 作者：Mouri_Naruto (Mouri_Naruto AT Outlook.com)
+-->
+<ProjectSchemaDefinitions
+  xmlns="http://schemas.microsoft.com/build/2009/properties"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" >
+  <Rule Name="CuyuTeam_3C886396-2D31-4C73-9281-E39A064253D9"
+        PageTemplate="tool"
+        DisplayName="NuGet程序包设置">
+    <Rule.Categories>
+      <Category Name="VC_LTL" DisplayName="VC-LTL" Description="第三方CRT运行库，优化C/C++程序体积，避免FLS上限。"/>
+    </Rule.Categories>
+
+    <Rule.DataSource>
+      <DataSource Persistence="ProjectFile"
+                  ItemType=""
+                  Label="Configuration"
+                  HasConfigurationCondition="true"/>
+    </Rule.DataSource>
+
+    <BoolProperty
+      Name="DisableAdvancedSupport"
+      Category="VC_LTL"
+      DisplayName="启用 VC-LTL 轻量模式"
+      Description="开启 VC-LTL 轻量模式，轻量模式更加注重体积控制，但是CRT规范将会维持在 Visual Studio 2008。如果你需要高度兼容微软 UCRT，那么请不要打开此选项！！！" />
+
+    <BoolProperty
+      Name="SupportWinXP"
+      Category="VC_LTL"
+      DisplayName="启用 Windows XP 兼容"
+      Description="强制开启 Windows XP 兼容模式，默认情况下仅在选择 Windows XP 工具集时才开启。" />
+    
+     <BoolProperty
+      Name="SupportLTL"
+      Category="VC_LTL"
+      DisplayName="启用VC-LTL"
+      Description="允许当前项目启用VC-LTL，此选项一般用于验证某些问题时使用，非特殊情况建议始终保持开启。"/>
+  </Rule>
+</ProjectSchemaDefinitions>
