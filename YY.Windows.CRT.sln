@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31515.178
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ucrt.vcruntime", "vcruntime.src\ucrt.vcruntime\ucrt.vcruntime.vcxproj", "{FEC996ED-01E9-4258-862F-58BF3AEFA893}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vcruntime.ucrtbase", "vcruntime.ucrtbase\vcruntime.ucrtbase.vcxproj", "{FEC996ED-01E9-4258-862F-58BF3AEFA893}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "vcruntime.msvcrt", "vcruntime.msvcrt\vcruntime.msvcrt.vcxproj", "{2D2789F9-1A04-4E94-8386-E5B2C8C93354}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,22 @@ Global
 		{FEC996ED-01E9-4258-862F-58BF3AEFA893}.Static|x64.Build.0 = Static|x64
 		{FEC996ED-01E9-4258-862F-58BF3AEFA893}.Static|x86.ActiveCfg = Static|Win32
 		{FEC996ED-01E9-4258-862F-58BF3AEFA893}.Static|x86.Build.0 = Static|Win32
+		{2D2789F9-1A04-4E94-8386-E5B2C8C93354}.Dynamic|ARM.ActiveCfg = Dynamic|ARM
+		{2D2789F9-1A04-4E94-8386-E5B2C8C93354}.Dynamic|ARM.Build.0 = Dynamic|ARM
+		{2D2789F9-1A04-4E94-8386-E5B2C8C93354}.Dynamic|ARM64.ActiveCfg = Dynamic|ARM64
+		{2D2789F9-1A04-4E94-8386-E5B2C8C93354}.Dynamic|ARM64.Build.0 = Dynamic|ARM64
+		{2D2789F9-1A04-4E94-8386-E5B2C8C93354}.Dynamic|x64.ActiveCfg = Dynamic|x64
+		{2D2789F9-1A04-4E94-8386-E5B2C8C93354}.Dynamic|x64.Build.0 = Dynamic|x64
+		{2D2789F9-1A04-4E94-8386-E5B2C8C93354}.Dynamic|x86.ActiveCfg = Dynamic|Win32
+		{2D2789F9-1A04-4E94-8386-E5B2C8C93354}.Dynamic|x86.Build.0 = Dynamic|Win32
+		{2D2789F9-1A04-4E94-8386-E5B2C8C93354}.Static|ARM.ActiveCfg = Static|ARM
+		{2D2789F9-1A04-4E94-8386-E5B2C8C93354}.Static|ARM.Build.0 = Static|ARM
+		{2D2789F9-1A04-4E94-8386-E5B2C8C93354}.Static|ARM64.ActiveCfg = Static|ARM64
+		{2D2789F9-1A04-4E94-8386-E5B2C8C93354}.Static|ARM64.Build.0 = Static|ARM64
+		{2D2789F9-1A04-4E94-8386-E5B2C8C93354}.Static|x64.ActiveCfg = Static|x64
+		{2D2789F9-1A04-4E94-8386-E5B2C8C93354}.Static|x64.Build.0 = Static|x64
+		{2D2789F9-1A04-4E94-8386-E5B2C8C93354}.Static|x86.ActiveCfg = Static|Win32
+		{2D2789F9-1A04-4E94-8386-E5B2C8C93354}.Static|x86.Build.0 = Static|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
