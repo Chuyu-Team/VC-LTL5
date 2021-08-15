@@ -20,7 +20,8 @@
   
   <PropertyGroup>
     <VCLTLTargetUniversalCRTBuildVersion Condition=" '$(WindowsTargetPlatformMinVersion)'!=''">$([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Build)</VCLTLTargetUniversalCRTBuildVersion>
-    <VCLTLTargetUniversalCRTBuildVersion Condition=" '$(WindowsTargetPlatformMinVersion)'==''">10240</VCLTLTargetUniversalCRTBuildVersion>
+    <VCLTLTargetUniversalCRTBuildVersion Condition=" '$(WindowsTargetPlatformMinVersion)'=='' and '$(SupportLTL)'=='ucrt'">10240</VCLTLTargetUniversalCRTBuildVersion>
+    <VCLTLTargetUniversalCRTBuildVersion Condition=" '$(WindowsTargetPlatformMinVersion)'==''">6000</VCLTLTargetUniversalCRTBuildVersion>
   </PropertyGroup>
 
   <!--搜索最适合的UCRT版本-->
