@@ -1,0 +1,93 @@
+LIBRARY msvcrt.dll
+EXPORTS
+;_CreateFrameInfo x
+_CxxThrowException
+;_FindAndUnlinkFrame x
+;_IsExceptionObjectToBeDestroyed x
+;_SetWinRTOutOfMemoryExceptionCallback x
+;__AdjustPointer x 推测应该出现在 8.1
+;__BuildCatchObject x
+;__BuildCatchObjectHelper x
+__C_specific_handler
+;__C_specific_handler_noexcept
+;__CxxDetectRethrow x
+;__CxxExceptionFilter x
+;__CxxFrameHandler w
+;__CxxFrameHandler2 w
+__CxxFrameHandler3
+;__CxxQueryExceptionSize x
+;__CxxRegisterExceptionObject x
+;__CxxUnregisterExceptionObject x
+__DestructExceptionObject
+;__FrameUnwindFilter x
+;__GetPlatformExceptionInfo x
+;__NLG_Dispatch2 x
+;__NLG_Return2 x
+__RTCastToVoid
+__RTDynamicCast
+__RTtypeid
+;__TypeMatch x
+;__current_exception x
+;__current_exception_context x
+;__intrinsic_setjmp w
+;__intrinsic_setjmpex w
+__jump_unwind
+;__processing_throw
+;__report_gsfailure ==============
+;__std_exception_copy x
+;__std_exception_destroy x
+;__std_terminate w
+;__std_type_info_compare x
+;__std_type_info_destroy_list x
+;__std_type_info_hash x
+;__std_type_info_name x
+;__telemetry_main_invoke_trigger x
+;__telemetry_main_return_trigger x
+__unDName
+__unDNameEx
+__uncaught_exception
+;__uncaught_exceptions x
+;__vcrt_GetModuleFileNameW w
+;__vcrt_GetModuleHandleW w
+;__vcrt_InitializeCriticalSectionEx w
+;__vcrt_LoadLibraryExW w
+;_get_purecall_handler x
+;_get_unexpected x
+;_is_exception_typeof x
+;_purecall x
+;_set_purecall_handler x
+;_set_se_translator w
+longjmp
+memchr
+memcmp
+memcpy
+memmove
+memset
+;set_unexpected w
+strchr
+strrchr
+strstr
+;unexpected w
+wcschr
+wcsrchr
+wcsstr
+
+
+
+;某些老符号，通过某些形式转换到了新符号
+setjmp
+_setjmpex
+?set_unexpected@@YAP6AXXZP6AXXZ@Z
+?_set_se_translator@@YAP6AXIPAU_EXCEPTION_POINTERS@@@ZP6AXI0@Z@Z
+?unexpected@@YAXXZ
+
+?name@type_info@@QBAPBDXZ         DATA
+??1type_info@@UAA@XZ              DATA
+??8type_info@@QBAHABV0@@Z         DATA
+??9type_info@@QBAHABV0@@Z         DATA
+?before@type_info@@QBAHABV1@@Z    DATA
+?raw_name@type_info@@QBAPBDXZ     DATA
+
+
+; 内部用到的一个函数
+_amsg_exit

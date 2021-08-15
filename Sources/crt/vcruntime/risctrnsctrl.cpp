@@ -26,11 +26,15 @@
 
 #if _EH_RELATIVE_FUNCINFO
 
+#if WindowsTargetPlatformMinVersion >= WindowsTargetPlatformWindows10_10240
 #define _ImageBase        (RENAME_BASE_PTD(__vcrt_getptd)()->_ImageBase)
+#elif WindowsTargetPlatformMinVersion >= WindowsTargetPlatformWindows6
+#define _ImageBase        (((_ptd_msvcrt_win6_shared*)__vcrt_getptd())->_ImageBase)
+#endif
 
 extern "C" uintptr_t __cdecl _GetImageBase()
 {
-    return _ImageBase;
+    return _ImageBase;    
 }
 
 extern "C" void __cdecl _SetImageBase(uintptr_t ImageBaseToRestore)
@@ -42,7 +46,11 @@ extern "C" void __cdecl _SetImageBase(uintptr_t ImageBaseToRestore)
 
 #if _EH_RELATIVE_TYPEINFO
 
+#if WindowsTargetPlatformMinVersion >= WindowsTargetPlatformWindows10_10240
 #define _ThrowImageBase   (RENAME_BASE_PTD(__vcrt_getptd)()->_ThrowImageBase)
+#elif WindowsTargetPlatformMinVersion >= WindowsTargetPlatformWindows6
+#define _ThrowImageBase        (((_ptd_msvcrt_win6_shared*)__vcrt_getptd())->_ThrowImageBase)
+#endif
 
 extern "C" uintptr_t __cdecl _GetThrowImageBase()
 {
@@ -459,6 +467,106 @@ RENAME_EH_EXTERN(__FrameHandler4)::TryBlockMap::IteratorPair RENAME_EH_EXTERN(__
 }
 #endif // _VCRT_BUILD_FH4
 
+#if 0
+RENAME_EH_EXTERN(__FrameHandler3)::TryBlockMap::IteratorPair RENAME_EH_EXTERN(__FrameHandler3)::GetRangeOfTrysToCheck(
+    TryBlockMap       &tryBlockMap,
+    __ehstate_t       curState,
+    DispatcherContext *pDC,
+    FuncInfo          *pFuncInfo,
+    int               /*CatchDepth*/
+    )
+{
+    TryBlockMapEntry *pEntry, *pCurCatchEntry = nullptr;
+    unsigned num_of_try_blocks = FUNC_NTRYBLOCKS(*pFuncInfo);
+    unsigned int index;
+    __ehstate_t ipState = StateFromControlPc(pFuncInfo, pDC);
+
+    _VCRT_VERIFY(num_of_try_blocks > 0);
+
+    unsigned start = static_cast<unsigned>(-1);
+    unsigned end = start;
+    for (index = num_of_try_blocks; index > 0; index--) {
+        pEntry = FUNC_PTRYBLOCK(*pFuncInfo, index -1, pDC->ImageBase);
+        if (ipState > TBME_HIGH(*pEntry) && ipState <= TBME_CATCHHIGH(*pEntry)) {
+            break;
+        }
+    }
+    if (index) {
+        pCurCatchEntry = FUNC_PTRYBLOCK(*pFuncInfo, index -1, pDC->ImageBase);
+    }
+    for(index = 0; index < num_of_try_blocks; index++ ) {
+        pEntry = FUNC_PTRYBLOCK(*pFuncInfo, index, pDC->ImageBase);
+        // if in catch block, check for try-catch only in current block
+        if (pCurCatchEntry) {
+            if (TBME_LOW(*pEntry) <= TBME_HIGH(*pCurCatchEntry) ||
+                TBME_HIGH(*pEntry) > TBME_CATCHHIGH(*pCurCatchEntry))
+                continue;
+        }
+        if (curState >= TBME_LOW(*pEntry) && curState <= TBME_HIGH(*pEntry)) {
+           if (start == -1) {
+               start = index;
+           }
+           end = index;
+        }
+    }
+
+    // change to be (start, end]
+    ++end;
+    if (start == -1){
+        start = 0;
+        end = 0;
+    }
+
+    auto iterStart = TryBlockMap::iterator(tryBlockMap, start);
+    auto iterEnd = TryBlockMap::iterator(tryBlockMap, end);
+
+    return TryBlockMap::IteratorPair(iterStart, iterEnd);
+}
+#endif
+
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
+extern "C" FRAMEINFO * __cdecl RENAME_EH_EXTERN(_CreateFrameInfo)(
+    FRAMEINFO * pFrameInfo,
+    PVOID       pExceptionObject
+) {
+    pFrameInfo->pExceptionObject = pExceptionObject;
+    pFrameInfo->pNext            = (pFrameInfo < pFrameInfoChain)? pFrameInfoChain : nullptr;
+    pFrameInfoChain              = pFrameInfo;
+    return pFrameInfo;
+}
+
+_LCRT_DEFINE_IAT_SYMBOL(_CreateFrameInfo);
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// _FindAndUnlinkFrame - Pop the frame information for this scope that was
+//  pushed by _CreateFrameInfo.  This should be the first frame in the list,
+//  but the code will look for a nested frame and pop all frames, just in
+//  case.
+//
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
+extern "C" void __cdecl RENAME_EH_EXTERN(_FindAndUnlinkFrame)(
+    FRAMEINFO * pFrameInfo
+) {
+    _VCRT_VERIFY(pFrameInfo == pFrameInfoChain);
+
+    for (FRAMEINFO *pCurFrameInfo = pFrameInfoChain;
+         pCurFrameInfo;
+         pCurFrameInfo = pCurFrameInfo->pNext)
+    {
+        if (pFrameInfo == pCurFrameInfo) {
+            pFrameInfoChain = pCurFrameInfo->pNext;
+            return;
+        }
+    }
+
+    // Should never be reached.
+    abort();
+}
+
+_LCRT_DEFINE_IAT_SYMBOL(_FindAndUnlinkFrame);
+#endif
 
 #if _VCRT_BUILD_FH4
 void RENAME_EH_EXTERN(__FrameHandler4)::UnwindNestedFrames(

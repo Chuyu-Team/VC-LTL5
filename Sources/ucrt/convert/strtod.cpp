@@ -1,4 +1,4 @@
-//
+﻿//
 // strtod.cpp
 //
 //      Copyright (c) Microsoft Corporation. All rights reserved.
@@ -51,6 +51,7 @@ static FloatingType __cdecl common_strtod_l(
 // Narrow Strings => Floating Point
 //
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
 extern "C" float __cdecl strtof(
     char const* const string,
     char**      const end_ptr
@@ -59,6 +60,10 @@ extern "C" float __cdecl strtof(
     return common_strtod_l<float>(string, end_ptr, nullptr);
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(strtof);
+#endif
+
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
 extern "C" float __cdecl _strtof_l(
     char const* const string,
     char**      const end_ptr,
@@ -67,6 +72,9 @@ extern "C" float __cdecl _strtof_l(
 {
     return common_strtod_l<float>(string, end_ptr, locale);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_strtof_l);
+#endif
 
 #if 0
 extern "C" double __cdecl strtod(
@@ -78,7 +86,7 @@ extern "C" double __cdecl strtod(
 }
 #endif
 
-#if _CRT_NTDDI_MIN < NTDDI_VISTA
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" double __cdecl _strtod_l(
     char const* const string,
     char**      const end_ptr,
@@ -87,6 +95,8 @@ extern "C" double __cdecl _strtod_l(
 {
     return common_strtod_l<double>(string, end_ptr, locale);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_strtod_l);
 #endif
 
 #if 0
@@ -116,6 +126,7 @@ extern "C" long double __cdecl _strtold_l(
 // Wide Strings => Floating Point
 //
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
 extern "C" float __cdecl wcstof(
     wchar_t const* const string,
     wchar_t**      const end_ptr
@@ -124,6 +135,10 @@ extern "C" float __cdecl wcstof(
     return common_strtod_l<float>(string, end_ptr, nullptr);
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(wcstof);
+#endif
+
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
 extern "C" float __cdecl _wcstof_l(
     wchar_t const* const string,
     wchar_t**      const end_ptr,
@@ -132,6 +147,9 @@ extern "C" float __cdecl _wcstof_l(
 {
     return common_strtod_l<float>(string, end_ptr, locale);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_wcstof_l);
+#endif
 
 #if 0
 extern "C" double __cdecl wcstod(
@@ -143,6 +161,7 @@ extern "C" double __cdecl wcstod(
 }
 #endif
 
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
 extern "C" double __cdecl _wcstod_l(
     wchar_t const* const string,
     wchar_t**      const end_ptr,
@@ -151,6 +170,9 @@ extern "C" double __cdecl _wcstod_l(
 {
     return common_strtod_l<double>(string, end_ptr, locale);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_wcstod_l);
+#endif
 
 #if 0
 extern "C" long double __cdecl wcstold(
@@ -162,7 +184,7 @@ extern "C" long double __cdecl wcstold(
 }
 #endif
 
-
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
 extern "C" long double __cdecl _wcstold_l(
     wchar_t const* const string,
     wchar_t**      const end_ptr,
@@ -171,3 +193,6 @@ extern "C" long double __cdecl _wcstold_l(
 {
     return common_strtod_l<double>(string, end_ptr, locale);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_wcstold_l);
+#endif

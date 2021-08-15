@@ -1,4 +1,4 @@
-//
+﻿//
 // wmemcpy_s.cpp
 //
 //      Copyright (c) Microsoft Corporation.  All rights reserved.
@@ -14,7 +14,7 @@
 #include <wchar.h>
 
 
-
+#if WindowsTargetPlatformMinVersion < __MakeVersion(10, 0, 10240)
 extern "C" errno_t __cdecl wmemcpy_s(
     wchar_t*       const destination,
     size_t         const size_in_elements,
@@ -43,3 +43,7 @@ extern "C" errno_t __cdecl wmemcpy_s(
     wmemcpy(destination, source, count);
     return 0;
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(wmemcpy_s);
+
+#endif

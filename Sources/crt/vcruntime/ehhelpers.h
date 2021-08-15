@@ -7,7 +7,11 @@
 
 #if defined(_M_X64) || defined(_M_ARM_NT) || defined(_M_ARM64) || defined(_CHPE_X86_ARM64_EH_)
 
+#if WindowsTargetPlatformMinVersion >= WindowsTargetPlatformWindows10_10240
 #define _pForeignExcept   (*((EHExceptionRecord **)&(RENAME_BASE_PTD(__vcrt_getptd)()->_pForeignException)))
+#elif WindowsTargetPlatformMinVersion >= WindowsTargetPlatformWindows6
+#define _pForeignExcept   (*((EHExceptionRecord **)&(((_ptd_msvcrt_win6_shared*)RENAME_BASE_PTD(__vcrt_getptd)())->_pForeignException)))
+#endif
 
 #endif
 

@@ -1,0 +1,237 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="源文件\ltl">
+      <UniqueIdentifier>{26ed8074-6583-4ce2-b46a-e305b701880a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\objs">
+      <UniqueIdentifier>{7220365b-e6fc-4204-92eb-f256dbb0de53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\ltl">
+      <UniqueIdentifier>{49152731-d1b0-4813-880f-38d279e9ca40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\ltl\objs">
+      <UniqueIdentifier>{b663b6c3-a002-433f-9be7-b1190c9c04dd}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Sources\ucrt\string\wmemcpy_s.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\internal\report_runtime_error.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="argv_parsing.cpp">
+      <Filter>源文件\ltl</Filter>
+    </ClCompile>
+    <ClCompile Include="environment_initialization.cpp">
+      <Filter>源文件\ltl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\startup\exit.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\startup\onexit.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\heap\align.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\heap\recalloc.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="setlocal_thunks.cpp">
+      <Filter>源文件\ltl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\misc\invalid_parameter.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\internal\initialization.cpp">
+      <Filter>源文件\objs</Filter>
+    </ClCompile>
+    <ClCompile Include="fputwc_thunks.cpp">
+      <Filter>源文件\ltl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\internal\shared_initialization.cpp">
+      <Filter>源文件\objs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\internal\winapi_thunks.cpp">
+      <Filter>源文件\objs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\startup\argv_winmain.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="msvcrt_loadhelper.cpp">
+      <Filter>源文件\ltl</Filter>
+    </ClCompile>
+    <ClCompile Include="_file.cpp">
+      <Filter>源文件\ltl</Filter>
+    </ClCompile>
+    <ClCompile Include="sftbuf_thunks.cpp">
+      <Filter>源文件\ltl\objs</Filter>
+    </ClCompile>
+    <ClCompile Include="ucrt_IAT.cpp">
+      <Filter>源文件\ltl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\internal\locks.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\string\wmemmove_s.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="syserr.cpp">
+      <Filter>源文件\ltl</Filter>
+    </ClCompile>
+    <ClCompile Include="ftell.cpp">
+      <Filter>源文件\ltl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\conio\cprintf.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\stdio\input.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\stdio\output.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ieee87.cpp">
+      <Filter>源文件\ltl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\convert\_wctype.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="wcsftime.cpp">
+      <Filter>源文件\ltl</Filter>
+    </ClCompile>
+    <ClCompile Include="atof.cpp">
+      <Filter>源文件\ltl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\stdlib\byteswap.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="getenv.cpp">
+      <Filter>源文件\ltl</Filter>
+    </ClCompile>
+    <ClCompile Include="findfile.cpp">
+      <Filter>源文件\ltl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\filesystem\stat.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="timeset.cpp">
+      <Filter>源文件\ltl</Filter>
+    </ClCompile>
+    <ClCompile Include="terminate.cpp">
+      <Filter>源文件\ltl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\ismbbyte.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\misc\errno.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\stdio\printf_count_output.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="gets.cpp">
+      <Filter>源文件\ltl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\convert\_ctype.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\ismbpunc.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbbtype.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="strftime.cpp">
+      <Filter>源文件\ltl</Filter>
+    </ClCompile>
+    <ClCompile Include="abort.cpp">
+      <Filter>源文件\ltl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\time\time.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="fread.cpp">
+      <Filter>源文件\ltl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\convert\c16rtomb.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\convert\c32rtomb.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\convert\strtod.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="open.cpp">
+      <Filter>源文件\ltl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\convert\mbrtoc16.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\convert\mbrtoc32.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\convert\wctrans.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\convert\wctype.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="initctype.cpp">
+      <Filter>源文件\ltl</Filter>
+    </ClCompile>
+    <ClCompile Include="localeconv.cpp">
+      <Filter>源文件\ltl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\convert\cvt.cpp">
+      <Filter>源文件\objs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\convert\_fptostr.cpp">
+      <Filter>源文件\objs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\convert\cfout.cpp">
+      <Filter>源文件\objs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\exec\getproc.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\exec\loaddll.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\startup\argv_data.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\stdio\ncommode.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\lowio\txtmode.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="mbctype.cpp">
+      <Filter>源文件\ltl</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="msvcrt_loadhelper.h">
+      <Filter>头文件\ltl</Filter>
+    </ClInclude>
+    <ClInclude Include="msvcrt_build_type.h">
+      <Filter>头文件\ltl</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

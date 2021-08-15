@@ -1,4 +1,4 @@
-//
+﻿//
 // exit.cpp
 //
 //      Copyright (c) Microsoft Corporation. All rights reserved.
@@ -178,6 +178,8 @@ extern "C" void __cdecl _register_thread_local_exe_atexit_callback(_In_ _tls_cal
     thread_local_exit_callback_func = __crt_fast_encode_pointer(_Callback);
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(_register_thread_local_exe_atexit_callback);
+
 
 
 static void __cdecl common_exit(
@@ -299,27 +301,42 @@ extern "C" void __cdecl exit(int const return_code)
     common_exit(return_code, _crt_exit_full_cleanup, _crt_exit_terminate_process);
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(exit);
+
+
 extern "C" void __cdecl _exit(int const return_code)
 {
     common_exit(return_code, _crt_exit_no_cleanup, _crt_exit_terminate_process);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_exit);
+
 
 extern "C" void __cdecl _Exit(int const return_code)
 {
     common_exit(return_code, _crt_exit_no_cleanup, _crt_exit_terminate_process);
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(_Exit);
+
 extern "C" void __cdecl quick_exit(int const return_code)
 {
     common_exit(return_code, _crt_exit_quick_cleanup, _crt_exit_terminate_process);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(quick_exit);
 
 extern "C" void __cdecl _cexit()
 {
     common_exit(0, _crt_exit_full_cleanup, _crt_exit_return_to_caller);
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(_cexit);
+
 extern "C" void __cdecl _c_exit()
 {
     common_exit(0, _crt_exit_no_cleanup, _crt_exit_return_to_caller);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_c_exit);
+

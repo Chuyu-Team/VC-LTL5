@@ -1,4 +1,4 @@
-//
+﻿//
 // printf_count_output.cpp
 //
 //      Copyright (c) Microsoft Corporation.  All rights reserved.
@@ -18,6 +18,7 @@ static UINT_PTR enable_percent_n = 0;
 // known value, an attacker could potentially modify that value and then provide
 // a malicious %n specifier.  The cookie is or'ed with 1 becuase a cookie with a
 // value of zero is possible.
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
 extern "C" int __cdecl _set_printf_count_output(int const value)
 {
     int const old = (enable_percent_n == (__security_cookie | 1));
@@ -25,11 +26,17 @@ extern "C" int __cdecl _set_printf_count_output(int const value)
     return old;
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(_set_printf_count_output);
+#endif
 
 
 // Tests whether the %n format specifier for the printf family of functions is
 // enabled.
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
 extern "C" int __cdecl _get_printf_count_output()
 {
     return enable_percent_n == (__security_cookie | 1);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_get_printf_count_output);
+#endif

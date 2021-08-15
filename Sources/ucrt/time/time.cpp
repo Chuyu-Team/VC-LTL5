@@ -1,4 +1,4 @@
-//
+﻿//
 // time.cpp
 //
 //      Copyright (c) Microsoft Corporation. All rights reserved.
@@ -40,16 +40,23 @@ static int __cdecl common_timespec_get(TimeSpecType* const ts, int const base) t
     return base;
 }
 
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
 extern "C" int __cdecl _timespec32_get(_timespec32* const ts, int const base)
 {
     return common_timespec_get(ts, base);
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(_timespec32_get);
+#endif
+
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
 extern "C" int __cdecl _timespec64_get(_timespec64* const ts, int const base)
 {
     return common_timespec_get(ts, base);
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(_timespec64_get);
+#endif
 
 
 // Gets the current system time and converts it to a time_t value. If 'result'

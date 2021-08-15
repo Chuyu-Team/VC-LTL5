@@ -47,6 +47,39 @@
 #endif
 
 
+#define _LCRT_DEFINE_IAT_SYMBOL_EXTERN(f)                                                       \
+    __IAT_EXTERN_C void __cdecl f();                                                            \
+    _LCRT_DEFINE_IAT_SYMBOL(f)
+
+
+
 #define __MakeVersion(Major, Minor, Build) ((Major << 12) + (Minor << 8) + Build)
 #define MakeMiniVersion(v1,v2) (DWORD)(v2|(v1<<16))
 __IAT_EXTERN_C unsigned __cdecl __LTL_GetOsMinVersion();
+
+#define _Disallow_YY_KM_Namespace
+#include <km.h>
+
+__forceinline unsigned __cdecl __LTL_GetOsMinVersion()
+{
+    auto pPeb = ((TEB*)NtCurrentTeb())->ProcessEnvironmentBlock;
+
+    return MakeMiniVersion(pPeb->OSMajorVersion, pPeb->OSMinorVersion);
+}
+
+#ifndef __WARNING_UNUSED_ASSIGNMENT
+#define __WARNING_UNUSED_ASSIGNMENT 28931
+#endif
+
+#define WindowsTargetPlatformWindowsXP       __MakeVersion(5, 1, 2600)
+//也包含Windows XP x64
+#define WindowsTargetPlatformWindows2003     __MakeVersion(5, 2, 3790)
+//Windows Vista or 2008
+#define WindowsTargetPlatformWindows6        __MakeVersion(6, 0, 6000)
+//Windows 7 or 2008 R2
+#define WindowsTargetPlatformWindows7        __MakeVersion(6, 1, 7600)
+//Windows 8 or 2012
+#define WindowsTargetPlatformWindows8        __MakeVersion(6, 2, 9200)
+//Windows 8.1 or 2012 R2
+#define WindowsTargetPlatformWindowsBlue     __MakeVersion(6, 3, 9600)
+#define WindowsTargetPlatformWindows10_10240 __MakeVersion(10,0, 10240)

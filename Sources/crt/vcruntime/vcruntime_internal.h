@@ -223,7 +223,15 @@ typedef struct RENAME_BASE_PTD(__vcrt_ptd)
 #include <internal_shared.h>
 #include <corecrt_internal.h>
 
+#if defined _M_IX86
 typedef _ptd_msvcrt_win2k_shared __vcrt_ptd;
+#elif defined _M_AMD64
+typedef _ptd_msvcrt_winxp_shared __vcrt_ptd;
+#elif defined _M_ARM || defined _M_ARM64
+typedef _ptd_msvcrt_win6_shared __vcrt_ptd;
+#else
+#error 你是谁？
+#endif
 
 #endif
 
@@ -257,7 +265,7 @@ EXTERN_C __declspec(dllimport) void __cdecl _amsg_exit(
 #ifdef __BuildWithMSVCRT
 __forceinline __vcrt_ptd* __cdecl __vcrt_getptd_noexit(void)
 {
-    auto ptd = (_ptd_msvcrt*)(((byte*)_errno()) - FIELD_OFFSET(_ptd_msvcrt, _terrno));
+    auto ptd = (__vcrt_ptd*)(((byte*)_errno()) - FIELD_OFFSET(__vcrt_ptd, _terrno));
 
     /*
     当 _thandle = -1，这表明此线程的ptd通过msvcrt.dll begin_thread 或者 __getptd_noexit 创建。

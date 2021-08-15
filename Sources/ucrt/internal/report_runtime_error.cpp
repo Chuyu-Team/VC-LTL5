@@ -1,4 +1,4 @@
-/***
+﻿/***
 *report_runtime_error.cpp - startup error messages
 *
 *       Copyright (c) Microsoft Corporation. All rights reserved.
@@ -16,6 +16,7 @@
 // This is used during the expansion of the runtime error text.
 #define EOL L"\r\n"
 
+#if 0
 static bool __cdecl issue_debug_notification(wchar_t const* const message) throw()
 {
     // This is referenced only in the Debug CRT build
@@ -35,7 +36,7 @@ static bool __cdecl issue_debug_notification(wchar_t const* const message) throw
 
     return false;
 }
-
+#endif
 
 
 
@@ -77,18 +78,34 @@ static _crt_app_type __acrt_app_type = _crt_unknown_app;
 *
 *******************************************************************************/
 
+//msvcrt中的版本
+extern "C" __declspec(dllimport) _crt_app_type __cdecl __set_app_type(
+	_In_ _crt_app_type _Type
+	);
+
+#if WindowsTargetPlatformMinVersion < __MakeVersion(10, 0, 10240)
+
 extern "C" void __cdecl _set_app_type(_crt_app_type const new_app_type)
 {
-    __acrt_app_type = new_app_type;
+    __acrt_app_type = __set_app_type(new_app_type);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_set_app_type);
+
+#endif
+
+#if WindowsTargetPlatformMinVersion < __MakeVersion(10, 0, 10240)
 
 extern "C" _crt_app_type __cdecl _query_app_type()
 {
     return __acrt_app_type;
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(_query_app_type);
 
+#endif
 
+#if 0
 static bool __cdecl should_write_error_to_console() throw()
 {
     int const error_mode = _set_error_mode(_REPORT_ERRMODE);
@@ -196,5 +213,6 @@ extern "C" void __cdecl __acrt_report_runtime_error(wchar_t const* const message
             MB_OK | MB_ICONHAND | MB_SETFOREGROUND | MB_TASKMODAL);
     }
 }
+#endif
 
 #endif /* _UCRT_ENCLAVE_BUILD */

@@ -1,4 +1,4 @@
-/***
+﻿/***
 *mbbtype.c - Return type of byte based on previous byte (MBCS)
 *
 *       Copyright (c) Microsoft Corporation. All rights reserved.
@@ -43,6 +43,7 @@
 *
 *******************************************************************************/
 
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
 extern "C" int __cdecl _mbbtype_l(
     unsigned char const c,
     int           const ctype,
@@ -76,6 +77,9 @@ extern "C" int __cdecl _mbbtype_l(
             return _MBC_ILLEGAL;
     }
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_mbbtype_l);
+#endif
 
 #if 0
 extern "C" int __cdecl _mbbtype(unsigned char const c, int const ctype)

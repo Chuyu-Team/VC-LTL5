@@ -1,0 +1,103 @@
+LIBRARY msvcrt.dll
+EXPORTS
+;_CreateFrameInfo x
+_CxxThrowException@8
+;_FindAndUnlinkFrame x
+;_IsExceptionObjectToBeDestroyed x
+;_NLG_Dispatch2
+;_NLG_Return
+;_NLG_Return2
+;_SetWinRTOutOfMemoryExceptionCallback x
+;__AdjustPointer X
+;__BuildCatchObject x
+;__BuildCatchObjectHelper x
+__CxxDetectRethrow
+__CxxExceptionFilter
+__CxxFrameHandler
+__CxxFrameHandler2
+__CxxFrameHandler3
+__CxxLongjmpUnwind@4
+__CxxQueryExceptionSize
+__CxxRegisterExceptionObject
+__CxxUnregisterExceptionObject
+__DestructExceptionObject
+;__FrameUnwindFilter x
+;__GetPlatformExceptionInfo  X
+__RTCastToVoid
+__RTDynamicCast
+__RTtypeid
+;__TypeMatch x
+;__current_exception x
+;__current_exception_context x
+;__intrinsic_setjmp w
+;__processing_throw x
+;__report_gsfailure
+;__std_exception_copy x
+;__std_exception_destroy x
+;__std_terminate x
+;__std_type_info_compare x
+;__std_type_info_destroy_list x
+;__std_type_info_hash x
+;__std_type_info_name x
+;__telemetry_main_invoke_trigger x
+;__telemetry_main_return_trigger x
+__unDName
+__unDNameEx
+__uncaught_exception
+;__uncaught_exceptions x
+;__vcrt_GetModuleFileNameW x
+;__vcrt_GetModuleHandleW x
+;__vcrt_InitializeCriticalSectionEx x
+;__vcrt_LoadLibraryExW x
+_chkesp
+_except_handler2
+_except_handler3
+_except_handler4_common
+;_get_purecall_handler x
+;_get_unexpected x
+_global_unwind2
+;_is_exception_typeof x
+_local_unwind2
+_local_unwind4
+_longjmpex
+;_purecall x
+_seh_longjmp_unwind4@4
+_seh_longjmp_unwind@4
+;_set_purecall_handler x
+;_set_se_translator weak
+_setjmp3
+longjmp
+memchr
+memcmp
+memcpy
+memmove
+memset
+;set_unexpected weak
+strchr
+strrchr
+strstr
+;unexpected weak
+wcschr
+wcsrchr
+wcsstr
+
+
+
+;某些老符号，通过某些形式转换到了新符号
+?_set_se_translator@@YAP6AXIPAU_EXCEPTION_POINTERS@@@ZP6AXI0@Z@Z
+?set_unexpected@@YAP6AXXZP6AXXZ@Z
+?unexpected@@YAXXZ
+_setjmp
+
+;type_info导出类，为了防止冲突，我们只导出imp符号
+?before@type_info@@QBEHABV1@@Z    DATA
+?name@type_info@@QBEPBDXZ         DATA
+??9type_info@@QBEHABV0@@Z         DATA
+??8type_info@@QBEHABV0@@Z         DATA
+?raw_name@type_info@@QBEPBDXZ     DATA
+??1type_info@@UAE@XZ              DATA
+
+
+
+; 内部用到的一个函数
+_amsg_exit

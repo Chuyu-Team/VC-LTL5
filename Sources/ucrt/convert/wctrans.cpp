@@ -1,4 +1,4 @@
-//
+﻿//
 // wctrans.cpp
 //
 //      Copyright (c) Microsoft Corporation.  All rights reserved.
@@ -29,12 +29,16 @@ const tab[] =
 };
 
 
-
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
 extern "C" wint_t __cdecl towctrans(wint_t const c, wctrans_t const value)
 {
     return value == 1 ? towupper(c) : towlower(c);
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(towctrans);
+#endif
+
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
 extern "C" wctrans_t __cdecl wctrans(char const* const name)
 {
     for (unsigned n = 0; tab[n].s != 0; ++n)
@@ -45,6 +49,9 @@ extern "C" wctrans_t __cdecl wctrans(char const* const name)
 
     return 0;
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(wctrans);
+#endif
 
 /*
  * Copyright (c) 1992-2007 by P.J. Plauger.  ALL RIGHTS RESERVED.

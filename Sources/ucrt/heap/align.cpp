@@ -1,4 +1,4 @@
-/***
+﻿/***
 *align.c - Aligned allocation, reallocation or freeing of memory in the heap
 *
 *       Copyright (c) Microsoft Corporation. All rights reserved.
@@ -570,6 +570,8 @@ extern "C" __declspec(noinline) size_t __cdecl _aligned_msize(
     #endif
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(_aligned_msize);
+
 #if 0
 extern "C" __declspec(noinline) _CRTRESTRICT void* __cdecl _aligned_offset_malloc(
     size_t const size,
@@ -614,6 +616,8 @@ extern "C" __declspec(noinline) _CRTRESTRICT void* __cdecl _aligned_offset_recal
     #endif
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(_aligned_offset_recalloc);
+
 #if 0
 extern "C" __declspec(noinline) _CRTRESTRICT void* __cdecl _aligned_realloc(
     void*  const block,
@@ -642,3 +646,5 @@ extern "C" __declspec(noinline) _CRTRESTRICT void* __cdecl _aligned_recalloc(
     return _aligned_recalloc_base(block, count, size, alignment);
     #endif
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_aligned_recalloc);

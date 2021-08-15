@@ -53,9 +53,11 @@ EXTERN_C _VCRTIMP BOOL __cdecl _IsExceptionObjectToBeDestroyed(
 	PVOID pExceptionObject
 );
 
-
+#if WindowsTargetPlatformMinVersion >= WindowsTargetPlatformWindows10_10240
 #define __pSETranslator   (*(_se_translator_function*)&(__vcrt_getptd()->_translator))
-
+#elif WindowsTargetPlatformMinVersion >= WindowsTargetPlatformWindows6
+#define __pSETranslator   (*(_se_translator_function*)&(((_ptd_msvcrt_win6_shared*)__vcrt_getptd())->_translator))
+#endif
 
 #ifdef _EH_RELATIVE_FUNCINFO
 template <class T>

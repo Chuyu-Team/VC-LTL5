@@ -1,4 +1,4 @@
-//
+Ôªø//
 // winapi_thunks.cpp
 //
 //      Copyright (c) Microsoft Corporation. All rights reserved.
@@ -14,16 +14,16 @@
 #include <corecrt_internal.h>
 #include <appmodel.h>
 #include <roapi.h>
-#include <winapi_thunks.h>
+#include <Windows.h>
+//#include <winapi_thunks.h>
 #include <internal_shared.h>
+typedef _Return_type_success_(return >= 0) LONG NTSTATUS;
 
-#ifdef _ATL_XP_TARGETING
-	//XP°¢2003∂ÓÕ‚–Ë“™£¨≤ª»ªµ˜”√”≤¡¥Ω” ±ª·¡¥Ω” ß∞‹
-	#pragma comment(linker, "/defaultlib:advapi32.lib")
-#endif
 
 // Define this locally because including ntstatus.h conflicts with headers above
+#ifndef STATUS_NOT_FOUND
 #define STATUS_NOT_FOUND                 ((LONG)0xC0000225L)
+#endif
 
 // Prototype for NT OS API defined locally to avoid conflicts with NT headers
 extern "C" NTSYSAPI LONG NTAPI RtlQueryPackageClaims(
@@ -77,7 +77,7 @@ RtlWow64EnableFsRedirectionEx(
 
 #define _NO_APPLY(a,b)
 
-//_NO_APPLY_2003 ‘⁄2003“‘º∞“‘…œ∆ΩÃ®≤ª”¶”√
+//_NO_APPLY_2003 Âú®2003‰ª•Âèä‰ª•‰∏äÂπ≥Âè∞‰∏çÂ∫îÁî®
 #if defined _ATL_XP_TARGETING && defined _X86_
 #define _NO_APPLY_2003 _APPLY
 #else
@@ -85,7 +85,7 @@ RtlWow64EnableFsRedirectionEx(
 #endif
 
 
-//_NO_APPLY_Vista ‘⁄Vista“‘º∞“‘…œ∆ΩÃ®≤ª”¶”√
+//_NO_APPLY_Vista Âú®Vista‰ª•Âèä‰ª•‰∏äÂπ≥Âè∞‰∏çÂ∫îÁî®
 #ifdef _ATL_XP_TARGETING
 #define _NO_APPLY_Vista _APPLY
 #else
@@ -221,9 +221,9 @@ namespace
 }
 
 
-#if _CRT_NTDDI_MIN < NTDDI_WIN8
+#if WindowsTargetPlatformMinVersion < __MakeVersion(6, 2, 9200)
 
-//÷∏ æ «∑Ò÷ß≥÷DLL∞≤»´º”‘ÿ
+//ÊåáÁ§∫ÊòØÂê¶ÊîØÊåÅDLLÂÆâÂÖ®Âä†ËΩΩ
 static bool bSupportSafe;
 #if defined(_X86_) || defined(_M_IX86)
 static decltype(RtlWow64EnableFsRedirectionEx)* pRtlWow64EnableFsRedirectionExCeche;
@@ -248,7 +248,7 @@ static void* encoded_function_pointers[function_id_count];
 
 extern "C" bool __cdecl __acrt_initialize_winapi_thunks()
 {
-#if _CRT_NTDDI_MIN < NTDDI_WIN8
+#if WindowsTargetPlatformMinVersion < __MakeVersion(6, 2, 9200)
 	if (auto hKernel32 = GetModuleHandleW(L"kernel32"))
 	{
 		bSupportSafe = GetProcAddress(hKernel32, "AddDllDirectory") != nullptr;
@@ -314,16 +314,16 @@ static __forceinline void* __cdecl invalid_function_sentinel() throw()
 
 static HMODULE __cdecl try_load_library_from_system_directory(wchar_t const* const name) throw()
 {
-#if _CRT_NTDDI_MIN >= NTDDI_WIN8
+#if WindowsTargetPlatformMinVersion >= __MakeVersion(6, 2, 9200)
 	return LoadLibraryExW(name, nullptr, LOAD_LIBRARY_SEARCH_SYSTEM32);
 #else
 	if (bSupportSafe)
 	{
-		//Œ“√«“˝»Î bSupportSafe ±‰¡ø «“ÚŒ™¡™œÎ“ªº¸”∞“Ù£¨ª·µº÷¬¿œœµÕ≥ LoadLibraryExW ¥ÌŒÛ¥˙¬Î ±‰≥… ERROR_ACCESS_DENIED£¨∂¯≤ª «‘§∆⁄µƒERROR_INVALID_PARAMETER°£
+		//Êàë‰ª¨ÂºïÂÖ• bSupportSafe ÂèòÈáèÊòØÂõ†‰∏∫ËÅîÊÉ≥‰∏ÄÈîÆÂΩ±Èü≥Ôºå‰ºöÂØºËá¥ËÄÅÁ≥ªÁªü LoadLibraryExW ÈîôËØØ‰ª£Á†Å ÂèòÊàê ERROR_ACCESS_DENIEDÔºåËÄå‰∏çÊòØÈ¢ÑÊúüÁöÑERROR_INVALID_PARAMETER„ÄÇ
 		return LoadLibraryExW(name, nullptr, LOAD_LIBRARY_SEARCH_SYSTEM32);
 	}
 
-	//√˚◊÷≤ªø…ƒ‹Œ™ ø’°£
+	//ÂêçÂ≠ó‰∏çÂèØËÉΩ‰∏∫ Á©∫„ÄÇ
 	if (name == nullptr || *name == L'\0')
 		return nullptr;
 
@@ -333,7 +333,7 @@ static HMODULE __cdecl try_load_library_from_system_directory(wchar_t const* con
 
 	if (cchResult == 0 || cchResult >= _countof(szDllFilePath))
 	{
-		// ß∞‹ªÚ’ﬂª∫≥Â«¯≤ª◊„‘Ú≤ª¥¶¿Ì£®“ÚŒ™∫‹œ‘»ª 512 ¥Û–°∂º≤ªπª£øø™ÕÊ–¶°≠°≠£©
+		//Â§±Ë¥•ÊàñËÄÖÁºìÂÜ≤Âå∫‰∏çË∂≥Âàô‰∏çÂ§ÑÁêÜÔºàÂõ†‰∏∫ÂæàÊòæÁÑ∂ 512 Â§ßÂ∞èÈÉΩ‰∏çÂ§üÔºüÂºÄÁé©Á¨ë‚Ä¶‚Ä¶Ôºâ
 		return nullptr;
 	}
 
@@ -352,7 +352,7 @@ static HMODULE __cdecl try_load_library_from_system_directory(wchar_t const* con
 		}
 	}
 
-	// Ω´◊÷∑˚¥Æ \0 Ωÿ∂œ
+	// Â∞ÜÂ≠óÁ¨¶‰∏≤ \0 Êà™Êñ≠
 	szDllFilePath[cchResult] = L'\0';
 
 
@@ -363,15 +363,15 @@ static HMODULE __cdecl try_load_library_from_system_directory(wchar_t const* con
 	PVOID OldFsRedirectionLevel;
 
 	/*
-	Windows 7 RTM“‘∆‰“‘«∞∞Ê±æ LoadLibraryƒ⁄≤øƒ¨»œ≤ªª·πÿ±’÷ÿ∂®œÚ°£
-	Œ™¡À∑¿÷πƒ≥–©œﬂ≥Ã‘⁄πÿ±’÷ÿ∂®œÚµƒ«Èøˆœ¬µ˜”√API£¨“¿»ªƒ‹’˝≥£º”‘ÿœ‡πÿdll£¨“Ú¥ÀŒ“√«‘⁄¥À¥¶ª÷∏¥÷ÿ∂®œÚ°£
+	Windows 7 RTM‰ª•ÂÖ∂‰ª•ÂâçÁâàÊú¨ LoadLibraryÂÜÖÈÉ®ÈªòËÆ§‰∏ç‰ºöÂÖ≥Èó≠ÈáçÂÆöÂêë„ÄÇ
+	‰∏∫‰∫ÜÈò≤Ê≠¢Êüê‰∫õÁ∫øÁ®ãÂú®ÂÖ≥Èó≠ÈáçÂÆöÂêëÁöÑÊÉÖÂÜµ‰∏ãË∞ÉÁî®APIÔºå‰æùÁÑ∂ËÉΩÊ≠£Â∏∏Âä†ËΩΩÁõ∏ÂÖ≥dllÔºåÂõ†Ê≠§Êàë‰ª¨Âú®Ê≠§Â§ÑÊÅ¢Â§çÈáçÂÆöÂêë„ÄÇ
 	*/
 	auto Status = pRtlWow64EnableFsRedirectionEx ? pRtlWow64EnableFsRedirectionEx(nullptr, &OldFsRedirectionLevel) : STATUS_INVALID_PARAMETER;
 #endif
 	auto hModule = LoadLibraryExW(szDllFilePath, nullptr, LOAD_WITH_ALTERED_SEARCH_PATH);
 
 #if defined(_X86_) || defined(_M_IX86)
-	//Ω´÷ÿ∂®œÚª÷∏¥µΩ“‘«∞µƒ◊¥Ã¨°£
+	//Â∞ÜÈáçÂÆöÂêëÊÅ¢Â§çÂà∞‰ª•ÂâçÁöÑÁä∂ÊÄÅ„ÄÇ
 	if (Status >= 0 && pRtlWow64EnableFsRedirectionEx)
 		pRtlWow64EnableFsRedirectionEx(OldFsRedirectionLevel, &OldFsRedirectionLevel);
 #endif
@@ -716,7 +716,7 @@ extern "C" int WINAPI __acrt_GetLocaleInfoEx(
 }
 #endif
 
-#if _CRT_NTDDI_MIN < NTDDI_WIN7
+#if WindowsTargetPlatformMinVersion < __MakeVersion(6, 1, 7600)
 extern "C" VOID WINAPI __acrt_GetSystemTimePreciseAsFileTime_advanced(LPFILETIME const system_time)
 {
     if (auto const get_system_time_precise_as_file_time = try_get_GetSystemTimePreciseAsFileTime())
@@ -1190,24 +1190,24 @@ EXTERN_C BOOL WINAPI __crtInitOnceExecuteOnce(
 	}
 
 
-	//ƒø±ÍœµÕ≥≤ª÷ß≥÷£¨«–ªªµΩXPºÊ»›ƒ£ Ω
+	//ÁõÆÊ†áÁ≥ªÁªü‰∏çÊîØÊåÅÔºåÂàáÊç¢Âà∞XPÂÖºÂÆπÊ®°Âºè
 	for (;;)
 	{
 		switch (InterlockedCompareExchange((volatile size_t*)InitOnce, 1, 0))
 		{
 		case 2:
-			//Õ¨≤ΩÕÍ≥…£¨≤¢«“∆‰À˚œﬂ≥Ã“—æ≠≤Ÿ◊˜≥…π¶
+			//ÂêåÊ≠•ÂÆåÊàêÔºåÂπ∂‰∏îÂÖ∂‰ªñÁ∫øÁ®ãÂ∑≤ÁªèÊìç‰ΩúÊàêÂäü
 			return TRUE;
 			break;
 		case 1:
-			//…–Œ¥ÕÍ≥…£¨ºÃ–¯µ»¥˝
+			//Â∞öÊú™ÂÆåÊàêÔºåÁªßÁª≠Á≠âÂæÖ
 			Sleep(0);
 			break;
 		case 0:
-			//Õ¨≤ΩÕÍ≥…£¨»∑»œ «¥¶£¨µ˜”√÷∏∂®∫Ø ˝
+			//ÂêåÊ≠•ÂÆåÊàêÔºåÁ°ÆËÆ§ÊòØÂ§ÑÔºåË∞ÉÁî®ÊåáÂÆöÂáΩÊï∞
 			{
 			BOOL bRet = InitFn(InitOnce, Parameter, Context) == TRUE;
-				//∫Ø ˝µ˜”√ÕÍ≥…
+				//ÂáΩÊï∞Ë∞ÉÁî®ÂÆåÊàê
 
 			if (InterlockedExchange((volatile size_t*)InitOnce, bRet ? 2 : 0)==1)
 			{
@@ -1216,7 +1216,7 @@ EXTERN_C BOOL WINAPI __crtInitOnceExecuteOnce(
 
 			}
 		default:
-			//Õ¨≤ΩÕÍ≥…£¨µ´ «∑¢…˙¥ÌŒÛ
+			//ÂêåÊ≠•ÂÆåÊàêÔºå‰ΩÜÊòØÂèëÁîüÈîôËØØ
 			goto __Error;
 			break;
 		}
@@ -1240,10 +1240,10 @@ EXTERN_C VOID WINAPI __crtInitializeConditionVariable(
 	}
 	else
 	{
-		//÷–∂œ≥Ã–Ú
+		//‰∏≠Êñ≠Á®ãÂ∫è
 		__debugbreak();
 
-		//«ø÷∆ÕÀ≥ˆ
+		//Âº∫Âà∂ÈÄÄÂá∫
 		abort();
 	}
 }
@@ -1279,10 +1279,10 @@ EXTERN_C void WINAPI __crtWakeConditionVariable(
 	}
 	else
 	{
-		//÷–∂œ≥Ã–Ú
+		//‰∏≠Êñ≠Á®ãÂ∫è
 		__debugbreak();
 
-		//«ø÷∆ÕÀ≥ˆ
+		//Âº∫Âà∂ÈÄÄÂá∫
 		abort();
 	}
 }
@@ -1299,10 +1299,10 @@ EXTERN_C VOID __crtWakeAllConditionVariable(
 	}
 	else
 	{
-		//÷–∂œ≥Ã–Ú
+		//‰∏≠Êñ≠Á®ãÂ∫è
 		__debugbreak();
 
-		//«ø÷∆ÕÀ≥ˆ
+		//Âº∫Âà∂ÈÄÄÂá∫
 		abort();
 	}
 }
@@ -1319,10 +1319,10 @@ EXTERN_C VOID WINAPI __crtInitializeSRWLock(
 	}
 	else
 	{
-		//÷–∂œ≥Ã–Ú
+		//‰∏≠Êñ≠Á®ãÂ∫è
 		__debugbreak();
 
-		//«ø÷∆ÕÀ≥ˆ
+		//Âº∫Âà∂ÈÄÄÂá∫
 		abort();
 	}
 }
@@ -1339,16 +1339,16 @@ EXTERN_C VOID WINAPI __crtAcquireSRWLockExclusive(
 	}
 	else
 	{
-		//÷–∂œ≥Ã–Ú
+		//‰∏≠Êñ≠Á®ãÂ∫è
 		__debugbreak();
 
-		//«ø÷∆ÕÀ≥ˆ
+		//Âº∫Âà∂ÈÄÄÂá∫
 		abort();
 	}
 }
 #endif
 
-#if _CRT_NTDDI_MIN < NTDDI_WIN7
+#if WindowsTargetPlatformMinVersion < __MakeVersion(6, 1, 7600)
 EXTERN_C BOOLEAN WINAPI __crtTryAcquireSRWLockExclusive(
 	_Inout_ PSRWLOCK SRWLock
 )
@@ -1359,16 +1359,16 @@ EXTERN_C BOOLEAN WINAPI __crtTryAcquireSRWLockExclusive(
 	}
 	else
 	{
-		//÷–∂œ≥Ã–Ú
+		//‰∏≠Êñ≠Á®ãÂ∫è
 		__debugbreak();
 
-		//«ø÷∆ÕÀ≥ˆ
+		//Âº∫Âà∂ÈÄÄÂá∫
 		abort();
 	}
 }
 #endif
 
-#ifdef _ATL_XP_TARGETING
+#if WindowsTargetPlatformMinVersion < __MakeVersion(6, 0, 6000)
 EXTERN_C VOID WINAPI __crtReleaseSRWLockExclusive(
 	_Inout_ PSRWLOCK SRWLock
 )
@@ -1379,17 +1379,17 @@ EXTERN_C VOID WINAPI __crtReleaseSRWLockExclusive(
 	}
 	else
 	{
-		//÷–∂œ≥Ã–Ú
+		//‰∏≠Êñ≠Á®ãÂ∫è
 		__debugbreak();
 
-		//«ø÷∆ÕÀ≥ˆ
+		//Âº∫Âà∂ÈÄÄÂá∫
 		abort();
 	}
 }
 #endif
 
 
-#ifdef _ATL_XP_TARGETING
+#if WindowsTargetPlatformMinVersion < __MakeVersion(6, 0, 6000)
 EXTERN_C BOOL WINAPI __crtSleepConditionVariableSRW(
 	_Inout_ PCONDITION_VARIABLE ConditionVariable,
 	_Inout_ PSRWLOCK            SRWLock,
@@ -1409,7 +1409,7 @@ EXTERN_C BOOL WINAPI __crtSleepConditionVariableSRW(
 }
 #endif
 
-#if _CRT_NTDDI_MIN < NTDDI_WIN7
+#if WindowsTargetPlatformMinVersion < __MakeVersion(6, 1, 7600)
 EXTERN_C BOOLEAN __cdecl __crt_are_win7_sync_apis_available()
 {
 
@@ -1419,7 +1419,7 @@ EXTERN_C BOOLEAN __cdecl __crt_are_win7_sync_apis_available()
 }
 #endif
 
-#ifdef _ATL_XP_TARGETING
+#if WindowsTargetPlatformMinVersion < __MakeVersion(6, 0, 6000)
 EXTERN_C BOOLEAN __cdecl __crt_are_vista_sync_apis_available()
 {
 	// InitializeConditionVariable ONLY available on Vista+
@@ -1429,7 +1429,7 @@ EXTERN_C BOOLEAN __cdecl __crt_are_vista_sync_apis_available()
 #endif
 
 
-#ifdef _ATL_XP_TARGETING
+#if WindowsTargetPlatformMinVersion < __MakeVersion(6, 0, 6000)
 EXTERN_C BOOLEAN __cdecl __crt__Is_vista_threadpool_supported()
 {
 	return try_get_CreateThreadpoolWork() != nullptr;
@@ -1449,10 +1449,10 @@ __if_exists(try_get_FreeLibraryWhenCallbackReturns)
 		}
 		else
 		{
-			//÷–∂œ≥Ã–Ú
+			//‰∏≠Êñ≠Á®ãÂ∫è
 			__debugbreak();
 
-			//«ø÷∆ÕÀ≥ˆ
+			//Âº∫Âà∂ÈÄÄÂá∫
 			abort();
 		}
 	}
@@ -1470,10 +1470,10 @@ __if_exists(try_get_CloseThreadpoolWork)
 		}
 		else
 		{
-			//÷–∂œ≥Ã–Ú
+			//‰∏≠Êñ≠Á®ãÂ∫è
 			__debugbreak();
 
-			//«ø÷∆ÕÀ≥ˆ
+			//Âº∫Âà∂ÈÄÄÂá∫
 			abort();
 		}
 	}
@@ -1491,10 +1491,10 @@ __if_exists(try_get_SubmitThreadpoolWork)
 		}
 		else
 		{
-			//÷–∂œ≥Ã–Ú
+			//‰∏≠Êñ≠Á®ãÂ∫è
 			__debugbreak();
 
-			//«ø÷∆ÕÀ≥ˆ
+			//Âº∫Âà∂ÈÄÄÂá∫
 			abort();
 		}
 	}
@@ -1522,7 +1522,7 @@ __if_exists(try_get_CreateThreadpoolWork)
 }
 
 
-#if _CRT_NTDDI_MIN < NTDDI_WS03
+#if WindowsTargetPlatformMinVersion < __MakeVersion(5, 2, 0)
 EXTERN_C DWORD WINAPI __crtGetCurrentProcessorNumber(void)
 {
 	if (auto pGetCurrentProcessorNumber = try_get_GetCurrentProcessorNumber())
@@ -1531,13 +1531,13 @@ EXTERN_C DWORD WINAPI __crtGetCurrentProcessorNumber(void)
 	}
 	else
 	{
-		//»Áπ˚≤ª÷ß≥÷¥ÀΩ”ø⁄£¨ƒ«√¥ºŸ∂® «µ•∫À
+		//Â¶ÇÊûú‰∏çÊîØÊåÅÊ≠§Êé•Âè£ÔºåÈÇ£‰πàÂÅáÂÆöÊòØÂçïÊ†∏
 		return 0;
 	}
 }
 #endif
 
-#if _CRT_NTDDI_MIN < NTDDI_WIN6
+#if WindowsTargetPlatformMinVersion < __MakeVersion(6, 0, 6000)
 EXTERN_C VOID WINAPI __crtFlushProcessWriteBuffers(void)
 {
 	if (auto pFlushProcessWriteBuffers = try_get_FlushProcessWriteBuffers())
@@ -1546,16 +1546,16 @@ EXTERN_C VOID WINAPI __crtFlushProcessWriteBuffers(void)
 	}
 	else
 	{
-		//÷–∂œ≥Ã–Ú
+		//‰∏≠Êñ≠Á®ãÂ∫è
 		__debugbreak();
 
-		//«ø÷∆ÕÀ≥ˆ
+		//Âº∫Âà∂ÈÄÄÂá∫
 		abort();
 	}
 }
 #endif
 
-#if _CRT_NTDDI_MIN < NTDDI_WIN6
+#if WindowsTargetPlatformMinVersion < __MakeVersion(6, 0, 6000)
 EXTERN_C ULONGLONG WINAPI __crtGetTickCount64(VOID)
 {
 	if (auto pGetTickCount64 = try_get_GetTickCount64())
@@ -1569,7 +1569,7 @@ EXTERN_C ULONGLONG WINAPI __crtGetTickCount64(VOID)
 }
 #endif
 
-#if _CRT_NTDDI_MIN < NTDDI_WIN6
+#if WindowsTargetPlatformMinVersion < __MakeVersion(6, 0, 6000)
 EXTERN_C VOID WINAPI __crtSetThreadpoolTimer(
 	_Inout_ PTP_TIMER pti,
 	_In_opt_ PFILETIME pftDueTime,
@@ -1583,10 +1583,10 @@ EXTERN_C VOID WINAPI __crtSetThreadpoolTimer(
 	}
 	else
 	{
-		//÷–∂œ≥Ã–Ú
+		//‰∏≠Êñ≠Á®ãÂ∫è
 		__debugbreak();
 
-		//«ø÷∆ÕÀ≥ˆ
+		//Âº∫Âà∂ÈÄÄÂá∫
 		abort();
 	}
 }
@@ -1604,10 +1604,10 @@ EXTERN_C VOID WINAPI __crtSetThreadpoolWait(
 	}
 	else
 	{
-		//÷–∂œ≥Ã–Ú
+		//‰∏≠Êñ≠Á®ãÂ∫è
 		__debugbreak();
 
-		//«ø÷∆ÕÀ≥ˆ
+		//Âº∫Âà∂ÈÄÄÂá∫
 		abort();
 	}
 }
@@ -1622,10 +1622,10 @@ EXTERN_C VOID WINAPI __crtCloseThreadpoolWait(
 	}
 	else
 	{
-		//÷–∂œ≥Ã–Ú
+		//‰∏≠Êñ≠Á®ãÂ∫è
 		__debugbreak();
 
-		//«ø÷∆ÕÀ≥ˆ
+		//Âº∫Âà∂ÈÄÄÂá∫
 		abort();
 	}
 }
@@ -1641,10 +1641,10 @@ EXTERN_C VOID WINAPI __crtWaitForThreadpoolTimerCallbacks(
 	}
 	else
 	{
-		//÷–∂œ≥Ã–Ú
+		//‰∏≠Êñ≠Á®ãÂ∫è
 		__debugbreak();
 
-		//«ø÷∆ÕÀ≥ˆ
+		//Âº∫Âà∂ÈÄÄÂá∫
 		abort();
 	}
 }
@@ -1677,10 +1677,10 @@ EXTERN_C VOID WINAPI __crtCloseThreadpoolTimer(
 	}
 	else
 	{
-		//÷–∂œ≥Ã–Ú
+		//‰∏≠Êñ≠Á®ãÂ∫è
 		__debugbreak();
 
-		//«ø÷∆ÕÀ≥ˆ
+		//Âº∫Âà∂ÈÄÄÂá∫
 		abort();
 	}
 }
@@ -1704,7 +1704,7 @@ EXTERN_C PTP_TIMER WINAPI __crtCreateThreadpoolTimer(
 
 #endif
 
-#if _CRT_NTDDI_MIN < 0x05020000
+#if WindowsTargetPlatformMinVersion < __MakeVersion(5, 2, 0)
 EXTERN_C BOOL
 WINAPI
 __ltlGetLogicalProcessorInformation(
@@ -1724,7 +1724,7 @@ __ltlGetLogicalProcessorInformation(
 }
 #endif
 
-#if _CRT_NTDDI_MIN < 0x05020000
+#if WindowsTargetPlatformMinVersion < __MakeVersion(5, 2, 0)
 EXTERN_C BOOL
 WINAPI
 __ltlGetNumaHighestNodeNumber(
@@ -1737,7 +1737,7 @@ __ltlGetNumaHighestNodeNumber(
 	}
 	else
 	{
-		//≤ª÷ß≥÷ ± º÷’ºŸ∂®÷ª”–“ª∏ˆNUMAΩ⁄µ„
+		//‰∏çÊîØÊåÅÊó∂ÂßãÁªàÂÅáÂÆöÂè™Êúâ‰∏Ä‰∏™NUMAËäÇÁÇπ
 		*HighestNodeNumber = 0;
 
 		return TRUE;
@@ -1745,7 +1745,7 @@ __ltlGetNumaHighestNodeNumber(
 }
 #endif
 
-#ifdef _ATL_XP_TARGETING
+#if WindowsTargetPlatformMinVersion < __MakeVersion(6, 0, 6000)
 
 	EXTERN_C _LTLIMP BOOLEAN
 		WINAPI

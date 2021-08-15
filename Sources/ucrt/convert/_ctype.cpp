@@ -1,4 +1,4 @@
-//
+﻿//
 // _ctype.cpp
 //
 //      Copyright (c) Microsoft Corporation. All rights reserved.
@@ -25,13 +25,15 @@ static __forceinline int __cdecl fast_check(int const c, int const mask) throw()
 #endif
 
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" extern __inline int (__cdecl _isalpha_l)(int const c, _locale_t const locale)
 {
     //_LocaleUpdate locale_update(locale);
 
     return _isalpha_l(c, locale);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_isalpha_l);
 #endif
 
 #if 0
@@ -43,13 +45,15 @@ extern "C" extern __inline int (__cdecl isalpha)(int const c)
 }
 #endif
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" extern __inline int (__cdecl _isupper_l)(int const c, _locale_t const locale)
 {
     //_LocaleUpdate locale_update(locale);
 
     return _isupper_l(c, locale);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_isupper_l);
 #endif
 
 #if 0
@@ -61,13 +65,15 @@ extern "C" extern __inline int (__cdecl isupper)(int const c)
 }
 #endif
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" extern __inline int (__cdecl _islower_l)(int const c, _locale_t const locale)
 {
     //_LocaleUpdate locale_update(locale);
 
     return _islower_l(c, locale);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_islower_l);
 #endif
 
 #if 0
@@ -79,13 +85,15 @@ extern "C" extern __inline int (__cdecl islower)(int const c)
 }
 #endif
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" extern __inline int (__cdecl _isdigit_l)(int const c, _locale_t const locale)
 {
     //_LocaleUpdate locale_update(locale);
 
     return _isdigit_l(c, locale);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_isdigit_l);
 #endif
 
 #if 0
@@ -97,13 +105,15 @@ extern "C" extern __inline int (__cdecl isdigit)(int const c)
 }
 #endif
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" extern __inline int (__cdecl _isxdigit_l)(int const c, _locale_t const locale)
 {
     //_LocaleUpdate locale_update(locale);
 
     return _isxdigit_l(c, locale);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_isxdigit_l);
 #endif
 
 #if 0
@@ -115,13 +125,15 @@ extern "C" extern __inline int (__cdecl isxdigit)(int const c)
 }
 #endif
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" extern __inline int (__cdecl _isspace_l)(int const c, _locale_t const locale)
 {
     //_LocaleUpdate locale_update(locale);
 
     return _isspace_l(c, locale);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_isspace_l);
 #endif
 
 #if 0
@@ -133,12 +145,16 @@ extern "C" extern __inline int (__cdecl isspace)(int const c)
 }
 #endif
 
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
 extern "C" extern __inline int (__cdecl _ispunct_l)(int const c, _locale_t const locale)
 {
     //_LocaleUpdate locale_update(locale);
 
     return _ispunct_l(c, locale);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_ispunct_l);
+#endif
 
 #if 0
 extern "C" extern __inline int (__cdecl ispunct)(int const c)
@@ -149,6 +165,7 @@ extern "C" extern __inline int (__cdecl ispunct)(int const c)
 }
 #endif
 
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
 extern "C" extern __inline int (__cdecl _isblank_l)(int const c, _locale_t const locale)
 {
     //_LocaleUpdate locale_update(locale);
@@ -156,6 +173,11 @@ extern "C" extern __inline int (__cdecl _isblank_l)(int const c, _locale_t const
     return _isblank_l(c, locale);
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(_isblank_l);
+#endif
+
+
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
 extern "C" extern __inline int (__cdecl isblank)(int const c)
 {
 
@@ -170,13 +192,18 @@ extern "C" extern __inline int (__cdecl isblank)(int const c)
 
 }
 
-#if _CRT_NTDDI_MIN < 0x06000000
+_LCRT_DEFINE_IAT_SYMBOL(isblank);
+#endif
+
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" extern __inline int (__cdecl _isalnum_l)(int const c, _locale_t const locale)
 {
     //_LocaleUpdate locale_update(locale);
 
     return _isalnum_l(c, locale);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_isalnum_l);
 #endif
 
 #if 0
@@ -188,13 +215,15 @@ extern "C" extern __inline int (__cdecl isalnum)(int const c)
 }
 #endif
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" extern __inline int (__cdecl _isprint_l)(int const c, _locale_t const locale)
 {
     //_LocaleUpdate locale_update(locale);
 
     return _isprint_l(c, locale);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_isprint_l);
 #endif
 
 #if 0
@@ -206,13 +235,15 @@ extern "C" extern __inline int (__cdecl isprint)(int const c)
 }
 #endif
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" extern __inline int (__cdecl _isgraph_l)(int const c, _locale_t const locale)
 {
     //_LocaleUpdate locale_update(locale);
 
     return _isgraph_l(c, locale);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_isgraph_l);
 #endif
 
 #if 0
@@ -224,13 +255,15 @@ extern "C" extern __inline int (__cdecl isgraph)(int const c)
 }
 #endif
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" extern __inline int (__cdecl _iscntrl_l)(int const c, _locale_t const locale)
 {
     //_LocaleUpdate locale_update(locale);
 
     return _iscntrl_l(c, locale);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_iscntrl_l);
 #endif
 
 #if 0
@@ -252,10 +285,14 @@ extern "C" extern __inline int (__cdecl __toascii)(int const c)
 }
 #endif
 
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
 extern "C" extern __inline int (__cdecl _iscsymf_l)(int const c, _locale_t const locale)
 {
     return (_isalpha_l)(c, locale) || (c) == '_';
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_iscsymf_l);
+#endif
 
 #if 0
 extern "C" extern __inline int (__cdecl __iscsymf)(int const c)
@@ -264,10 +301,14 @@ extern "C" extern __inline int (__cdecl __iscsymf)(int const c)
 }
 #endif
 
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
 extern "C" extern __inline int (__cdecl _iscsym_l)(int const c, _locale_t const locale)
 {
     return (_isalnum_l)(c, locale) || (c) == '_';
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_iscsym_l);
+#endif
 
 #if 0
 extern "C" extern __inline int (__cdecl __iscsym)(int const c)

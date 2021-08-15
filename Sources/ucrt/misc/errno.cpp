@@ -1,4 +1,4 @@
-//
+﻿//
 // errno.cpp
 //
 //      Copyright (c) Microsoft Corporation.  All rights reserved.
@@ -119,7 +119,7 @@ extern "C" int __cdecl __acrt_errno_from_os_error(unsigned long const oserrno)
 }
 
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 // These safely set and get the value of the calling thread's errno
 extern "C" errno_t _set_errno(int const value)
 {
@@ -133,6 +133,8 @@ extern "C" errno_t _set_errno(int const value)
     return 0;
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(_set_errno);
+
 extern "C" errno_t _get_errno(int* const result)
 {
     _VALIDATE_RETURN_NOERRNO(result != nullptr, EINVAL);
@@ -142,6 +144,7 @@ extern "C" errno_t _get_errno(int* const result)
     return 0;
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(_get_errno);
 
 
 // These safely set and get the value of the calling thread's doserrno
@@ -157,6 +160,8 @@ extern "C" errno_t _set_doserrno(unsigned long const value)
     return 0;
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(_set_doserrno);
+
 extern "C" errno_t _get_doserrno(unsigned long* const result)
 {
     _VALIDATE_RETURN_NOERRNO(result != nullptr, EINVAL);
@@ -165,6 +170,9 @@ extern "C" errno_t _get_doserrno(unsigned long* const result)
     *result = _doserrno;
     return 0;
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_get_doserrno);
+
 #endif
 
 

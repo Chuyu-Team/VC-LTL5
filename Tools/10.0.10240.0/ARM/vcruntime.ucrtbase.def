@@ -1,0 +1,73 @@
+LIBRARY ucrtbase.dll
+EXPORTS
+_CreateFrameInfo
+_CxxThrowException
+_FindAndUnlinkFrame
+_IsExceptionObjectToBeDestroyed
+_SetWinRTOutOfMemoryExceptionCallback
+__AdjustPointer
+__BuildCatchObject
+__BuildCatchObjectHelper
+__C_specific_handler
+;__C_specific_handler_noexcept x
+__CxxDetectRethrow
+__CxxExceptionFilter
+__CxxFrameHandler
+__CxxFrameHandler2
+__CxxFrameHandler3
+__CxxQueryExceptionSize
+__CxxRegisterExceptionObject
+__CxxUnregisterExceptionObject
+__DestructExceptionObject
+__FrameUnwindFilter
+__GetPlatformExceptionInfo
+__NLG_Dispatch2
+__NLG_Return2
+__RTCastToVoid
+__RTDynamicCast
+__RTtypeid
+__TypeMatch
+__current_exception
+__current_exception_context
+__intrinsic_setjmp
+__intrinsic_setjmpex
+__jump_unwind
+__processing_throw
+__report_gsfailure
+__std_exception_copy
+__std_exception_destroy
+__std_terminate
+__std_type_info_compare
+__std_type_info_destroy_list
+__std_type_info_hash
+__std_type_info_name
+;__telemetry_main_invoke_trigger x
+;__telemetry_main_return_trigger x
+__unDName
+__unDNameEx
+__uncaught_exception
+;__uncaught_exceptions x
+;__vcrt_GetModuleFileNameW w
+;__vcrt_GetModuleHandleW w
+;__vcrt_InitializeCriticalSectionEx w
+;__vcrt_LoadLibraryExW w
+_get_purecall_handler
+_get_unexpected
+_is_exception_typeof
+_purecall
+_set_purecall_handler
+_set_se_translator
+longjmp
+memchr
+memcmp
+memcpy
+memmove
+memset
+set_unexpected
+strchr
+strrchr
+strstr
+unexpected
+wcschr
+wcsrchr
+wcsstr

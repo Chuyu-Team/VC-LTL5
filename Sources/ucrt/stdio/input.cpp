@@ -1,4 +1,4 @@
-//
+﻿//
 // input.cpp
 //
 //      Copyright (c) Microsoft Corporation. All rights reserved.
@@ -47,6 +47,7 @@ static int __cdecl common_vfscanf(
     });
 }
 
+#if WindowsTargetPlatformMinVersion < __MakeVersion(10, 0, 10240)
 extern "C" int __cdecl __stdio_common_vfscanf(
     unsigned __int64 const options,
     FILE*            const stream,
@@ -58,6 +59,10 @@ extern "C" int __cdecl __stdio_common_vfscanf(
     return common_vfscanf(options, stream, format, locale, arglist);
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(__stdio_common_vfscanf);
+#endif
+
+#if WindowsTargetPlatformMinVersion < __MakeVersion(10, 0, 10240)
 extern "C" int __cdecl __stdio_common_vfwscanf(
     unsigned __int64 const options,
     FILE*            const stream,
@@ -68,6 +73,9 @@ extern "C" int __cdecl __stdio_common_vfwscanf(
 {
     return common_vfscanf(options, stream, format, locale, arglist);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(__stdio_common_vfwscanf);
+#endif
 
 #endif /* _UCRT_ENCLAVE_BUILD */
 
@@ -109,6 +117,7 @@ static int __cdecl common_vsscanf(
     return processor.process();
 }
 
+#if WindowsTargetPlatformMinVersion < __MakeVersion(10, 0, 10240)
 extern "C" int __cdecl __stdio_common_vsscanf(
     unsigned __int64 const options,
     char const*      const buffer,
@@ -121,6 +130,10 @@ extern "C" int __cdecl __stdio_common_vsscanf(
     return common_vsscanf(options, buffer, buffer_count, format, locale, arglist);
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(__stdio_common_vsscanf);
+#endif
+
+#if WindowsTargetPlatformMinVersion < __MakeVersion(10, 0, 10240)
 extern "C" int __cdecl __stdio_common_vswscanf(
     unsigned __int64 const options,
     wchar_t const*   const buffer,
@@ -132,3 +145,6 @@ extern "C" int __cdecl __stdio_common_vswscanf(
 {
     return common_vsscanf(options, buffer, buffer_count, format, locale, arglist);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(__stdio_common_vswscanf);
+#endif

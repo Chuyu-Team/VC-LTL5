@@ -1,4 +1,4 @@
-//
+ï»¿//
 // onexit.cpp
 //
 //      Copyright (c) Microsoft Corporation. All rights reserved.
@@ -43,11 +43,14 @@ extern "C" int __cdecl _crt_atexit(_PVFV const function)
     return _register_onexit_function(&__acrt_atexit_table, reinterpret_cast<_onexit_t>(function));
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(_crt_atexit);
+
 extern "C" int __cdecl _crt_at_quick_exit(_PVFV const function)
 {
     return _register_onexit_function(&__acrt_at_quick_exit_table, reinterpret_cast<_onexit_t>(function));
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(_crt_at_quick_exit);
 
 
 extern "C" int __cdecl _initialize_onexit_table(_onexit_table_t* const table)
@@ -69,11 +72,13 @@ extern "C" int __cdecl _initialize_onexit_table(_onexit_table_t* const table)
 
     table->_first = encoded_nullptr;
     table->_last  = encoded_nullptr;
-    //_end×÷ÎªËùÓÐÕßÏß³ÌidÊ¹ÓÃ¡£
+    //_endä½œä¸ºæ‰€æœ‰è€…çº¿ç¨‹idä½¿ç”¨ã€‚
     table->_end   = nullptr;
 
     return 0;
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_initialize_onexit_table);
 
 
 
@@ -151,6 +156,7 @@ extern "C" int __cdecl _register_onexit_function(_onexit_table_t* const table, _
     });
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(_register_onexit_function);
 
 
 // This function executes a table of _onexit()/atexit() functions.  The
@@ -232,3 +238,5 @@ extern "C" int __cdecl _execute_onexit_table(_onexit_table_t* const table)
         return 0;
     });
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_execute_onexit_table);

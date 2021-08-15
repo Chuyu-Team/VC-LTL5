@@ -1,0 +1,11 @@
+[Symbols]
+__std_terminate=terminate
+
+; x64 调用约定统一，所以可以直接转发
+__vcrt_GetModuleFileNameW=GetModuleFileNameW
+__vcrt_GetModuleHandleW=GetModuleHandleW
+__vcrt_LoadLibraryExW=LoadLibraryExW
+
+
+;虽然参数不一样，但是x64的调用约定函数自己不需要考虑栈平衡，所以并没有问题
+__vcrt_InitializeCriticalSectionEx=InitializeCriticalSectionAndSpinCount

@@ -26,9 +26,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Sources\crt\vcruntime\ehhelpers.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="..\Sources\crt\vcruntime\ehstate.cpp">
       <Filter>源文件</Filter>
     </ClCompile>

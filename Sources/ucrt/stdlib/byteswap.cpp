@@ -1,4 +1,4 @@
-//
+﻿//
 // byteswap.cpp
 //
 //      Copyright (c) Microsoft Corporation. All rights reserved.
@@ -28,6 +28,7 @@
 *
 *******************************************************************************/
 
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
 extern "C" unsigned long __cdecl _byteswap_ulong(unsigned long const i)
 {
     unsigned int j;
@@ -38,6 +39,10 @@ extern "C" unsigned long __cdecl _byteswap_ulong(unsigned long const i)
     return j;
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(_byteswap_ulong);
+#endif
+
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
 extern "C" unsigned short __cdecl _byteswap_ushort(unsigned short const i)
 {
     unsigned short j;
@@ -46,6 +51,10 @@ extern "C" unsigned short __cdecl _byteswap_ushort(unsigned short const i)
     return j;
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(_byteswap_ushort);
+#endif
+
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
 extern "C" unsigned __int64 __cdecl _byteswap_uint64(unsigned __int64 const i)
 {
     unsigned __int64 j;
@@ -60,3 +69,6 @@ extern "C" unsigned __int64 __cdecl _byteswap_uint64(unsigned __int64 const i)
     return j;
 
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_byteswap_uint64);
+#endif

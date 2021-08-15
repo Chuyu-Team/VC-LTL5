@@ -1,4 +1,4 @@
-//
+﻿//
 // mbrtoc16.cpp
 //
 //      Copyright (c) Microsoft Corporation. All rights reserved.
@@ -39,11 +39,15 @@ namespace
     }
 }
 
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
 extern "C" size_t __cdecl mbrtoc16(char16_t* pc16, const char* s, size_t n, mbstate_t* ps)
 {
     // TODO: Bug 13307590 says this is always assuming UTF-8.
     return __mbrtoc16_utf8(pc16, s, n, ps);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(mbrtoc16);
+#endif
 
 size_t __cdecl __crt_mbstring::__mbrtoc16_utf8(char16_t* pc16, const char* s, size_t n, mbstate_t* ps)
 {

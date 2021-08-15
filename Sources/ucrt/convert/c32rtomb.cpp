@@ -1,4 +1,4 @@
-//
+﻿//
 // c32rtomb.cpp
 //
 //      Copyright (c) Microsoft Corporation. All rights reserved.
@@ -10,11 +10,15 @@
 
 using namespace __crt_mbstring;
 
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
 extern "C" size_t __cdecl c32rtomb(char* s, char32_t c32, mbstate_t* ps)
 {
     // TODO: Bug 13307590 says this is always assuming UTF-8.
     return __c32rtomb_utf8(s, c32, ps);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(c32rtomb);
+#endif
 
 size_t __cdecl __crt_mbstring::__c32rtomb_utf8(char* s, char32_t c32, mbstate_t* ps)
 {

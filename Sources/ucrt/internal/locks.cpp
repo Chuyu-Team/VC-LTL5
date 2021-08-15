@@ -1,4 +1,4 @@
-//
+﻿//
 // locks.cpp
 //
 //      Copyright (c) Microsoft Corporation. All rights reserved.
@@ -66,7 +66,12 @@ extern "C" void __cdecl _lock_locales()
     __acrt_lock(__acrt_locale_lock);
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(_lock_locales);
+
+
 extern "C" void __cdecl _unlock_locales()
 {
     __acrt_unlock(__acrt_locale_lock);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_unlock_locales);

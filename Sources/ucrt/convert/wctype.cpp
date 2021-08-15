@@ -1,4 +1,4 @@
-//
+﻿//
 // wctype.cpp
 //
 //      Copyright (c) Microsoft Corporation.  All rights reserved.
@@ -38,6 +38,7 @@ const tab[] =
 #pragma warning(push)
 #pragma warning(disable: 4273)
 
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
 extern "C" wctype_t __cdecl wctype(char const* const name)
 {
     for (unsigned n = 0; tab[n].s != 0; ++n)
@@ -48,6 +49,9 @@ extern "C" wctype_t __cdecl wctype(char const* const name)
 
     return 0;
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(wctype);
+#endif
 
 #pragma warning(pop)
 

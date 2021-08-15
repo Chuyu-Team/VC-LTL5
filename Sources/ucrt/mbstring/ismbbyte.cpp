@@ -1,4 +1,4 @@
-/***
+﻿/***
 *ismbbyte.c - Function versions of MBCS ctype macros
 *
 *       Copyright (c) Microsoft Corporation.  All rights reserved.
@@ -71,11 +71,13 @@ static int __cdecl x_ismbbtype_l(_locale_t plocinfo, unsigned int, int, int) thr
 
 /* ismbbk functions */
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" int (__cdecl _ismbbkalnum_l) (unsigned int tst, _locale_t plocinfo)
 {
     return x_ismbbtype_l(plocinfo,tst,0,_MS);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_ismbbkalnum_l);
 #endif
 
 #if 0
@@ -85,11 +87,13 @@ extern "C" int (__cdecl _ismbbkalnum) (unsigned int tst)
 }
 #endif
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" int (__cdecl _ismbbkprint_l) (unsigned int tst, _locale_t plocinfo)
 {
     return x_ismbbtype_l(plocinfo,tst,0,(_MS | _MP));
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_ismbbkprint_l);
 #endif
 
 #if 0
@@ -99,11 +103,13 @@ extern "C" int (__cdecl _ismbbkprint) (unsigned int tst)
 }
 #endif
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" int (__cdecl _ismbbkpunct_l) (unsigned int tst, _locale_t plocinfo)
 {
     return x_ismbbtype_l(plocinfo,tst,0,_MP);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_ismbbkpunct_l);
 #endif
 
 #if 0
@@ -114,11 +120,13 @@ extern "C" int (__cdecl _ismbbkpunct) (unsigned int tst)
 #endif
 
 /* ismbb functions */
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" int (__cdecl _ismbbalnum_l) (unsigned int tst, _locale_t plocinfo)
 {
     return x_ismbbtype_l(plocinfo,tst,(_ALPHA | _DIGIT), _MS);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_ismbbalnum_l);
 #endif
 
 #if 0
@@ -128,11 +136,13 @@ extern "C" int (__cdecl _ismbbalnum) (unsigned int tst)
 }
 #endif
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" int (__cdecl _ismbbalpha_l) (unsigned int tst, _locale_t plocinfo)
 {
     return x_ismbbtype_l(plocinfo,tst,_ALPHA, _MS);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_ismbbalpha_l);
 #endif
 
 #if 0
@@ -142,11 +152,13 @@ extern "C" int (__cdecl _ismbbalpha) (unsigned int tst)
 }
 #endif
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" int (__cdecl _ismbbgraph_l) (unsigned int tst, _locale_t plocinfo)
 {
     return x_ismbbtype_l(plocinfo,tst,(_PUNCT | _ALPHA | _DIGIT),(_MS | _MP));
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_ismbbgraph_l);
 #endif
 
 #if 0
@@ -156,11 +168,13 @@ extern "C" int (__cdecl _ismbbgraph) (unsigned int tst)
 }
 #endif
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" int (__cdecl _ismbbprint_l) (unsigned int tst, _locale_t plocinfo)
 {
     return x_ismbbtype_l(plocinfo,tst,(_BLANK | _PUNCT | _ALPHA | _DIGIT),(_MS | _MP));
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_ismbbprint_l);
 #endif
 
 #if 0
@@ -170,11 +184,13 @@ extern "C" int (__cdecl _ismbbprint) (unsigned int tst)
 }
 #endif
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" int (__cdecl _ismbbpunct_l) (unsigned int tst, _locale_t plocinfo)
 {
     return x_ismbbtype_l(plocinfo,tst,_PUNCT, _MP);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_ismbbpunct_l);
 #endif
 
 #if 0
@@ -184,21 +200,28 @@ extern "C" int (__cdecl _ismbbpunct) (unsigned int tst)
 }
 #endif
 
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
 extern "C" int (__cdecl _ismbbblank_l) (unsigned int tst, _locale_t plocinfo)
 {
     return (tst == '\t') ? _BLANK : x_ismbbtype_l(plocinfo,tst,_BLANK, _MP);
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(_ismbbblank_l);
+#endif
+
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
 extern "C" int (__cdecl _ismbbblank) (unsigned int tst)
 {
     return (tst == '\t') ? _BLANK : x_ismbbtype_l(nullptr,tst,_BLANK, _MP);
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(_ismbbblank);
+#endif
 
 /* lead and trail */
 // These expect single or double byte codepages and are undefined for UTF-8
 // UTF-8 queries will always return false for lead/trail bytes.
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" int (__cdecl _ismbblead_l) (unsigned int tst, _locale_t plocinfo)
 {
     // Note: Lookup is always FALSE for UTF-8
@@ -207,6 +230,8 @@ extern "C" int (__cdecl _ismbblead_l) (unsigned int tst, _locale_t plocinfo)
 
     return x_ismbbtype_l(plocinfo,tst,0,_M1);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_ismbblead_l);
 #endif
 
 #if 0
@@ -217,7 +242,7 @@ extern "C" int (__cdecl _ismbblead) (unsigned int tst)
 }
 #endif
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" int (__cdecl _ismbbtrail_l) (unsigned int tst, _locale_t plocinfo)
 {
     // Note: Lookup is always FALSE for UTF-8
@@ -226,6 +251,8 @@ extern "C" int (__cdecl _ismbbtrail_l) (unsigned int tst, _locale_t plocinfo)
 
     return x_ismbbtype_l(plocinfo,tst,0,_M2);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_ismbbtrail_l);
 #endif
 
 #if 0
@@ -239,7 +266,7 @@ extern "C" int (__cdecl _ismbbtrail) (unsigned int tst)
 
 /* 932 specific */
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" int (__cdecl _ismbbkana_l) (unsigned int tst, _locale_t plocinfo)
 {
     //_LocaleUpdate _loc_update(plocinfo);
@@ -253,6 +280,8 @@ extern "C" int (__cdecl _ismbbkana_l) (unsigned int tst, _locale_t plocinfo)
     }
     return FALSE;
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_ismbbkana_l);
 #endif
 
 #if 0

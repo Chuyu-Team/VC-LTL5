@@ -1,4 +1,4 @@
-/***
+﻿/***
 *stat64.c - get file status
 *
 *       Copyright (c) Microsoft Corporation. All rights reserved.
@@ -322,7 +322,7 @@ static TimeType __cdecl convert_filetime_to_time_t(
         local_time.wSecond,
         -1);
 #else
-	//�޸�ת������������FTILETIME �� time64ת��
+	//修改转换函数，加速FTILETIME 到 time64转换
 	__time64_t const filetime_scale{ 10 * 1000 * 1000 }; // 100ns units
 
 	__time64_t const epoch_time = (*(__time64_t*)&file_time) - _EPOCH_BIAS;
@@ -531,47 +531,82 @@ static int __cdecl common_stat(
 }
 
 
-
-extern "C" int __cdecl _stat32_advanced(char const* const path, struct _stat32* const result)
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
+extern "C" int __cdecl _stat32(char const* const path, struct _stat32* const result)
 {
     return common_stat(path, result);
 }
 
-extern "C" int __cdecl _stat32i64_advanced(char const* const path, struct _stat32i64* const result)
+_LCRT_DEFINE_IAT_SYMBOL(_stat32);
+#endif
+
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
+extern "C" int __cdecl _stat32i64(char const* const path, struct _stat32i64* const result)
 {
     return common_stat(path, result);
 }
 
-extern "C" int __cdecl _stat64_advanced(char const* const path, struct _stat64* const result)
+_LCRT_DEFINE_IAT_SYMBOL(_stat32i64);
+#endif
+
+
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
+extern "C" int __cdecl _stat64(char const* const path, struct _stat64* const result)
 {
     return common_stat(path, result);
 }
 
-extern "C" int __cdecl _stat64i32_advanced(char const* const path, struct _stat64i32* const result)
+_LCRT_DEFINE_IAT_SYMBOL(_stat64);
+#endif
+
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
+extern "C" int __cdecl _stat64i32(char const* const path, struct _stat64i32* const result)
 {
     return common_stat(path, result);
 }
 
-extern "C" int __cdecl _wstat32_advanced(wchar_t const* const path, struct _stat32* const result)
+_LCRT_DEFINE_IAT_SYMBOL(_stat64i32);
+#endif
+
+
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
+extern "C" int __cdecl _wstat32(wchar_t const* const path, struct _stat32* const result)
 {
     return common_stat(path, result);
 }
 
-extern "C" int __cdecl _wstat32i64_advanced(wchar_t const* const path, struct _stat32i64* const result)
+_LCRT_DEFINE_IAT_SYMBOL(_wstat32);
+#endif
+
+
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
+extern "C" int __cdecl _wstat32i64(wchar_t const* const path, struct _stat32i64* const result)
 {
     return common_stat(path, result);
 }
 
-extern "C" int __cdecl _wstat64_advanced(wchar_t const* const path, struct _stat64* const result)
+_LCRT_DEFINE_IAT_SYMBOL(_wstat32i64);
+#endif
+
+
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
+extern "C" int __cdecl _wstat64(wchar_t const* const path, struct _stat64* const result)
 {
     return common_stat(path, result);
 }
 
-extern "C" int __cdecl _wstat64i32_advanced(wchar_t const* const path, struct _stat64i32* const result)
+_LCRT_DEFINE_IAT_SYMBOL(_wstat64);
+#endif
+
+
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
+extern "C" int __cdecl _wstat64i32(wchar_t const* const path, struct _stat64i32* const result)
 {
     return common_stat(path, result);
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(_wstat64i32);
+#endif
 
 #if 0
 template <typename StatStruct>
@@ -602,24 +637,56 @@ static int __cdecl common_fstat(int const fh, StatStruct* const result) throw()
         return 0;
     });
 }
+#endif
 
+#if 0
 extern "C" int __cdecl _fstat32(int const fh, struct _stat32* const result)
 {
     return common_fstat(fh, result);
 }
+#endif
 
+#if 0
 extern "C" int __cdecl _fstat32i64(int const fh, struct _stat32i64* const result)
 {
     return common_fstat(fh, result);
 }
+#endif
 
+#if 0
 extern "C" int __cdecl _fstat64(int const fh, struct _stat64* const result)
 {
     return common_fstat(fh, result);
 }
+#endif
 
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
 extern "C" int __cdecl _fstat64i32(int const fh, struct _stat64i32* const result)
 {
-    return common_fstat(fh, result);
+    //return common_fstat(fh, result);
+        //msvcrt不支持_fstat64i32，不过我们可以用_fstat64转换
+    _VALIDATE_CLEAR_OSSERR_RETURN(result != nullptr, EINVAL, -1);
+
+    struct _stat64 _StatTmp;
+    auto code = _fstat64(fh, &_StatTmp);
+    if (code == 0)
+    {
+        //获取成功，开始转换数据
+        result->st_dev = _StatTmp.st_dev;
+        result->st_ino = _StatTmp.st_ino;
+        result->st_mode = _StatTmp.st_mode;
+        result->st_nlink = _StatTmp.st_nlink;
+        result->st_uid = _StatTmp.st_uid;
+        result->st_gid = _StatTmp.st_gid;
+        result->st_rdev = _StatTmp.st_rdev;
+        result->st_size = _StatTmp.st_size;
+        result->st_atime = _StatTmp.st_atime;
+        result->st_mtime = _StatTmp.st_mtime;
+        result->st_ctime = _StatTmp.st_ctime;
+    }
+
+    return code;
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_fstat64i32);
 #endif

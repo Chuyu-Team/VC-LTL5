@@ -1,4 +1,4 @@
-/***
+﻿/***
 *loaddll.c - load or free a Dynamic Link Library
 *
 *       Copyright (c) Microsoft Corporation. All rights reserved.
@@ -33,10 +33,14 @@
 *
 *******************************************************************************/
 
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240 && defined _M_AMD64
 extern "C" intptr_t __cdecl _loaddll(char* szName)
 {
     return reinterpret_cast<intptr_t>(__acrt_LoadLibraryExA(szName, nullptr, 0));
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_loaddll);
+#endif
 
 /***
 *int _unloaddll(handle) - Unload a dll
@@ -56,6 +60,7 @@ extern "C" intptr_t __cdecl _loaddll(char* szName)
 *
 *******************************************************************************/
 
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240 && defined _M_AMD64
 extern "C" int __cdecl _unloaddll(intptr_t hMod)
 {
         if (!FreeLibrary(reinterpret_cast<HMODULE>(hMod))) {
@@ -63,3 +68,6 @@ extern "C" int __cdecl _unloaddll(intptr_t hMod)
         }
         return (0);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_unloaddll);
+#endif

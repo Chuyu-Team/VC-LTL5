@@ -1,4 +1,4 @@
-//
+﻿//
 // _wctype.cpp
 //
 //      Copyright (c) Microsoft Corporation. All rights reserved.
@@ -13,7 +13,7 @@
 #include <locale.h>
 
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" extern __inline int (__cdecl _isleadbyte_l)(int const c, _locale_t const locale)
 {
 	if (!locale)
@@ -22,6 +22,9 @@ extern "C" extern __inline int (__cdecl _isleadbyte_l)(int const c, _locale_t co
     //_LocaleUpdate locale_update(locale);
     return __acrt_locale_get_ctype_array_value(locale->locinfo->_locale_pctype, c, _LEADBYTE);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_isleadbyte_l);
+
 #endif
 
 #if 0
@@ -101,15 +104,23 @@ extern "C" extern __inline int (__cdecl iswpunct)(wint_t const c)
 }
 #endif
 
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
 extern "C" extern __inline int (__cdecl _iswblank_l)(wint_t const c, _locale_t)
 {
     return iswblank(c);
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(_iswblank_l);
+#endif
+
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
 extern "C" extern __inline int (__cdecl iswblank)(wint_t const c)
 {
     return iswblank(c);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(iswblank);
+#endif
 
 #if 0
 extern "C" extern __inline int (__cdecl _iswalnum_l)(wint_t const c, _locale_t)
@@ -158,22 +169,38 @@ extern "C" extern __inline int (__cdecl iswascii)(wint_t const c)
 }
 #endif
 
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
 extern "C" extern __inline int (__cdecl _iswcsym_l)(wint_t const c, _locale_t)
 {
     return __iswcsym(c);
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(_iswcsym_l);
+#endif
+
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
 extern "C" extern __inline int (__cdecl __iswcsym)(wint_t const c)
 {
     return __iswcsym(c);
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(__iswcsym);
+#endif
+
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
 extern "C" extern __inline int (__cdecl _iswcsymf_l)(wint_t const c, _locale_t)
 {
     return __iswcsymf(c);
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(_iswcsymf_l);
+#endif
+
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
 extern "C" extern __inline int (__cdecl __iswcsymf)(wint_t const c)
 {
     return __iswcsymf(c);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(__iswcsymf);
+#endif

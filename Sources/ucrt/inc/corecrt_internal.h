@@ -105,6 +105,9 @@ extern "C++"
 //
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 #ifdef __cplusplus
+    #undef _fmode
+    #undef _mbctype
+    #undef _mbcasemap
     __declspec(dllimport) extern int           _fmode;
     __declspec(dllimport) extern unsigned char _mbctype[];
     __declspec(dllimport) extern unsigned char _mbcasemap[];
@@ -263,11 +266,12 @@ DWORD __cdecl __acrt_GetModuleFileNameA(
     _In_range_(1, MAX_PATH) DWORD   nSize
     );
 
-HMODULE __cdecl __acrt_LoadLibraryExA(
-    _In_       LPCSTR lpFileName,
-    _Reserved_ HANDLE  hFile,
-    _In_       DWORD   dwFlags
-    );
+//HMODULE __cdecl __acrt_LoadLibraryExA(
+//    _In_       LPCSTR lpFileName,
+//    _Reserved_ HANDLE  hFile,
+//    _In_       DWORD   dwFlags
+//    );
+#define __acrt_LoadLibraryExA LoadLibraryExA
 
 BOOL __cdecl __acrt_SetEnvironmentVariableA(
     _In_     LPCSTR lpName,
@@ -537,7 +541,7 @@ typedef struct __crt_locale_data
             unsigned char const* pcumap;
 
             //struct __lc_time_data * lc_time_curr;
-            struct __lc_time_data* lc_time_curr;
+            struct __crt_lc_time_data* lc_time_curr;
         };
     };
 
@@ -979,7 +983,7 @@ typedef struct _ptd_msvcrt_win6_shared : public _ptd_msvcrt_winxp_shared
 
 	/* pointer to the copy of the locale informaton used by the thead */
 	//__crt_locale_data*  ptlocinfo;
-	struct _locale_data_msvcrt*                     _locale_info;
+	struct __crt_locale_data*                     _locale_info;
 
 	int                                    _own_locale;   // If 1, this thread owns its locale
 
@@ -1426,11 +1430,38 @@ typedef struct _ptd_msvcrt
 } _ptd_msvcrt,__acrt_ptd;
 #endif
 
+__declspec(dllimport) LCID* __cdecl ___lc_handle_func(void);
+
+/* Lock symbols */
+
+#define _SIGNAL_LOCK    0       /* lock for signal()                */
+#define _IOB_SCAN_LOCK  1       /* _iob[] table lock                */
+#define _TMPNAM_LOCK    2       /* lock global tempnam variables    */
+#define _CONIO_LOCK     3       /* lock for conio routines          */
+#define _HEAP_LOCK      4       /* lock for heap allocator routines */
+#define _UNDNAME_LOCK   5       /* lock for unDName() routine       */
+#define _TIME_LOCK      6       /* lock for time functions          */
+#define _ENV_LOCK       7       /* lock for environment variables   */
+#define _EXIT_LOCK1     8       /* lock #1 for exit code            */
+#define _POPEN_LOCK     9       /* lock for _popen/_pclose database */
+#define _LOCKTAB_LOCK   10      /* lock to protect semaphore lock table */
+#define _OSFHND_LOCK    11      /* lock to protect _osfhnd array    */
+#define _SETLOCALE_LOCK 12      /* lock for locale handles, etc.    */
+#define _MB_CP_LOCK     13      /* lock for multibyte code page     */
+#define _TYPEINFO_LOCK  14      /* lock for type_info access        */
+#define _DEBUG_LOCK     15      /* lock for debug global structs    */
+
+#define _STREAM_LOCKS   16      /* Table of stream locks            */
+
 __declspec(dllimport) void __cdecl _lock(
 	int locknum
 );
 __declspec(dllimport) void __cdecl _unlock(
 	int locknum
+);
+
+__declspec(dllimport) void __cdecl _amsg_exit(
+	int rterrnum
 );
 
 
@@ -1760,7 +1791,7 @@ extern "C++"
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 #define __acrt_AreFileApisANSI AreFileApisANSI
 
-#if _CRT_NTDDI_MIN < NTDDI_WIN6
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 int WINAPI __acrt_CompareStringEx(
     _In_opt_                       LPCWSTR          locale_name,
     _In_                           DWORD            flags,
@@ -1776,7 +1807,7 @@ int WINAPI __acrt_CompareStringEx(
 #define __acrt_CompareStringEx CompareStringEx
 #endif
 
-#if _CRT_NTDDI_MIN < NTDDI_WIN6
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 BOOL WINAPI __acrt_EnumSystemLocalesEx(
     _In_     LOCALE_ENUMPROCEX enum_proc,
     _In_     DWORD             flags,
@@ -1787,7 +1818,7 @@ BOOL WINAPI __acrt_EnumSystemLocalesEx(
 #define __acrt_EnumSystemLocalesEx EnumSystemLocalesEx
 #endif
 
-#if _CRT_NTDDI_MIN < NTDDI_WIN6
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 DWORD WINAPI __acrt_FlsAlloc(
     _In_opt_ PFLS_CALLBACK_FUNCTION lpCallback
     );
@@ -1795,7 +1826,7 @@ DWORD WINAPI __acrt_FlsAlloc(
 #define __acrt_FlsAlloc FlsAlloc
 #endif
 
-#if _CRT_NTDDI_MIN < NTDDI_WIN6
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 BOOL WINAPI __acrt_FlsFree(
     _In_ DWORD dwFlsIndex
     );
@@ -1803,7 +1834,7 @@ BOOL WINAPI __acrt_FlsFree(
 #define __acrt_FlsFree FlsFree
 #endif
 
-#if _CRT_NTDDI_MIN < NTDDI_WIN6
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 PVOID WINAPI __acrt_FlsGetValue(
     _In_ DWORD dwFlsIndex
     );
@@ -1811,7 +1842,7 @@ PVOID WINAPI __acrt_FlsGetValue(
 #define __acrt_FlsGetValue FlsGetValue
 #endif
 
-#if _CRT_NTDDI_MIN < NTDDI_WIN6
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 BOOL WINAPI __acrt_FlsSetValue(
     _In_     DWORD dwFlsIndex,
     _In_opt_ PVOID lpFlsData
@@ -1820,7 +1851,7 @@ BOOL WINAPI __acrt_FlsSetValue(
 #define __acrt_FlsSetValue FlsGetValue
 #endif
 
-#if _CRT_NTDDI_MIN < NTDDI_WIN6
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 int WINAPI __acrt_GetDateFormatEx(
     _In_opt_                       LPCWSTR           locale_name,
     _In_                           DWORD             flags,
@@ -1836,7 +1867,7 @@ int WINAPI __acrt_GetDateFormatEx(
 
 DWORD64 WINAPI __acrt_GetEnabledXStateFeatures(void);
 
-#if _CRT_NTDDI_MIN < NTDDI_WIN6
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 int WINAPI __acrt_GetLocaleInfoEx(
     _In_opt_                       LPCWSTR locale_name,
     _In_                           LCTYPE  lc_type,
@@ -1847,15 +1878,16 @@ int WINAPI __acrt_GetLocaleInfoEx(
 #define __acrt_GetLocaleInfoEx GetLocaleInfoEx
 #endif
 
-#if _CRT_NTDDI_MIN < NTDDI_WIN7
-VOID WINAPI __acrt_GetSystemTimePreciseAsFileTime(
-    _Out_ LPFILETIME system_time
-    );
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows7
+//VOID WINAPI __acrt_GetSystemTimePreciseAsFileTime(
+//    _Out_ LPFILETIME system_time
+//    );
+#define __acrt_GetSystemTimePreciseAsFileTime GetSystemTimeAsFileTime
 #else
 #define __acrt_GetSystemTimePreciseAsFileTime GetSystemTimePreciseAsFileTime
 #endif
 
-#if _CRT_NTDDI_MIN < NTDDI_WIN6
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 int WINAPI __acrt_GetTimeFormatEx(
     _In_opt_                         LPCWSTR           locale_name,
     _In_                             DWORD             flags,
@@ -1868,7 +1900,7 @@ int WINAPI __acrt_GetTimeFormatEx(
 #define __acrt_GetTimeFormatEx GetTimeFormatEx
 #endif
 
-#if _CRT_NTDDI_MIN < NTDDI_WIN6
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 int WINAPI __acrt_GetUserDefaultLocaleName(
     _Out_writes_(locale_name_count) LPWSTR  locale_name,
     _In_                            int     locale_name_count
@@ -1883,13 +1915,13 @@ BOOL WINAPI __acrt_GetXStateFeaturesMask(
     _Out_ PDWORD64 feature_mask
     );
 
-#if _CRT_NTDDI_MIN < NTDDI_WIN6
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 #define __acrt_InitializeCriticalSectionEx(critical_section,spin_count,flags) InitializeCriticalSectionAndSpinCount(critical_section,spin_count)
 #else
 #define __acrt_InitializeCriticalSectionEx InitializeCriticalSectionEx
 #endif
 
-#if _CRT_NTDDI_MIN < NTDDI_WIN6
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 BOOL WINAPI __acrt_IsValidLocaleName(
     _In_ LPCWSTR locale_name
     );
@@ -1897,7 +1929,7 @@ BOOL WINAPI __acrt_IsValidLocaleName(
 #define __acrt_IsValidLocaleName IsValidLocaleName
 #endif
 
-#if _CRT_NTDDI_MIN < NTDDI_WIN6
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 int WINAPI __acrt_LCMapStringEx(
     _In_opt_                            LPCWSTR          locale_name,
     _In_                                DWORD            flags,
@@ -1913,7 +1945,7 @@ int WINAPI __acrt_LCMapStringEx(
 #define __acrt_LCMapStringEx LCMapStringEx
 #endif
 
-#if _CRT_NTDDI_MIN < NTDDI_WIN6
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 int WINAPI __acrt_LCIDToLocaleName(
     _In_                         LCID   locale,
     _Out_writes_opt_(name_count) LPWSTR name,
@@ -1924,7 +1956,7 @@ int WINAPI __acrt_LCIDToLocaleName(
 #define __acrt_LCIDToLocaleName LCIDToLocaleName
 #endif
 
-#if _CRT_NTDDI_MIN < NTDDI_WIN6
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 DWORD WINAPI __acrt_LocaleNameToLCID(
     _In_ LPCWSTR name,
     _In_ DWORD   flags
@@ -1977,7 +2009,8 @@ LONG WINAPI __acrt_AppPolicyGetThreadInitializationTypeInternal(_Out_ AppPolicyT
 LONG WINAPI __acrt_AppPolicyGetShowDeveloperDiagnosticInternal(_Out_ AppPolicyShowDeveloperDiagnostic* policy);
 LONG WINAPI __acrt_AppPolicyGetWindowingModelInternal(_Out_ AppPolicyWindowingModel* policy);
 
-#if _CRT_NTDDI_MIN < NTDDI_WS03SP1
+#if WindowsTargetPlatformMinVersion <= WindowsTargetPlatformWindows2003
+//#if _CRT_NTDDI_MIN < NTDDI_WS03SP1
 BOOL WINAPI __acrt_SetThreadStackGuarantee(
     _Inout_ PULONG stack_size_in_bytes
     );
@@ -1987,7 +2020,7 @@ BOOL WINAPI __acrt_SetThreadStackGuarantee(
 
 
 bool __cdecl __acrt_can_show_message_box(void);
-#if _CRT_NTDDI_MIN < NTDDI_WIN6
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 bool __cdecl __acrt_can_use_vista_locale_apis(void);
 #else
 #define __acrt_can_use_vista_locale_apis() true
@@ -1998,7 +2031,7 @@ HWND __cdecl __acrt_get_parent_window(void);
 bool __cdecl __acrt_is_interactive(void);
 
 
-#if _CRT_NTDDI_MIN < NTDDI_WIN6
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 LCID __cdecl __acrt_DownlevelLocaleNameToLCID(
     _In_opt_ LPCWSTR localeName
     );

@@ -1,4 +1,4 @@
-//
+﻿//
 // invalid_parameter.cpp
 //
 //      Copyright (c) Microsoft Corporation. All rights reserved.
@@ -6,17 +6,16 @@
 // The invalid parameter handlers and related functionality
 //
 #include <corecrt_internal.h>
-#include <ptd_downlevel.h>
+//#include <ptd_downlevel.h>
 
 
 static _invalid_parameter_handler __acrt_invalid_parameter_handler = nullptr;
 
-static thread_local _invalid_parameter_handler __thread_local_iph=nullptr;
-
-#if _CRT_NTDDI_MIN >= NTDDI_WIN6
-#define _thread_local_iph __thread_local_iph
+#if WindowsTargetPlatformMinVersion >= WindowsTargetPlatformWindows6
+static thread_local _invalid_parameter_handler _thread_local_iph;
 #else
-#define _thread_local_iph   (*((__LTL_GetOsMinVersion() < 0x00060000 ? &(__LTL_get_ptd_downlevel()->_thread_local_iph) : &(__thread_local_iph))))
+static _invalid_parameter_handler __thread_local_iph[0x4000];
+#define _thread_local_iph (__thread_local_iph[(GetCurrentThreadId() >> 1) % __crt_countof(__thread_local_iph)])
 #endif
 
 #if defined _M_X64 && !defined _UCRT_ENCLAVE_BUILD
@@ -95,7 +94,7 @@ extern "C" void __cdecl __acrt_initialize_invalid_parameter_handler(void* const 
 // _invalid_parameter
 //
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-extern "C" void __cdecl _invalid_parameter_advanced(
+extern "C" void __cdecl _invalid_parameter(
     wchar_t const* const expression,
     wchar_t const* const function_name,
     wchar_t const* const file_name,
@@ -119,18 +118,20 @@ extern "C" void __cdecl _invalid_parameter_advanced(
     _invoke_watson(expression, function_name, file_name, line_number, reserved);
 }
 
-EXTERN_C _ACRTIMP void __cdecl _invalid_parameter(
-        _In_opt_z_ wchar_t const*,
-        _In_opt_z_ wchar_t const*,
-        _In_opt_z_ wchar_t const*,
-        _In_       unsigned int,
-        _In_       uintptr_t
-        );
+//EXTERN_C _ACRTIMP void __cdecl _invalid_parameter(
+//        _In_opt_z_ wchar_t const*,
+//        _In_opt_z_ wchar_t const*,
+//        _In_opt_z_ wchar_t const*,
+//        _In_       unsigned int,
+//        _In_       uintptr_t
+//        );
 
 extern "C" void __cdecl _invalid_parameter_noinfo()
 {
     _invalid_parameter(nullptr, nullptr, nullptr, 0, 0);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_invalid_parameter_noinfo);
 
 // This is used by inline code in the C++ Standard Library and the SafeInt
 // library.  Because it is __declspec(noreturn), the compiler can better
@@ -141,6 +142,7 @@ extern "C" __declspec(noreturn) void __cdecl _invalid_parameter_noinfo_noreturn(
     _invoke_watson    (nullptr, nullptr, nullptr, 0, 0);
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(_invalid_parameter_noinfo_noreturn);
 
 
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -269,6 +271,7 @@ extern "C" __declspec(noreturn) void __cdecl _invalid_parameter_noinfo_noreturn(
 
 #endif
 
+    _LCRT_DEFINE_IAT_SYMBOL(_invoke_watson);
 
 
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -281,10 +284,14 @@ extern "C" _invalid_parameter_handler __cdecl _set_invalid_parameter_handler(_in
 	return __crt_interlocked_exchange_pointer(&__acrt_invalid_parameter_handler, new_handler);
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(_set_invalid_parameter_handler);
+
 extern "C" _invalid_parameter_handler __cdecl _get_invalid_parameter_handler()
 {
     return __acrt_invalid_parameter_handler;
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_get_invalid_parameter_handler);
 
 
 
@@ -295,7 +302,11 @@ extern "C" _invalid_parameter_handler __cdecl _set_thread_local_invalid_paramete
     return old_handler;
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(_set_thread_local_invalid_parameter_handler);
+
 extern "C" _invalid_parameter_handler __cdecl _get_thread_local_invalid_parameter_handler()
 {
     return _thread_local_iph;
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_get_thread_local_invalid_parameter_handler);

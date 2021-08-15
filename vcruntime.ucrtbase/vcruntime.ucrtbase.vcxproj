@@ -40,9 +40,6 @@
     <ProjectGuid>{fec996ed-01e9-4258-862f-58bf3aefa893}</ProjectGuid>
     <RootNamespace>vcruntime.ucrtbase</RootNamespace>
     <WindowsTargetPlatformVersion>$([Microsoft.Build.Utilities.ToolLocationHelper]::GetLatestSDKTargetPlatformVersion('Windows', '10.0'))</WindowsTargetPlatformVersion>
-    <MACHINE>$(Platform)</MACHINE>
-    <MACHINE Condition="'$(MACHINE)' == 'Win32'">x86</MACHINE>
-    <DefaultPlatformToolset Condition="'$(TargetVCRuntimeVersion)' != ''">v$(TargetVCRuntimeVersion.Substring(0,4).Remove(2,1))</DefaultPlatformToolset>
     <!--如果外部没有定义，那么默认值为 10240-->
     <WindowsTargetPlatformMinVersion Condition="'$(WindowsTargetPlatformMinVersion)' == ''">10.0.10240.0</WindowsTargetPlatformMinVersion>
     <ProjectName>vcruntime.ucrtbase</ProjectName>
@@ -108,6 +105,7 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <PropertyGroup>
     <TargetVCRuntimeVersion Condition="'$(TargetVCRuntimeVersion)' == ''">$(VCToolsVersion)</TargetVCRuntimeVersion>
+    <TargetVCRuntimeVersion Condition="'$(TargetVCRuntimeVersion)' == ''">14.0.0.0</TargetVCRuntimeVersion>
   </PropertyGroup>
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
@@ -126,57 +124,57 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Static|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <TargetName>libvcruntime.objs</TargetName>
-    <OutDir>$(SolutionDir)ucrt\$(WindowsTargetPlatformMinVersion)\lib\$(Platform)\</OutDir>
+    <TargetName>libvcruntime</TargetName>
+    <OutDir>$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\lib\$(Platform)\</OutDir>
     <IntDir>$(Platform)\$(Configuration)\$(WindowsTargetPlatformMinVersion)\</IntDir>
     <IncludePath>$(SolutionDir)Sources\crt\vcruntime;$(SolutionDir)Sources\crt;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Static|ARM'">
     <LinkIncremental>false</LinkIncremental>
-    <TargetName>libvcruntime.objs</TargetName>
-    <OutDir>$(SolutionDir)ucrt\$(WindowsTargetPlatformMinVersion)\lib\$(Platform)\</OutDir>
+    <TargetName>libvcruntime</TargetName>
+    <OutDir>$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\lib\$(Platform)\</OutDir>
     <IncludePath>$(SolutionDir)Sources\crt\vcruntime;$(SolutionDir)Sources\crt;$(IncludePath)</IncludePath>
     <IntDir>$(Platform)\$(Configuration)\$(WindowsTargetPlatformMinVersion)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dynamic|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <TargetName>vcruntime.objs</TargetName>
-    <OutDir>$(SolutionDir)ucrt\$(WindowsTargetPlatformMinVersion)\lib\$(Platform)\</OutDir>
+    <TargetName>vcruntime</TargetName>
+    <OutDir>$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\lib\$(Platform)\</OutDir>
     <IntDir>$(Platform)\$(Configuration)\$(WindowsTargetPlatformMinVersion)\</IntDir>
     <IncludePath>$(SolutionDir)Sources\crt\vcruntime;$(SolutionDir)Sources\crt;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dynamic|ARM'">
     <LinkIncremental>false</LinkIncremental>
-    <TargetName>vcruntime.objs</TargetName>
-    <OutDir>$(SolutionDir)ucrt\$(WindowsTargetPlatformMinVersion)\lib\$(Platform)\</OutDir>
+    <TargetName>vcruntime</TargetName>
+    <OutDir>$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\lib\$(Platform)\</OutDir>
     <IncludePath>$(SolutionDir)Sources\crt\vcruntime;$(SolutionDir)Sources\crt;$(IncludePath)</IncludePath>
     <IntDir>$(Platform)\$(Configuration)\$(WindowsTargetPlatformMinVersion)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Static|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(SolutionDir)ucrt\$(WindowsTargetPlatformMinVersion)\lib\$(Platform)\</OutDir>
-    <TargetName>libvcruntime.objs</TargetName>
+    <OutDir>$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\lib\$(Platform)\</OutDir>
+    <TargetName>libvcruntime</TargetName>
     <IntDir>$(Platform)\$(Configuration)\$(WindowsTargetPlatformMinVersion)\</IntDir>
     <IncludePath>$(SolutionDir)Sources\crt\vcruntime;$(SolutionDir)Sources\crt;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Static|ARM64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(SolutionDir)ucrt\$(WindowsTargetPlatformMinVersion)\lib\$(Platform)\</OutDir>
-    <TargetName>libvcruntime.objs</TargetName>
+    <OutDir>$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\lib\$(Platform)\</OutDir>
+    <TargetName>libvcruntime</TargetName>
     <IntDir>$(Platform)\$(Configuration)\$(WindowsTargetPlatformMinVersion)\</IntDir>
     <IncludePath>$(SolutionDir)Sources\crt\vcruntime;$(SolutionDir)Sources\crt;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dynamic|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(SolutionDir)ucrt\$(WindowsTargetPlatformMinVersion)\lib\$(Platform)\</OutDir>
-    <TargetName>vcruntime.objs</TargetName>
+    <OutDir>$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\lib\$(Platform)\</OutDir>
+    <TargetName>vcruntime</TargetName>
     <IntDir>$(Platform)\$(Configuration)\$(WindowsTargetPlatformMinVersion)\</IntDir>
     <IncludePath>$(SolutionDir)Sources\crt\vcruntime;$(SolutionDir)Sources\crt;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dynamic|ARM64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(SolutionDir)ucrt\$(WindowsTargetPlatformMinVersion)\lib\$(Platform)\</OutDir>
-    <TargetName>vcruntime.objs</TargetName>
+    <OutDir>$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\lib\$(Platform)\</OutDir>
+    <TargetName>vcruntime</TargetName>
     <IntDir>$(Platform)\$(Configuration)\$(WindowsTargetPlatformMinVersion)\</IntDir>
     <IncludePath>$(SolutionDir)Sources\crt\vcruntime;$(SolutionDir)Sources\crt;$(IncludePath)</IncludePath>
   </PropertyGroup>
@@ -201,6 +199,9 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalDependencies>$(IntDir)vcruntime.ucrtbase.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Static|ARM'">
     <ClCompile>
@@ -222,6 +223,9 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalDependencies>$(IntDir)vcruntime.ucrtbase.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dynamic|Win32'">
     <ClCompile>
@@ -244,6 +248,9 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalDependencies>$(IntDir)vcruntime.ucrtbase.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dynamic|ARM'">
     <ClCompile>
@@ -265,6 +272,9 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalDependencies>$(IntDir)vcruntime.ucrtbase.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Static|x64'">
     <ClCompile>
@@ -286,6 +296,9 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalDependencies>$(IntDir)vcruntime.ucrtbase.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Static|ARM64'">
     <ClCompile>
@@ -307,6 +320,9 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalDependencies>$(IntDir)vcruntime.ucrtbase.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dynamic|x64'">
     <ClCompile>
@@ -328,6 +344,9 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalDependencies>$(IntDir)vcruntime.ucrtbase.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dynamic|ARM64'">
     <ClCompile>
@@ -349,6 +368,9 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalDependencies>$(IntDir)vcruntime.ucrtbase.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\Sources\crt\framework.h" />
@@ -360,10 +382,6 @@
     <ClCompile Include="..\Sources\crt\vcruntime\chandler_noexcept.cpp">
       <ExcludedFromBuild Condition="'$(Platform)' != 'x64' and '$(Platform)' != 'ARM' and '$(Platform)' != 'ARM64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(WindowsTargetPlatformMinVersionBuild)' &gt;= '17134'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\Sources\crt\vcruntime\ehhelpers.cpp">
-      <LanguageStandard>stdcpp17</LanguageStandard>
-      <ExcludedFromBuild Condition="'$(WindowsTargetPlatformMinVersionBuild)' &gt;= '14393'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\Sources\crt\vcruntime\ehstate.cpp">
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -384,17 +402,21 @@
     <ClCompile Include="..\Sources\crt\vcruntime\uncaught_exceptions.cpp">
       <ExcludedFromBuild Condition="'$(WindowsTargetPlatformMinVersionBuild)' &gt;= '14393'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\Sources\crt\vcruntime\winapi_downlevel.cpp" />
-    <ClCompile Include="..\Sources\crt\vcruntime\winapi_thunks.cpp" />
+    <ClCompile Include="..\Sources\crt\vcruntime\winapi_downlevel.cpp">
+      <ExcludedFromBuild Condition="'$(Platform)' != 'Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\Sources\crt\vcruntime\winapi_thunks.cpp">
+      <ExcludedFromBuild Condition="'$(Platform)' != 'Win32'">true</ExcludedFromBuild>
+    </ClCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
-  <Import Project="$(SolutionDir)bin\$(TargetVCRuntimeVersion)\$(Platform)\LibInfo.props" Condition="Exists('$(SolutionDir)bin\$(TargetVCRuntimeVersion)\$(Platform)\LibInfo.props')" />
+  <Import Project="$(SolutionDir)Tools\$(TargetVCRuntimeVersion)\$(Platform)\LibInfo.props" Condition="Exists('$(SolutionDir)Tools\$(TargetVCRuntimeVersion)\$(Platform)\LibInfo.props')" />
   <Target Name="EXTRACT_obj" AfterTargets="_ClCompile" Inputs="%(ExtractItem.LibFile)" Outputs="%(ExtractItem.OutDir)%(ExtractItem.Filename)%(ExtractItem.Extension)" Condition="'@(ExtractItem)' !=''">
     <!--确保文件夹必定存在-->
     <MakeDir Directories="%(ExtractItem.OutDir)" />
-    <Exec Command="lib %22%(ExtractItem.LibFile)%22 /EXTRACT:%(ExtractItem.Identity) /out:%22%(ExtractItem.OutDir)%(ExtractItem.Filename)%(ExtractItem.Extension)%22 /MACHINE:$(MACHINE)" />
+    <Exec Command="lib %22%(ExtractItem.LibFile)%22 /EXTRACT:%(ExtractItem.Identity) /out:%22%(ExtractItem.OutDir)%(ExtractItem.Filename)%(ExtractItem.Extension)%22 /MACHINE:$(PlatformShortName)" />
     <ItemGroup>
       <Obj Include="%(ExtractItem.OutDir)%(ExtractItem.Filename)%(ExtractItem.Extension)">
         <LinkCompiled>true</LinkCompiled>
@@ -404,27 +426,20 @@
     </ItemGroup>
   </Target>
   <!--生成只有ucrtbase导出的vcrt动态库-->
-  <Target Name="Build_ucrtbase_lib" AfterTargets="Lib" Inputs="$(SolutionDir)bin\$(TargetVCRuntimeVersion)\$(Platform)\vcruntime.lib" Outputs="$(IntDir)ucrtbase.lib">
+  <Target Name="Build_ucrtbase_lib" AfterTargets="_ClCompile" Inputs="$(SolutionDir)Tools\$(WindowsTargetPlatformMinVersion)\$(Platform)\vcruntime.ucrtbase.def;$(SolutionDir)Tools\$(WindowsTargetPlatformMinVersion)\$(Platform)\vcruntime.ucrtbase.weak.def" Outputs="$(IntDir)vcruntime.ucrtbase.lib">
     <PropertyGroup>
-      <vcruntime_path>$(SolutionDir)bin\$(TargetVCRuntimeVersion)\$(Platform)\vcruntime.lib</vcruntime_path>
+      <vcruntime_path>$(VCToolsInstallDir)lib\$(PlatformShortName)\vcruntime.lib</vcruntime_path>
       <vcruntime_path Condition="'$(Platform)' == 'ARM64'">$(IntDir)vcruntime_no_ec.lib</vcruntime_path>
     </PropertyGroup>
     <!--如果是arm64，那么删除ec相关符号，我们暂时不做支持-->
-    <Copy SourceFiles="$(SolutionDir)bin\$(TargetVCRuntimeVersion)\$(Platform)\vcruntime.lib" DestinationFiles="$(IntDir)vcruntime_no_ec.lib" OverwriteReadOnlyFiles="true" Condition="'$(Platform)' == 'ARM64'" />
+    <Copy SourceFiles="$(VCToolsInstallDir)lib\$(PlatformShortName)\vcruntime.lib" DestinationFiles="$(IntDir)vcruntime_no_ec.lib" OverwriteReadOnlyFiles="true" Condition="'$(Platform)' == 'ARM64'" />
     <Exec Command="lib $(vcruntime_path) /remove:123" Condition="'$(Platform)' == 'ARM64'" />
-    <Exec Command="%22$(SolutionDir)bin\LibMaker.exe%22 ExportDef %22$(vcruntime_path)%22 /MACHINE:$(MACHINE) /OUT:%22$(IntDir)ucrtbase.def%22" />
-    <Exec Command="lib /def:%22$(IntDir)ucrtbase.def%22 /out:%22$(IntDir)ucrtbase.lib%22 /MACHINE:$(MACHINE)" />
+    <Exec Command="lib /def:%22$(SolutionDir)Tools\$(WindowsTargetPlatformMinVersion)\$(Platform)\vcruntime.ucrtbase.def%22 /out:%22$(IntDir)vcruntime.ucrtbase.lib%22 /MACHINE:$(PlatformShortName)" />
     <!--复制lib属性，Win32下面 __seh_longjmp_unwind@4 这类接口需要标记导出类型-->
-    <Exec Command="%22$(SolutionDir)bin\LibMaker.exe%22 CopyLibType %22$(IntDir)ucrtbase.lib%22 %22$(vcruntime_path)%22" />
-  </Target>
-  <Target Name="Build_vcruntime_lib" AfterTargets="Build_ucrtbase_lib" Condition="'$(Configuration)' == 'Dynamic'" Inputs="$(IntDir)ucrtbase.lib;$(OutDir)$(TargetName)$(TargetExt)" Outputs="$(OutDir)vcruntime.lib">
-    <Copy SourceFiles="$(OutDir)$(TargetName)$(TargetExt)" DestinationFiles="$(OutDir)vcruntime.lib" OverwriteReadOnlyFiles="true" />
-    <!--合并-->
-    <Exec Command="lib %22$(OutDir)vcruntime.lib%22 %22$(IntDir)ucrtbase.lib%22" />
-  </Target>
-  <Target Name="Build_libvcruntime_lib" AfterTargets="Build_ucrtbase_lib" Condition="'$(Configuration)' == 'Static'" Inputs="$(IntDir)ucrtbase.lib;$(OutDir)$(TargetName)$(TargetExt)" Outputs="$(OutDir)libvcruntime.lib">
-    <Copy SourceFiles="$(OutDir)$(TargetName)$(TargetExt)" DestinationFiles="$(OutDir)libvcruntime.lib" OverwriteReadOnlyFiles="true" />
-    <!--合并-->
-    <Exec Command="lib %22$(OutDir)libvcruntime.lib%22 %22$(IntDir)ucrtbase.lib%22" />
+    <Exec Command="%22$(SolutionDir)Tools\LibMaker.exe%22 CopyLibType %22$(IntDir)vcruntime.ucrtbase.lib%22 %22$(vcruntime_path)%22" />
+    <RemoveDir Directories="$(IntDir)objs\weak" />
+    <MakeDir Directories="$(IntDir)objs\weak" />
+    <Exec Command="%22$(SolutionDir)Tools\LibMaker.exe%22 CreateWeaks /MACHINE:$(PlatformShortName) /def:%22$(SolutionDir)Tools\$(WindowsTargetPlatformMinVersion)\$(Platform)\vcruntime.ucrtbase.weak.def%22 /out:%22$(IntDir)objs\weak%22" />
+    <Exec Command="lib %22$(IntDir)vcruntime.ucrtbase.lib%22 %22$(IntDir)objs\weak\*%22" />
   </Target>
 </Project>

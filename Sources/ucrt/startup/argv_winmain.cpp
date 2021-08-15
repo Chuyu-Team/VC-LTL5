@@ -1,4 +1,4 @@
-/***
+﻿/***
 *wincmdln.c - process command line for WinMain
 *
 *       Copyright (c) Microsoft Corporation. All rights reserved.
@@ -105,7 +105,11 @@ extern "C" char* __cdecl _get_narrow_winmain_command_line()
     return reinterpret_cast<char *>(common_wincmdln<unsigned char>());
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(_get_narrow_winmain_command_line);
+
 extern "C" wchar_t* __cdecl _get_wide_winmain_command_line()
 {
     return common_wincmdln<wchar_t>();
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_get_wide_winmain_command_line);

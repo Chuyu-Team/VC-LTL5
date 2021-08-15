@@ -1,4 +1,4 @@
-//
+ï»¿//
 // txtmode.cpp
 //
 //      Copyright (c) Microsoft Corporation. All rights reserved.
@@ -8,17 +8,16 @@
 //
 #include <corecrt_internal.h>
 #include <stdlib.h>
-#include <msvcrt_IAT.h>
 
 // Clients of the static CRT can choose to access _fmode directly as a global variable; they do so as if it was declared as an int.
 // Because state separation is disabled in the static CRT, the dual_state_global<int> has the same representation as an int, so this is okay, if a bit messy.
 EXTERN_C __declspec(dllimport) extern int _fmode;  // This is automatically initialized to zero by the compiler
 
 #if !defined _AMD64_ && !defined _ARM64_ && !defined _ARM_
-#error "½öĞèÒªÔÚx64ÖĞ±àÒë"
+#error "ä»…éœ€è¦åœ¨x64ä¸­ç¼–è¯‘"
 #endif
 
-
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
 extern "C" int* __cdecl __p__fmode()
 {
     _BEGIN_SECURE_CRT_DEPRECATION_DISABLE
@@ -27,3 +26,4 @@ extern "C" int* __cdecl __p__fmode()
 }
 
 _LCRT_DEFINE_IAT_SYMBOL(__p__fmode);
+#endif

@@ -1,4 +1,4 @@
-//
+﻿//
 // output.cpp
 //
 //      Copyright (c) Microsoft Corporation. All rights reserved.
@@ -50,6 +50,7 @@ static int __cdecl common_vfprintf(
     });
 }
 
+#if WindowsTargetPlatformMinVersion < __MakeVersion(10, 0, 10240)
 extern "C" int __cdecl __stdio_common_vfprintf(
     unsigned __int64 const options,
     FILE*            const stream,
@@ -61,6 +62,10 @@ extern "C" int __cdecl __stdio_common_vfprintf(
     return common_vfprintf<standard_base>(options, stream, format, locale, arglist);
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(__stdio_common_vfprintf);
+#endif
+
+#if WindowsTargetPlatformMinVersion < __MakeVersion(10, 0, 10240)
 extern "C" int __cdecl __stdio_common_vfwprintf(
     unsigned __int64 const options,
     FILE*            const stream,
@@ -72,6 +77,10 @@ extern "C" int __cdecl __stdio_common_vfwprintf(
     return common_vfprintf<standard_base>(options, stream, format, locale, arglist);
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(__stdio_common_vfwprintf);
+#endif
+
+#if WindowsTargetPlatformMinVersion < __MakeVersion(10, 0, 10240)
 extern "C" int __cdecl __stdio_common_vfprintf_s(
     unsigned __int64 const options,
     FILE*            const stream,
@@ -83,6 +92,10 @@ extern "C" int __cdecl __stdio_common_vfprintf_s(
     return common_vfprintf<format_validation_base>(options, stream, format, locale, arglist);
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(__stdio_common_vfprintf_s);
+#endif
+
+#if WindowsTargetPlatformMinVersion < __MakeVersion(10, 0, 10240)
 extern "C" int __cdecl __stdio_common_vfwprintf_s(
     unsigned __int64 const options,
     FILE*            const stream,
@@ -94,6 +107,10 @@ extern "C" int __cdecl __stdio_common_vfwprintf_s(
     return common_vfprintf<format_validation_base>(options, stream, format, locale, arglist);
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(__stdio_common_vfwprintf_s);
+#endif
+
+#if WindowsTargetPlatformMinVersion < __MakeVersion(10, 0, 10240)
 extern "C" int __cdecl __stdio_common_vfprintf_p(
     unsigned __int64 const options,
     FILE*            const stream,
@@ -105,6 +122,10 @@ extern "C" int __cdecl __stdio_common_vfprintf_p(
     return common_vfprintf<positional_parameter_base>(options, stream, format, locale, arglist);
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(__stdio_common_vfprintf_p);
+#endif
+
+#if WindowsTargetPlatformMinVersion < __MakeVersion(10, 0, 10240)
 extern "C" int __cdecl __stdio_common_vfwprintf_p(
     unsigned __int64 const options,
     FILE*            const stream,
@@ -115,6 +136,9 @@ extern "C" int __cdecl __stdio_common_vfwprintf_p(
 {
     return common_vfprintf<positional_parameter_base>(options, stream, format, locale, arglist);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(__stdio_common_vfwprintf_p);
+#endif
 
 #endif /* _UCRT_ENCLAVE_BUILD */
 
@@ -227,6 +251,7 @@ static int __cdecl common_vsprintf(
     return result;
 }
 
+#if WindowsTargetPlatformMinVersion < __MakeVersion(10, 0, 10240)
 extern "C" int __cdecl __stdio_common_vsprintf(
     unsigned __int64 const options,
     char*            const buffer,
@@ -239,6 +264,10 @@ extern "C" int __cdecl __stdio_common_vsprintf(
     return common_vsprintf<standard_base>(options, buffer, buffer_count, format, locale, arglist);
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(__stdio_common_vsprintf);
+#endif
+
+#if WindowsTargetPlatformMinVersion < __MakeVersion(10, 0, 10240)
 extern "C" int __cdecl __stdio_common_vswprintf(
     unsigned __int64 const options,
     wchar_t*         const buffer,
@@ -250,6 +279,9 @@ extern "C" int __cdecl __stdio_common_vswprintf(
 {
     return common_vsprintf<standard_base>(options, buffer, buffer_count, format, locale, arglist);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(__stdio_common_vswprintf);
+#endif
 
 template <typename Character>
 _Success_(return >= 0)
@@ -284,6 +316,7 @@ static int __cdecl common_vsprintf_s(
     return result;
 }
 
+#if WindowsTargetPlatformMinVersion < __MakeVersion(10, 0, 10240)
 extern "C" int __cdecl __stdio_common_vsprintf_s(
     unsigned __int64 const options,
     char*            const buffer,
@@ -296,6 +329,10 @@ extern "C" int __cdecl __stdio_common_vsprintf_s(
     return common_vsprintf_s(options, buffer, buffer_count, format, locale, arglist);
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(__stdio_common_vsprintf_s);
+#endif
+
+#if WindowsTargetPlatformMinVersion < __MakeVersion(10, 0, 10240)
 extern "C" int __cdecl __stdio_common_vswprintf_s(
     unsigned __int64 const options,
     wchar_t*         const buffer,
@@ -307,6 +344,9 @@ extern "C" int __cdecl __stdio_common_vswprintf_s(
 {
     return common_vsprintf_s(options, buffer, buffer_count, format, locale, arglist);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(__stdio_common_vswprintf_s);
+#endif
 
 template <typename Character>
 _Success_(return >= 0)
@@ -378,6 +418,8 @@ static int __cdecl common_vsnprintf_s(
     return result < 0 ? -1 : result;
 }
 
+
+#if WindowsTargetPlatformMinVersion < __MakeVersion(10, 0, 10240)
 extern "C" int __cdecl __stdio_common_vsnprintf_s(
     unsigned __int64 const options,
     char*            const buffer,
@@ -391,6 +433,10 @@ extern "C" int __cdecl __stdio_common_vsnprintf_s(
     return common_vsnprintf_s(options, buffer, buffer_count, max_count, format, locale, arglist);
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(__stdio_common_vsnprintf_s);
+#endif
+
+#if WindowsTargetPlatformMinVersion < __MakeVersion(10, 0, 10240)
 extern "C" int __cdecl __stdio_common_vsnwprintf_s(
     unsigned __int64 const options,
     wchar_t*         const buffer,
@@ -404,6 +450,10 @@ extern "C" int __cdecl __stdio_common_vsnwprintf_s(
     return common_vsnprintf_s(options, buffer, buffer_count, max_count, format, locale, arglist);
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(__stdio_common_vsnwprintf_s);
+#endif
+
+#if WindowsTargetPlatformMinVersion < __MakeVersion(10, 0, 10240)
 extern "C" int __cdecl __stdio_common_vsprintf_p(
     unsigned __int64 const options,
     char*            const buffer,
@@ -416,6 +466,10 @@ extern "C" int __cdecl __stdio_common_vsprintf_p(
     return common_vsprintf<positional_parameter_base>(options, buffer, buffer_count, format, locale, arglist);
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(__stdio_common_vsprintf_p);
+#endif
+
+#if WindowsTargetPlatformMinVersion < __MakeVersion(10, 0, 10240)
 extern "C" int __cdecl __stdio_common_vswprintf_p(
     unsigned __int64 const options,
     wchar_t*         const buffer,
@@ -427,3 +481,6 @@ extern "C" int __cdecl __stdio_common_vswprintf_p(
 {
     return common_vsprintf<positional_parameter_base>(options, buffer, buffer_count, format, locale, arglist);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(__stdio_common_vswprintf_p);
+#endif

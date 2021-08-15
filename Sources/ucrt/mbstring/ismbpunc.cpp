@@ -1,4 +1,4 @@
-/***
+﻿/***
 *ismbpunc - Test if character is punctuation (MBCS)
 *
 *       Copyright (c) Microsoft Corporation.  All rights reserved.
@@ -36,7 +36,7 @@
 *
 *******************************************************************************/
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" int __cdecl _ismbcpunct_l(unsigned int const c, _locale_t const locale)
 {
 	if (!locale)
@@ -50,6 +50,9 @@ extern "C" int __cdecl _ismbcpunct_l(unsigned int const c, _locale_t const local
 
     return __dcrt_multibyte_check_type(c, locale, _PUNCT, true);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_ismbcpunct_l);
+
 #endif
 
 #if 0
@@ -80,6 +83,7 @@ extern "C" int __cdecl _ismbcpunct(unsigned int const c)
 *
 *******************************************************************************/
 
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
 extern "C" int __cdecl _ismbcblank_l(unsigned int const c, _locale_t const locale)
 {
     //_LocaleUpdate locale_update(locale);
@@ -92,7 +96,16 @@ extern "C" int __cdecl _ismbcblank_l(unsigned int const c, _locale_t const local
     return __dcrt_multibyte_check_type(c, locale, _BLANK, true);
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(_ismbcblank_l);
+
+#endif
+
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
 extern "C" int __cdecl _ismbcblank(unsigned int const c)
 {
     return _ismbcblank_l(c, nullptr);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_ismbcblank);
+
+#endif

@@ -43,7 +43,7 @@ extern "C" void (__cdecl * const _pDestructExceptionObject)(EHExceptionRecord *,
 // Side-effects:
 //     NONE.
 
-#if WindowsTargetPlatformMinVersion < __MakeVersion(10, 0, 10240)
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindowsBlue
 extern "C" _VCRTIMP void *__AdjustPointer(
     void *pThis,                        // Address point of exception object
     const PMD& pmd                      // Generalized pointer-to-member
@@ -287,13 +287,11 @@ _LCRT_DEFINE_IAT_SYMBOL(_SetWinRTOutOfMemoryExceptionCallback);
 // though, we may no longer cross a noexcept function boundary when searching for
 // a handler. In this case the inlined code contains an EH state that will invoke
 // this function should an exception occur.
-#if WindowsTargetPlatformMinVersion < __MakeVersion(10, 0, 14393)
+#if 0
 extern "C" __declspec(noreturn) void __cdecl __std_terminate()
 {
     terminate();
 }
-
-_LCRT_DEFINE_IAT_SYMBOL(__std_terminate);
 #endif
 
 ////////////////////////////////////////////////////////////////////////////////

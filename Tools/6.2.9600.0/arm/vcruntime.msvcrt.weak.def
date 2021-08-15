@@ -1,0 +1,27 @@
+[Symbols]
+
+__CxxFrameHandler=__CxxFrameHandler3
+__CxxFrameHandler2=__CxxFrameHandler3
+
+__std_terminate=terminate
+
+;命名发生了改变
+__intrinsic_setjmp=setjmp
+__intrinsic_setjmpex=_setjmpex
+
+set_unexpected=?set_unexpected@@YAP6AXXZP6AXXZ@Z
+_set_se_translator=?_set_se_translator@@YAP6AXIPAU_EXCEPTION_POINTERS@@@ZP6AXI0@Z@Z
+unexpected=?unexpected@@YAXXZ
+
+
+
+; x64 调用约定统一，所以可以直接转发
+__vcrt_GetModuleFileNameW=GetModuleFileNameW
+__vcrt_GetModuleHandleW=GetModuleHandleW
+__vcrt_LoadLibraryExW=LoadLibraryExW
+
+__vcrt_InitializeCriticalSectionEx=InitializeCriticalSectionEx
+
+
+; 内部用到的一个函数
+_amsg_exit

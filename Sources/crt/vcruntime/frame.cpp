@@ -39,8 +39,11 @@ using namespace FH4;
 #pragma warning(disable: 4505) // unreferenced local function has been removed
 #pragma warning(disable: 4702) // unreachable code
 
+#if WindowsTargetPlatformMinVersion >= WindowsTargetPlatformWindows10_10240
 #define cxxReThrow   (RENAME_BASE_PTD(__vcrt_getptd)()->_cxxReThrow)
-
+#elif WindowsTargetPlatformMinVersion >= WindowsTargetPlatformWindows6
+#define cxxReThrow   (((_ptd_msvcrt_win6_shared*)RENAME_BASE_PTD(__vcrt_getptd)())->_cxxReThrow)
+#endif
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -201,7 +204,11 @@ static BOOLEAN Is_bad_exception_allowed(ESTypeList *pExceptionSpec);
 //
 // This describes the most recently handled exception, in case of a rethrow:
 //
+#if WindowsTargetPlatformMinVersion >= WindowsTargetPlatformWindows10_10240
 #define _pCurrentFuncInfo       (*((ESTypeList **)&(RENAME_BASE_PTD(__vcrt_getptd)()->_curexcspec)))
+#elif WindowsTargetPlatformMinVersion >= WindowsTargetPlatformWindows6
+#define _pCurrentFuncInfo       (*((ESTypeList **)&(((_ptd_msvcrt_win6_shared*)RENAME_BASE_PTD(__vcrt_getptd)())->_curexcspec)))
+#endif
 
 inline ESTypeList* RENAME_EH_EXTERN(__FrameHandler3)::getESTypes(FuncInfo* pFuncInfo)
 {

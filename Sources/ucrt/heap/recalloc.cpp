@@ -1,4 +1,4 @@
-//
+﻿//
 // recalloc.cpp
 //
 //      Copyright (c) Microsoft Corporation. All rights reserved.
@@ -43,6 +43,8 @@ extern "C" __declspec(noinline) void* __cdecl _recalloc_base(
     return new_block;
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(_recalloc_base);
+
 // Reallocates a block of memory in the heap.
 //
 // This function reallocates the block pointed to by 'block' such that it is
@@ -68,3 +70,5 @@ extern "C" __declspec(noinline) _CRTRESTRICT void* __cdecl _recalloc(
     return _recalloc_base(block, count, size);
     #endif
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_recalloc);

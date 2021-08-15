@@ -56,9 +56,6 @@
     <ClCompile Include="..\Sources\crt\vcruntime\ehstate.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\Sources\crt\ltl\tools.cpp">
-      <Filter>源文件\ltl</Filter>
-    </ClCompile>
     <ClCompile Include="..\Sources\crt\i368\trnsctrl.cpp">
       <Filter>源文件\i386</Filter>
     </ClCompile>
@@ -74,11 +71,17 @@
     <ClCompile Include="..\Sources\crt\vcruntime\unexpected.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\Sources\crt\PTD_Downlevel.cpp">
+    <ClCompile Include="..\Sources\crt\ltl\PTD_Downlevel.cpp">
       <Filter>源文件\ltl</Filter>
     </ClCompile>
     <ClCompile Include="..\Sources\crt\vcruntime\chandler_noexcept.cpp">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\crt\vcruntime\mgdframe.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="vcruntime_IAT.cpp">
+      <Filter>源文件\ltl</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

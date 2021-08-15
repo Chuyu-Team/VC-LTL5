@@ -1,7 +1,7 @@
 ﻿
 #include "framework.h"
 
-typedef void* HINSTANCE;
+//typedef void* HINSTANCE;
 
 extern "C" void __cdecl __telemetry_main_invoke_trigger(HINSTANCE)
 {

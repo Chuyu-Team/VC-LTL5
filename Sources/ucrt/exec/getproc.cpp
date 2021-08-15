@@ -1,4 +1,4 @@
-/***
+﻿/***
 *getproc.c - Get the address of a procedure in a DLL.
 *
 *       Copyright (c) Microsoft Corporation. All rights reserved.
@@ -36,6 +36,7 @@
 *******************************************************************************/
 typedef int (__cdecl* proc_address_type)();
 
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240 && defined _M_AMD64
 extern "C" 
 DECLSPEC_GUARD_SUPPRESS
 proc_address_type __cdecl _getdllprocaddr(
@@ -65,3 +66,6 @@ proc_address_type __cdecl _getdllprocaddr(
 
     return nullptr;
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_getdllprocaddr);
+#endif

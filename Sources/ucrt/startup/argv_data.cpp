@@ -1,4 +1,4 @@
-//
+﻿//
 // argv_data.cpp
 //
 //      Copyright (c) Microsoft Corporation.  All rights reserved.
@@ -9,7 +9,13 @@
 //
 #include <corecrt_internal.h>
 
-
+#undef __argc
+#undef __argv
+#undef __wargv
+#undef _pgmptr
+#undef _wpgmptr
+#undef _acmdln
+#undef _wcmdln
 
 extern "C" {
 
@@ -30,16 +36,35 @@ __declspec(dllimport) extern  wchar_t*  _wcmdln; // The raw command line as a wi
 _BEGIN_SECURE_CRT_DEPRECATION_DISABLE
 
 #if defined _M_AMD64 || defined _M_ARM64 || defined _M_ARM
+
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
 int*       __cdecl __p___argc()   { return &__argc;   }
+_LCRT_DEFINE_IAT_SYMBOL(__p___argc);
+
 char***    __cdecl __p___argv()   { return &__argv;   }
+_LCRT_DEFINE_IAT_SYMBOL(__p___argv);
+
 wchar_t*** __cdecl __p___wargv()  { return &__wargv;  }
+_LCRT_DEFINE_IAT_SYMBOL(__p___wargv);
+
 char**     __cdecl __p__pgmptr()  { return &_pgmptr;  }
+_LCRT_DEFINE_IAT_SYMBOL(__p__pgmptr);
+
 wchar_t**  __cdecl __p__wpgmptr() { return &_wpgmptr; }
+_LCRT_DEFINE_IAT_SYMBOL(__p__wpgmptr);
+
 char**     __cdecl __p__acmdln()  { return &_acmdln;  }
+_LCRT_DEFINE_IAT_SYMBOL(__p__acmdln);
+
 wchar_t**  __cdecl __p__wcmdln()  { return &_wcmdln;  }
+_LCRT_DEFINE_IAT_SYMBOL(__p__wcmdln);
+
+
 #endif
 
-#if _CRT_NTDDI_MIN < 0x06000000 || defined _M_ARM64 || defined _M_ARM
+#endif
+
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6 || defined _M_ARM64 || defined _M_ARM
 errno_t __cdecl _get_wpgmptr(wchar_t** const result)
 {
     _VALIDATE_RETURN_ERRCODE(result   != nullptr, EINVAL);
@@ -49,6 +74,8 @@ errno_t __cdecl _get_wpgmptr(wchar_t** const result)
     return 0;
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(_get_wpgmptr);
+
 errno_t __cdecl _get_pgmptr(char** const result)
 {
     _VALIDATE_RETURN_ERRCODE(result  != nullptr, EINVAL);
@@ -56,6 +83,9 @@ errno_t __cdecl _get_pgmptr(char** const result)
     *result = _pgmptr;
     return 0;
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_get_pgmptr);
+
 #endif
 
 _END_SECURE_CRT_DEPRECATION_DISABLE
