@@ -1407,6 +1407,21 @@ __CppXcptFilter
 ?_set_new_mode@@YAHH@Z
 ?set_terminate@@YAP6AXXZP6AXXZ@Z
 ?terminate@@YAXXZ
+
+
+;内部使用的的导出符号
+__argc DATA
+__argv DATA
+__wargv DATA
+_pgmptr DATA
+_wpgmptr DATA
+_acmdln DATA
+_wcmdln DATA
+_fmode DATA
+_commode DATA
+_mbctype DATA
+_mbcasemap DATA
+
 __p__timezone
 __p__tzname
 __set_app_type
@@ -1416,3 +1431,6 @@ _lock
 _unlock
 _iob DATA
 ___lc_handle_func
+
+_environ  DATA
+_wenviron DATA

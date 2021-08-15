@@ -1392,6 +1392,8 @@ _wcmdln DATA
 _fmode DATA
 _commode DATA
 _mbctype DATA
+_mbcasemap DATA
+
 __set_app_type
 __getmainargs
 __wgetmainargs

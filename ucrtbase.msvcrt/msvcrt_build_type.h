@@ -26,6 +26,9 @@ extern "C" __declspec(dllimport) extern _iobuf _iob[20];
 //LCID* __cdecl ___lc_handle_func(void);
 extern "C" __declspec(dllimport) unsigned long* __cdecl ___lc_handle_func(void);
 
+extern "C" __declspec(dllimport) extern  char* _acmdln;
+extern "C" __declspec(dllimport) extern  wchar_t* _wcmdln;
+
 #define _DCRTIMP
 #define _CORECRT_BUILD
 #define _CRT_SECURE_NO_WARNINGS

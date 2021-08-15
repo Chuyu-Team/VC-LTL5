@@ -18,6 +18,10 @@
 //static void do_locale_initialization(unsigned char) throw() { __acrt_initialize_multibyte(); }
 //static void do_locale_initialization(wchar_t)       throw() { /* no-op */                    }
 
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
+#undef _acmdln
+#undef _wcmdln
+#endif
 static unsigned char* get_command_line(unsigned char) throw()
 {
     return reinterpret_cast<unsigned char *>(_acmdln);
