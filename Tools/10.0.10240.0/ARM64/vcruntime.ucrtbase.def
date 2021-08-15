@@ -34,7 +34,7 @@ __processing_throw
 __report_gsfailure
 __std_exception_copy
 __std_exception_destroy
-__std_terminate
+;__std_terminate w
 __std_type_info_compare
 __std_type_info_destroy_list
 __std_type_info_hash

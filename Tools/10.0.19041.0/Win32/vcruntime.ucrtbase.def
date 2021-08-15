@@ -1,29 +1,28 @@
 LIBRARY ucrtbase.dll
 EXPORTS
 _CreateFrameInfo
-_CxxThrowException
+_CxxThrowException@8
 _FindAndUnlinkFrame
 _IsExceptionObjectToBeDestroyed
+_NLG_Dispatch2
+_NLG_Return
+_NLG_Return2
 _SetWinRTOutOfMemoryExceptionCallback
 __AdjustPointer
 __BuildCatchObject
 __BuildCatchObjectHelper
-__C_specific_handler
-;__C_specific_handler_noexcept x
 __CxxDetectRethrow
 __CxxExceptionFilter
 __CxxFrameHandler
 __CxxFrameHandler2
 __CxxFrameHandler3
-;__CxxFrameHandler4 x
+__CxxLongjmpUnwind@4
 __CxxQueryExceptionSize
 __CxxRegisterExceptionObject
 __CxxUnregisterExceptionObject
 __DestructExceptionObject
 __FrameUnwindFilter
 __GetPlatformExceptionInfo
-__NLG_Dispatch2
-__NLG_Return2
 __RTCastToVoid
 __RTDynamicCast
 __RTtypeid
@@ -31,12 +30,11 @@ __TypeMatch
 __current_exception
 __current_exception_context
 __intrinsic_setjmp
-__intrinsic_setjmpex
 __processing_throw
 __report_gsfailure
 __std_exception_copy
 __std_exception_destroy
-;__std_terminate w
+__std_terminate
 __std_type_info_compare
 __std_type_info_destroy_list
 __std_type_info_hash
@@ -46,18 +44,28 @@ __std_type_info_name
 __unDName
 __unDNameEx
 __uncaught_exception
-;__uncaught_exceptions x
-;__vcrt_GetModuleFileNameW w
-;__vcrt_GetModuleHandleW w
-;__vcrt_InitializeCriticalSectionEx w
-;__vcrt_LoadLibraryExW w
+__uncaught_exceptions
+;__vcrt_GetModuleFileNameW x
+;__vcrt_GetModuleHandleW x
+;__vcrt_InitializeCriticalSectionEx x
+;__vcrt_LoadLibraryExW x
+_chkesp
+_except_handler2
+_except_handler3
+_except_handler4_common
 _get_purecall_handler
 _get_unexpected
+_global_unwind2
 _is_exception_typeof
-_local_unwind
+_local_unwind2
+_local_unwind4
+_longjmpex
 _purecall
+_seh_longjmp_unwind4@4
+_seh_longjmp_unwind@4
 _set_purecall_handler
 _set_se_translator
+_setjmp3
 longjmp
 memchr
 memcmp

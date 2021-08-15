@@ -9,13 +9,13 @@ __AdjustPointer
 __BuildCatchObject
 __BuildCatchObjectHelper
 __C_specific_handler
-;__C_specific_handler_noexcept x
+__C_specific_handler_noexcept
 __CxxDetectRethrow
 __CxxExceptionFilter
 __CxxFrameHandler
 __CxxFrameHandler2
 __CxxFrameHandler3
-;__CxxFrameHandler4 x
+__CxxFrameHandler4
 __CxxQueryExceptionSize
 __CxxRegisterExceptionObject
 __CxxUnregisterExceptionObject
@@ -36,7 +36,7 @@ __processing_throw
 __report_gsfailure
 __std_exception_copy
 __std_exception_destroy
-;__std_terminate w
+__std_terminate
 __std_type_info_compare
 __std_type_info_destroy_list
 __std_type_info_hash
