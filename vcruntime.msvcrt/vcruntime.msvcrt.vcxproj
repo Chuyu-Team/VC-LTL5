@@ -103,14 +103,14 @@
     <TargetName>libvcruntime</TargetName>
     <OutDir>$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\lib\$(Platform)\</OutDir>
     <IntDir>$(Platform)\$(Configuration)\$(WindowsTargetPlatformMinVersion)\</IntDir>
-    <IncludePath>$(SolutionDir)Sources\crt;$(SolutionDir)Sources\crt\vcruntime;$(SolutionDir)Sources\ucrt;$(SolutionDir)Sources\ucrt\inc;$(SolutionDir)msvcrt\include\$(WindowsTargetPlatformVersion)\ucrt;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)Sources\crt;$(SolutionDir)Sources\crt\vcruntime;$(SolutionDir)Sources\ucrt;$(SolutionDir)Sources\ucrt\inc;$(SolutionDir)TargetPlatform\msvcrt\include\$(WindowsTargetPlatformVersion)\ucrt;$(IncludePath)</IncludePath>
     <AllProjectIncludesArePublic>true</AllProjectIncludesArePublic>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Static|ARM'">
     <LinkIncremental>false</LinkIncremental>
     <TargetName>libvcruntime</TargetName>
     <OutDir>$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\lib\$(Platform)\</OutDir>
-    <IncludePath>$(SolutionDir)Sources\crt;$(SolutionDir)Sources\crt\vcruntime;$(SolutionDir)Sources\ucrt;$(SolutionDir)Sources\ucrt\inc;$(SolutionDir)msvcrt\include\$(WindowsTargetPlatformVersion)\ucrt;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)Sources\crt;$(SolutionDir)Sources\crt\vcruntime;$(SolutionDir)Sources\ucrt;$(SolutionDir)Sources\ucrt\inc;$(SolutionDir)TargetPlatform\msvcrt\include\$(WindowsTargetPlatformVersion)\ucrt;$(IncludePath)</IncludePath>
     <IntDir>$(Platform)\$(Configuration)\$(WindowsTargetPlatformMinVersion)\</IntDir>
     <AllProjectIncludesArePublic>true</AllProjectIncludesArePublic>
   </PropertyGroup>
@@ -119,14 +119,14 @@
     <TargetName>vcruntime</TargetName>
     <OutDir>$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\lib\$(Platform)\</OutDir>
     <IntDir>$(Platform)\$(Configuration)\$(WindowsTargetPlatformMinVersion)\</IntDir>
-    <IncludePath>$(SolutionDir)Sources\crt;$(SolutionDir)Sources\crt\vcruntime;$(SolutionDir)Sources\ucrt;$(SolutionDir)Sources\ucrt\inc;$(SolutionDir)msvcrt\include\$(WindowsTargetPlatformVersion)\ucrt;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)Sources\crt;$(SolutionDir)Sources\crt\vcruntime;$(SolutionDir)Sources\ucrt;$(SolutionDir)Sources\ucrt\inc;$(SolutionDir)TargetPlatform\msvcrt\include\$(WindowsTargetPlatformVersion)\ucrt;$(IncludePath)</IncludePath>
     <AllProjectIncludesArePublic>true</AllProjectIncludesArePublic>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dynamic|ARM'">
     <LinkIncremental>false</LinkIncremental>
     <TargetName>vcruntime</TargetName>
     <OutDir>$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\lib\$(Platform)\</OutDir>
-    <IncludePath>$(SolutionDir)Sources\crt;$(SolutionDir)Sources\crt\vcruntime;$(SolutionDir)Sources\ucrt;$(SolutionDir)Sources\ucrt\inc;$(SolutionDir)msvcrt\include\$(WindowsTargetPlatformVersion)\ucrt;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)Sources\crt;$(SolutionDir)Sources\crt\vcruntime;$(SolutionDir)Sources\ucrt;$(SolutionDir)Sources\ucrt\inc;$(SolutionDir)TargetPlatform\msvcrt\include\$(WindowsTargetPlatformVersion)\ucrt;$(IncludePath)</IncludePath>
     <IntDir>$(Platform)\$(Configuration)\$(WindowsTargetPlatformMinVersion)\</IntDir>
     <AllProjectIncludesArePublic>true</AllProjectIncludesArePublic>
   </PropertyGroup>
@@ -135,7 +135,7 @@
     <OutDir>$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\lib\$(Platform)\</OutDir>
     <TargetName>libvcruntime</TargetName>
     <IntDir>$(Platform)\$(Configuration)\$(WindowsTargetPlatformMinVersion)\</IntDir>
-    <IncludePath>$(SolutionDir)Sources\crt;$(SolutionDir)Sources\crt\vcruntime;$(SolutionDir)Sources\ucrt;$(SolutionDir)Sources\ucrt\inc;$(SolutionDir)msvcrt\include\$(WindowsTargetPlatformVersion)\ucrt;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)Sources\crt;$(SolutionDir)Sources\crt\vcruntime;$(SolutionDir)Sources\ucrt;$(SolutionDir)Sources\ucrt\inc;$(SolutionDir)TargetPlatform\msvcrt\include\$(WindowsTargetPlatformVersion)\ucrt;$(IncludePath)</IncludePath>
     <AllProjectIncludesArePublic>true</AllProjectIncludesArePublic>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dynamic|x64'">
@@ -143,7 +143,7 @@
     <OutDir>$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\lib\$(Platform)\</OutDir>
     <TargetName>vcruntime</TargetName>
     <IntDir>$(Platform)\$(Configuration)\$(WindowsTargetPlatformMinVersion)\</IntDir>
-    <IncludePath>$(SolutionDir)Sources\crt;$(SolutionDir)Sources\crt\vcruntime;$(SolutionDir)Sources\ucrt;$(SolutionDir)Sources\ucrt\inc;$(SolutionDir)msvcrt\include\$(WindowsTargetPlatformVersion)\ucrt;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)Sources\crt;$(SolutionDir)Sources\crt\vcruntime;$(SolutionDir)Sources\ucrt;$(SolutionDir)Sources\ucrt\inc;$(SolutionDir)TargetPlatform\msvcrt\include\$(WindowsTargetPlatformVersion)\ucrt;$(IncludePath)</IncludePath>
     <AllProjectIncludesArePublic>true</AllProjectIncludesArePublic>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Static|Win32'">
