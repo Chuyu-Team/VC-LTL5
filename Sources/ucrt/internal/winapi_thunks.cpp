@@ -688,7 +688,7 @@ extern "C" int WINAPI __acrt_GetLocaleInfoEx(
 }
 #endif
 
-#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows7
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows7 && !defined __acrt_GetSystemTimePreciseAsFileTime
 extern "C" VOID (WINAPI __acrt_GetSystemTimePreciseAsFileTime)(LPFILETIME const system_time)
 {
     if (auto const get_system_time_precise_as_file_time = try_get_GetSystemTimePreciseAsFileTime())
