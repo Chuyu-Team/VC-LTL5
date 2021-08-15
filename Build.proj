@@ -18,30 +18,98 @@
     <SolutionPath>$(SolutionDir)$(SolutionFileName)</SolutionPath>
     <WindowsTargetPlatformVersion>$([Microsoft.Build.Utilities.ToolLocationHelper]::GetLatestSDKTargetPlatformVersion('Windows', '10.0'))</WindowsTargetPlatformVersion>
   </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="$(MSBuildThisFileDirectory)ucrtbase.msvcrt\ucrtbase.msvcrt.vcxproj">
+      <SkipNonexistentProjects>False</SkipNonexistentProjects>
+      <Configuration>Static</Configuration>
+      <Platform>Win32</Platform>
+      <WindowsTargetPlatformMinVersion>6.0.6000.0</WindowsTargetPlatformMinVersion>
+      <AdditionalProperties>Configuration=%(Configuration); Platform=%(Platform); WindowsTargetPlatformMinVersion=%(WindowsTargetPlatformMinVersion)</AdditionalProperties>
+    </ProjectReference>
+
+    <ProjectReference Include="$(MSBuildThisFileDirectory)ucrtbase.msvcrt\ucrtbase.msvcrt.vcxproj">
+      <SkipNonexistentProjects>False</SkipNonexistentProjects>
+      <Configuration>Static</Configuration>
+      <Platform>x64</Platform>
+      <WindowsTargetPlatformMinVersion>6.0.6000.0</WindowsTargetPlatformMinVersion>
+      <AdditionalProperties>Configuration=%(Configuration); Platform=%(Platform); WindowsTargetPlatformMinVersion=%(WindowsTargetPlatformMinVersion)</AdditionalProperties>
+    </ProjectReference>
+    
+    <ProjectReference Include="$(MSBuildThisFileDirectory)ucrtbase.msvcrt\ucrtbase.msvcrt.vcxproj">
+      <SkipNonexistentProjects>False</SkipNonexistentProjects>
+      <Configuration>Dynamic</Configuration>
+      <Platform>Win32</Platform>
+      <WindowsTargetPlatformMinVersion>6.0.6000.0</WindowsTargetPlatformMinVersion>
+      <AdditionalProperties>Configuration=%(Configuration); Platform=%(Platform); WindowsTargetPlatformMinVersion=%(WindowsTargetPlatformMinVersion)</AdditionalProperties>
+    </ProjectReference>
+
+    <ProjectReference Include="$(MSBuildThisFileDirectory)ucrtbase.msvcrt\ucrtbase.msvcrt.vcxproj">
+      <SkipNonexistentProjects>False</SkipNonexistentProjects>
+      <Configuration>Dynamic</Configuration>
+      <Platform>x64</Platform>
+      <WindowsTargetPlatformMinVersion>6.0.6000.0</WindowsTargetPlatformMinVersion>
+      <AdditionalProperties>Configuration=%(Configuration); Platform=%(Platform); WindowsTargetPlatformMinVersion=%(WindowsTargetPlatformMinVersion)</AdditionalProperties>
+    </ProjectReference>
+  </ItemGroup>
   
   <ItemGroup>
-    <ProjectReference Include="$(MSBuildThisFileDirectory)vcruntime.src\ucrt.vcruntime\ucrt.vcruntime.vcxproj">
+    <ProjectReference Include="$(MSBuildThisFileDirectory)vcruntime.msvcrt\vcruntime.msvcrt.vcxproj">
+      <SkipNonexistentProjects>False</SkipNonexistentProjects>
+      <Configuration>Static</Configuration>
+      <Platform>Win32</Platform>
+      <WindowsTargetPlatformMinVersion>6.0.6000.0</WindowsTargetPlatformMinVersion>
+      <AdditionalProperties>Configuration=%(Configuration); Platform=%(Platform); WindowsTargetPlatformMinVersion=%(WindowsTargetPlatformMinVersion)</AdditionalProperties>
+    </ProjectReference>
+
+    <ProjectReference Include="$(MSBuildThisFileDirectory)vcruntime.msvcrt\vcruntime.msvcrt.vcxproj">
+      <SkipNonexistentProjects>False</SkipNonexistentProjects>
+      <Configuration>Static</Configuration>
+      <Platform>x64</Platform>
+      <WindowsTargetPlatformMinVersion>6.0.6000.0</WindowsTargetPlatformMinVersion>
+      <AdditionalProperties>Configuration=%(Configuration); Platform=%(Platform); WindowsTargetPlatformMinVersion=%(WindowsTargetPlatformMinVersion)</AdditionalProperties>
+    </ProjectReference>
+
+    <ProjectReference Include="$(MSBuildThisFileDirectory)vcruntime.msvcrt\vcruntime.msvcrt.vcxproj">
+      <SkipNonexistentProjects>False</SkipNonexistentProjects>
+      <Configuration>Dynamic</Configuration>
+      <Platform>Win32</Platform>
+      <WindowsTargetPlatformMinVersion>6.0.6000.0</WindowsTargetPlatformMinVersion>
+      <AdditionalProperties>Configuration=%(Configuration); Platform=%(Platform); WindowsTargetPlatformMinVersion=%(WindowsTargetPlatformMinVersion)</AdditionalProperties>
+    </ProjectReference>
+
+    <ProjectReference Include="$(MSBuildThisFileDirectory)vcruntime.msvcrt\vcruntime.msvcrt.vcxproj">
+      <SkipNonexistentProjects>False</SkipNonexistentProjects>
+      <Configuration>Dynamic</Configuration>
+      <Platform>x64</Platform>
+      <WindowsTargetPlatformMinVersion>6.0.6000.0</WindowsTargetPlatformMinVersion>
+      <AdditionalProperties>Configuration=%(Configuration); Platform=%(Platform); WindowsTargetPlatformMinVersion=%(WindowsTargetPlatformMinVersion)</AdditionalProperties>
+    </ProjectReference>
+  </ItemGroup>
+  
+  
+  <ItemGroup>
+    <ProjectReference Include="$(MSBuildThisFileDirectory)vcruntime.ucrtbase\vcruntime.ucrtbase.vcxproj">
       <SkipNonexistentProjects>False</SkipNonexistentProjects>
       <Configuration>Static</Configuration>
       <Platform>Win32</Platform>
       <WindowsTargetPlatformMinVersion>10.0.10240.0</WindowsTargetPlatformMinVersion>
       <AdditionalProperties>Configuration=%(Configuration); Platform=%(Platform); WindowsTargetPlatformMinVersion=%(WindowsTargetPlatformMinVersion)</AdditionalProperties>
     </ProjectReference>
-    <ProjectReference Include="$(MSBuildThisFileDirectory)vcruntime.src\ucrt.vcruntime\ucrt.vcruntime.vcxproj">
+    <ProjectReference Include="$(MSBuildThisFileDirectory)vcruntime.ucrtbase\vcruntime.ucrtbase.vcxproj">
       <SkipNonexistentProjects>False</SkipNonexistentProjects>
       <Configuration>Static</Configuration>
       <Platform>x64</Platform>
       <WindowsTargetPlatformMinVersion>10.0.10240.0</WindowsTargetPlatformMinVersion>
       <AdditionalProperties>Configuration=%(Configuration); Platform=%(Platform); WindowsTargetPlatformMinVersion=%(WindowsTargetPlatformMinVersion)</AdditionalProperties>
     </ProjectReference>
-    <ProjectReference Include="$(MSBuildThisFileDirectory)vcruntime.src\ucrt.vcruntime\ucrt.vcruntime.vcxproj">
+    <ProjectReference Include="$(MSBuildThisFileDirectory)vcruntime.ucrtbase\vcruntime.ucrtbase.vcxproj">
       <SkipNonexistentProjects>False</SkipNonexistentProjects>
       <Configuration>Static</Configuration>
       <Platform>ARM</Platform>
       <WindowsTargetPlatformMinVersion>10.0.10240.0</WindowsTargetPlatformMinVersion>
       <AdditionalProperties>Configuration=%(Configuration); Platform=%(Platform); WindowsTargetPlatformMinVersion=%(WindowsTargetPlatformMinVersion)</AdditionalProperties>
     </ProjectReference>
-    <ProjectReference Include="$(MSBuildThisFileDirectory)vcruntime.src\ucrt.vcruntime\ucrt.vcruntime.vcxproj">
+    <ProjectReference Include="$(MSBuildThisFileDirectory)vcruntime.ucrtbase\vcruntime.ucrtbase.vcxproj">
       <SkipNonexistentProjects>False</SkipNonexistentProjects>
       <Configuration>Static</Configuration>
       <Platform>ARM64</Platform>
@@ -49,28 +117,28 @@
       <AdditionalProperties>Configuration=%(Configuration); Platform=%(Platform); WindowsTargetPlatformMinVersion=%(WindowsTargetPlatformMinVersion)</AdditionalProperties>
     </ProjectReference>
     
-    <ProjectReference Include="$(MSBuildThisFileDirectory)vcruntime.src\ucrt.vcruntime\ucrt.vcruntime.vcxproj">
+    <ProjectReference Include="$(MSBuildThisFileDirectory)vcruntime.ucrtbase\vcruntime.ucrtbase.vcxproj">
       <SkipNonexistentProjects>False</SkipNonexistentProjects>
       <Configuration>Dynamic</Configuration>
       <Platform>Win32</Platform>
       <WindowsTargetPlatformMinVersion>10.0.10240.0</WindowsTargetPlatformMinVersion>
       <AdditionalProperties>Configuration=%(Configuration); Platform=%(Platform); WindowsTargetPlatformMinVersion=%(WindowsTargetPlatformMinVersion)</AdditionalProperties>
     </ProjectReference>
-    <ProjectReference Include="$(MSBuildThisFileDirectory)vcruntime.src\ucrt.vcruntime\ucrt.vcruntime.vcxproj">
+    <ProjectReference Include="$(MSBuildThisFileDirectory)vcruntime.ucrtbase\vcruntime.ucrtbase.vcxproj">
       <SkipNonexistentProjects>False</SkipNonexistentProjects>
       <Configuration>Dynamic</Configuration>
       <Platform>x64</Platform>
       <WindowsTargetPlatformMinVersion>10.0.10240.0</WindowsTargetPlatformMinVersion>
       <AdditionalProperties>Configuration=%(Configuration); Platform=%(Platform); WindowsTargetPlatformMinVersion=%(WindowsTargetPlatformMinVersion)</AdditionalProperties>
     </ProjectReference>
-    <ProjectReference Include="$(MSBuildThisFileDirectory)vcruntime.src\ucrt.vcruntime\ucrt.vcruntime.vcxproj">
+    <ProjectReference Include="$(MSBuildThisFileDirectory)vcruntime.ucrtbase\vcruntime.ucrtbase.vcxproj">
       <SkipNonexistentProjects>False</SkipNonexistentProjects>
       <Configuration>Dynamic</Configuration>
       <Platform>ARM</Platform>
       <WindowsTargetPlatformMinVersion>10.0.10240.0</WindowsTargetPlatformMinVersion>
       <AdditionalProperties>Configuration=%(Configuration); Platform=%(Platform); WindowsTargetPlatformMinVersion=%(WindowsTargetPlatformMinVersion)</AdditionalProperties>
     </ProjectReference>
-    <ProjectReference Include="$(MSBuildThisFileDirectory)vcruntime.src\ucrt.vcruntime\ucrt.vcruntime.vcxproj">
+    <ProjectReference Include="$(MSBuildThisFileDirectory)vcruntime.ucrtbase\vcruntime.ucrtbase.vcxproj">
       <SkipNonexistentProjects>False</SkipNonexistentProjects>
       <Configuration>Dynamic</Configuration>
       <Platform>ARM64</Platform>
@@ -80,28 +148,28 @@
   </ItemGroup>
   
   <ItemGroup>
-    <ProjectReference Include="$(MSBuildThisFileDirectory)vcruntime.src\ucrt.vcruntime\ucrt.vcruntime.vcxproj">
+    <ProjectReference Include="$(MSBuildThisFileDirectory)vcruntime.ucrtbase\vcruntime.ucrtbase.vcxproj">
       <SkipNonexistentProjects>False</SkipNonexistentProjects>
       <Configuration>Static</Configuration>
       <Platform>Win32</Platform>
       <WindowsTargetPlatformMinVersion>10.0.19041.0</WindowsTargetPlatformMinVersion>
       <AdditionalProperties>Configuration=%(Configuration); Platform=%(Platform); WindowsTargetPlatformMinVersion=%(WindowsTargetPlatformMinVersion)</AdditionalProperties>
     </ProjectReference>
-    <ProjectReference Include="$(MSBuildThisFileDirectory)vcruntime.src\ucrt.vcruntime\ucrt.vcruntime.vcxproj">
+    <ProjectReference Include="$(MSBuildThisFileDirectory)vcruntime.ucrtbase\vcruntime.ucrtbase.vcxproj">
       <SkipNonexistentProjects>False</SkipNonexistentProjects>
       <Configuration>Static</Configuration>
       <Platform>x64</Platform>
       <WindowsTargetPlatformMinVersion>10.0.19041.0</WindowsTargetPlatformMinVersion>
       <AdditionalProperties>Configuration=%(Configuration); Platform=%(Platform); WindowsTargetPlatformMinVersion=%(WindowsTargetPlatformMinVersion)</AdditionalProperties>
     </ProjectReference>
-    <ProjectReference Include="$(MSBuildThisFileDirectory)vcruntime.src\ucrt.vcruntime\ucrt.vcruntime.vcxproj">
+    <ProjectReference Include="$(MSBuildThisFileDirectory)vcruntime.ucrtbase\vcruntime.ucrtbase.vcxproj">
       <SkipNonexistentProjects>False</SkipNonexistentProjects>
       <Configuration>Static</Configuration>
       <Platform>ARM</Platform>
       <WindowsTargetPlatformMinVersion>10.0.19041.0</WindowsTargetPlatformMinVersion>
       <AdditionalProperties>Configuration=%(Configuration); Platform=%(Platform); WindowsTargetPlatformMinVersion=%(WindowsTargetPlatformMinVersion)</AdditionalProperties>
     </ProjectReference>
-    <ProjectReference Include="$(MSBuildThisFileDirectory)vcruntime.src\ucrt.vcruntime\ucrt.vcruntime.vcxproj">
+    <ProjectReference Include="$(MSBuildThisFileDirectory)vcruntime.ucrtbase\vcruntime.ucrtbase.vcxproj">
       <SkipNonexistentProjects>False</SkipNonexistentProjects>
       <Configuration>Static</Configuration>
       <Platform>ARM64</Platform>
@@ -109,28 +177,28 @@
       <AdditionalProperties>Configuration=%(Configuration); Platform=%(Platform); WindowsTargetPlatformMinVersion=%(WindowsTargetPlatformMinVersion)</AdditionalProperties>
     </ProjectReference>
     
-    <ProjectReference Include="$(MSBuildThisFileDirectory)vcruntime.src\ucrt.vcruntime\ucrt.vcruntime.vcxproj">
+    <ProjectReference Include="$(MSBuildThisFileDirectory)vcruntime.ucrtbase\vcruntime.ucrtbase.vcxproj">
       <SkipNonexistentProjects>False</SkipNonexistentProjects>
       <Configuration>Dynamic</Configuration>
       <Platform>Win32</Platform>
       <WindowsTargetPlatformMinVersion>10.0.19041.0</WindowsTargetPlatformMinVersion>
       <AdditionalProperties>Configuration=%(Configuration); Platform=%(Platform); WindowsTargetPlatformMinVersion=%(WindowsTargetPlatformMinVersion)</AdditionalProperties>
     </ProjectReference>
-    <ProjectReference Include="$(MSBuildThisFileDirectory)vcruntime.src\ucrt.vcruntime\ucrt.vcruntime.vcxproj">
+    <ProjectReference Include="$(MSBuildThisFileDirectory)vcruntime.ucrtbase\vcruntime.ucrtbase.vcxproj">
       <SkipNonexistentProjects>False</SkipNonexistentProjects>
       <Configuration>Dynamic</Configuration>
       <Platform>x64</Platform>
       <WindowsTargetPlatformMinVersion>10.0.19041.0</WindowsTargetPlatformMinVersion>
       <AdditionalProperties>Configuration=%(Configuration); Platform=%(Platform); WindowsTargetPlatformMinVersion=%(WindowsTargetPlatformMinVersion)</AdditionalProperties>
     </ProjectReference>
-    <ProjectReference Include="$(MSBuildThisFileDirectory)vcruntime.src\ucrt.vcruntime\ucrt.vcruntime.vcxproj">
+    <ProjectReference Include="$(MSBuildThisFileDirectory)vcruntime.ucrtbase\vcruntime.ucrtbase.vcxproj">
       <SkipNonexistentProjects>False</SkipNonexistentProjects>
       <Configuration>Dynamic</Configuration>
       <Platform>ARM</Platform>
       <WindowsTargetPlatformMinVersion>10.0.19041.0</WindowsTargetPlatformMinVersion>
       <AdditionalProperties>Configuration=%(Configuration); Platform=%(Platform); WindowsTargetPlatformMinVersion=%(WindowsTargetPlatformMinVersion)</AdditionalProperties>
     </ProjectReference>
-    <ProjectReference Include="$(MSBuildThisFileDirectory)vcruntime.src\ucrt.vcruntime\ucrt.vcruntime.vcxproj">
+    <ProjectReference Include="$(MSBuildThisFileDirectory)vcruntime.ucrtbase\vcruntime.ucrtbase.vcxproj">
       <SkipNonexistentProjects>False</SkipNonexistentProjects>
       <Configuration>Dynamic</Configuration>
       <Platform>ARM64</Platform>
@@ -143,45 +211,52 @@
     <Message Text="正在生成解决方案配置“$(Configuration)|$(Platform)”。" />
   </Target>
   
-  <Target Name="Build">   
+  <Target Name="Build">
+
+    <Exec
+      Command="cmd /c %22$(MSBuildThisFileDirectory)Tools\%(ProjectReference.WindowsTargetPlatformMinVersion)\%(ProjectReference.Platform)\Build_libucrt_shared.cmd%22"
+      WorkingDirectory="$(MSBuildThisFileDirectory)Tools\%(ProjectReference.WindowsTargetPlatformMinVersion)\%(ProjectReference.Platform)"
+      Condition="Exists('$(MSBuildThisFileDirectory)Tools\%(ProjectReference.WindowsTargetPlatformMinVersion)\%(ProjectReference.Platform)\Build_libucrt_shared.cmd') and !Exists('$(MSBuildThisFileDirectory)Tools\%(ProjectReference.WindowsTargetPlatformMinVersion)\%(ProjectReference.Platform)\libucrt_shared.lib')"/>
+
+
     <MSBuild Projects="@(ProjectReference)" BuildInParallel="True" Properties="PreferredToolArchitecture=x64;BuildingSolutionFile=true;SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)"/>
   </Target>
 
   <Target Name="CopySpectreFiles" AfterTargets="Build">
     <Copy
-      SourceFiles="$(MSBuildThisFileDirectory)bin\$(WindowsTargetPlatformVersion)\arm\ucrt.lib"
-      DestinationFiles="$(MSBuildThisFileDirectory)ucrt\10.0.10240.0\lib\ARM\libucrt.lib"
+      SourceFiles="$(UniversalCRTSdkDir)Lib\$(WindowsTargetPlatformVersion)\ucrt\arm\ucrt.lib"
+      DestinationFiles="$(MSBuildThisFileDirectory)TargetPlatform\10.0.10240.0\lib\ARM\libucrt.lib"
       />
     <Copy
-      SourceFiles="$(MSBuildThisFileDirectory)bin\$(WindowsTargetPlatformVersion)\arm\ucrt.lib"
-      DestinationFiles="$(MSBuildThisFileDirectory)ucrt\10.0.19041.0\lib\ARM\libucrt.lib"
-      />
-    
-    <Copy
-      SourceFiles="$(MSBuildThisFileDirectory)bin\$(WindowsTargetPlatformVersion)\arm64\ucrt.lib"
-      DestinationFiles="$(MSBuildThisFileDirectory)ucrt\10.0.10240.0\lib\arm64\libucrt.lib"
-      />
-    <Copy
-      SourceFiles="$(MSBuildThisFileDirectory)bin\$(WindowsTargetPlatformVersion)\arm64\ucrt.lib"
-      DestinationFiles="$(MSBuildThisFileDirectory)ucrt\10.0.19041.0\lib\arm64\libucrt.lib"
+      SourceFiles="$(UniversalCRTSdkDir)Lib\$(WindowsTargetPlatformVersion)\ucrt\arm\ucrt.lib"
+      DestinationFiles="$(MSBuildThisFileDirectory)TargetPlatform\10.0.19041.0\lib\ARM\libucrt.lib"
       />
     
     <Copy
-      SourceFiles="$(MSBuildThisFileDirectory)bin\$(WindowsTargetPlatformVersion)\x64\ucrt.lib"
-      DestinationFiles="$(MSBuildThisFileDirectory)ucrt\10.0.10240.0\lib\x64\libucrt.lib"
+      SourceFiles="$(UniversalCRTSdkDir)Lib\$(WindowsTargetPlatformVersion)\ucrt\arm64\ucrt.lib"
+      DestinationFiles="$(MSBuildThisFileDirectory)TargetPlatform\10.0.10240.0\lib\arm64\libucrt.lib"
       />
     <Copy
-      SourceFiles="$(MSBuildThisFileDirectory)bin\$(WindowsTargetPlatformVersion)\x64\ucrt.lib"
-      DestinationFiles="$(MSBuildThisFileDirectory)ucrt\10.0.19041.0\lib\x64\libucrt.lib"
+      SourceFiles="$(UniversalCRTSdkDir)Lib\$(WindowsTargetPlatformVersion)\ucrt\arm64\ucrt.lib"
+      DestinationFiles="$(MSBuildThisFileDirectory)TargetPlatform\10.0.19041.0\lib\arm64\libucrt.lib"
       />
     
     <Copy
-      SourceFiles="$(MSBuildThisFileDirectory)bin\$(WindowsTargetPlatformVersion)\x86\ucrt.lib"
-      DestinationFiles="$(MSBuildThisFileDirectory)ucrt\10.0.10240.0\lib\Win32\libucrt.lib"
+      SourceFiles="$(UniversalCRTSdkDir)Lib\$(WindowsTargetPlatformVersion)\ucrt\x64\ucrt.lib"
+      DestinationFiles="$(MSBuildThisFileDirectory)TargetPlatform\10.0.10240.0\lib\x64\libucrt.lib"
       />
     <Copy
-      SourceFiles="$(MSBuildThisFileDirectory)bin\$(WindowsTargetPlatformVersion)\x86\ucrt.lib"
-      DestinationFiles="$(MSBuildThisFileDirectory)ucrt\10.0.19041.0\lib\Win32\libucrt.lib"
+      SourceFiles="$(UniversalCRTSdkDir)Lib\$(WindowsTargetPlatformVersion)\ucrt\x64\ucrt.lib"
+      DestinationFiles="$(MSBuildThisFileDirectory)TargetPlatform\10.0.19041.0\lib\x64\libucrt.lib"
+      />
+    
+    <Copy
+      SourceFiles="$(UniversalCRTSdkDir)Lib\$(WindowsTargetPlatformVersion)\ucrt\x86\ucrt.lib"
+      DestinationFiles="$(MSBuildThisFileDirectory)TargetPlatform\10.0.10240.0\lib\Win32\libucrt.lib"
+      />
+    <Copy
+      SourceFiles="$(UniversalCRTSdkDir)Lib\$(WindowsTargetPlatformVersion)\ucrt\x86\ucrt.lib"
+      DestinationFiles="$(MSBuildThisFileDirectory)TargetPlatform\10.0.19041.0\lib\Win32\libucrt.lib"
       />
   </Target>
   
@@ -190,7 +265,7 @@
       <ZipFileName Condition="'$(TagVersion)' == ''">VC-LTL-Binary.7z</ZipFileName>
       <ZipFileName Condition="'$(TagVersion)' != ''">VC-LTL-$(TagVersion)-Binary.7z</ZipFileName>
     </PropertyGroup>
-    <Exec Command="7z.exe a $(ZipFileName) config _msvcrt.h %22VC-LTL helper for Visual Studio.props%22 ucrt Readme.md -xr!*.objs.lib" WorkingDirectory="$(MSBuildThisFileDirectory)"/>
+    <Exec Command="7z.exe a $(ZipFileName) config _msvcrt.h %22VC-LTL helper for Visual Studio.props%22 TargetPlatform Readme.md -xr!*.objs.lib" WorkingDirectory="$(MSBuildThisFileDirectory)"/>
   </Target>
 
 </Project>
