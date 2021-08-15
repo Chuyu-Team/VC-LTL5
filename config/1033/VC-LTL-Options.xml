@@ -43,5 +43,28 @@
       Category="VC_LTL"
       DisplayName="Enable VC-LTL"
       Description="Allow the current project to enable VC-LTL."/>
+
+    <EnumProperty
+      Name="WindowsTargetPlatformMinVersion"
+      Category="VC_LTL"
+      DisplayName="Target CRT version"
+      Description="Select the link target, optimized to msvcrt 6.0.6000.0 by default.">
+      <EnumValue
+        Name="6.0.6000.0"
+        DisplayName="msvcrt 6.0.6000.0 (support Windows Vista/2008 or leater)"/>
+
+      <EnumValue
+        Name="6.2.9600.0"
+        DisplayName="msvcrt 6.2.9600.0 (support Windows 8/RT/2012 or leater)"/>
+
+      <EnumValue
+        Name="10.0.10240.0"
+        DisplayName="UCRT 10.0.10240.0 (support Windows XP or leater)"/>
+
+      <EnumValue
+        Name="10.0.19041.0"
+        DisplayName="UCRT 10.0.19041.0 (support Windows 10 19041 or leater)"/>
+    </EnumProperty>
+
   </Rule>
 </ProjectSchemaDefinitions>

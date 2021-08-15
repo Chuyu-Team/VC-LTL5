@@ -43,5 +43,27 @@
       Category="VC_LTL"
       DisplayName="启用VC-LTL"
       Description="允许当前项目启用VC-LTL，此选项一般用于验证某些问题时使用，非特殊情况建议始终保持开启。"/>
+
+    <EnumProperty
+      Name="WindowsTargetPlatformMinVersion"
+      Category="VC_LTL"
+      DisplayName="目标CRT版本"
+      Description="选择合适的链接目标，默认优化到msvcrt 6.0.6000.0。">
+      <EnumValue
+        Name="6.0.6000.0"
+        DisplayName="msvcrt 6.0.6000.0（支持Windows Vista/2008以及更高版本）"/>
+
+      <EnumValue
+        Name="6.2.9600.0"
+        DisplayName="msvcrt 6.2.9600.0（支持Windows 8/RT/2012以及更高版本）"/>
+
+      <EnumValue
+        Name="10.0.10240.0"
+        DisplayName="UCRT 10.0.10240.0（支持Windows XP以及更高版本）"/>
+      
+      <EnumValue
+        Name="10.0.19041.0"
+        DisplayName="UCRT 10.0.19041.0（支持Windows 10 19041以及更高版本）"/>
+    </EnumProperty>
   </Rule>
 </ProjectSchemaDefinitions>

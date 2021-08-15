@@ -3,7 +3,7 @@
 <!--
 
 作者：mingkuang
-修改日期：2020-08-08
+修改日期：2020-08-15
 
 全新的VC-LTL 5.0 配置
 
@@ -30,10 +30,20 @@
         <VCLTLTargetUniversalCRTVersion>10.0.19041.0</VCLTLTargetUniversalCRTVersion>
       </PropertyGroup>
     </When>
-    <Otherwise>
-      <!--其他情况，统一为10240-->
+    <When Condition="'$(PlatformShortName)'=='arm64' or '$(VCLTLTargetUniversalCRTBuildVersion)' >= '10240'">
       <PropertyGroup>
         <VCLTLTargetUniversalCRTVersion>10.0.10240.0</VCLTLTargetUniversalCRTVersion>
+      </PropertyGroup>
+    </When>
+    <When Condition="'$(PlatformShortName)'=='arm'">
+      <PropertyGroup>
+        <VCLTLTargetUniversalCRTVersion>6.2.9600.0</VCLTLTargetUniversalCRTVersion>
+      </PropertyGroup>
+    </When>
+    <Otherwise>
+      <!--其他情况，统一为6.0.6000.0-->
+      <PropertyGroup>
+        <VCLTLTargetUniversalCRTVersion>6.0.6000.0</VCLTLTargetUniversalCRTVersion>
       </PropertyGroup>
     </Otherwise>
   </Choose>
@@ -85,7 +95,7 @@
     <VCLTLPlatformName Condition=" '$(SupportWinXP)'=='true' ">WinXP</VCLTLPlatformName>
     <VCLTLPlatformName Condition=" '$(SupportWinXP)'!='true' ">Vista</VCLTLPlatformName>
 
-    <VC_LTL_Library>$(MSBuildThisFileDirectory)..\ucrt\$(VCLTLTargetUniversalCRTVersion)\lib\$(Platform)</VC_LTL_Library>
+    <VC_LTL_Library>$(MSBuildThisFileDirectory)..\TargetPlatform\$(VCLTLTargetUniversalCRTVersion)\lib\$(Platform)</VC_LTL_Library>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(SupportLTL)'=='true' or '$(SupportLTL)'=='ucrt'">
@@ -96,7 +106,7 @@
 
   <ItemDefinitionGroup Condition=" '$(SupportLTL)'=='ucrt' or '$(SupportLTL)'=='true'">
     <ClCompile>
-      <PreprocessorDefinitions>_ACRTIMP=__declspec(dllimport);_DCRTIMP=__declspec(dllimport);_Build_By_LTL=1;_LTL_Core_Version=$(LTL_CoreVersion);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_Build_By_LTL=1;_LTL_Core_Version=$(LTL_CoreVersion);%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessorDefinitions Condition="'$(SupportWinXP)'=='true'">_ATL_XP_TARGETING=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <!--当兼容XP时，对于非 exe 的需要禁用线程安全初始化。避免XP中在DllMain中使用TLS而崩溃-->
       <AdditionalOptions Condition="'$(SupportWinXP)'=='true' and '$(ConfigurationType)'!='Application' ">/Zc:threadSafeInit- %(AdditionalOptions)</AdditionalOptions>
