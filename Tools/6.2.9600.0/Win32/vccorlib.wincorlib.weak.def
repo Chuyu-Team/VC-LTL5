@@ -1,0 +1,5 @@
+[Symbols]
+
+;wincorlib版本中调用约定是 stdcall，但是这个函数没有参数，所以不需要关心栈平衡
+;void __cdecl EnableFactoryCache(void) = void __stdcall EnableFactoryCache(void)
+?EnableFactoryCache@@YAXXZ=?EnableFactoryCache@@YGXXZ

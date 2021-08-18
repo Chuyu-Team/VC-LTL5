@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <!--6.2.9600.0平台，虽然从 6.3.9600.0开始才存在wincorlib，但是我们为了简化这个问题，就指定为6.2.9600.0-->
+    <ProjectConfiguration Include="Dynamic|ARM">
+      <Configuration>Dynamic</Configuration>
+      <Platform>ARM</Platform>
+      <WindowsTargetPlatformMinVersion>6.2.9600.0</WindowsTargetPlatformMinVersion>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Dynamic|Win32">
+      <Configuration>Dynamic</Configuration>
+      <Platform>Win32</Platform>
+      <WindowsTargetPlatformMinVersion>6.2.9600.0</WindowsTargetPlatformMinVersion>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Dynamic|x64">
+      <Configuration>Dynamic</Configuration>
+      <Platform>x64</Platform>
+      <WindowsTargetPlatformMinVersion>6.2.9600.0</WindowsTargetPlatformMinVersion>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <!--10.0.10240.0平台-->
+    <ProjectConfiguration Include="Dynamic|ARM">
+      <Configuration>Dynamic</Configuration>
+      <Platform>ARM</Platform>
+      <WindowsTargetPlatformMinVersion>10.0.10240.0</WindowsTargetPlatformMinVersion>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Dynamic|ARM64">
+      <Configuration>Dynamic</Configuration>
+      <Platform>ARM64</Platform>
+      <WindowsTargetPlatformMinVersion>10.0.10240.0</WindowsTargetPlatformMinVersion>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Dynamic|Win32">
+      <Configuration>Dynamic</Configuration>
+      <Platform>Win32</Platform>
+      <WindowsTargetPlatformMinVersion>10.0.10240.0</WindowsTargetPlatformMinVersion>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Dynamic|x64">
+      <Configuration>Dynamic</Configuration>
+      <Platform>x64</Platform>
+      <WindowsTargetPlatformMinVersion>10.0.10240.0</WindowsTargetPlatformMinVersion>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{81CACACB-0A7B-4392-BAA7-B1C18B71A80C}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>vccorlib.wincorlib</RootNamespace>
+    <WindowsTargetPlatformVersion>$([Microsoft.Build.Utilities.ToolLocationHelper]::GetLatestSDKTargetPlatformVersion('Windows', '10.0'))</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformMinVersion Condition="'$(WindowsTargetPlatformMinVersion)' == '' and '$(Platform)' == 'ARM64'">10.0.10240.0</WindowsTargetPlatformMinVersion>
+    <WindowsTargetPlatformMinVersion Condition="'$(WindowsTargetPlatformMinVersion)' == ''">6.3.9600.0</WindowsTargetPlatformMinVersion>
+    <WindowsTargetPlatformMinVersionBuild>$([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Build)</WindowsTargetPlatformMinVersionBuild>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dynamic|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>$(DefaultPlatformToolset)</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dynamic|ARM'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>$(DefaultPlatformToolset)</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <WindowsSDKDesktopARMSupport>true</WindowsSDKDesktopARMSupport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dynamic|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>$(DefaultPlatformToolset)</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dynamic|ARM64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>$(DefaultPlatformToolset)</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Dynamic|Win32'">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Dynamic|ARM'" Label="PropertySheets">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Dynamic|x64'">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Dynamic|ARM64'" Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dynamic|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\lib\$(Platform)\</OutDir>
+    <TargetName>vccorlib140.pacth</TargetName>
+    <IncludePath>$(ProjectDir);$(SolutionDir)Sources\crt;$(IncludePath)</IncludePath>
+    <AllProjectIncludesArePublic>true</AllProjectIncludesArePublic>
+    <IntDir>$(Platform)\$(Configuration)\$(WindowsTargetPlatformMinVersion)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dynamic|ARM'">
+    <TargetName>vccorlib140.pacth</TargetName>
+    <IncludePath>$(ProjectDir);$(SolutionDir)Sources\crt;$(IncludePath)</IncludePath>
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\lib\$(Platform)\</OutDir>
+    <AllProjectIncludesArePublic>true</AllProjectIncludesArePublic>
+    <IntDir>$(Platform)\$(Configuration)\$(WindowsTargetPlatformMinVersion)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dynamic|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\lib\$(Platform)\</OutDir>
+    <TargetName>vccorlib140.pacth</TargetName>
+    <IncludePath>$(ProjectDir);$(SolutionDir)Sources\crt;$(IncludePath)</IncludePath>
+    <AllProjectIncludesArePublic>true</AllProjectIncludesArePublic>
+    <IntDir>$(Platform)\$(Configuration)\$(WindowsTargetPlatformMinVersion)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dynamic|ARM64'">
+    <TargetName>vccorlib140.pacth</TargetName>
+    <IncludePath>$(ProjectDir);$(SolutionDir)Sources\crt;$(IncludePath)</IncludePath>
+    <AllProjectIncludesArePublic>true</AllProjectIncludesArePublic>
+    <IntDir>$(Platform)\$(Configuration)\$(WindowsTargetPlatformMinVersion)\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\lib\$(Platform)\</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dynamic|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MinSpace</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WindowsTargetPlatformMinVersion=(($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Major.ToString('00')) &lt;&lt; 12) + ($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Minor.ToString('00')) &lt;&lt; 8) + $([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Build));VCWINRT_DLL;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;WIN32;NDEBUG;WINRT_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <CompileAsWinRT>true</CompileAsWinRT>
+      <AdditionalOptions>/Zc:twoPhase- /Zc:strictStrings- /Zc:ternary- %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalUsingDirectories>$(VCIDEInstallDir)vcpackages;$(WindowsSDKDir)UnionMetadata\$(WindowsTargetPlatformVersion);%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <DebugInformationFormat>OldStyle</DebugInformationFormat>
+      <ForcedIncludeFiles>framework.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>vccorlib.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <AdditionalDependencies>Ole32.lib;RuntimeObject.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <Lib />
+    <Lib>
+      <AdditionalDependencies>$(IntDir)vccorlib.wincorlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dynamic|ARM'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MinSpace</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WindowsTargetPlatformMinVersion=(($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Major.ToString('00')) &lt;&lt; 12) + ($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Minor.ToString('00')) &lt;&lt; 8) + $([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Build));VCWINRT_DLL;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;WIN32;NDEBUG;WINRT_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <CompileAsWinRT>true</CompileAsWinRT>
+      <AdditionalOptions>/Zc:twoPhase- /Zc:strictStrings- /Zc:ternary- %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalUsingDirectories>$(VCIDEInstallDir)vcpackages;$(WindowsSDKDir)UnionMetadata\$(WindowsTargetPlatformVersion);%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <DebugInformationFormat>OldStyle</DebugInformationFormat>
+      <ForcedIncludeFiles>framework.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>vccorlib.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <AdditionalDependencies>Ole32.lib;RuntimeObject.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <Lib />
+    <Lib>
+      <AdditionalDependencies>$(IntDir)vccorlib.wincorlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dynamic|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MinSpace</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WindowsTargetPlatformMinVersion=(($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Major.ToString('00')) &lt;&lt; 12) + ($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Minor.ToString('00')) &lt;&lt; 8) + $([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Build));VCWINRT_DLL;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;NDEBUG;WINRT_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <CompileAsWinRT>true</CompileAsWinRT>
+      <AdditionalOptions>/Zc:twoPhase- /Zc:strictStrings- /Zc:ternary- %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalUsingDirectories>$(VCIDEInstallDir)vcpackages;$(WindowsSDKDir)UnionMetadata\$(WindowsTargetPlatformVersion);%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <DebugInformationFormat>OldStyle</DebugInformationFormat>
+      <ForcedIncludeFiles>framework.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>vccorlib.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <AdditionalDependencies>Ole32.lib;RuntimeObject.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <Lib />
+    <Lib />
+    <Lib>
+      <AdditionalDependencies>$(IntDir)vccorlib.wincorlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dynamic|ARM64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MinSpace</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WindowsTargetPlatformMinVersion=(($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Major.ToString('00')) &lt;&lt; 12) + ($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Minor.ToString('00')) &lt;&lt; 8) + $([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Build));VCWINRT_DLL;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;NDEBUG;WINRT_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <CompileAsWinRT>true</CompileAsWinRT>
+      <AdditionalOptions>/Zc:twoPhase- /Zc:strictStrings- /Zc:ternary- %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalUsingDirectories>$(VCIDEInstallDir)vcpackages;$(WindowsSDKDir)UnionMetadata\$(WindowsTargetPlatformVersion);%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <DebugInformationFormat>OldStyle</DebugInformationFormat>
+      <ForcedIncludeFiles>framework.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>vccorlib.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <AdditionalDependencies>Ole32.lib;RuntimeObject.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <Lib />
+    <Lib />
+    <Lib>
+      <AdditionalDependencies>$(IntDir)vccorlib.wincorlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="vccorlib.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Sources\crt\vccorlib\heap.cpp">
+      <ExcludedFromBuild Condition="'$(WindowsTargetPlatformMinVersionBuild)' &gt;= '10240'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\Sources\crt\vccorlib\weakreference.cpp">
+      <ExcludedFromBuild Condition="'$(WindowsTargetPlatformMinVersionBuild)' &gt;= '10240'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="CreateValue.cpp">
+      <ExcludedFromBuild Condition="'$(WindowsTargetPlatformMinVersionBuild)' &gt;= '10240'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="exceptions_downlevel.cpp">
+      <ExcludedFromBuild Condition="'$(WindowsTargetPlatformMinVersionBuild)' &gt;= '10240'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="vccorlib.cpp">
+      <ExcludedFromBuild Condition="'$(Platform)'!='Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <Target Name="Build_wincorlib_lib" AfterTargets="_ClCompile" Inputs="$(SolutionDir)Tools\$(WindowsTargetPlatformMinVersion)\$(Platform)\vccorlib.wincorlib.def;$(SolutionDir)Tools\$(WindowsTargetPlatformMinVersion)\$(Platform)\vccorlib.wincorlib.weak.def" Outputs="$(IntDir)vccorlib.wincorlib.lib">
+    <Exec Command="lib /def:%22$(SolutionDir)Tools\$(WindowsTargetPlatformMinVersion)\$(Platform)\vccorlib.wincorlib.def%22 /out:%22$(IntDir)vccorlib.wincorlib.lib%22 /MACHINE:$(PlatformShortName)" />
+    <RemoveDir Directories="$(IntDir)objs\weak" />
+    <MakeDir Directories="$(IntDir)objs\weak" />
+    <Exec Command="%22$(SolutionDir)Tools\LibMaker.exe%22 CreateWeaks /MACHINE:$(PlatformShortName) /def:%22$(SolutionDir)Tools\$(WindowsTargetPlatformMinVersion)\$(Platform)\vccorlib.wincorlib.weak.def%22 /out:%22$(IntDir)objs\weak%22" Condition="Exists('$(SolutionDir)Tools\$(WindowsTargetPlatformMinVersion)\$(Platform)\vccorlib.wincorlib.weak.def')" />
+    <Exec Command="lib %22$(IntDir)vccorlib.wincorlib.lib%22 %22$(IntDir)objs\weak\*%22" Condition="Exists('$(SolutionDir)Tools\$(WindowsTargetPlatformMinVersion)\$(Platform)\vccorlib.wincorlib.weak.def')" />
+
+    <Copy Condition="'@(Obj)' ==''" SourceFiles="$(IntDir)vccorlib.wincorlib.lib" DestinationFiles="$(OutDir)$(TargetName)$(TargetExt)"/>
+  </Target>
+</Project>
