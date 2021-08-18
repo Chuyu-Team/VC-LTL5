@@ -225,6 +225,9 @@
     <ClCompile Include="mbctype.cpp">
       <Filter>源文件\ltl</Filter>
     </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\misc\systime.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="msvcrt_loadhelper.h">

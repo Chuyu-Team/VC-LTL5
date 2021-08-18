@@ -176,6 +176,7 @@ _strtold_l=_strtod_l
 
 ;£¨long double == double£©
 wcstold=wcstod
+_wcstold_l=_wcstod_l
 
 ;long long == __int64 || long long == intmax_t 
 imaxabs=_abs64
@@ -193,8 +194,6 @@ _recalloc_base=_recalloc
 ;UCRTÃû³ÆÐÞÕý
 _seh_filter_exe=_XcptFilter
 _seh_filter_dll=__CppXcptFilter
-
-
 
 
 _loaddll=LoadLibraryA

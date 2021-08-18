@@ -1,29 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="Dynamic|ARM">
-      <Configuration>Dynamic</Configuration>
-      <Platform>ARM</Platform>
-    </ProjectConfiguration>
+  <ItemGroup>
+    <!--6.0.6000.0-->
     <ProjectConfiguration Include="Dynamic|Win32">
       <Configuration>Dynamic</Configuration>
       <Platform>Win32</Platform>
+      <WindowsTargetPlatformMinVersion>6.0.6000.0</WindowsTargetPlatformMinVersion>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Dynamic|x64">
       <Configuration>Dynamic</Configuration>
       <Platform>x64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Static|ARM">
-      <Configuration>Static</Configuration>
-      <Platform>ARM</Platform>
+      <WindowsTargetPlatformMinVersion>6.0.6000.0</WindowsTargetPlatformMinVersion>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Static|Win32">
       <Configuration>Static</Configuration>
       <Platform>Win32</Platform>
+      <WindowsTargetPlatformMinVersion>6.0.6000.0</WindowsTargetPlatformMinVersion>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Static|x64">
       <Configuration>Static</Configuration>
       <Platform>x64</Platform>
+      <WindowsTargetPlatformMinVersion>6.0.6000.0</WindowsTargetPlatformMinVersion>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <!--6.2.9600.0-->
+    <ProjectConfiguration Include="Dynamic|ARM">
+      <Configuration>Dynamic</Configuration>
+      <Platform>ARM</Platform>
+      <WindowsTargetPlatformMinVersion>6.2.9600.0</WindowsTargetPlatformMinVersion>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Dynamic|Win32">
+      <Configuration>Dynamic</Configuration>
+      <Platform>Win32</Platform>
+      <WindowsTargetPlatformMinVersion>6.2.9600.0</WindowsTargetPlatformMinVersion>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Dynamic|x64">
+      <Configuration>Dynamic</Configuration>
+      <Platform>x64</Platform>
+      <WindowsTargetPlatformMinVersion>6.2.9600.0</WindowsTargetPlatformMinVersion>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Static|ARM">
+      <Configuration>Static</Configuration>
+      <Platform>ARM</Platform>
+      <WindowsTargetPlatformMinVersion>6.2.9600.0</WindowsTargetPlatformMinVersion>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Static|Win32">
+      <Configuration>Static</Configuration>
+      <Platform>Win32</Platform>
+      <WindowsTargetPlatformMinVersion>6.2.9600.0</WindowsTargetPlatformMinVersion>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Static|x64">
+      <Configuration>Static</Configuration>
+      <Platform>x64</Platform>
+      <WindowsTargetPlatformMinVersion>6.2.9600.0</WindowsTargetPlatformMinVersion>
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -378,7 +408,7 @@
   <Target Name="Build_vcruntime_msvcrt_base" AfterTargets="_ClCompile" Inputs="$(SolutionDir)Tools\$(WindowsTargetPlatformMinVersion)\$(Platform)\vcruntime.msvcrt.def;$(SolutionDir)Tools\$(WindowsTargetPlatformMinVersion)\$(Platform)\vcruntime.msvcrt.weak.def" Outputs="$(IntDir)vcruntime.msvcrt.lib">
     <Exec Command="lib /def:%22$(SolutionDir)Tools\$(WindowsTargetPlatformMinVersion)\$(Platform)\vcruntime.msvcrt.def%22 /out:%22$(IntDir)vcruntime.msvcrt.lib%22 /MACHINE:$(PlatformShortName)" />
     <!--复制lib属性，Win32下面 __seh_longjmp_unwind@4 这类接口需要标记导出类型-->
-    <Exec Command="%22$(SolutionDir)Tools\LibMaker.exe%22 CopyLibType %22$(IntDir)vcruntime.msvcrt.lib%22 %22$(SolutionDir)Tools\$(WindowsTargetPlatformMinVersion)\$(Platform)\msvcrt.lib%22" Condition="Exists('$(SolutionDir)Tools\$(WindowsTargetPlatformMinVersion)\$(Platform)\msvcrt.lib')" />
+    <Exec Command="%22$(SolutionDir)Tools\LibMaker.exe%22 CopyLibType %22$(IntDir)vcruntime.msvcrt.lib%22 %22$(VCToolsInstallDir)lib\$(PlatformShortName)\vcruntime.lib%22"/>
     <RemoveDir Directories="$(IntDir)objs\weak" />
     <MakeDir Directories="$(IntDir)objs\weak" />
     <Exec Command="%22$(SolutionDir)Tools\LibMaker.exe%22 CreateWeaks /MACHINE:$(PlatformShortName) /def:%22$(SolutionDir)Tools\$(WindowsTargetPlatformMinVersion)\$(Platform)\vcruntime.msvcrt.weak.def%22 /out:%22$(IntDir)objs\weak%22" />

@@ -1,29 +1,59 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="Dynamic|ARM">
-      <Configuration>Dynamic</Configuration>
-      <Platform>ARM</Platform>
-    </ProjectConfiguration>
+  <ItemGroup>
+    <!--6.0.6000.0配置-->
     <ProjectConfiguration Include="Dynamic|Win32">
       <Configuration>Dynamic</Configuration>
       <Platform>Win32</Platform>
+      <WindowsTargetPlatformMinVersion>6.0.6000.0</WindowsTargetPlatformMinVersion>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Dynamic|x64">
       <Configuration>Dynamic</Configuration>
       <Platform>x64</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Static|ARM">
-      <Configuration>Static</Configuration>
-      <Platform>ARM</Platform>
+      <WindowsTargetPlatformMinVersion>6.0.6000.0</WindowsTargetPlatformMinVersion>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Static|Win32">
       <Configuration>Static</Configuration>
       <Platform>Win32</Platform>
+      <WindowsTargetPlatformMinVersion>6.0.6000.0</WindowsTargetPlatformMinVersion>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Static|x64">
       <Configuration>Static</Configuration>
       <Platform>x64</Platform>
+      <WindowsTargetPlatformMinVersion>6.0.6000.0</WindowsTargetPlatformMinVersion>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <!--6.2.9600.0配置-->
+    <ProjectConfiguration Include="Dynamic|ARM">
+      <Configuration>Dynamic</Configuration>
+      <Platform>ARM</Platform>
+      <WindowsTargetPlatformMinVersion>6.2.9600.0</WindowsTargetPlatformMinVersion>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Dynamic|Win32">
+      <Configuration>Dynamic</Configuration>
+      <Platform>Win32</Platform>
+      <WindowsTargetPlatformMinVersion>6.2.9600.0</WindowsTargetPlatformMinVersion>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Dynamic|x64">
+      <Configuration>Dynamic</Configuration>
+      <Platform>x64</Platform>
+      <WindowsTargetPlatformMinVersion>6.2.9600.0</WindowsTargetPlatformMinVersion>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Static|ARM">
+      <Configuration>Static</Configuration>
+      <Platform>ARM</Platform>
+      <WindowsTargetPlatformMinVersion>6.2.9600.0</WindowsTargetPlatformMinVersion>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Static|Win32">
+      <Configuration>Static</Configuration>
+      <Platform>Win32</Platform>
+      <WindowsTargetPlatformMinVersion>6.2.9600.0</WindowsTargetPlatformMinVersion>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Static|x64">
+      <Configuration>Static</Configuration>
+      <Platform>x64</Platform>
+      <WindowsTargetPlatformMinVersion>6.2.9600.0</WindowsTargetPlatformMinVersion>
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -32,6 +62,7 @@
     <ProjectGuid>{089d1c58-7669-4916-b1a2-7bbf6ea236b4}</ProjectGuid>
     <RootNamespace>ucrtbasemsvcrt</RootNamespace>
     <WindowsTargetPlatformVersion>$([Microsoft.Build.Utilities.ToolLocationHelper]::GetLatestSDKTargetPlatformVersion('Windows', '10.0'))</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformMinVersion Condition="'$(WindowsTargetPlatformMinVersion)' == '' and '$(Platform)' == 'arm'">6.2.9600.0</WindowsTargetPlatformMinVersion>
     <WindowsTargetPlatformMinVersion Condition="'$(WindowsTargetPlatformMinVersion)' == ''">6.0.6000.0</WindowsTargetPlatformMinVersion>
     <WindowsTargetPlatformMinVersionBuild>$([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Build)</WindowsTargetPlatformMinVersionBuild>
   </PropertyGroup>
@@ -328,10 +359,10 @@
     <ClCompile Include="..\Sources\ucrt\convert\_fptostr.cpp" />
     <ClCompile Include="..\Sources\ucrt\convert\_wctype.cpp" />
     <ClCompile Include="..\Sources\ucrt\exec\getproc.cpp">
-      <ExcludedFromBuild Condition="'$(Platform)'!='x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Platform)'=='Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\Sources\ucrt\exec\loaddll.cpp">
-      <ExcludedFromBuild Condition="'$(Platform)'!='x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Platform)'=='Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\Sources\ucrt\filesystem\stat.cpp" />
     <ClCompile Include="..\Sources\ucrt\heap\align.cpp" />
@@ -349,6 +380,9 @@
     <ClCompile Include="..\Sources\ucrt\mbstring\mbbtype.cpp" />
     <ClCompile Include="..\Sources\ucrt\misc\errno.cpp" />
     <ClCompile Include="..\Sources\ucrt\misc\invalid_parameter.cpp" />
+    <ClCompile Include="..\Sources\ucrt\misc\systime.cpp">
+      <ExcludedFromBuild Condition="'$(Platform)'!='ARM'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\Sources\ucrt\startup\argv_data.cpp">
       <ExcludedFromBuild Condition="'$(WindowsTargetPlatformMinVersionBuild)' &gt;= '6000' and '$(Platform)'=='Win32'">true</ExcludedFromBuild>
     </ClCompile>
@@ -406,7 +440,7 @@
   <Target Name="Build_ucrtbase_lib" AfterTargets="_ClCompile" Inputs="$(SolutionDir)Tools\$(WindowsTargetPlatformMinVersion)\$(Platform)\ucrtbase.msvcrt.def;$(SolutionDir)Tools\$(WindowsTargetPlatformMinVersion)\$(Platform)\ucrtbase.msvcrt.weak.def" Outputs="$(IntDir)ucrtbase.msvcrt.lib">
     <Exec Command="lib /def:%22$(SolutionDir)Tools\$(WindowsTargetPlatformMinVersion)\$(Platform)\ucrtbase.msvcrt.def%22 /out:%22$(IntDir)ucrtbase.msvcrt.lib%22 /MACHINE:$(PlatformShortName)" />
     <!--复制lib属性，Win32下面 __seh_longjmp_unwind@4 这类接口需要标记导出类型-->
-    <Exec Command="%22$(SolutionDir)Tools\LibMaker.exe%22 CopyLibType %22$(IntDir)ucrtbase.msvcrt.lib%22 %22$(SolutionDir)Tools\$(WindowsTargetPlatformMinVersion)\$(Platform)\msvcrt.lib%22" />
+    <Exec Command="%22$(SolutionDir)Tools\LibMaker.exe%22 CopyLibType %22$(IntDir)ucrtbase.msvcrt.lib%22 %22$(UniversalCRTSdkDir)Lib\$(WindowsTargetPlatformVersion)\ucrt\$(PlatformShortName)\ucrt.lib%22" />
     <RemoveDir Directories="$(IntDir)objs\weak" />
     <MakeDir Directories="$(IntDir)objs\weak" />
     <Exec Command="%22$(SolutionDir)Tools\LibMaker.exe%22 CreateWeaks /MACHINE:$(PlatformShortName) /def:%22$(SolutionDir)Tools\$(WindowsTargetPlatformMinVersion)\$(Platform)\ucrtbase.msvcrt.weak.def%22 /out:%22$(IntDir)objs\weak%22" />

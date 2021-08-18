@@ -452,7 +452,7 @@ lib "%libfile%" /remove:d:\os\obj\armfre\minkernel\crts\ucrt\src\appcrt\dll\mt\.
 lib "%libfile%" /remove:d:\os\obj\armfre\minkernel\crts\ucrt\src\appcrt\dll\mt\..\..\time\mt\objfre\arm\wcsftime.obj
 lib "%libfile%" /remove:d:\os\obj\armfre\minkernel\crts\ucrt\src\appcrt\dll\mt\..\..\tran\arm\mt\objfre\arm\filter.obj
 ::lib "%libfile%" /remove:d:\os\obj\armfre\minkernel\crts\ucrt\src\appcrt\dll\mt\..\..\tran\arm\mt\objfre\arm\fpctrl.obj
-lib "%libfile%" /remove:d:\os\obj\armfre\minkernel\crts\ucrt\src\appcrt\dll\mt\..\..\tran\arm\mt\objfre\arm\fpraise.obj
+::lib "%libfile%" /remove:d:\os\obj\armfre\minkernel\crts\ucrt\src\appcrt\dll\mt\..\..\tran\arm\mt\objfre\arm\fpraise.obj
 lib "%libfile%" /remove:d:\os\obj\armfre\minkernel\crts\ucrt\src\appcrt\dll\mt\..\..\tran\arm_arm64\mt\objfre\arm\exp.obj
 lib "%libfile%" /remove:d:\os\obj\armfre\minkernel\crts\ucrt\src\appcrt\dll\mt\..\..\tran\arm_arm64\mt\objfre\arm\expf.obj
 lib "%libfile%" /remove:d:\os\obj\armfre\minkernel\crts\ucrt\src\appcrt\dll\mt\..\..\tran\arm_arm64\mt\objfre\arm\fabsf.obj

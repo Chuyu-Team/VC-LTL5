@@ -805,13 +805,13 @@ _wcsnset_s
 _wcsrev
 _wcsset
 _wcsset_s
-;_wcstod_l x
+_wcstod_l
 ;_wcstof_l x
 _wcstoi64
 _wcstoi64_l
 ;_wcstoimax_l w
 _wcstol_l
-;_wcstold_l x
+;_wcstold_l w
 ;_wcstoll_l w
 _wcstombs_l
 _wcstombs_s_l

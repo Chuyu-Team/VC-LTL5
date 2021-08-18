@@ -7,6 +7,7 @@ EXPORTS
 ;_FCbuild x
 ;_FCmulcc x
 ;_FCmulcr x
+;_FPE_Raise x
 _Getdays
 _Getmonths
 _Gettnames
@@ -14,16 +15,16 @@ _Gettnames
 ;_LCmulcc x
 ;_LCmulcr x
 _Strftime
-;_W_Getdays x
-;_W_Getmonths x
+;_W_Getdays t
+;_W_Getmonths t
 ;_W_Gettnames w
-;_Wcsftime x
+;_Wcsftime t
 ___lc_codepage_func
 ___lc_collate_cp_func
 ;___lc_locale_name_func x
 ___mb_cur_max_func
 ;___mb_cur_max_l_func x
-;__acrt_iob_func x
+;__acrt_iob_func t
 ;__conio_common_vcprintf x
 ;__conio_common_vcprintf_p x
 ;__conio_common_vcprintf_s x
@@ -81,8 +82,8 @@ __setusermatherr
 __strncnt
 ;__sys_errlist x
 ;__sys_nerr x
-__threadhandle
-__threadid
+;__threadhandle w
+;__threadid w
 ;__timezone x
 __toascii
 ;__tzname x
@@ -113,7 +114,7 @@ _atol_l
 _atoldbl
 _atoldbl_l
 ;_atoll_l w
-_beep
+;_beep w
 _beginthread
 _beginthreadex
 ;_byteswap_uint64 x
@@ -149,7 +150,7 @@ _copysignf
 _cputs
 _cputws
 _creat
-;_create_locale x
+_create_locale
 ;_crt_at_quick_exit x
 ;_crt_atexit x
 _ctime32
@@ -230,8 +231,7 @@ _finite
 _finitef
 _flushall
 _fpclass
-_fpclassf
-;_fpieee_flt
+_fpieee_flt
 _fpreset
 ;_fputc_nolock
 ;_fputchar x
@@ -240,7 +240,7 @@ _fpreset
 ;_fread_nolock
 ;_fread_nolock_s
 ;_free_base w
-;_free_locale x
+_free_locale
 ;_fseek_nolock
 _fseeki64
 ;_fseeki64_nolock
@@ -262,20 +262,19 @@ _futime64
 ;_fwrite_nolock
 _gcvt
 _gcvt_s
-;_get_FMA3_enable x
-;_get_current_locale x
+_get_current_locale
 ;_get_daylight x
 _get_doserrno
 ;_get_dstbias x
 _get_errno
 _get_fmode
-_get_heap_handle
+;_get_heap_handle
 ;_get_initial_narrow_environment x
 ;_get_initial_wide_environment x
 ;_get_invalid_parameter_handler x
 ;_get_narrow_winmain_command_line x
 _get_osfhandle
-_get_pgmptr
+;_get_pgmptr x
 ;_get_printf_count_output x
 ;_get_stream_buffer_pointers x
 ;_get_terminate x
@@ -283,7 +282,7 @@ _get_pgmptr
 ;_get_timezone x
 ;_get_tzname x
 ;_get_wide_winmain_command_line x
-_get_wpgmptr
+;_get_wpgmptr x
 ;_getc_nolock
 _getch
 ;_getch_nolock
@@ -294,18 +293,18 @@ _getdcwd
 _getdiskfree
 ;_getdllprocaddr x
 _getdrive
-_getdrives
+;_getdrives w
 _getmaxstdio
 _getmbcp
-_getpid
-_getsystime
+;_getpid w
+;_getsystime x
 _getw
 ;_getwc_nolock
 _getwch
 ;_getwch_nolock
 _getwche
 ;_getwche_nolock
-_getws
+;_getws x
 ;_getws_s x
 _gmtime32
 _gmtime32_s
@@ -402,7 +401,6 @@ _ismbslead_l
 _ismbstrail
 _ismbstrail_l
 _isnan
-_isnanf
 _isprint_l
 ;_ispunct_l x
 _isspace_l
@@ -444,7 +442,7 @@ _kbhit
 ;_ldunscale x
 _lfind
 _lfind_s
-;_loaddll x
+;_loaddll w
 _localtime32
 _localtime32_s
 _localtime64
@@ -615,7 +613,6 @@ _mktime32
 _mktime64
 _msize
 _nextafter
-_nextafterf
 _open
 _open_osfhandle
 _pclose
@@ -633,7 +630,7 @@ _putwch
 _putws
 ;_query_app_type x
 ;_query_new_handler w
-;_query_new_mode w
+;_query_new_mode
 _read
 ;_realloc_base w
 ;_recalloc x
@@ -647,12 +644,10 @@ _rotl64
 _rotr
 _rotr64
 _scalb
-_scalbf
 _searchenv
 _searchenv_s
 ;_seh_filter_dll w
 ;_seh_filter_exe w
-;_set_FMA3_enable x
 ;_set_abort_behavior x
 ;_set_app_type x
 _set_controlfp
@@ -665,12 +660,12 @@ _set_fmode
 ;_set_new_mode w
 ;_set_printf_count_output x
 ;_set_thread_local_invalid_parameter_handler x
-_seterrormode
-_setmaxstdio
+;_seterrormode w
+;_setmaxstdio
 _setmbcp
 _setmode
-_setsystime
-_sleep
+;_setsystime x
+;_sleep w
 _sopen
 ;_sopen_dispatch x
 _sopen_s
@@ -686,7 +681,7 @@ _splitpath
 _splitpath_s
 ;_stat32 x
 ;_stat32i64 x
-;_stat64 x 系统原版存在Bug
+;_stat64 x
 ;_stat64i32 x
 _statusfp
 _strcoll_l
@@ -724,7 +719,7 @@ _strtoi64_l
 ;_strtoimax_l w
 _strtol_l
 ;_strtold_l w
-;_strtoll_l w
+_strtoll_l
 _strtoui64
 _strtoui64_l
 _strtoul_l
@@ -805,13 +800,13 @@ _wcsnset_s
 _wcsrev
 _wcsset
 _wcsset_s
-;_wcstod_l x
+_wcstod_l
 ;_wcstof_l x
 _wcstoi64
 _wcstoi64_l
 ;_wcstoimax_l w
 _wcstol_l
-;_wcstold_l x
+;_wcstold_l w
 ;_wcstoll_l w
 _wcstombs_l
 _wcstombs_s_l
@@ -846,7 +841,7 @@ _wfdopen
 ;_wfindfirst32i64 w
 _wfindfirst64
 ;_wfindfirst64i32 x
-;_wfindnext32
+;_wfindnext32 w
 ;_wfindnext32i64 w
 _wfindnext64
 ;_wfindnext64i32 x
@@ -970,13 +965,13 @@ calloc
 ;catan x
 ;catanf x
 ;catanh x
-;catanhf x 
+;catanhf x
 ;catanhl x
 ;catanl x
 ;cbrt x
 ;cbrtf x
 ;cbrtl x
-;ccosx x
+;ccos x
 ;ccosf x
 ;ccosh x
 ;ccoshf x
@@ -1050,6 +1045,7 @@ expf
 ;expm1f x
 ;expm1l x
 fabs
+fabsf
 fclose
 ;fdim x
 ;fdimf x
@@ -1104,7 +1100,7 @@ getc
 getchar
 getenv
 getenv_s
-gets
+;gets x
 ;gets_s x
 getwc
 getwchar
@@ -1112,7 +1108,7 @@ getwchar
 ;ilogb x
 ;ilogbf x
 ;ilogbl x
-;imaxabs x
+;imaxabs w
 ;imaxdiv x
 is_wctype
 isalnum
@@ -1156,7 +1152,7 @@ ldiv
 ;llround x
 ;llroundf x
 ;llroundl x
-;localeconv x Win7的结构体才完整
+localeconv
 log
 log10
 log10f
@@ -1202,10 +1198,10 @@ modff
 ;nextafterl w
 ;nexttoward w
 ;nexttowardf x
-;nexttowardl x
-;norm
-;normf
-;norml
+;nexttowardl w
+;norm x
+;normf x
+;norml x
 perror
 pow
 powf
@@ -1213,7 +1209,7 @@ powf
 ;putchar x
 puts
 ;putwc x
-;putwchar x
+;putwchar
 qsort
 qsort_s
 ;quick_exit x
@@ -1300,7 +1296,7 @@ tmpnam
 tmpnam_s
 tolower
 toupper
-;towctrans
+;towctrans x
 towlower
 towupper
 ;trunc x
@@ -1365,17 +1361,16 @@ _wfindnexti64
 _fstat
 _fstati64
 
+
 _XcptFilter
 __CppXcptFilter
 
-?_query_new_handler@@YAP6AH_K@ZXZ
-?_set_new_handler@@YAP6AH_K@ZP6AH0@Z@Z
-?_query_new_mode@@YAHXZ
+?_query_new_handler@@YAP6AHI@ZXZ
+?_set_new_handler@@YAP6AHI@ZP6AHI@Z@Z
+;?_query_new_mode@@YAHXZ
 ?_set_new_mode@@YAHH@Z
 ?set_terminate@@YAP6AXXZP6AXXZ@Z
 ?terminate@@YAXXZ
-
-
 
 ;内部使用的的导出符号
 __argc DATA
@@ -1397,6 +1392,3 @@ _lock
 _unlock
 _iob DATA
 ___lc_handle_func
-
-_environ DATA
-_wenviron DATA

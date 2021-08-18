@@ -161,7 +161,7 @@ extern "C" double __cdecl wcstod(
 }
 #endif
 
-#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows8
 extern "C" double __cdecl _wcstod_l(
     wchar_t const* const string,
     wchar_t**      const end_ptr,
@@ -184,7 +184,7 @@ extern "C" long double __cdecl wcstold(
 }
 #endif
 
-#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows8
 extern "C" long double __cdecl _wcstold_l(
     wchar_t const* const string,
     wchar_t**      const end_ptr,

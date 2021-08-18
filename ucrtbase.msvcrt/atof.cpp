@@ -7,6 +7,7 @@
 //msvcrt没有_atoflt，但是我们可以使用atof转换
 extern "C" int __cdecl _atoflt(_Out_ _CRT_FLOAT * _Result, _In_z_ char const* _String)
 {
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 	_VALIDATE_RETURN(_Result != nullptr, EINVAL, _DOMAIN);
 
 	_Result->f = atof(_String);
@@ -26,6 +27,9 @@ extern "C" int __cdecl _atoflt(_Out_ _CRT_FLOAT * _Result, _In_z_ char const* _S
 		return 0;
 		break;
 	}
+#else
+	return _atoflt_l(_Result, _String, nullptr);
+#endif
 }
 
 _LCRT_DEFINE_IAT_SYMBOL(_atoflt);

@@ -1,9 +1,25 @@
 LIBRARY msvcrt.dll
 EXPORTS
+_CIacos
+_CIasin
+_CIatan
+_CIatan2
+_CIcos
+_CIcosh
+_CIexp
+_CIfmod
+_CIlog
+_CIlog10
+_CIpow
+_CIsin
+_CIsinh
+_CIsqrt
+_CItan
+_CItanh
 ;_Cbuild x
 ;_Cmulcc x
 ;_Cmulcr x
-;_Exit x
+;_Exit
 ;_FCbuild x
 ;_FCmulcc x
 ;_FCmulcr x
@@ -14,24 +30,25 @@ _Gettnames
 ;_LCmulcc x
 ;_LCmulcr x
 _Strftime
-;_W_Getdays x
-;_W_Getmonths x
-;_W_Gettnames w
-;_Wcsftime x
+;_W_Getdays t
+;_W_Getmonths t
+;_W_Gettnames weak
+;_Wcsftime t
 ___lc_codepage_func
 ___lc_collate_cp_func
-;___lc_locale_name_func x
+;___lc_locale_name_func
 ___mb_cur_max_func
-;___mb_cur_max_l_func x
-;__acrt_iob_func x
-;__conio_common_vcprintf x
-;__conio_common_vcprintf_p x
-;__conio_common_vcprintf_s x
+;___mb_cur_max_l_func t
+;__acrt_iob_func t
+;__conio_common_vcprintf t
+;__conio_common_vcprintf_p t
+;__conio_common_vcprintf_s t
 ;__conio_common_vcscanf
-;__conio_common_vcwprintf x
-;__conio_common_vcwprintf_p x
-;__conio_common_vcwprintf_s x
+;__conio_common_vcwprintf t
+;__conio_common_vcwprintf_p t
+;__conio_common_vcwprintf_s t
 ;__conio_common_vcwscanf
+;__control87_2 t
 __daylight
 __doserrno
 __dstbias
@@ -41,51 +58,72 @@ __fpecode
 __isascii
 __iscsym
 __iscsymf
-;__iswcsym x
-;__iswcsymf x
-;__p___argc x
-;__p___argv x
-;__p___wargv x
-;__p__acmdln x
-;__p__commode x
-;__p__environ x
-;__p__fmode x
-;__p__mbcasemap x
-;__p__mbctype x
-;__p__pgmptr x
-;__p__wcmdln x
-;__p__wenviron x
-;__p__wpgmptr x
+;__iswcsym t
+;__iswcsymf t
+__libm_sse2_acos
+__libm_sse2_acosf
+__libm_sse2_asin
+__libm_sse2_asinf
+__libm_sse2_atan
+__libm_sse2_atan2
+__libm_sse2_atanf
+__libm_sse2_cos
+__libm_sse2_cosf
+__libm_sse2_exp
+__libm_sse2_expf
+__libm_sse2_log
+__libm_sse2_log10
+__libm_sse2_log10f
+__libm_sse2_logf
+__libm_sse2_pow
+__libm_sse2_powf
+__libm_sse2_sin
+__libm_sse2_sinf
+__libm_sse2_tan
+__libm_sse2_tanf
+__p___argc
+__p___argv
+__p___wargv
+__p__acmdln
+__p__commode
+__p__environ
+__p__fmode
+__p__mbcasemap
+__p__mbctype
+__p__pgmptr
+__p__wcmdln
+__p__wenviron
+__p__wpgmptr
 __pctype_func
 __pwctype_func
 __pxcptinfoptrs
 __setusermatherr
-;__stdio_common_vfprintf x
-;__stdio_common_vfprintf_p x
-;__stdio_common_vfprintf_s x
-;__stdio_common_vfscanf x
-;__stdio_common_vfwprintf x
-;__stdio_common_vfwprintf_p x
-;__stdio_common_vfwprintf_s x
-;__stdio_common_vfwscanf x
-;__stdio_common_vsnprintf_s x
-;__stdio_common_vsnwprintf_s x
-;__stdio_common_vsprintf x
-;__stdio_common_vsprintf_p x
-;__stdio_common_vsprintf_s x
-;__stdio_common_vsscanf x
-;__stdio_common_vswprintf x
-;__stdio_common_vswprintf_p x
-;__stdio_common_vswprintf_s x
-;__stdio_common_vswscanf x
+;__stdio_common_vfprintf t
+;__stdio_common_vfprintf_p t
+;__stdio_common_vfprintf_s t
+;__stdio_common_vfscanf t
+;__stdio_common_vfwprintf t
+;__stdio_common_vfwprintf_p t
+;__stdio_common_vfwprintf_s t
+;__stdio_common_vfwscanf t
+;__stdio_common_vsnprintf_s t
+;__stdio_common_vsnwprintf_s t
+;__stdio_common_vsprintf t
+;__stdio_common_vsprintf_p t
+;__stdio_common_vsprintf_s t
+;__stdio_common_vsscanf t
+;__stdio_common_vswprintf t
+;__stdio_common_vswprintf_p t
+;__stdio_common_vswprintf_s t
+;__stdio_common_vswscanf t
 __strncnt
-;__sys_errlist x
-;__sys_nerr x
+;__sys_errlist t
+;__sys_nerr t
 __threadhandle
 __threadid
-;__timezone x
+;__timezone w
 __toascii
-;__tzname x
+;__tzname w
 __wcserror
 __wcserror_s
 __wcsncnt
@@ -94,17 +132,17 @@ _access
 _access_s
 _aligned_free
 _aligned_malloc
-;_aligned_msize x
+;_aligned_msize t
 _aligned_offset_malloc
 _aligned_offset_realloc
-;_aligned_offset_recalloc x
+;_aligned_offset_recalloc t
 _aligned_realloc
-;_aligned_recalloc x
+;_aligned_recalloc t
 _assert
 _atodbl
 _atodbl_l
 _atof_l
-;_atoflt x
+;_atoflt t
 _atoflt_l
 _atoi64
 _atoi64_l
@@ -116,14 +154,14 @@ _atoldbl_l
 _beep
 _beginthread
 _beginthreadex
-;_byteswap_uint64 x
-;_byteswap_ulong x
-;_byteswap_ushort x
-;_c_exit x
+;_byteswap_uint64 t
+;_byteswap_ulong t
+;_byteswap_ushort t
+;_c_exit t 虽然支持，但是为了解决死锁以及 at_quick_exit所以 不在使用msvcrt内置的 
 _cabs
 _callnewh
 ;_calloc_base w
-;_cexit x
+;_cexit t 虽然支持，但是为了解决死锁以及 at_quick_exit所以 不在使用msvcrt内置的 
 _cgets
 _cgets_s
 _cgetws
@@ -131,27 +169,28 @@ _cgetws_s
 _chdir
 _chdrive
 _chgsign
-_chgsignf
+;_chgsignf x
 _chmod
 _chsize
 _chsize_s
 _clearfp
 _close
 _commit
-;_configthreadlocale x
-;_configure_narrow_argv x
-;_configure_wide_argv x
+;_configthreadlocale t
+;_configure_narrow_argv t
+;_configure_wide_argv t
 _control87
 _controlfp
 _controlfp_s
 _copysign
-_copysignf
+;_copysignf x
 _cputs
 _cputws
 _creat
-;_create_locale x
-;_crt_at_quick_exit x
-;_crt_atexit x
+;_create_locale t
+;_crt_at_quick_exit t
+;_crt_atexit t
+;_crt_debugger_hook
 _ctime32
 _ctime32_s
 _ctime64
@@ -173,24 +212,24 @@ _difftime64
 ;_dunscale x
 _dup
 _dup2
-;_dupenv_s x
+;_dupenv_s t
 _ecvt
 _ecvt_s
 _endthread
 _endthreadex
 _eof
 _errno
-;_except1 x
+;_except1
 _execl
 _execle
 _execlp
 _execlpe
-;_execute_onexit_table x
+;_execute_onexit_table t
 _execv
 _execve
 _execvp
 _execvpe
-;_exit x
+;_exit   x 虽然支持，但是为了解决死锁以及 at_quick_exit所以 不在使用msvcrt内置的 
 _expand
 ;_fclose_nolock
 _fcloseall
@@ -221,26 +260,24 @@ _findclose
 ;_findfirst32 w
 ;_findfirst32i64 w
 _findfirst64
-;_findfirst64i32 x
+;_findfirst64i32 t
 ;_findnext32 w
 ;_findnext32i64 w
 _findnext64
-;_findnext64i32 x
+;_findnext64i32 t
 _finite
-_finitef
 _flushall
 _fpclass
-_fpclassf
-;_fpieee_flt
+_fpieee_flt
 _fpreset
 ;_fputc_nolock
-;_fputchar x
+;_fputchar t
 ;_fputwc_nolock
-;_fputwchar x
+;_fputwchar t
 ;_fread_nolock
 ;_fread_nolock_s
 ;_free_base w
-;_free_locale x
+;_free_locale t
 ;_fseek_nolock
 _fseeki64
 ;_fseeki64_nolock
@@ -248,41 +285,41 @@ _fsopen
 ;_fstat32 w
 ;_fstat32i64 w
 _fstat64
-;_fstat64i32 x
+;_fstat64i32 t
 ;_ftell_nolock
-;_ftelli64 x
+;_ftelli64 t
 ;_ftelli64_nolock
 _ftime32
 _ftime32_s
 _ftime64
 _ftime64_s
+_ftol
 _fullpath
 _futime32
 _futime64
 ;_fwrite_nolock
 _gcvt
 _gcvt_s
-;_get_FMA3_enable x
-;_get_current_locale x
-;_get_daylight x
+;_get_current_locale t
+;_get_daylight t
 _get_doserrno
-;_get_dstbias x
+;_get_dstbias t
 _get_errno
 _get_fmode
 _get_heap_handle
-;_get_initial_narrow_environment x
-;_get_initial_wide_environment x
-;_get_invalid_parameter_handler x
-;_get_narrow_winmain_command_line x
+;_get_initial_narrow_environment t
+;_get_initial_wide_environment t
+;_get_invalid_parameter_handler t
+;_get_narrow_winmain_command_line t
 _get_osfhandle
 _get_pgmptr
-;_get_printf_count_output x
-;_get_stream_buffer_pointers x
-;_get_terminate x
-;_get_thread_local_invalid_parameter_handler x
-;_get_timezone x
-;_get_tzname x
-;_get_wide_winmain_command_line x
+;_get_printf_count_output t
+;_get_stream_buffer_pointers t
+;_get_terminate
+;_get_thread_local_invalid_parameter_handler t
+;_get_timezone t
+;_get_tzname
+;_get_wide_winmain_command_line t
 _get_wpgmptr
 ;_getc_nolock
 _getch
@@ -292,7 +329,7 @@ _getche
 _getcwd
 _getdcwd
 _getdiskfree
-;_getdllprocaddr x
+_getdllprocaddr
 _getdrive
 _getdrives
 _getmaxstdio
@@ -306,7 +343,7 @@ _getwch
 _getwche
 ;_getwche_nolock
 _getws
-;_getws_s x
+;_getws_s t
 _gmtime32
 _gmtime32_s
 _gmtime64
@@ -315,23 +352,23 @@ _heapchk
 _heapmin
 _heapwalk
 _hypot
-_hypotf
+;_hypotf x
 _i64toa
 _i64toa_s
 _i64tow
 _i64tow_s
-;_initialize_narrow_environment x
-;_initialize_onexit_table x
-;_initialize_wide_environment x
+;_initialize_narrow_environment t
+;_initialize_onexit_table t
+;_initialize_wide_environment t
 _initterm
 _initterm_e
-;_invalid_parameter_noinfo x
-;_invalid_parameter_noinfo_noreturn x
-;_invoke_watson x
+;_invalid_parameter_noinfo t
+;_invalid_parameter_noinfo_noreturn t
+;_invoke_watson t
 _isalnum_l
 _isalpha_l
 _isatty
-;_isblank_l x
+;_isblank_l t
 _iscntrl_l
 _isctype
 _isctype_l
@@ -343,8 +380,8 @@ _ismbbalnum
 _ismbbalnum_l
 _ismbbalpha
 _ismbbalpha_l
-;_ismbbblank x
-;_ismbbblank_l x
+;_ismbbblank t
+;_ismbbblank_l t
 _ismbbgraph
 _ismbbgraph_l
 _ismbbkalnum
@@ -367,8 +404,8 @@ _ismbcalnum
 _ismbcalnum_l
 _ismbcalpha
 _ismbcalpha_l
-;_ismbcblank x
-;_ismbcblank_l x
+;_ismbcblank t
+;_ismbcblank_l t
 _ismbcdigit
 _ismbcdigit_l
 _ismbcgraph
@@ -402,17 +439,16 @@ _ismbslead_l
 _ismbstrail
 _ismbstrail_l
 _isnan
-_isnanf
 _isprint_l
-;_ispunct_l x
+;_ispunct_l t
 _isspace_l
 _isupper_l
 _iswalnum_l
 _iswalpha_l
-;_iswblank_l x
+;_iswblank_l t
 _iswcntrl_l
-;_iswcsym_l x
-;_iswcsymf_l x
+;_iswcsym_l t
+;_iswcsymf_l t
 _iswctype_l
 _iswdigit_l
 _iswgraph_l
@@ -444,16 +480,26 @@ _kbhit
 ;_ldunscale x
 _lfind
 _lfind_s
-;_loaddll x
+;_libm_sse2_acos_precise x
+;_libm_sse2_asin_precise x
+;_libm_sse2_atan_precise x
+;_libm_sse2_cos_precise x
+;_libm_sse2_exp_precise x
+;_libm_sse2_log10_precise x
+;_libm_sse2_log_precise x
+;_libm_sse2_pow_precise x
+;_libm_sse2_sin_precise x
+;_libm_sse2_sqrt_precise x
+;_libm_sse2_tan_precise x
+_loaddll
 _localtime32
 _localtime32_s
 _localtime64
 _localtime64_s
-;_lock_file x
-;_lock_locales x
+;_lock_file t
+;_lock_locales t
 _locking
 _logb
-_logbf
 _lrotl
 _lrotr
 _lsearch
@@ -470,7 +516,7 @@ _makepath_s
 _mbbtombc
 _mbbtombc_l
 _mbbtype
-;_mbbtype_l x
+;_mbbtype_l t
 _mbcasemap DATA
 _mbccpy
 _mbccpy_l
@@ -615,7 +661,6 @@ _mktime32
 _mktime64
 _msize
 _nextafter
-_nextafterf
 _open
 _open_osfhandle
 _pclose
@@ -631,14 +676,14 @@ _putw
 _putwch
 ;_putwch_nolock
 _putws
-;_query_app_type x
+;_query_app_type t
 ;_query_new_handler w
 ;_query_new_mode w
 _read
 ;_realloc_base w
-;_recalloc x
-;_register_onexit_function x
-;_register_thread_local_exe_atexit_callback x
+;_recalloc t
+;_register_onexit_function t
+;_register_thread_local_exe_atexit_callback
 _resetstkoflw
 _rmdir
 _rmtmp
@@ -647,24 +692,23 @@ _rotl64
 _rotr
 _rotr64
 _scalb
-_scalbf
 _searchenv
 _searchenv_s
 ;_seh_filter_dll w
 ;_seh_filter_exe w
-;_set_FMA3_enable x
-;_set_abort_behavior x
-;_set_app_type x
+_set_SSE2_enable
+;_set_abort_behavior
+;_set_app_type t
 _set_controlfp
 _set_doserrno
 _set_errno
 _set_error_mode
 _set_fmode
-;_set_invalid_parameter_handler x
+;_set_invalid_parameter_handler t
 ;_set_new_handler w
 ;_set_new_mode w
-;_set_printf_count_output x
-;_set_thread_local_invalid_parameter_handler x
+;_set_printf_count_output t
+;_set_thread_local_invalid_parameter_handler t
 _seterrormode
 _setmaxstdio
 _setmbcp
@@ -672,7 +716,7 @@ _setmode
 _setsystime
 _sleep
 _sopen
-;_sopen_dispatch x
+;_sopen_dispatch t
 _sopen_s
 _spawnl
 _spawnle
@@ -684,18 +728,19 @@ _spawnvp
 _spawnvpe
 _splitpath
 _splitpath_s
-;_stat32 x
-;_stat32i64 x
-;_stat64 x 系统原版存在Bug
-;_stat64i32 x
+;_stat32 t msvcrt版本有Bug
+;_stat32i64 t
+;_stat64 t
+;_stat64i32 t
 _statusfp
+;_statusfp2 t
 _strcoll_l
 _strdate
 _strdate_s
 _strdup
 _strerror
 _strerror_s
-;_strftime_l x
+;_strftime_l t
 _stricmp
 _stricmp_l
 _stricoll
@@ -718,7 +763,7 @@ _strset_s
 _strtime
 _strtime_s
 _strtod_l
-;_strtof_l x
+;_strtof_l t
 _strtoi64
 _strtoi64_l
 ;_strtoimax_l w
@@ -741,8 +786,8 @@ _telli64
 _tempnam
 _time32
 _time64
-;_timespec32_get x
-;_timespec64_get x
+;_timespec32_get t
+;_timespec64_get t
 _tolower
 _tolower_l
 _toupper
@@ -767,9 +812,9 @@ _ungetch
 _ungetwch
 ;_ungetwch_nolock
 _unlink
-;_unloaddll x
-;_unlock_file x
-;_unlock_locales x
+_unloaddll
+;_unlock_file t
+;_unlock_locales t
 _utime32
 _utime64
 _waccess
@@ -780,7 +825,7 @@ _wassert
 _wchdir
 _wchmod
 _wcreat
-;_wcreate_locale x
+;_wcreate_locale t
 _wcscoll_l
 _wcsdup
 _wcserror
@@ -805,13 +850,13 @@ _wcsnset_s
 _wcsrev
 _wcsset
 _wcsset_s
-;_wcstod_l x
-;_wcstof_l x
+_wcstod_l
+;_wcstof_l t
 _wcstoi64
 _wcstoi64_l
 ;_wcstoimax_l w
 _wcstol_l
-;_wcstold_l x
+;_wcstold_l w
 ;_wcstoll_l w
 _wcstombs_l
 _wcstombs_s_l
@@ -832,7 +877,7 @@ _wctime64_s
 _wctomb_l
 _wctomb_s_l
 _wctype
-;_wdupenv_s x
+;_wdupenv_s t
 _wexecl
 _wexecle
 _wexeclp
@@ -845,11 +890,11 @@ _wfdopen
 ;_wfindfirst32 w
 ;_wfindfirst32i64 w
 _wfindfirst64
-;_wfindfirst64i32 x
-;_wfindnext32
+;_wfindfirst64i32 t
+;_wfindnext32 w
 ;_wfindnext32i64 w
 _wfindnext64
-;_wfindnext64i32 x
+;_wfindnext64i32 t
 _wfopen
 _wfopen_s
 _wfreopen
@@ -878,7 +923,7 @@ _wsearchenv
 _wsearchenv_s
 _wsetlocale
 _wsopen
-;_wsopen_dispatch x
+;_wsopen_dispatch t
 _wsopen_s
 _wspawnl
 _wspawnle
@@ -890,10 +935,10 @@ _wspawnvp
 _wspawnvpe
 _wsplitpath
 _wsplitpath_s
-;_wstat32 x
-;_wstat32i64 x
-;_wstat64 x
-;_wstat64i32 x
+;_wstat32 t
+;_wstat32i64 t
+;_wstat64 t
+;_wstat64i32 t
 _wstrdate
 _wstrdate_s
 _wstrtime
@@ -921,21 +966,17 @@ _yn
 abort
 abs
 acos
-acosf
 ;acosh x
 ;acoshf x
 ;acoshl x
 asctime
 asctime_s
 asin
-asinf
 ;asinh x
 ;asinhf x
 ;asinhl x
 atan
 atan2
-atan2f
-atanf
 ;atanh x
 ;atanhf x
 ;atanhl x
@@ -946,8 +987,8 @@ atol
 bsearch
 bsearch_s
 btowc
-;c16rtomb x
-;c32rtomb x
+;c16rtomb t
+;c32rtomb t
 ;cabs w
 ;cabsf x
 ;cabsl w
@@ -959,8 +1000,8 @@ btowc
 ;cacosl x
 calloc
 ;carg x
-;cargf x
-;cargl x
+;cargf
+;cargl
 ;casin x
 ;casinf x
 ;casinh x
@@ -970,20 +1011,19 @@ calloc
 ;catan x
 ;catanf x
 ;catanh x
-;catanhf x 
+;catanhf x
 ;catanhl x
 ;catanl x
 ;cbrt x
 ;cbrtf x
 ;cbrtl x
-;ccosx x
+;ccos x
 ;ccosf x
 ;ccosh x
 ;ccoshf x
 ;ccoshl x
 ;ccosl x
 ceil
-ceilf
 ;cexp x
 ;cexpf x
 ;cexpl x
@@ -1003,12 +1043,10 @@ clock
 ;conjf x
 ;conjl x
 ;copysign w
-;copysignf w
+;copysignf x
 ;copysignl w
 cos
-cosf
 cosh
-coshf
 ;cpow x
 ;cpowf x
 ;cpowl x
@@ -1040,12 +1078,11 @@ div
 ;erfcl x
 ;erff x
 ;erfl x
-;exit x
+;exit t 虽然支持，但是为了解决死锁以及 at_quick_exit所以 不在使用msvcrt内置的 
 exp
 ;exp2 x
 ;exp2f x
 ;exp2l x
-expf
 ;expm1 x
 ;expm1f x
 ;expm1l x
@@ -1072,7 +1109,6 @@ fgets
 fgetwc
 fgetws
 floor
-floorf
 ;fma x
 ;fmaf x
 ;fmal x
@@ -1083,15 +1119,14 @@ floorf
 ;fminf x
 ;fminl x
 fmod
-fmodf
 fopen
 fopen_s
-;fputc x
+;fputc t
 fputs
-;fputwc x
+;fputwc t
 fputws
 fread
-;fread_s x
+;fread_s t
 free
 freopen
 freopen_s
@@ -1099,13 +1134,13 @@ frexp
 fseek
 fsetpos
 ftell
-;fwrite x
+;fwrite t
 getc
 getchar
 getenv
 getenv_s
 gets
-;gets_s x
+;gets_s t
 getwc
 getwchar
 ;hypot w
@@ -1117,7 +1152,7 @@ getwchar
 is_wctype
 isalnum
 isalpha
-;isblank x
+;isblank t
 iscntrl
 isdigit
 isgraph
@@ -1130,7 +1165,7 @@ isupper
 iswalnum
 iswalpha
 iswascii
-;iswblank x
+;iswblank t
 iswcntrl
 iswctype
 iswdigit
@@ -1148,7 +1183,7 @@ ldiv
 ;lgamma x
 ;lgammaf x
 ;lgammal x
-;llabs w
+;llabs x
 ;lldiv x
 ;llrint x
 ;llrintf x
@@ -1156,10 +1191,9 @@ ldiv
 ;llround x
 ;llroundf x
 ;llroundl x
-;localeconv x Win7的结构体才完整
+;localeconv x Win7开始才导出 _W_decimal_point等成员
 log
 log10
-log10f
 ;log1p x
 ;log1pf x
 ;log1pl x
@@ -1169,7 +1203,6 @@ log10f
 ;logb x
 ;logbf x
 ;logbl x
-logf
 ;lrint x
 ;lrintf x
 ;lrintl x
@@ -1179,8 +1212,8 @@ logf
 malloc
 mblen
 mbrlen
-;mbrtoc16 x
-;mbrtoc32 x
+;mbrtoc16 t
+;mbrtoc32 t
 mbrtowc
 mbsrtowcs
 mbsrtowcs_s
@@ -1190,7 +1223,6 @@ mbtowc
 memcpy_s
 memmove_s
 modf
-modff
 ;nan x
 ;nanf x
 ;nanl x
@@ -1202,21 +1234,21 @@ modff
 ;nextafterl w
 ;nexttoward w
 ;nexttowardf x
-;nexttowardl x
-;norm
-;normf
-;norml
+;nexttowardl w
+;norm x
+;normf x
+;norml x
 perror
 pow
-powf
-;putc x
-;putchar x
+;powf x
+;putc t
+;putchar t
 puts
-;putwc x
-;putwchar x
+;putwc t
+;putwchar t
 qsort
 qsort_s
-;quick_exit x
+;quick_exit
 raise
 rand
 rand_s
@@ -1248,11 +1280,8 @@ setlocale
 setvbuf
 signal
 sin
-sinf
 sinh
-sinhf
 sqrt
-sqrtf
 srand
 strcat
 strcat_s
@@ -1274,7 +1303,7 @@ strnlen
 strpbrk
 strspn
 strtod
-;strtof x
+;strtof t
 ;strtoimax w
 strtok
 strtok_s
@@ -1287,9 +1316,7 @@ strtoul
 strxfrm
 system
 tan
-tanf
 tanh
-tanhf
 ;terminate w
 ;tgamma x
 ;tgammaf x
@@ -1300,7 +1327,7 @@ tmpnam
 tmpnam_s
 tolower
 toupper
-;towctrans
+;towctrans t
 towlower
 towupper
 ;trunc x
@@ -1330,7 +1357,7 @@ wcsrtombs
 wcsrtombs_s
 wcsspn
 wcstod
-;wcstof x
+;wcstof t
 ;wcstoimax w
 wcstok
 wcstok_s
@@ -1346,10 +1373,11 @@ wcsxfrm
 wctob
 wctomb
 wctomb_s
-;wctrans x
-;wctype x
+;wctrans t
+;wctype t
 ;wmemcpy_s x
-;wmemmove_s x
+;wmemmove_s t
+
 
 
 
@@ -1365,16 +1393,16 @@ _wfindnexti64
 _fstat
 _fstati64
 
+
 _XcptFilter
 __CppXcptFilter
 
-?_query_new_handler@@YAP6AH_K@ZXZ
-?_set_new_handler@@YAP6AH_K@ZP6AH0@Z@Z
+?_query_new_handler@@YAP6AHI@ZXZ
+?_set_new_handler@@YAP6AHI@ZP6AHI@Z@Z
 ?_query_new_mode@@YAHXZ
 ?_set_new_mode@@YAHH@Z
 ?set_terminate@@YAP6AXXZP6AXXZ@Z
 ?terminate@@YAXXZ
-
 
 
 ;内部使用的的导出符号
@@ -1388,8 +1416,10 @@ _wcmdln DATA
 _fmode DATA
 _commode DATA
 _mbctype DATA
-;_mbcasemap DATA
+_mbcasemap DATA
 
+__p__timezone
+__p__tzname
 __set_app_type
 __getmainargs
 __wgetmainargs
@@ -1398,5 +1428,5 @@ _unlock
 _iob DATA
 ___lc_handle_func
 
-_environ DATA
+_environ  DATA
 _wenviron DATA

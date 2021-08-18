@@ -1,27 +1,17 @@
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;                                                                                                     ;
+;                                                                                                     ;
+;  32位转发器模块文件，由于新版本CRT更改了某些函数的声明，因此定义此文件将新函数调用自动转发到老函数  ;
+;                                                                                                     ;
+;                                                                                                     ;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+
 [Symbols]
-
 _W_Gettnames=_Gettnames
-
-;新版本中_query_new_handler规范变成了C
-_query_new_handler=?_query_new_handler@@YAP6AH_K@ZXZ
-
-;新版本中_set_new_handler规范变成了C
-_set_new_handler=?_set_new_handler@@YAP6AH_K@ZP6AH0@Z@Z
-
-;新版本中_query_new_mode规范变成了C
-_query_new_mode=?_query_new_mode@@YAHXZ
-
-
-;新版本中_set_new_mode规范变成了C
-_set_new_mode=?_set_new_mode@@YAHH@Z
-
-
-;新版本中set_terminate 规范变成了C
-set_terminate=?set_terminate@@YAP6AXXZP6AXXZ@Z
-
-;新版本中terminate规范变成了C
-terminate=?terminate@@YAXXZ
-
 
 ;_findfirst已经改名为_findfirst32
 _findfirst32=_findfirst
@@ -29,15 +19,11 @@ _findfirst32=_findfirst
 ;_findnext已经改名为_findnext32
 _findnext32=_findnext
 
-
 ;_findfirsti64已经改名为_findfirst32i64
 _findfirst32i64=_findfirsti64
 
-
-
 ;_findnexti64已经改名为_findnext32i64
 _findnext32i64=_findnexti64
-
 
 ;_wfindfirst已经改名为_wfindfirst32
 _wfindfirst32=_wfindfirst
@@ -45,22 +31,29 @@ _wfindfirst32=_wfindfirst
 ;_wfindnext已经改名为_wfindnext32
 _wfindnext32=_wfindnext
 
-
 ;_wfindfirsti64已经改名为_wfindfirst32i64
 _wfindfirst32i64=_wfindfirsti64
 
 ;_wfindnexti64已经改名为_wfindnext32i64
 _wfindnext32i64=_wfindnexti64
 
-
 ;_fstat已经改名为_fstat32
 _fstat32=_fstat
-
 
 ;_fstati64已经改名为_fstat32i64
 _fstat32i64=_fstati64
 
-copysignf=_copysignf
+;_stat已经改名为_stat32
+;_stat32=_stat
+
+;_stati64已经改名为_stat32i64
+;_stat32i64=_stati64
+
+;_wstat已经改名为_wstat32
+;_wstat32=_wstat
+
+;_wstati64已经改名为_wstat32i64
+;_wstat32i64=_wstati64
 
 ;_copysign已经改名为copysign
 copysign=_copysign
@@ -68,7 +61,6 @@ copysign=_copysign
 ;_hypot已经改名为hypot
 ;https://msdn.microsoft.com/zh-cn/library/a9yb3dbt.aspx
 hypot=_hypot
-
 
 ;_nextafter已经改名为nextafter
 ;https://msdn.microsoft.com/zh-cn/library/h0dff77w.aspx
@@ -81,15 +73,11 @@ nexttoward=_nextafter
 ;nextafterl与_nextafter等价（double == long double）
 nextafterl=_nextafter
 
-
-
 ;nexttowardl与_nextafter等价（double == long double）
 nexttowardl=_nextafter
 
-
 ;wcstoll与_wcstoi64等价（long long == __int64）
 wcstoll=_wcstoi64
-
 
 ;_wcstoll_l与_wcstoi64_l等价（long long == __int64）
 _wcstoll_l=_wcstoi64_l
@@ -100,21 +88,17 @@ wcstoull=_wcstoui64
 ;_wcstoull_l与_wcstoui64_l等价（unsigned long long == unsigned __int64）
 _wcstoull_l=_wcstoui64_l
 
-
 ;_wtoll与_wtoi64等价（long long == __int64）
 _wtoll=_wtoi64
 
 ;_wtoll_l与_wtoi64_l等价（long long == __int64）
 _wtoll_l=_wtoi64_l
 
-
 ;atoll与_atoi64等价（long long == __int64）
 atoll=_atoi64
 
-
 ;_atoll_l与_atoi64_l等价（long long == __int64）
 _atoll_l=_atoi64_l
-
 
 ;strtoll与_strtoi64等价（long long == __int64）
 strtoll=_strtoi64
@@ -122,11 +106,8 @@ strtoll=_strtoi64
 ;_strtoll_l与_strtoi64_l等价（long long == __int64）
 _strtoll_l=_strtoi64_l
 
-
 ;strtoull与_strtoui64等价（unsignedlong long == unsigned __int64）
 strtoull=_strtoui64
-
-
 
 ;_strtoull_l与_strtoui64_l等价（unsignedlong long == unsigned __int64）
 _strtoull_l=_strtoui64_l
@@ -137,33 +118,28 @@ strtoimax=_strtoi64
 ;_strtoimax_l与_strtoi64_l等价（intmax_t == long long）
 _strtoimax_l=_strtoi64_l
 
-
-
 ;strtoumax与_strtoui64等价（uintmax_t == unsigned long long）
 strtoumax=_strtoui64
 
 ;_strtoumax_l与_strtoui64_l等价（uintmax_t == unsigned long long）
 _strtoumax_l=_strtoui64_l
 
-
 ;wcstoimax与_wcstoi64等价（intmax_t == long long）
 wcstoimax=_wcstoi64
-
 
 ;_wcstoimax_l与_wcstoi64_l等价（intmax_t == long long）
 _wcstoimax_l=_wcstoi64_l
 
-
 ;wcstoumax与_wcstoui64等价（uintmax_t == unsigned long long）
 wcstoumax=_wcstoui64
-
 
 ;_wcstoumax_l与_wcstoui64_l等价（uintmax_t == unsigned long long）
 _wcstoumax_l=_wcstoui64_l
 
-;cabsl与cabs等价（long double == double）
-cabsl=_cabs
+
+;cabsl与_cabs等价（long double == double）
 cabs=_cabs
+cabsl=_cabs
 
 ;copysignl与_copysign等价（long double == double）
 copysignl=_copysign
@@ -176,10 +152,12 @@ _strtold_l=_strtod_l
 
 ;（long double == double）
 wcstold=wcstod
+_wcstold_l=_wcstod_l
 
 ;long long == __int64 || long long == intmax_t 
 imaxabs=_abs64
 llabs=_abs64
+
 
 ;UCRT内部函数转发
 _calloc_base=calloc
@@ -189,12 +167,54 @@ _realloc_base=realloc
 _msize_base=_msize
 _recalloc_base=_recalloc
 
-
 ;UCRT名称修正
 _seh_filter_exe=_XcptFilter
 _seh_filter_dll=__CppXcptFilter
 
 
 
+;新版本中_query_new_handler规范变成了C
+_query_new_handler=?_query_new_handler@@YAP6AHI@ZXZ
 
-_loaddll=LoadLibraryA
+
+;新版本中_set_new_handler规范变成了C
+_set_new_handler=?_set_new_handler@@YAP6AHI@ZP6AHI@Z@Z
+
+
+;新版本中_query_new_mode规范变成了C
+_query_new_mode=?_query_new_mode@@YAHXZ
+
+
+;新版本中_set_new_mode规范变成了C
+_set_new_mode=?_set_new_mode@@YAHH@Z
+
+;新版本中set_terminate 规范变成了C
+set_terminate=?set_terminate@@YAP6AXXZP6AXXZ@Z
+
+;新版本中terminate规范变成了C
+terminate=?terminate@@YAXXZ
+
+; 数学函数转发
+_acos_default=acos
+
+_asin_default=asin
+
+_atan_default=atan
+
+_cos_default=cos
+
+_exp_default=exp
+
+_log_default=log
+
+_log10_default=log10
+
+_pow_default=pow
+
+_sin_default=sin
+
+_tan_default=tan
+
+
+__timezone=__p__timezone
+__tzname=__p__tzname

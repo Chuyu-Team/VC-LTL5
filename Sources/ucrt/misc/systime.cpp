@@ -1,4 +1,4 @@
-//
+﻿//
 // systime.cpp
 //
 //      Copyright (c) Microsoft Corporation. All rights reserved.
@@ -11,6 +11,7 @@
 
 // Gets the current system time and stores it in 'result'.  Returns the number
 // of milliseconds (the 'result' cannot store milliseconds).
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240 && (defined _M_ARM)
 extern "C" unsigned __cdecl _getsystime(struct tm* const result)
 {
     _VALIDATE_RETURN(result != nullptr, EINVAL, 0)
@@ -34,10 +35,13 @@ extern "C" unsigned __cdecl _getsystime(struct tm* const result)
     return (local_time.wMilliseconds);
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(_getsystime);
+#endif
 
 
 // Sets the system time to the time specified by 'source' and 'milliseconds.
 // Returns zero on success; returns a system error code on failure.
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240 && (defined _M_ARM)
 extern "C" unsigned __cdecl _setsystime(struct tm* const source, unsigned const milliseconds)
 {
     _ASSERTE(source != nullptr);
@@ -61,3 +65,6 @@ extern "C" unsigned __cdecl _setsystime(struct tm* const source, unsigned const 
 
     return 0;
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_setsystime);
+#endif

@@ -33,13 +33,11 @@
 *
 *******************************************************************************/
 
-#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240 && defined _M_AMD64
+#if 0
 extern "C" intptr_t __cdecl _loaddll(char* szName)
 {
     return reinterpret_cast<intptr_t>(__acrt_LoadLibraryExA(szName, nullptr, 0));
 }
-
-_LCRT_DEFINE_IAT_SYMBOL(_loaddll);
 #endif
 
 /***
@@ -60,7 +58,7 @@ _LCRT_DEFINE_IAT_SYMBOL(_loaddll);
 *
 *******************************************************************************/
 
-#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240 && defined _M_AMD64
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240 && (defined _M_AMD64 || defined _M_ARM)
 extern "C" int __cdecl _unloaddll(intptr_t hMod)
 {
         if (!FreeLibrary(reinterpret_cast<HMODULE>(hMod))) {

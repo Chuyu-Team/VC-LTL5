@@ -143,7 +143,7 @@ _atodbl
 _atodbl_l
 _atof_l
 ;_atoflt t
-;_atoflt_l
+_atoflt_l
 _atoi64
 _atoi64_l
 _atoi_l
@@ -1392,10 +1392,6 @@ _wfindfirsti64
 _wfindnexti64
 _fstat
 _fstati64
-_stat
-_stati64
-_wstat
-_wstati64
 
 
 _XcptFilter
@@ -1420,7 +1416,7 @@ _wcmdln DATA
 _fmode DATA
 _commode DATA
 _mbctype DATA
-_mbcasemap DATA
+;_mbcasemap DATA
 
 __p__timezone
 __p__tzname

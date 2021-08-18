@@ -395,3 +395,7 @@ _LCRT_DEFINE_IAT_SYMBOL_EXTERN(_libm_sse2_asin_precise);
 _LCRT_DEFINE_IAT_SYMBOL_EXTERN(_libm_sse2_acos_precise);
 
 #endif
+
+#ifdef _M_ARM
+_LCRT_DEFINE_IAT_SYMBOL_EXTERN(_FPE_Raise);
+#endif

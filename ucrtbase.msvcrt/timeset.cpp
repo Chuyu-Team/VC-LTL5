@@ -112,7 +112,7 @@ _LCRT_DEFINE_IAT_SYMBOL(__dstbias);
 
 #endif
 
-#if defined _M_AMD64 || defined _M_ARM64
+#if defined _M_AMD64 || defined _M_ARM || defined _M_ARM64
 
 extern "C" long* __cdecl __timezone()
 {

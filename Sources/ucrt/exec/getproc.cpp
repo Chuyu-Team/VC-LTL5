@@ -36,7 +36,7 @@
 *******************************************************************************/
 typedef int (__cdecl* proc_address_type)();
 
-#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240 && defined _M_AMD64
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240 && (defined _M_AMD64 || defined _M_ARM)
 extern "C" 
 DECLSPEC_GUARD_SUPPRESS
 proc_address_type __cdecl _getdllprocaddr(
