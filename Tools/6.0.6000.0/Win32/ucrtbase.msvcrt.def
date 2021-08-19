@@ -921,7 +921,7 @@ _write
 _wrmdir
 _wsearchenv
 _wsearchenv_s
-_wsetlocale
+;_wsetlocale t
 _wsopen
 ;_wsopen_dispatch t
 _wsopen_s
@@ -1276,7 +1276,7 @@ rewind
 ;scalbnl x
 ;set_terminate w
 setbuf
-setlocale
+;setlocale t
 setvbuf
 signal
 sin

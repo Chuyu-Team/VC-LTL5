@@ -1258,7 +1258,87 @@ static _locale_t __cdecl common_create_locale(
 	return plocale;
 }
 
-#if WindowsTargetPlatformMinVersion < __MakeVersion(6, 2, 9200)
+static wchar_t const* __fastcall TryConverLocalenameToCountry(
+	_In_z_ wchar_t const* _Locale,
+	wchar_t* Buffer,
+	unsigned cchBuffer
+	)
+{
+	do
+	{
+		if (_Locale == nullptr || wcsrchr(_Locale, L'-') == nullptr)
+			break;
+
+		auto rep = GetLocaleInfoEx(_Locale, LOCALE_SENGLANGUAGE, Buffer, cchBuffer - 1);
+
+		if (rep == 0)
+			break;
+
+		Buffer[rep - 1] = L'_';
+
+		if (GetLocaleInfoEx(_Locale, LOCALE_SENGCOUNTRY, Buffer + rep, cchBuffer - rep) == 0)
+			break;
+
+		_Locale = Buffer;
+
+	} while (false);
+
+	return _Locale;
+}
+
+
+static char const* __fastcall TryConverLocalenameToCountry(
+	_In_z_ char const* _Locale,
+	char* Buffer,
+	unsigned cchBuffer
+	)
+{
+	do
+	{
+		wchar_t _LocaleWideStringBuffer[256];
+		wchar_t _LocaleWideStringBuffer2[256];
+		//我们再识别一下 zh-CN 新的用法
+
+		if (_Locale == nullptr || strchr(_Locale, '-') == nullptr)
+			break;
+
+		int i = 0;
+
+		for (; i != cchBuffer && _Locale[i]; ++i)
+			_LocaleWideStringBuffer[i] = _Locale[i];
+
+		//缓冲区超过预期
+		if (i == cchBuffer)
+			break;
+
+		_LocaleWideStringBuffer[i] = L'\0';
+
+		auto _LocaleW = TryConverLocalenameToCountry(_LocaleWideStringBuffer, _LocaleWideStringBuffer2, _countof(_LocaleWideStringBuffer2));
+
+		if (_LocaleW == _LocaleWideStringBuffer)
+		{
+			break;
+		}
+
+		//发生了改变，我们复制到新的缓冲区
+
+		for (i = 0; i != cchBuffer && _LocaleW[i]; ++i)
+			Buffer[i] = _LocaleW[i];
+
+		if (i == cchBuffer)
+			break;
+
+		Buffer[i] = '\0';
+
+		_Locale = Buffer;
+	} while (false);
+
+
+	return _Locale;
+}
+
+
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
 
 EXTERN_C _locale_t __cdecl _create_locale(
 	_In_   int         _Category,
@@ -1269,6 +1349,10 @@ EXTERN_C _locale_t __cdecl _create_locale(
 	__EXPAND_MSVCRT_FUN(_create_locale);
 	if (auto p_create_locale_msvcrt = __Get_MSVCRT_FUN(_create_locale))
 	{
+		char StaticBuffer[256];
+
+		_Locale = TryConverLocalenameToCountry(_Locale, StaticBuffer, _countof(StaticBuffer));
+
 		return p_create_locale_msvcrt(_Category, _Locale);
 	}
 
@@ -1467,3 +1551,42 @@ EXTERN_C void __cdecl _free_locale(
 _LCRT_DEFINE_IAT_SYMBOL(_free_locale);
 
 #endif
+
+extern "C" char* __cdecl setlocale(
+        _In_       int         _Category,
+        _In_opt_z_ char const* _Locale
+        )
+{
+	char StaticBuffer[256];
+	_Locale = TryConverLocalenameToCountry(_Locale, StaticBuffer, _countof(StaticBuffer));
+
+	__EXPAND_MSVCRT_FUN(setlocale);
+	if (auto p_setlocale_msvcrt = __Get_MSVCRT_FUN(setlocale))
+	{
+		return p_setlocale_msvcrt(_Category, _Locale);
+	}
+
+	return nullptr;
+}
+
+_LCRT_DEFINE_IAT_SYMBOL(setlocale);
+
+
+extern "C" wchar_t* __cdecl _wsetlocale(
+        _In_       int            _Category,
+        _In_opt_z_ wchar_t const* _Locale
+        )
+{
+	wchar_t StaticBuffer[256];
+	_Locale = TryConverLocalenameToCountry(_Locale, StaticBuffer, _countof(StaticBuffer));
+
+	__EXPAND_MSVCRT_FUN(_wsetlocale);
+	if (auto p__wsetlocale_msvcrt = __Get_MSVCRT_FUN(_wsetlocale))
+	{
+		return p__wsetlocale_msvcrt(_Category, _Locale);
+	}
+
+	return nullptr;
+}
+
+_LCRT_DEFINE_IAT_SYMBOL(_wsetlocale);

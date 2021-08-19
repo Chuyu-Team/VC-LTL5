@@ -149,7 +149,7 @@ _copysignf
 _cputs
 _cputws
 _creat
-;_create_locale x
+;_create_locale t
 ;_crt_at_quick_exit x
 ;_crt_atexit x
 _ctime32
@@ -240,7 +240,7 @@ _fpreset
 ;_fread_nolock
 ;_fread_nolock_s
 ;_free_base w
-;_free_locale x
+_free_locale
 ;_fseek_nolock
 _fseeki64
 ;_fseeki64_nolock
@@ -876,7 +876,7 @@ _write
 _wrmdir
 _wsearchenv
 _wsearchenv_s
-_wsetlocale
+;_wsetlocale t
 _wsopen
 ;_wsopen_dispatch x
 _wsopen_s
@@ -1244,7 +1244,7 @@ rewind
 ;scalbnl x
 ;set_terminate w
 setbuf
-setlocale
+;setlocale t
 setvbuf
 signal
 sin

@@ -150,7 +150,7 @@ _copysignf
 _cputs
 _cputws
 _creat
-_create_locale
+;_create_locale t
 ;_crt_at_quick_exit x
 ;_crt_atexit x
 _ctime32
@@ -871,7 +871,7 @@ _write
 _wrmdir
 _wsearchenv
 _wsearchenv_s
-_wsetlocale
+;_wsetlocale t
 _wsopen
 ;_wsopen_dispatch x
 _wsopen_s
@@ -1240,7 +1240,7 @@ rewind
 ;scalbnl x
 ;set_terminate w
 setbuf
-setlocale
+;setlocale t
 setvbuf
 signal
 sin
