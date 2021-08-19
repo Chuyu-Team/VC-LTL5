@@ -54,12 +54,12 @@
         DisplayName="msvcrt 6.0.6000.0 (support Windows Vista/2008 or leater)"/>
 
       <EnumValue
-        Name="6.2.9600.0"
+        Name="6.2.9200.0"
         DisplayName="msvcrt 6.2.9600.0 (support Windows 8/RT/2012 or leater)"/>
 
       <EnumValue
         Name="10.0.10240.0"
-        DisplayName="UCRT 10.0.10240.0 (support Windows XP or leater)"/>
+        DisplayName="UCRT 10.0.10240.0 (support Windows 10 10240 or leater)"/>
 
       <EnumValue
         Name="10.0.19041.0"

@@ -51,19 +51,19 @@
       Description="选择合适的链接目标，默认优化到msvcrt 6.0.6000.0。">
       <EnumValue
         Name="6.0.6000.0"
-        DisplayName="msvcrt 6.0.6000.0（支持Windows Vista/2008以及更高版本）"/>
+        DisplayName="msvcrt 6.0.6000.0（Windows Vista/2008以及更高版本）"/>
 
       <EnumValue
-        Name="6.2.9600.0"
-        DisplayName="msvcrt 6.2.9600.0（支持Windows 8/RT/2012以及更高版本）"/>
+        Name="6.2.9200.0"
+        DisplayName="msvcrt 6.2.9600.0（Windows 8/RT/2012以及更高版本）"/>
 
       <EnumValue
         Name="10.0.10240.0"
-        DisplayName="UCRT 10.0.10240.0（支持Windows XP以及更高版本）"/>
+        DisplayName="UCRT 10.0.10240.0（Windows 10 10240以及更高版本）"/>
       
       <EnumValue
         Name="10.0.19041.0"
-        DisplayName="UCRT 10.0.19041.0（支持Windows 10 19041以及更高版本）"/>
+        DisplayName="UCRT 10.0.19041.0（Windows 10 19041以及更高版本）"/>
     </EnumProperty>
   </Rule>
 </ProjectSchemaDefinitions>
