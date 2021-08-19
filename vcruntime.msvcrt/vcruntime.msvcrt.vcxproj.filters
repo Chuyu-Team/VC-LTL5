@@ -56,7 +56,7 @@
     <ClCompile Include="..\Sources\crt\vcruntime\ehstate.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\Sources\crt\i368\trnsctrl.cpp">
+    <ClCompile Include="..\Sources\crt\i386\trnsctrl.cpp">
       <Filter>源文件\i386</Filter>
     </ClCompile>
     <ClCompile Include="..\Sources\crt\vcruntime\std_exception.cpp">

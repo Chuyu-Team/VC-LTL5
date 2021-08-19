@@ -24,36 +24,36 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup Label="ProjectConfigurations">
-    <!--6.2.9600.0-->
+    <!--6.2.9200.0-->
     <ProjectConfiguration Include="Dynamic|ARM">
       <Configuration>Dynamic</Configuration>
       <Platform>ARM</Platform>
-      <WindowsTargetPlatformMinVersion>6.2.9600.0</WindowsTargetPlatformMinVersion>
+      <WindowsTargetPlatformMinVersion>6.2.9200.0</WindowsTargetPlatformMinVersion>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Dynamic|Win32">
       <Configuration>Dynamic</Configuration>
       <Platform>Win32</Platform>
-      <WindowsTargetPlatformMinVersion>6.2.9600.0</WindowsTargetPlatformMinVersion>
+      <WindowsTargetPlatformMinVersion>6.2.9200.0</WindowsTargetPlatformMinVersion>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Dynamic|x64">
       <Configuration>Dynamic</Configuration>
       <Platform>x64</Platform>
-      <WindowsTargetPlatformMinVersion>6.2.9600.0</WindowsTargetPlatformMinVersion>
+      <WindowsTargetPlatformMinVersion>6.2.9200.0</WindowsTargetPlatformMinVersion>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Static|ARM">
       <Configuration>Static</Configuration>
       <Platform>ARM</Platform>
-      <WindowsTargetPlatformMinVersion>6.2.9600.0</WindowsTargetPlatformMinVersion>
+      <WindowsTargetPlatformMinVersion>6.2.9200.0</WindowsTargetPlatformMinVersion>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Static|Win32">
       <Configuration>Static</Configuration>
       <Platform>Win32</Platform>
-      <WindowsTargetPlatformMinVersion>6.2.9600.0</WindowsTargetPlatformMinVersion>
+      <WindowsTargetPlatformMinVersion>6.2.9200.0</WindowsTargetPlatformMinVersion>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Static|x64">
       <Configuration>Static</Configuration>
       <Platform>x64</Platform>
-      <WindowsTargetPlatformMinVersion>6.2.9600.0</WindowsTargetPlatformMinVersion>
+      <WindowsTargetPlatformMinVersion>6.2.9200.0</WindowsTargetPlatformMinVersion>
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -357,7 +357,7 @@
       <ExcludedFromBuild Condition="'$(WindowsTargetPlatformMinVersionBuild)' &gt;= '10240'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Platform)' != 'x64' and '$(Platform)' != 'ARM'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\Sources\crt\i368\trnsctrl.cpp">
+    <ClCompile Include="..\Sources\crt\i386\trnsctrl.cpp">
       <LanguageStandard>stdcpp17</LanguageStandard>
       <ExcludedFromBuild Condition="'$(Platform)' != 'Win32' or '$(WindowsTargetPlatformMinVersionBuild)' &gt;= '10240'">true</ExcludedFromBuild>
     </ClCompile>

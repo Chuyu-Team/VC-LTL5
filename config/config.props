@@ -37,9 +37,9 @@
         <VCLTLTargetUniversalCRTVersion>10.0.10240.0</VCLTLTargetUniversalCRTVersion>
       </PropertyGroup>
     </When>
-    <When Condition="'$(PlatformShortName)'=='arm'">
+    <When Condition="'$(PlatformShortName)'=='arm' or '$(VCLTLTargetUniversalCRTBuildVersion)' >= '9200'">
       <PropertyGroup>
-        <VCLTLTargetUniversalCRTVersion>6.2.9600.0</VCLTLTargetUniversalCRTVersion>
+        <VCLTLTargetUniversalCRTVersion>6.2.9200.0</VCLTLTargetUniversalCRTVersion>
       </PropertyGroup>
     </When>
     <Otherwise>
@@ -83,6 +83,7 @@
   <PropertyGroup>
     <!--VC-LTL核心版本号，由于4.X并不兼容3.X。此值可以用于兼容性判断。-->
     <LTL_CoreVersion>5</LTL_CoreVersion>
+    <VC_LTL_Root>$([MSBuild]::NormalizePath('$(MSBuildThisFileDirectory)..\'))</VC_LTL_Root>
     <LTL_Mode Condition=" '$(DisableAdvancedSupport)'=='true' ">Light</LTL_Mode>
     <LTL_Mode Condition=" '$(DisableAdvancedSupport)'!='true' ">Advanced</LTL_Mode>
 
@@ -97,7 +98,7 @@
     <VCLTLPlatformName Condition=" '$(SupportWinXP)'=='true' ">WinXP</VCLTLPlatformName>
     <VCLTLPlatformName Condition=" '$(SupportWinXP)'!='true' ">Vista</VCLTLPlatformName>
 
-    <VC_LTL_Library>$(MSBuildThisFileDirectory)..\TargetPlatform\$(VCLTLTargetUniversalCRTVersion)\lib\$(Platform)</VC_LTL_Library>
+    <VC_LTL_Library>$(VC_LTL_Root)TargetPlatform\$(VCLTLTargetUniversalCRTVersion)\lib\$(Platform);$(IntDir)VC-LTL5.tmp\$(VCLTLTargetUniversalCRTVersion)\$(Platform)</VC_LTL_Library>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(SupportLTL)'=='true' or '$(SupportLTL)'=='ucrt'">
@@ -118,6 +119,14 @@
       <MinimumRequiredVersion Condition=" '$(PlatformShortName)'=='x64' ">5.02</MinimumRequiredVersion>
     </Link>
   </ItemDefinitionGroup>
+  <PropertyGroup>
+    <src_vc_vccorlib_path Condition="'$(src_vc_vccorlib_path)' == '' and '$(VCToolsInstallDir)' != ''">$(VCToolsInstallDir)lib\$(PlatformShortName)\vccorlib.lib</src_vc_vccorlib_path>
+    <src_vc_vccorlib_path Condition="'$(src_vc_vccorlib_path)' == '' and '$(VCInstallDir)' != '' and '$(Platform)' == 'Win32'">$(VCInstallDir)lib\vccorlib.lib</src_vc_vccorlib_path>
+    <src_vc_vccorlib_path Condition="'$(src_vc_vccorlib_path)' == '' and '$(VCInstallDir)' != ''">$(VCInstallDir)lib\$(PlatformShortName)\vccorlib.lib</src_vc_vccorlib_path>
+    <patch_vc_vccorlib_path>$(VC_LTL_Root)TargetPlatform\$(VCLTLTargetUniversalCRTVersion)\lib\$(Platform)\vccorlib140.pacth.lib</patch_vc_vccorlib_path>
+    <dst_vc_vccorlib_path>$(IntDir)VC-LTL5.tmp\$(VCLTLTargetUniversalCRTVersion)\$(Platform)\vccorlib.lib</dst_vc_vccorlib_path>
+  </PropertyGroup>
+
   <ItemGroup>
     <!-- 属性页配置 -->
     <PropertyPageSchema Include="$(MSBuildThisFileDirectory)$(LTL_LANGID)\VC-LTL-Options.xml" Condition="Exists('$(MSBuildThisFileDirectory)$(LTL_LANGID)\VC-LTL-Options.xml')"/>
@@ -128,19 +137,19 @@
 
   <Target Name="VC_LTL_PlatformPrepareForBuild_Config" BeforeTargets="PrepareForBuild">
     <Message Text="
-  ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
-  ◆                                                                                                ◆
-  ◆                 *         *      * *             *        * * * * *  *                         ◆
-  ◆                  *       *     *                 *            *      *                         ◆
-  ◆                   *     *     *       * * * * *  *            *      *                         ◆
-  ◆                    *   *       *                 *            *      *                         ◆
-  ◆                      *           * *             * * * *      *      * * * *                   ◆
-  ◆                                                                                                ◆
-  ◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+  ***************************************************************************************************
+  *                                                                                                 *
+  *                 *         *      * *             *        * * * * *  *                          *
+  *                  *       *     *                 *            *      *                          *
+  *                   *     *     *       * * * * *  *            *      *                          *
+  *                    *   *       *                 *            *      *                          *
+  *                      *           * *             * * * *      *      * * * *                    *
+  *                                                                                                 *
+  ***************************************************************************************************
   
   VC-LTL Path      : $([MSBuild]::NormalizePath('$(MSBuildThisFileDirectory)..\'))
   VC Tools Version : $(VCLTLToolsVersion)
-  UCRT Version     : $(VCLTLTargetUniversalCRTVersion)
+  Target CRT Version : $(VCLTLTargetUniversalCRTVersion)
   Platform         : $(PlatformShortName)
   Using VC-LTL $(VCLTLPlatformName) $(LTL_Mode) Mode
 " Importance="high" Condition="('$(SupportLTL)'=='true') Or ('$(SupportLTL)'=='ucrt')"/>
@@ -158,6 +167,13 @@
     <Warning Code="LTL3002" Text="$(ERROR_VC_LTL_NOT_SUPPORT_WINXP_IN_UCRT_MODE)" Condition=" ('$(SupportLTL)'=='ucrt') And ('$(SupportWinXP)'=='true')"/>
     <Warning Code="LTL3003" Text="$(ERROR_VC_LTL_NOT_SUPPORT_MITIGATION)" Condition=" ('$(SupportLTL)'=='true') And ('$(VCLTLLibDirMod)'!='$(VCLibDirMod)')"/>
     -->
-    <Error Code="LTL4000" Text="$(ERROR_VC_LTL_FILE_MISSING)" Condition=" ('$(SupportLTL)'=='true' and '$(SupportLTL)'=='ucrt') And (!(Exists('$(MSBuildThisFileDirectory)..\ucrt\$(VCLTLTargetUniversalCRTVersion)\lib\$(Platform)')))"/>
+    <Error Code="LTL4000" Text="$(ERROR_VC_LTL_FILE_MISSING)" Condition=" ('$(SupportLTL)'=='true' and '$(SupportLTL)'=='ucrt') And (!(Exists('$(VC_LTL_Root)ucrt\$(VCLTLTargetUniversalCRTVersion)\lib\$(Platform)')))"/>
+  </Target>
+  <Target Name="Build_vccorlib_lib" AfterTargets="BeforeLink" BeforeTargets="Link" Condition="('$(SupportLTL)'=='true' Or ('$(SupportLTL)'=='ucrt')) and '$(src_vc_vccorlib_path)'!= '' and Exists('$(src_vc_vccorlib_path)') and Exists('$(patch_vc_vccorlib_path)')"
+          Inputs="$(src_vc_vccorlib_path);$(patch_vc_vccorlib_path)"
+          Outputs="$(dst_vc_vccorlib_path)">
+    <Copy SourceFiles="$(src_vc_vccorlib_path)" DestinationFiles="$(dst_vc_vccorlib_path)" OverwriteReadOnlyFiles="true"/>
+    <Exec Command="lib %22$(dst_vc_vccorlib_path)%22 /remove:vccorlib140.DLL > null"/>
+    <Exec Command="lib %22$(dst_vc_vccorlib_path)%22 %22$(patch_vc_vccorlib_path)%22 > null"/>
   </Target>
 </Project>

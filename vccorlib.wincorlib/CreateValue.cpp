@@ -4,17 +4,17 @@ namespace Platform
     namespace Details
     {
         //wincorlib版本
-        __declspec(dllimport) ::Platform::Object^ __stdcall CreateValueBule(class Platform::Type^, void const*);
+        __declspec(dllimport) ::Platform::Object^ __stdcall CreateValueBlue(class Platform::Type^, void const*);
 
 
 #if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
         ::Platform::Object^ __stdcall CreateValue(::Platform::TypeCode Code, const void* constValue)
         {
-            static FARPROC pCreateValueBule;
+            static FARPROC pCreateValueBlue;
             static FARPROC pCreateValueWin10;
 
 
-            if (pCreateValueBule == nullptr || pCreateValueWin10 == nullptr)
+            if (pCreateValueBlue == nullptr || pCreateValueWin10 == nullptr)
             {
                 do
                 {
@@ -24,7 +24,7 @@ namespace Platform
 
                     if (pCreateValue)
                     {
-                        pCreateValueBule = (FARPROC)INVALID_HANDLE_VALUE;
+                        pCreateValueBlue = (FARPROC)INVALID_HANDLE_VALUE;
                         pCreateValueWin10 = pCreateValue;
                         break;
                     }                   
@@ -42,13 +42,13 @@ namespace Platform
 
                     if (pCreateValue)
                     {
-                        pCreateValueBule = pCreateValue;
+                        pCreateValueBlue = pCreateValue;
                         pCreateValueWin10 = (FARPROC)INVALID_HANDLE_VALUE;
                         break;
                     }
 
                     
-                    pCreateValueBule = (FARPROC)INVALID_HANDLE_VALUE;
+                    pCreateValueBlue = (FARPROC)INVALID_HANDLE_VALUE;
                     pCreateValueWin10 = (FARPROC)INVALID_HANDLE_VALUE;
                 } while (false);
 
@@ -60,13 +60,13 @@ namespace Platform
             {
                 o = ((decltype(CreateValue)*)pCreateValueWin10)(Code, constValue);
             }
-            else if (pCreateValueBule && pCreateValueBule != (FARPROC)INVALID_HANDLE_VALUE)
+            else if (pCreateValueBlue && pCreateValueBlue != (FARPROC)INVALID_HANDLE_VALUE)
             {
                 __abi_type_descriptor type_descriptor = {};
                 type_descriptor.__typeId = (int)Code;
                 auto type = __abi_make_type_id(type_descriptor);
                 if (type)
-                    o = ((decltype(CreateValueBule)*)pCreateValueBule)(type, constValue);
+                    o = ((decltype(CreateValueBlue)*)pCreateValueBlue)(type, constValue);
             }
 
             //if (o)
