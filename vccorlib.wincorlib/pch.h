@@ -34,7 +34,7 @@
     __pragma(warning(suppress:4483))                                                                 \
     extern "C" extern void* __identifier(_CRT_STRINGIZE_(NAME));                                     \
 	__pragma(warning(suppress:4483))                                                                 \
-	extern "C" __declspec(selectany) void const* const __identifier(_CRT_STRINGIZE_(_imp__ ## NAME)) \
+	extern "C" __declspec(selectany) void const* const __identifier(_CRT_STRINGIZE_(_imp_ ## NAME))  \
         = reinterpret_cast<void const*>(&__identifier(_CRT_STRINGIZE_(NAME)))
 #elif defined(_M_AMD64)
 #define _LCRT_DEFINE_IAT_RAW_SYMBOL(NAME_X86, NAME, NAME_arm, NAME_arm64)                 \
