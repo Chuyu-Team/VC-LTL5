@@ -111,7 +111,8 @@
       <ZipFileName Condition="'$(TagVersion)' == ''">VC-LTL-Binary.7z</ZipFileName>
       <ZipFileName Condition="'$(TagVersion)' != ''">VC-LTL-$(TagVersion)-Binary.7z</ZipFileName>
     </PropertyGroup>
-    <Exec Command="7z.exe a $(ZipFileName) config _msvcrt.h %22VC-LTL helper for Visual Studio.props%22 TargetPlatform Readme.md -xr!*.objs.lib" WorkingDirectory="$(MSBuildThisFileDirectory)"/>
+    <Delete Files="$(MSBuildThisFileDirectory)$(ZipFileName)"/>
+    <Exec Command="7z.exe a $(ZipFileName) config _msvcrt.h %22VC-LTL helper for *%22 TargetPlatform Readme.md -xr!*.objs.lib" WorkingDirectory="$(MSBuildThisFileDirectory)"/>
   </Target>
   
   <Target Name="_GetProjectAllConfiguration" Returns="@(AllProjectReferenceConfigurations)">

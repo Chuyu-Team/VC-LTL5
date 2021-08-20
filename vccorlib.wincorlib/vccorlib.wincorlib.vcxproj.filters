@@ -44,5 +44,8 @@
     <ClCompile Include="vccorlib.cpp">
       <Filter>源文件\x86</Filter>
     </ClCompile>
+    <ClCompile Include="VC_LTL_Config.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

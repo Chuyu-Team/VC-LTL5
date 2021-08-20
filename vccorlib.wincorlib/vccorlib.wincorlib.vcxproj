@@ -98,13 +98,13 @@
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\lib\$(Platform)\</OutDir>
     <TargetName>vccorlib140.pacth</TargetName>
-    <IncludePath>$(ProjectDir);$(SolutionDir)Sources\crt;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir);$(SolutionDir)Sources\crt;$(SolutionDir)TargetPlatform\header;$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\header;$(IncludePath)</IncludePath>
     <AllProjectIncludesArePublic>true</AllProjectIncludesArePublic>
     <IntDir>$(Platform)\$(Configuration)\$(WindowsTargetPlatformMinVersion)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dynamic|ARM'">
     <TargetName>vccorlib140.pacth</TargetName>
-    <IncludePath>$(ProjectDir);$(SolutionDir)Sources\crt;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir);$(SolutionDir)Sources\crt;$(SolutionDir)TargetPlatform\header;$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\header;$(IncludePath)</IncludePath>
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\lib\$(Platform)\</OutDir>
     <AllProjectIncludesArePublic>true</AllProjectIncludesArePublic>
@@ -114,13 +114,13 @@
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\lib\$(Platform)\</OutDir>
     <TargetName>vccorlib140.pacth</TargetName>
-    <IncludePath>$(ProjectDir);$(SolutionDir)Sources\crt;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir);$(SolutionDir)Sources\crt;$(SolutionDir)TargetPlatform\header;$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\header;$(IncludePath)</IncludePath>
     <AllProjectIncludesArePublic>true</AllProjectIncludesArePublic>
     <IntDir>$(Platform)\$(Configuration)\$(WindowsTargetPlatformMinVersion)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dynamic|ARM64'">
     <TargetName>vccorlib140.pacth</TargetName>
-    <IncludePath>$(ProjectDir);$(SolutionDir)Sources\crt;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir);$(SolutionDir)Sources\crt;$(SolutionDir)TargetPlatform\header;$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\header;$(IncludePath)</IncludePath>
     <AllProjectIncludesArePublic>true</AllProjectIncludesArePublic>
     <IntDir>$(Platform)\$(Configuration)\$(WindowsTargetPlatformMinVersion)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
@@ -268,6 +268,10 @@
     <ClCompile Include="vccorlib.cpp">
       <ExcludedFromBuild Condition="'$(Platform)'!='Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="VC_LTL_Config.c">
+      <ForcedIncludeFiles></ForcedIncludeFiles>
+      <CompileAsWinRT>false</CompileAsWinRT>
+    </ClCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
@@ -278,7 +282,6 @@
     <MakeDir Directories="$(IntDir)objs\weak" />
     <Exec Command="%22$(SolutionDir)Tools\LibMaker.exe%22 CreateWeaks /MACHINE:$(PlatformShortName) /def:%22$(SolutionDir)Tools\$(WindowsTargetPlatformMinVersion)\$(Platform)\vccorlib.wincorlib.weak.def%22 /out:%22$(IntDir)objs\weak%22" Condition="Exists('$(SolutionDir)Tools\$(WindowsTargetPlatformMinVersion)\$(Platform)\vccorlib.wincorlib.weak.def')" />
     <Exec Command="lib %22$(IntDir)vccorlib.wincorlib.lib%22 %22$(IntDir)objs\weak\*%22" Condition="Exists('$(SolutionDir)Tools\$(WindowsTargetPlatformMinVersion)\$(Platform)\vccorlib.wincorlib.weak.def')" />
-
-    <Copy Condition="'@(Obj)' ==''" SourceFiles="$(IntDir)vccorlib.wincorlib.lib" DestinationFiles="$(OutDir)$(TargetName)$(TargetExt)"/>
+    <Copy Condition="'@(Obj)' ==''" SourceFiles="$(IntDir)vccorlib.wincorlib.lib" DestinationFiles="$(OutDir)$(TargetName)$(TargetExt)" />
   </Target>
 </Project>

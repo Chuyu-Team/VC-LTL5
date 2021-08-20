@@ -56,5 +56,8 @@
     <ClCompile Include="..\Sources\crt\vcruntime\chandler_noexcept.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="VC_LTL_Config.c">
+      <Filter>源文件\ltl</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

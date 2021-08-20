@@ -228,6 +228,9 @@
     <ClCompile Include="..\Sources\ucrt\misc\systime.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="VC_LTL_Config.c">
+      <Filter>源文件\ltl\objs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="msvcrt_loadhelper.h">

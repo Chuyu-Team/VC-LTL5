@@ -263,7 +263,7 @@ _futime64
 _gcvt
 _gcvt_s
 ;_get_FMA3_enable x
-;_get_current_locale x
+_get_current_locale
 ;_get_daylight x
 _get_doserrno
 ;_get_dstbias x
@@ -1156,7 +1156,7 @@ ldiv
 ;llround x
 ;llroundf x
 ;llroundl x
-;localeconv x Win7的结构体才完整
+localeconv
 log
 log10
 log10f

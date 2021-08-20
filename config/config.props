@@ -19,33 +19,33 @@
   </PropertyGroup>
   
   <PropertyGroup>
-    <VCLTLTargetUniversalCRTBuildVersion></VCLTLTargetUniversalCRTBuildVersion>
-    <VCLTLTargetUniversalCRTBuildVersion Condition=" '$(WindowsTargetPlatformMinVersion)'!=''">$([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Build)</VCLTLTargetUniversalCRTBuildVersion>
-    <VCLTLTargetUniversalCRTBuildVersion Condition=" '$(VCLTLTargetUniversalCRTBuildVersion)'=='' and '$(SupportLTL)'=='ucrt'">10240</VCLTLTargetUniversalCRTBuildVersion>
-    <VCLTLTargetUniversalCRTBuildVersion Condition=" '$(VCLTLTargetUniversalCRTBuildVersion)'==''">6000</VCLTLTargetUniversalCRTBuildVersion>
+    <LTLWindowsTargetPlatformMinVersionBuild></LTLWindowsTargetPlatformMinVersionBuild>
+    <LTLWindowsTargetPlatformMinVersionBuild Condition=" '$(WindowsTargetPlatformMinVersion)'!=''">$([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Build)</LTLWindowsTargetPlatformMinVersionBuild>
+    <LTLWindowsTargetPlatformMinVersionBuild Condition=" '$(LTLWindowsTargetPlatformMinVersionBuild)'=='' and '$(SupportLTL)'=='ucrt'">10240</LTLWindowsTargetPlatformMinVersionBuild>
+    <LTLWindowsTargetPlatformMinVersionBuild Condition=" '$(LTLWindowsTargetPlatformMinVersionBuild)'==''">6000</LTLWindowsTargetPlatformMinVersionBuild>
   </PropertyGroup>
 
   <!--搜索最适合的UCRT版本-->
   <Choose>
-    <When Condition="'$(VCLTLTargetUniversalCRTBuildVersion)' >= '19041'">
+    <When Condition="'$(LTLWindowsTargetPlatformMinVersionBuild)' >= '19041'">
       <PropertyGroup>
-        <VCLTLTargetUniversalCRTVersion>10.0.19041.0</VCLTLTargetUniversalCRTVersion>
+        <LTLWindowsTargetPlatformMinVersion>10.0.19041.0</LTLWindowsTargetPlatformMinVersion>
       </PropertyGroup>
     </When>
-    <When Condition="'$(PlatformShortName)'=='arm64' or '$(VCLTLTargetUniversalCRTBuildVersion)' >= '10240'">
+    <When Condition="'$(PlatformShortName)'=='arm64' or '$(LTLWindowsTargetPlatformMinVersionBuild)' >= '10240'">
       <PropertyGroup>
-        <VCLTLTargetUniversalCRTVersion>10.0.10240.0</VCLTLTargetUniversalCRTVersion>
+        <LTLWindowsTargetPlatformMinVersion>10.0.10240.0</LTLWindowsTargetPlatformMinVersion>
       </PropertyGroup>
     </When>
-    <When Condition="'$(PlatformShortName)'=='arm' or '$(VCLTLTargetUniversalCRTBuildVersion)' >= '9200'">
+    <When Condition="'$(PlatformShortName)'=='arm' or '$(LTLWindowsTargetPlatformMinVersionBuild)' >= '9200'">
       <PropertyGroup>
-        <VCLTLTargetUniversalCRTVersion>6.2.9200.0</VCLTLTargetUniversalCRTVersion>
+        <LTLWindowsTargetPlatformMinVersion>6.2.9200.0</LTLWindowsTargetPlatformMinVersion>
       </PropertyGroup>
     </When>
     <Otherwise>
       <!--其他情况，统一为6.0.6000.0-->
       <PropertyGroup>
-        <VCLTLTargetUniversalCRTVersion>6.0.6000.0</VCLTLTargetUniversalCRTVersion>
+        <LTLWindowsTargetPlatformMinVersion>6.0.6000.0</LTLWindowsTargetPlatformMinVersion>
       </PropertyGroup>
     </Otherwise>
   </Choose>
@@ -74,7 +74,7 @@
     <VCLTLSupportPlatformToolset Condition="('$(VCLTLSupportPlatformToolsetWinXP)'=='true') Or ('$(VCLTLSupportPlatformToolsetNormal)'=='true')">true</VCLTLSupportPlatformToolset>
 
     <!--VC-LTL仅支持x86、x64、arm、arm64-->
-    <VCLTLSupportPlatform Condition="('$(PlatformShortName)'=='x86') Or ('$(PlatformShortName)'=='x64') Or ('$(PlatformShortName)'=='arm') Or ('$(PlatformShortName)'=='arm64')">true</VCLTLSupportPlatform>
+    <VCLTLSupportPlatform Condition="('$(Platform)'=='Win32') Or ('$(Platform)'=='x64') Or ('$(Platform)'=='arm') Or ('$(Platform)'=='arm64')">true</VCLTLSupportPlatform>
 
     <!--检测是否是Debug编译-->
     <VCLTLUseDebugLibraries Condition="('$(UseDebugLibraries)'=='true') Or ('$(Configuration)'=='Debug')">true</VCLTLUseDebugLibraries>
@@ -88,28 +88,34 @@
     <LTL_Mode Condition=" '$(DisableAdvancedSupport)'!='true' ">Advanced</LTL_Mode>
 
     <SupportLTL Condition="('$(SupportLTL)'!='false') And (('$(DriverTargetPlatform)'=='Universal') Or ('$(VCLTLSupportPlatformToolset)' != 'true') Or ('$(VCLTLUseDebugLibraries)'=='true'))">false</SupportLTL>
-    <SupportLTL Condition="('$(SupportLTL)'=='') And ('$(VCLTLSupportPlatform)'=='true')">ucrt</SupportLTL>
+    <SupportLTL Condition="('$(SupportLTL)'=='') And ('$(VCLTLSupportPlatform)'=='true')">true</SupportLTL>
 
     <SupportWinXP Condition=" ('$(SupportWinXP)'=='') And ('$(VCLTLSupportPlatformToolsetWinXP)'=='true')">true</SupportWinXP>
     
     <!--arm、arm64必定不用支持XP-->
-    <SupportWinXP Condition=" ('$(PlatformShortName)'=='arm') Or ('$(PlatformShortName)'=='arm64')">false</SupportWinXP>
+    <SupportWinXP Condition=" ('$(Platform)'=='arm') Or ('$(Platform)'=='arm64')">false</SupportWinXP>
 
-    <VCLTLPlatformName Condition=" '$(SupportWinXP)'=='true' ">WinXP</VCLTLPlatformName>
-    <VCLTLPlatformName Condition=" '$(SupportWinXP)'!='true' ">Vista</VCLTLPlatformName>
-
-    <VC_LTL_Library>$(VC_LTL_Root)TargetPlatform\$(VCLTLTargetUniversalCRTVersion)\lib\$(Platform);$(IntDir)VC-LTL5.tmp\$(VCLTLTargetUniversalCRTVersion)\$(Platform)</VC_LTL_Library>
+    <VC_LTL_Include>$(VC_LTL_Root)TargetPlatform\header;$(VC_LTL_Root)TargetPlatform\$(LTLWindowsTargetPlatformMinVersion)\header</VC_LTL_Include>
+    <VC_LTL_Library>$(VC_LTL_Root)TargetPlatform\$(LTLWindowsTargetPlatformMinVersion)\lib\$(Platform);$(IntDir)VC-LTL5.tmp\$(LTLWindowsTargetPlatformMinVersion)\$(Platform)</VC_LTL_Library>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(SupportLTL)'=='true' or '$(SupportLTL)'=='ucrt'">
+    <IncludePath>$(VC_LTL_Include);$(IncludePath)</IncludePath>
     <LibraryPath>$(VC_LTL_Library);$(LibraryPath)</LibraryPath>
+
+    <!--可选，仅仅是为了增强对某些奇葩工程的兼容性。-->
+    <VC_IncludePath Condition=" '$(VC_IncludePath)'!='' ">$(VC_LTL_Include);$(VC_IncludePath)</VC_IncludePath>
+    <!--VS2019 16.10新增，VS会优先使用此路径-->
+    <ExternalIncludePath>$(VC_LTL_Include);$(ExternalIncludePath)</ExternalIncludePath>
     <VC_LibraryPath_x86 Condition=" '$(VC_LibraryPath_x86)'!='' ">$(VC_LTL_Library);$(VC_LibraryPath_x86)</VC_LibraryPath_x86>
     <VC_LibraryPath_x64 Condition=" '$(VC_LibraryPath_x64)'!='' ">$(VC_LTL_Library);$(VC_LibraryPath_x64)</VC_LibraryPath_x64>
   </PropertyGroup>
 
   <ItemDefinitionGroup Condition=" '$(SupportLTL)'=='ucrt' or '$(SupportLTL)'=='true'">
     <ClCompile>
+      <!--其实这些宏都不是必须的 vcruntime.h 中会自动加入这些-->
       <PreprocessorDefinitions>_Build_By_LTL=1;_LTL_Core_Version=$(LTL_CoreVersion);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      
       <PreprocessorDefinitions Condition="'$(SupportWinXP)'=='true'">_ATL_XP_TARGETING=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <!--当兼容XP时，对于非 exe 的需要禁用线程安全初始化。避免XP中在DllMain中使用TLS而崩溃-->
       <AdditionalOptions Condition="'$(SupportWinXP)'=='true' and '$(ConfigurationType)'!='Application' ">/Zc:threadSafeInit- %(AdditionalOptions)</AdditionalOptions>
@@ -123,8 +129,8 @@
     <src_vc_vccorlib_path Condition="'$(src_vc_vccorlib_path)' == '' and '$(VCToolsInstallDir)' != ''">$(VCToolsInstallDir)lib\$(PlatformShortName)\vccorlib.lib</src_vc_vccorlib_path>
     <src_vc_vccorlib_path Condition="'$(src_vc_vccorlib_path)' == '' and '$(VCInstallDir)' != '' and '$(Platform)' == 'Win32'">$(VCInstallDir)lib\vccorlib.lib</src_vc_vccorlib_path>
     <src_vc_vccorlib_path Condition="'$(src_vc_vccorlib_path)' == '' and '$(VCInstallDir)' != ''">$(VCInstallDir)lib\$(PlatformShortName)\vccorlib.lib</src_vc_vccorlib_path>
-    <patch_vc_vccorlib_path>$(VC_LTL_Root)TargetPlatform\$(VCLTLTargetUniversalCRTVersion)\lib\$(Platform)\vccorlib140.pacth.lib</patch_vc_vccorlib_path>
-    <dst_vc_vccorlib_path>$(IntDir)VC-LTL5.tmp\$(VCLTLTargetUniversalCRTVersion)\$(Platform)\vccorlib.lib</dst_vc_vccorlib_path>
+    <patch_vc_vccorlib_path>$(VC_LTL_Root)TargetPlatform\$(LTLWindowsTargetPlatformMinVersion)\lib\$(Platform)\vccorlib140.pacth.lib</patch_vc_vccorlib_path>
+    <dst_vc_vccorlib_path>$(IntDir)VC-LTL5.tmp\$(LTLWindowsTargetPlatformMinVersion)\$(Platform)\vccorlib.lib</dst_vc_vccorlib_path>
   </PropertyGroup>
 
   <ItemGroup>
@@ -137,21 +143,20 @@
 
   <Target Name="VC_LTL_PlatformPrepareForBuild_Config" BeforeTargets="PrepareForBuild">
     <Message Text="
-  ***************************************************************************************************
-  *                                                                                                 *
-  *                 *         *      * *             *        * * * * *  *                          *
-  *                  *       *     *                 *            *      *                          *
-  *                   *     *     *       * * * * *  *            *      *                          *
-  *                    *   *       *                 *            *      *                          *
-  *                      *           * *             * * * *      *      * * * *                    *
-  *                                                                                                 *
-  ***************************************************************************************************
+  ###################################################################################################
+  #                                                                                                 #
+  #                 *         *      * *             *        * * * * *  *                          #
+  #                  *       *     *                 *            *      *                          #
+  #                   *     *     *       * * * * *  *            *      *                          #
+  #                    *   *       *                 *            *      *                          #
+  #                      *           * *             * * * *      *      * * * *                    #
+  #                                                                                                 #
+  ###################################################################################################
   
-  VC-LTL Path      : $([MSBuild]::NormalizePath('$(MSBuildThisFileDirectory)..\'))
-  VC Tools Version : $(VCLTLToolsVersion)
-  Target CRT Version : $(VCLTLTargetUniversalCRTVersion)
-  Platform         : $(PlatformShortName)
-  Using VC-LTL $(VCLTLPlatformName) $(LTL_Mode) Mode
+  VC-LTL Path      : $(VC_LTL_Root)
+  VC Tools Version : $(VCToolsVersion)
+  WindowsTargetPlatformMinVersion : $(LTLWindowsTargetPlatformMinVersion)
+  Platform         : $(Platform)
 " Importance="high" Condition="('$(SupportLTL)'=='true') Or ('$(SupportLTL)'=='ucrt')"/>
     <Warning Code="LTL2000" Text="$(ERROR_VC_LTL_NOT_SUPPORT_DEBUG)" Condition="'$(UseDebugLibraries)'=='true'" />
     <!--
@@ -167,7 +172,7 @@
     <Warning Code="LTL3002" Text="$(ERROR_VC_LTL_NOT_SUPPORT_WINXP_IN_UCRT_MODE)" Condition=" ('$(SupportLTL)'=='ucrt') And ('$(SupportWinXP)'=='true')"/>
     <Warning Code="LTL3003" Text="$(ERROR_VC_LTL_NOT_SUPPORT_MITIGATION)" Condition=" ('$(SupportLTL)'=='true') And ('$(VCLTLLibDirMod)'!='$(VCLibDirMod)')"/>
     -->
-    <Error Code="LTL4000" Text="$(ERROR_VC_LTL_FILE_MISSING)" Condition=" ('$(SupportLTL)'=='true' and '$(SupportLTL)'=='ucrt') And (!(Exists('$(VC_LTL_Root)ucrt\$(VCLTLTargetUniversalCRTVersion)\lib\$(Platform)')))"/>
+    <Error Code="LTL4000" Text="$(ERROR_VC_LTL_FILE_MISSING)" Condition=" ('$(SupportLTL)'=='true' and '$(SupportLTL)'=='ucrt') And (!(Exists('$(VC_LTL_Root)TargetPlatform\$(LTLWindowsTargetPlatformMinVersion)\lib\$(Platform)')))"/>
   </Target>
   <Target Name="Build_vccorlib_lib" AfterTargets="BeforeLink" BeforeTargets="Link" Condition="('$(SupportLTL)'=='true' Or ('$(SupportLTL)'=='ucrt')) and '$(src_vc_vccorlib_path)'!= '' and Exists('$(src_vc_vccorlib_path)') and Exists('$(patch_vc_vccorlib_path)')"
           Inputs="$(src_vc_vccorlib_path);$(patch_vc_vccorlib_path)"

@@ -300,7 +300,7 @@ _futime64
 ;_fwrite_nolock
 _gcvt
 _gcvt_s
-;_get_current_locale t
+_get_current_locale
 ;_get_daylight t
 _get_doserrno
 ;_get_dstbias t
@@ -1191,7 +1191,7 @@ ldiv
 ;llround x
 ;llroundf x
 ;llroundl x
-;localeconv x Win7开始才导出 _W_decimal_point等成员
+localeconv
 log
 log10
 ;log1p x
