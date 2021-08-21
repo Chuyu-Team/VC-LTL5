@@ -408,6 +408,7 @@
     </ClCompile>
     <ClCompile Include="initctype.cpp" />
     <ClCompile Include="localeconv.cpp" />
+    <ClCompile Include="matherr.cpp" />
     <ClCompile Include="mbctype.cpp">
       <ExcludedFromBuild Condition="'$(Platform)'=='Win32'">true</ExcludedFromBuild>
     </ClCompile>
@@ -421,7 +422,8 @@
     <ClCompile Include="timeset.cpp" />
     <ClCompile Include="ucrt_IAT.cpp" />
     <ClCompile Include="VC_LTL_Config.c">
-      <ForcedIncludeFiles></ForcedIncludeFiles>
+      <ForcedIncludeFiles>
+      </ForcedIncludeFiles>
     </ClCompile>
     <ClCompile Include="wcsftime.cpp" />
     <ClCompile Include="_file.cpp" />

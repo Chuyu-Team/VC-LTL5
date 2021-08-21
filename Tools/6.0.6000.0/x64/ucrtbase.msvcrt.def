@@ -59,7 +59,7 @@ __iscsymf
 __pctype_func
 __pwctype_func
 __pxcptinfoptrs
-__setusermatherr
+;__setusermatherr x
 ;__stdio_common_vfprintf x
 ;__stdio_common_vfprintf_p x
 ;__stdio_common_vfprintf_s x

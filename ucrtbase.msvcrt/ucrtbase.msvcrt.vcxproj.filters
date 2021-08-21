@@ -231,6 +231,9 @@
     <ClCompile Include="VC_LTL_Config.c">
       <Filter>源文件\ltl\objs</Filter>
     </ClCompile>
+    <ClCompile Include="matherr.cpp">
+      <Filter>源文件\ltl</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="msvcrt_loadhelper.h">

@@ -97,7 +97,7 @@ __p__wpgmptr
 __pctype_func
 __pwctype_func
 __pxcptinfoptrs
-__setusermatherr
+;__setusermatherr x
 ;__stdio_common_vfprintf t
 ;__stdio_common_vfprintf_p t
 ;__stdio_common_vfprintf_s t
