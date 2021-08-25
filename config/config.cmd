@@ -99,8 +99,12 @@ if /i "%LTLPlatform%" == "arm64" set LTLWindowsTargetPlatformMinVersion=10.0.102
 if %LTLWindowsTargetPlatformMinVersionBuild% GEQ 9200 set LTLWindowsTargetPlatformMinVersion=6.2.9200.0&&goto:eof
 if /i "%LTLPlatform%" == "arm" set LTLWindowsTargetPlatformMinVersion=6.2.9200.0&&goto:eof
 
+if %LTLWindowsTargetPlatformMinVersionBuild% GEQ 6000 set LTLWindowsTargetPlatformMinVersion=6.0.6000.0&&goto:eof
 
-set LTLWindowsTargetPlatformMinVersion=6.0.6000.0
+if /i "%LTLPlatform%" == "x64" set LTLWindowsTargetPlatformMinVersion=5.2.3790.0&&goto:eof
+
+::兜底
+set LTLWindowsTargetPlatformMinVersion=5.1.2600.0
 
 goto:eof
 
@@ -110,7 +114,12 @@ if /i "%LTLPlatform%" == "arm64" set LTLWindowsTargetPlatformMinVersion=10.0.102
 
 if /i "%LTLPlatform%" == "arm" set LTLWindowsTargetPlatformMinVersion=6.2.9200.0&&goto:eof
 
-set LTLWindowsTargetPlatformMinVersion=6.0.6000.0
+::兼容以前的XP模式
+if /i "%SupportWinXP%" NEQ "true" set LTLWindowsTargetPlatformMinVersion=6.0.6000.0&&goto:eof
+
+if /i "%LTLPlatform%" == "x64" set LTLWindowsTargetPlatformMinVersion=5.2.3790.0&&goto:eof
+
+set LTLWindowsTargetPlatformMinVersion=5.1.2600.0
 
 goto:eof
 
