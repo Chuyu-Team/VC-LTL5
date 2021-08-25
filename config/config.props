@@ -192,7 +192,7 @@
           Inputs="$(src_vc_vccorlib_path);$(patch_vc_vccorlib_path)"
           Outputs="$(dst_vc_vccorlib_path)">
     <Copy SourceFiles="$(src_vc_vccorlib_path)" DestinationFiles="$(dst_vc_vccorlib_path)" OverwriteReadOnlyFiles="true"/>
-    <Exec Command="lib %22$(dst_vc_vccorlib_path)%22 /remove:vccorlib140.DLL > null"/>
-    <Exec Command="lib %22$(dst_vc_vccorlib_path)%22 %22$(patch_vc_vccorlib_path)%22 > null"/>
+    <Exec Command="lib %22$(dst_vc_vccorlib_path)%22 /remove:vccorlib140.DLL > nul"/>
+    <Exec Command="lib %22$(dst_vc_vccorlib_path)%22 %22$(patch_vc_vccorlib_path)%22 > nul"/>
   </Target>
 </Project>
