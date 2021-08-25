@@ -1,4 +1,4 @@
-//
+﻿//
 // strtok_s.cpp
 //
 //      Copyright (c) Microsoft Corporation.  All rights reserved.
@@ -72,7 +72,7 @@ extern "C" char* __cdecl __acrt_strtok_s_novalidation(
 }
 
 
-
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" char* __cdecl strtok_s(char* string, char const* control, char** context)
 {
     _VALIDATE_POINTER_ERROR_RETURN(context, EINVAL, nullptr);
@@ -81,3 +81,6 @@ extern "C" char* __cdecl strtok_s(char* string, char const* control, char** cont
 
     return __acrt_strtok_s_novalidation(string, control, context);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(strtok_s);
+#endif

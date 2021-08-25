@@ -1,4 +1,4 @@
-//
+﻿//
 // abs.cpp
 //
 //      Copyright (c) Microsoft Corporation. All rights reserved.
@@ -19,7 +19,12 @@ extern "C" int __cdecl abs(int const number)
 }
 #endif
 
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows2003
 extern "C" __int64 __cdecl _abs64(__int64 const number)
 {
     return number >= 0 ? number : -number;
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_abs64);
+
+#endif

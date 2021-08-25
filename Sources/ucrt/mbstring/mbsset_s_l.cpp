@@ -1,4 +1,4 @@
-/***
+﻿/***
 *mbsset_s_l.c - Sets all charcaters of string to given character (MBCS)
 *
 *       Copyright (c) Microsoft Corporation.  All rights reserved.
@@ -14,7 +14,7 @@
 #include <corecrt_internal_mbstring.h>
 #include <corecrt_internal_securecrt.h>
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 EXTERN_C errno_t __cdecl _mbsset_s_l(unsigned char *_Dst, size_t _SizeInBytes, unsigned int _Value, _LOCALE_ARG_DECL)
 {
     int mbcs_error = 0;
@@ -88,4 +88,6 @@ EXTERN_C errno_t __cdecl _mbsset_s_l(unsigned char *_Dst, size_t _SizeInBytes, u
         _RETURN_NO_ERROR;
     }
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_mbsset_s_l);
 #endif

@@ -1,4 +1,4 @@
-//
+﻿//
 // qsort.cpp
 //
 //      Copyright (c) Microsoft Corporation. All rights reserved.
@@ -389,6 +389,12 @@ recurse:
         return;
     }
 }
+
+#ifdef __USE_CONTEXT
+_LCRT_DEFINE_IAT_SYMBOL(qsort_s);
+#else
+_LCRT_DEFINE_IAT_SYMBOL(qsort);
+#endif
 
 #undef __COMPARE
 #undef __SHORTSORT

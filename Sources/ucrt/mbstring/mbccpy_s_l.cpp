@@ -1,4 +1,4 @@
-/***
+﻿/***
 *mbccpy_s_l.c - Copy one character  to another (MBCS)
 *
 *       Copyright (c) Microsoft Corporation. All rights reserved.
@@ -14,7 +14,7 @@
 
 #pragma warning(disable:__WARNING_POTENTIAL_BUFFER_OVERFLOW_NULLTERMINATED) // 26018
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 errno_t __cdecl _mbccpy_s_l(unsigned char *_Dst, size_t _SizeInBytes, int *_PCopied, const unsigned char *_Src, _LOCALE_ARG_DECL)
 {
     /* validation section */
@@ -57,4 +57,6 @@ errno_t __cdecl _mbccpy_s_l(unsigned char *_Dst, size_t _SizeInBytes, int *_PCop
 
     _RETURN_NO_ERROR;
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_mbccpy_s_l);
 #endif

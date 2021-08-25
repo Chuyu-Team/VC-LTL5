@@ -1,4 +1,4 @@
-/***
+﻿/***
 *memicmp.cpp - compare memory, ignore case
 *
 *       Copyright (c) Microsoft Corporation. All rights reserved.
@@ -38,7 +38,7 @@
 *
 *******************************************************************************/
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" int __cdecl _memicmp_l (
         void const * const lhs,
         void const * const rhs,
@@ -74,6 +74,8 @@ extern "C" int __cdecl _memicmp_l (
 
     return result;
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_memicmp_l);
 #endif
 
 

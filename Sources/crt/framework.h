@@ -39,10 +39,17 @@
 #define _LCRT_DEFINE_IAT_SYMBOL(f)                                                              \
     __IAT_EXTERN_C __declspec(selectany) void const* const _LCRT_DEFINE_IAT_SYMBOL_MAKE_NAME(f) \
         = __IAT_reinterpret_cast(f)
+
+#define _LCRT_DEFINE_IAT_NATIVE_SYMBOL(symbol_name, f) \
+    __pragma(warning(suppress:4483))                                                                 \
+    extern "C" __declspec(selectany) void const* const __identifier(_CRT_STRINGIZE_(_imp_ ## symbol_name))  \
+              = reinterpret_cast<void const*>(&f)
+
 #else
 
 //说明静态依赖，所以我们不需要定义 IAT_SYMBOL符号
 #define _LCRT_DEFINE_IAT_SYMBOL(f)
+#define _LCRT_DEFINE_IAT_NATIVE_SYMBOL(symbol_name, f)
 
 #endif
 
@@ -54,18 +61,6 @@
 
 
 #define __MakeVersion(Major, Minor, Build) ((Major << 12) + (Minor << 8) + Build)
-#define MakeMiniVersion(v1,v2) (DWORD)(v2|(v1<<16))
-__IAT_EXTERN_C unsigned __cdecl __LTL_GetOsMinVersion();
-
-#define _Disallow_YY_KM_Namespace
-#include <km.h>
-
-__forceinline unsigned __cdecl __LTL_GetOsMinVersion()
-{
-    auto pPeb = ((TEB*)NtCurrentTeb())->ProcessEnvironmentBlock;
-
-    return MakeMiniVersion(pPeb->OSMajorVersion, pPeb->OSMinorVersion);
-}
 
 #ifndef __WARNING_UNUSED_ASSIGNMENT
 #define __WARNING_UNUSED_ASSIGNMENT 28931
@@ -83,3 +78,11 @@ __forceinline unsigned __cdecl __LTL_GetOsMinVersion()
 //Windows 8.1 or 2012 R2
 #define WindowsTargetPlatformWindowsBlue     __MakeVersion(6, 3, 9600)
 #define WindowsTargetPlatformWindows10_10240 __MakeVersion(10,0, 10240)
+
+#ifndef UMDF_USING_NTSTATUS
+#define UMDF_USING_NTSTATUS
+#endif
+#ifndef _NTDEF_
+typedef _Return_type_success_(return >= 0) long NTSTATUS;
+typedef NTSTATUS* PNTSTATUS;
+#endif

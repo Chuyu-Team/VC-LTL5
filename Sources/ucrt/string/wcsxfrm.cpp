@@ -1,4 +1,4 @@
-/***
+﻿/***
 *wcsxfrm.c - Transform a wide-character string using locale information
 *
 *       Copyright (c) Microsoft Corporation. All rights reserved.
@@ -12,7 +12,6 @@
 #include <ctype.h>
 #include <locale.h>
 #include <string.h>
-#include <winapi_thunks.h>
 
 /***
 *size_t wcsxfrm() - Transform a string using locale information
@@ -49,7 +48,7 @@
 *
 *******************************************************************************/
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" size_t __cdecl _wcsxfrm_l (
         wchar_t *_string1,
         const wchar_t *_string2,
@@ -125,6 +124,8 @@ _END_SECURE_CRT_DEPRECATION_DISABLE
 
     return (size_t)size;
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_wcsxfrm_l);
 #endif
 
 #if 0

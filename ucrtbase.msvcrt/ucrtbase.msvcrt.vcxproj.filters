@@ -25,6 +25,12 @@
     <Filter Include="源文件\ltl\objs">
       <UniqueIdentifier>{b663b6c3-a002-433f-9be7-b1190c9c04dd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="源文件\WinXP">
+      <UniqueIdentifier>{a5b41348-c594-44a5-b96b-68d7e8f03457}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\WinXP\ltl">
+      <UniqueIdentifier>{1828f684-e01a-416e-aef3-056685c406dc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Sources\ucrt\string\wmemcpy_s.cpp">
@@ -112,9 +118,6 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="wcsftime.cpp">
-      <Filter>源文件\ltl</Filter>
-    </ClCompile>
-    <ClCompile Include="atof.cpp">
       <Filter>源文件\ltl</Filter>
     </ClCompile>
     <ClCompile Include="..\Sources\ucrt\stdlib\byteswap.cpp">
@@ -233,6 +236,540 @@
     </ClCompile>
     <ClCompile Include="matherr.cpp">
       <Filter>源文件\ltl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\ismbalph.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\ismbdgt.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\ismbgrph.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\ismbknj.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbclevel.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\ismblgl.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\ismblwr.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\ismbprn.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\ismbspc.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\ismbupr.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\ismbsle.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\convert\ismbstr.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\stdlib\lfind_s.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="localtime.cpp">
+      <Filter>源文件\WinXP\ltl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\stdlib\lsearch_s.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\filesystem\makepath.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\tombbmbc.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbccpy.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbccpy_s.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbccpy_s_l.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\tojisjms.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbclen.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbtohira.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbtokata.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbtolwr.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbtoupr.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\convert\mblen.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbsbtype.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbscat_s.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbscat_s_l.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbschr.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbscmp.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbscoll.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbscpy_s.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbscpy_s_l.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbscspn.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbsdec.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbsicmp.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbsicoll.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbsinc.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbslen.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbslen_s.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbslwr.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbsnbcat.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbsnbcat_s.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbsnbcat_s_l.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbsnbcmp.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbsnbcnt.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbsnbcol.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbsnbcpy.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbsnbcpy_s.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbsnbcpy_s_l.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbsnbicm.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbsnbico.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbsnbset.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbsnbset_s.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbsnbset_s_l.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbsncat.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbsncat_s.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbsncat_s_l.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbsnccnt.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbsncmp.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbsncoll.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbsncpy.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbsncpy_s.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbsncpy_s_l.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbsnextc.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbsnicmp.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbsnicol.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbsninc.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbsnset.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbsnset_s.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbsnset_s_l.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbspbrk.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbsrchr.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbsrev.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbsset.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbsset_s.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbsset_s_l.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbsspn.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbsspnp.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbsstr.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbstok.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbstok_s.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\convert\mbstowcs.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\mbsupr.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\string\memcpy_s.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\string\memicmp.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\string\strcat_s.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\string\strcoll.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\string\strcpy_s.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\string\stricmp.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\string\stricoll.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\string\strlwr.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\string\strncat_s.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\string\strncoll.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\string\strncpy_s.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\string\strnicmp.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\string\strnicol.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\string\strnlen.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\string\strnset_s.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\string\strset_s.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\string\strtok_s.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\string\strupr.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\string\strxfrm.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\string\wcscat_s.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\string\wcscoll.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\string\wcscpy_s.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\string\wcsicmp.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\string\wcsicoll.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\string\wcslwr.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\string\wcsncat_s.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\string\wcsnicmp.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\string\wcsnicol.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\string\wcsnset_s.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\string\wcsset_s.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\string\wcstok_s.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\string\wcsupr.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\string\wcsxfrm.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\stdlib\qsort_s.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\stdlib\rotl.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\stdlib\rotr.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\convert\tolower_toupper.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\convert\towlower.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\convert\towupper.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\convert\wcrtomb.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\convert\wcstombs.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\convert\_mbslen.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\convert\mbtowc.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="mktime.cpp">
+      <Filter>源文件\WinXP\ltl</Filter>
+    </ClCompile>
+    <ClCompile Include="mktemp.cpp">
+      <Filter>源文件\WinXP\ltl</Filter>
+    </ClCompile>
+    <ClCompile Include="putenv.cpp">
+      <Filter>源文件\WinXP\ltl</Filter>
+    </ClCompile>
+    <ClCompile Include="searchenv.cpp">
+      <Filter>源文件\WinXP\ltl</Filter>
+    </ClCompile>
+    <ClCompile Include="splitpath.cpp">
+      <Filter>源文件\WinXP\ltl</Filter>
+    </ClCompile>
+    <ClCompile Include="strdate.cpp">
+      <Filter>源文件\WinXP\ltl</Filter>
+    </ClCompile>
+    <ClCompile Include="_strerr.cpp">
+      <Filter>源文件\WinXP\ltl</Filter>
+    </ClCompile>
+    <ClCompile Include="gmtime.cpp">
+      <Filter>源文件\WinXP\ltl</Filter>
+    </ClCompile>
+    <ClCompile Include="fseek.cpp">
+      <Filter>源文件\WinXP\ltl</Filter>
+    </ClCompile>
+    <ClCompile Include="fcvt.cpp">
+      <Filter>源文件\WinXP\ltl</Filter>
+    </ClCompile>
+    <ClCompile Include="access.cpp">
+      <Filter>源文件\WinXP\ltl</Filter>
+    </ClCompile>
+    <ClCompile Include="cgets.cpp">
+      <Filter>源文件\WinXP\ltl</Filter>
+    </ClCompile>
+    <ClCompile Include="cgetws.cpp">
+      <Filter>源文件\WinXP\ltl</Filter>
+    </ClCompile>
+    <ClCompile Include="chsize.cpp">
+      <Filter>源文件\WinXP\ltl</Filter>
+    </ClCompile>
+    <ClCompile Include="contrlfp.cpp">
+      <Filter>源文件\WinXP\ltl</Filter>
+    </ClCompile>
+    <ClCompile Include="ctime.cpp">
+      <Filter>源文件\WinXP\ltl</Filter>
+    </ClCompile>
+    <ClCompile Include="ctype.cpp">
+      <Filter>源文件\WinXP\ltl</Filter>
+    </ClCompile>
+    <ClCompile Include="ftime.cpp">
+      <Filter>源文件\WinXP\ltl</Filter>
+    </ClCompile>
+    <ClCompile Include="gcvt.cpp">
+      <Filter>源文件\WinXP\ltl</Filter>
+    </ClCompile>
+    <ClCompile Include="xtoa.cpp">
+      <Filter>源文件\WinXP\ltl</Filter>
+    </ClCompile>
+    <ClCompile Include="strtime.cpp">
+      <Filter>源文件\WinXP\ltl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\convert\strtox.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="umask.cpp">
+      <Filter>源文件\WinXP\ltl</Filter>
+    </ClCompile>
+    <ClCompile Include="asctime.cpp">
+      <Filter>源文件\WinXP\ltl</Filter>
+    </ClCompile>
+    <ClCompile Include="assert.cpp">
+      <Filter>源文件\WinXP\ltl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\misc\strerror.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\string\wcsncoll.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\string\wcsncpy_s.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\convert\wctomb.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="fopen.cpp">
+      <Filter>源文件\WinXP\ltl</Filter>
+    </ClCompile>
+    <ClCompile Include="freopen.cpp">
+      <Filter>源文件\WinXP\ltl</Filter>
+    </ClCompile>
+    <ClCompile Include="tmpfile.cpp">
+      <Filter>源文件\WinXP\ltl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\stdlib\bsearch_s.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\stdlib\abs.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\convert\atof.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\convert\atoldbl.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\convert\atox.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\time\difftime.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\startup\initterm.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\convert\isctype.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\mbstring\ismbalnm.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\lowio\setmode.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\string\strncnt.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\string\wcsncnt.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\convert\mbrtowc.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="clearerr.cpp">
+      <Filter>源文件\WinXP\ltl</Filter>
+    </ClCompile>
+    <ClCompile Include="exception_filter.cpp">
+      <Filter>源文件\WinXP\ltl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\stdlib\rand_s.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\crt\ptd_downlevel.cpp">
+      <Filter>头文件\ltl</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

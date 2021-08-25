@@ -1,4 +1,4 @@
-/***
+﻿/***
 *mbsncat_s_l.c - concatenate string2 onto string1, max length n
 *
 *       Copyright (c) Microsoft Corporation.  All rights reserved.
@@ -18,6 +18,8 @@
 #define _COUNT _CountInChars
 #define _COUNT_IN_BYTES 0
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 #include "mbsncat_s.inl"
+
+_LCRT_DEFINE_IAT_SYMBOL(_mbsncat_s_l);
 #endif

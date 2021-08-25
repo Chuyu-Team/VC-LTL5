@@ -1,4 +1,4 @@
-/***
+﻿/***
 *mbsncpy.c - Copy one string to another, n chars only (MBCS)
 *
 *       Copyright (c) Microsoft Corporation.  All rights reserved.
@@ -39,7 +39,7 @@
 *
 *******************************************************************************/
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 #pragma warning(suppress:6101) // Returning uninitialized memory '*dst'.  A successful path through the function does not set the named _Out_ parameter.
 extern "C" unsigned char * __cdecl _mbsncpy_l(
         unsigned char *dst,
@@ -88,6 +88,8 @@ extern "C" unsigned char * __cdecl _mbsncpy_l(
 #pragma warning(suppress:__WARNING_POSTCONDITION_NULLTERMINATION_VIOLATION) // 26036 REVIEW annotation mistake?
         return start;
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_mbsncpy_l);
 #endif
 
 #if 0

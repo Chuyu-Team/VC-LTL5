@@ -1,4 +1,4 @@
-//
+﻿//
 // strset_s.cpp
 //
 //      Copyright (c) Microsoft Corporation.  All rights reserved.
@@ -10,7 +10,7 @@
 #include <string.h>
 
 
-
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" errno_t __cdecl _strset_s(
     char*  const destination,
     size_t const size_in_elements,
@@ -19,3 +19,6 @@ extern "C" errno_t __cdecl _strset_s(
 {
     return common_tcsset_s(destination, size_in_elements, static_cast<char>(value));
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_strset_s);
+#endif

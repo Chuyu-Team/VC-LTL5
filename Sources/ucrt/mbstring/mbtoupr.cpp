@@ -1,4 +1,4 @@
-/***
+﻿/***
 *mbtoupr.c - Convert character to upper case (MBCS)
 *
 *       Copyright (c) Microsoft Corporation.  All rights reserved.
@@ -13,7 +13,6 @@
 
 #include <corecrt_internal_mbstring.h>
 #include <locale.h>
-#include <winapi_thunks.h>
 
 /***
 * _mbctoupper - Convert character to upper case (MBCS)
@@ -36,7 +35,7 @@
 *
 *******************************************************************************/
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" unsigned int __cdecl _mbctoupper_l(
         unsigned int c,
         _locale_t plocinfo
@@ -81,6 +80,8 @@ extern "C" unsigned int __cdecl _mbctoupper_l(
         else
             return (unsigned int)_mbbtoupper_l((int)c, plocinfo);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_mbctoupper_l);
 #endif
 
 #if 0

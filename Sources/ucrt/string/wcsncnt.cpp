@@ -1,4 +1,4 @@
-//
+﻿//
 // wcsncnt.cpp
 //
 //      Copyright (c) Microsoft Corporation.  All rights reserved.
@@ -10,6 +10,7 @@
 
 
 
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" size_t __cdecl __wcsncnt(
     wchar_t const* const string,
     size_t         const count
@@ -22,3 +23,6 @@ extern "C" size_t __cdecl __wcsncnt(
 
     return n;
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(__wcsncnt);
+#endif

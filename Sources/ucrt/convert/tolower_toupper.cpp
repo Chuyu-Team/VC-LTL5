@@ -1,4 +1,4 @@
-//
+﻿//
 // tolower_toupper.cpp
 //
 //      Copyright (c) Microsoft Corporation. All rights reserved.
@@ -11,7 +11,6 @@
 #include <ctype.h>
 #include <locale.h>
 #include <stdio.h>
-#include <winapi_thunks.h>
 
 typedef unsigned char  (__cdecl internal_map_type)(unsigned char, _locale_t);
 
@@ -81,13 +80,15 @@ static __forceinline int __cdecl common_tox_l(int const c, DWORD const map_flag,
     return common_tox_win_lookup(c, map_flag, locale);
 }
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" int __cdecl _tolower_l(int const c, _locale_t const locale)
 {
 	if (!locale)
 		return tolower(c);
     return common_tox_l<_tolower_fast_internal>(c, LCMAP_LOWERCASE, locale);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_tolower_l);
 #endif
 
 #if 0
@@ -104,13 +105,15 @@ extern "C" int (__cdecl _tolower)(int const c)
 }
 #endif
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" int __cdecl _toupper_l(int const c, _locale_t const locale)
 {
 	if (!locale)
 		return toupper(c);
     return common_tox_l<_toupper_fast_internal>(c, LCMAP_UPPERCASE, locale);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_toupper_l);
 #endif
 
 #if 0

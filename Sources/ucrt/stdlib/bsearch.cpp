@@ -1,4 +1,4 @@
-//
+﻿//
 // bsearch.cpp
 //
 //      Copyright (c) Microsoft Corporation. All rights reserved.
@@ -122,5 +122,9 @@ void* __fileDECL bsearch(
 
     return nullptr;
 }
+
+#ifdef __USE_CONTEXT
+_LCRT_DEFINE_IAT_SYMBOL(bsearch_s);
+#endif
 
 #undef __COMPARE

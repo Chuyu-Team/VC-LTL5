@@ -1,4 +1,4 @@
-//
+﻿//
 // ismbstr.cpp
 //
 //      Copyright (c) Microsoft Corporation. All rights reserved.
@@ -23,7 +23,7 @@
 #include <locale.h>
 
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" int __cdecl _ismbstrail_l(
     unsigned char const*       string,
     unsigned char const*       current,
@@ -55,6 +55,8 @@ extern "C" int __cdecl _ismbstrail_l(
 
     return 0;
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_ismbstrail_l);
 #endif
 
 #if 0

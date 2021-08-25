@@ -1,4 +1,4 @@
-/***
+﻿/***
 *mbslwr.c - Convert string lower case (MBCS)
 *
 *       Copyright (c) Microsoft Corporation.  All rights reserved.
@@ -16,7 +16,6 @@
 #include <corecrt_internal_securecrt.h>
 #include <locale.h>
 #include <string.h>
-#include <winapi_thunks.h>
 
 #pragma warning(disable:__WARNING_POTENTIAL_BUFFER_OVERFLOW_NULLTERMINATED) // 26018
 
@@ -40,7 +39,7 @@
 *
 *******************************************************************************/
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 errno_t __cdecl _mbslwr_s_l(
         unsigned char *string,
         size_t sizeInBytes,
@@ -116,9 +115,11 @@ errno_t __cdecl _mbslwr_s_l(
 
         return 0;
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_mbslwr_s_l);
 #endif
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 errno_t (__cdecl _mbslwr_s)(
         unsigned char *string,
         size_t sizeInBytes
@@ -134,9 +135,11 @@ errno_t (__cdecl _mbslwr_s)(
 
 	return 0;
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_mbslwr_s);
 #endif
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 unsigned char * (__cdecl _mbslwr_l)(
         unsigned char *string,
         _locale_t plocinfo
@@ -144,6 +147,8 @@ unsigned char * (__cdecl _mbslwr_l)(
 {
     return (_mbslwr_s_l(string, (string == nullptr ? 0 : (size_t)-1), plocinfo) == 0 ? string : nullptr);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_mbslwr_l);
 #endif
 
 #if 0

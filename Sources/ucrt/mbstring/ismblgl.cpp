@@ -1,4 +1,4 @@
-/***
+﻿/***
 *ismblgl.c - Tests to see if a given character is a legal MBCS char.
 *
 *       Copyright (c) Microsoft Corporation. All rights reserved.
@@ -31,7 +31,7 @@
 *
 ******************************************************************************/
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" int __cdecl _ismbclegal_l(
         unsigned int c,
         _locale_t plocinfo
@@ -44,6 +44,8 @@ extern "C" int __cdecl _ismbclegal_l(
         return( (_ismbblead_l(c >> 8, plocinfo)) &&
                 (_ismbbtrail_l(c & 0x0ff, plocinfo)) );
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_ismbclegal_l);
 #endif
 
 #if 0

@@ -1,4 +1,4 @@
-//
+﻿//
 // mblen.cpp
 //
 //      Copyright (c) Microsoft Corporation. All rights reserved.
@@ -15,7 +15,7 @@ using namespace __crt_mbstring;
 // character encodings.  If the next max_count bytes of the string are not a valid
 // multibyte character, -1 is returned.  Otherwise, the number of bytes that
 // compose the next multibyte character are returned.
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" int __cdecl _mblen_l(
     char const* const string,
     size_t      const max_count,
@@ -93,6 +93,8 @@ extern "C" int __cdecl _mblen_l(
         return sizeof(char);
     }
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_mblen_l);
 #endif
 
 

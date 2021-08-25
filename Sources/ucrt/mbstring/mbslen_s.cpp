@@ -1,4 +1,4 @@
-/***
+﻿/***
 *mbslen_s.c - Find length of MBCS string
 *
 *       Copyright (c) Microsoft Corporation.  All rights reserved.
@@ -39,7 +39,7 @@
 *
 *******************************************************************************/
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 size_t __cdecl _mbsnlen_l(
         const unsigned char *s,
         size_t sizeInBytes,
@@ -78,9 +78,11 @@ size_t __cdecl _mbsnlen_l(
 
                 return (size >= sizeInBytes ? sizeInBytes : n);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_mbsnlen_l);
 #endif
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 size_t __cdecl _mbsnlen(
         const unsigned char *s,
         size_t maxsize
@@ -114,4 +116,6 @@ size_t __cdecl _mbsnlen(
 
 	return (size >= maxsize ? maxsize : n);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_mbsnlen);
 #endif

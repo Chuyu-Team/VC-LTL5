@@ -262,9 +262,14 @@ extern "C" _VCRTIMP int*   __cdecl __processing_throw();
 #if _VCRT_BUILD_FH4
 // In the satellite build, __vcrt_getptd uses satellite's PTD
 // In the non-DLL build, __vcrt_getptd uses the main PTD which was updated to have this field
+#if WindowsTargetPlatformMinVersion >= WindowsTargetPlatformWindows6
 extern thread_local int VC_LTL_UCRT_CatchStateInParent;
-
 #define CatchStateInParent      (VC_LTL_UCRT_CatchStateInParent)
+#else
+#include <ptd_downlevel.h>
+#define CatchStateInParent (__LTL_get_ptd_downlevel(TRUE)->_CatchStateInParent)
+#endif
+
 #endif
 
 #pragma pack(pop)

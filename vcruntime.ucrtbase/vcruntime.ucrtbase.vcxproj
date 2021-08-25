@@ -242,6 +242,7 @@
       <OmitDefaultLibName>true</OmitDefaultLibName>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <EnableEnhancedInstructionSet>NoExtensions</EnableEnhancedInstructionSet>
+      <DisableSpecificWarnings>4200;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -265,6 +266,7 @@
       <WholeProgramOptimization>false</WholeProgramOptimization>
       <OmitDefaultLibName>true</OmitDefaultLibName>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <DisableSpecificWarnings>4200;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -289,6 +291,7 @@
       <OmitDefaultLibName>true</OmitDefaultLibName>
       <DebugInformationFormat>OldStyle</DebugInformationFormat>
       <EnableEnhancedInstructionSet>NoExtensions</EnableEnhancedInstructionSet>
+      <DisableSpecificWarnings>4200;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -312,6 +315,7 @@
       <WholeProgramOptimization>false</WholeProgramOptimization>
       <OmitDefaultLibName>true</OmitDefaultLibName>
       <DebugInformationFormat>OldStyle</DebugInformationFormat>
+      <DisableSpecificWarnings>4200;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -335,6 +339,7 @@
       <WholeProgramOptimization>false</WholeProgramOptimization>
       <OmitDefaultLibName>true</OmitDefaultLibName>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <DisableSpecificWarnings>4200;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -358,6 +363,7 @@
       <WholeProgramOptimization>false</WholeProgramOptimization>
       <OmitDefaultLibName>true</OmitDefaultLibName>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <DisableSpecificWarnings>4200;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -381,6 +387,7 @@
       <WholeProgramOptimization>false</WholeProgramOptimization>
       <OmitDefaultLibName>true</OmitDefaultLibName>
       <DebugInformationFormat>OldStyle</DebugInformationFormat>
+      <DisableSpecificWarnings>4200;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -404,6 +411,7 @@
       <WholeProgramOptimization>false</WholeProgramOptimization>
       <OmitDefaultLibName>true</OmitDefaultLibName>
       <DebugInformationFormat>OldStyle</DebugInformationFormat>
+      <DisableSpecificWarnings>4200;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -420,7 +428,7 @@
     <ClInclude Include="..\Sources\crt\framework.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Sources\crt\vcruntime\chandler4.cpp">
+    <ClCompile Include="..\Sources\crt\i386\chandler4.c">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'!='Static|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\Sources\crt\vcruntime\chandler_noexcept.cpp">
@@ -433,9 +441,6 @@
     </ClCompile>
     <ClCompile Include="..\Sources\crt\vcruntime\frame.cpp">
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <ExcludedFromBuild Condition="'$(Platform)' != 'x64' or '$(WindowsTargetPlatformMinVersionBuild)' &gt;= '19041'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\Sources\crt\ltl\PTD_Downlevel.cpp">
       <ExcludedFromBuild Condition="'$(Platform)' != 'x64' or '$(WindowsTargetPlatformMinVersionBuild)' &gt;= '19041'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\Sources\crt\vcruntime\risctrnsctrl.cpp">
@@ -453,7 +458,8 @@
       <ExcludedFromBuild Condition="'$(Platform)' != 'Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="VC_LTL_Config.c">
-      <ForcedIncludeFiles></ForcedIncludeFiles>
+      <ForcedIncludeFiles>
+      </ForcedIncludeFiles>
     </ClCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

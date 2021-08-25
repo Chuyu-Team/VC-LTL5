@@ -223,7 +223,9 @@ typedef struct RENAME_BASE_PTD(__vcrt_ptd)
 #include <internal_shared.h>
 #include <corecrt_internal.h>
 
-#if defined _M_IX86
+#ifndef __cplusplus
+typedef _ptd_msvcrt_win2k_shared __vcrt_ptd;
+#elif defined _M_IX86
 typedef _ptd_msvcrt_win2k_shared __vcrt_ptd;
 #elif defined _M_AMD64
 typedef _ptd_msvcrt_winxp_shared __vcrt_ptd;
@@ -254,7 +256,7 @@ RENAME_BASE_PTD(__vcrt_ptd)* __cdecl RENAME_BASE_PTD(__vcrt_getptd)(void);
 RENAME_BASE_PTD(__vcrt_ptd)* __cdecl RENAME_BASE_PTD(__vcrt_getptd_noinit)(void);
 #endif
 
-extern "C" _VCRTIMP void** __cdecl __current_exception();
+EXTERN_C _VCRTIMP void** __cdecl __current_exception();
 EXTERN_C __declspec(dllimport) void __cdecl _amsg_exit(
 	int rterrnum
     );
@@ -265,14 +267,14 @@ EXTERN_C __declspec(dllimport) void __cdecl _amsg_exit(
 #ifdef __BuildWithMSVCRT
 __forceinline __vcrt_ptd* __cdecl __vcrt_getptd_noexit(void)
 {
-    auto ptd = (__vcrt_ptd*)(((byte*)_errno()) - FIELD_OFFSET(__vcrt_ptd, _terrno));
+    __vcrt_ptd* ptd = (__vcrt_ptd*)(((unsigned char*)_errno()) - FIELD_OFFSET(__vcrt_ptd, _terrno));
 
     /*
     当 _thandle = -1，这表明此线程的ptd通过msvcrt.dll begin_thread 或者 __getptd_noexit 创建。
     当 _thandle = 0，这表明此线程的ptd通过msvcrt.dll的DllMain创建。
     当 _thandle = 其他，这表明msvcrt.dll内部内存已经申请失败。
     */
-    return (ptd->_thandle == (uintptr_t)-1/*Current Thread Handle*/ || ptd->_thandle == 0) ? ptd : nullptr;
+    return (ptd->_thandle == (uintptr_t)-1/*Current Thread Handle*/ || ptd->_thandle == 0) ? ptd : (__vcrt_ptd*)NULL;
 }
 #else
 #define __vcrt_getptd_noexit __vcrt_getptd
@@ -284,7 +286,7 @@ __forceinline __vcrt_ptd* __cdecl __vcrt_getptd_noexit(void)
 __forceinline  __vcrt_ptd* __cdecl __vcrt_getptd(void)
 {
 #ifdef __BuildWithMSVCRT
-    auto ptd = __vcrt_getptd_noexit();
+    __vcrt_ptd* ptd = __vcrt_getptd_noexit();
     if (!ptd)
     {
         _amsg_exit(16);
@@ -292,7 +294,7 @@ __forceinline  __vcrt_ptd* __cdecl __vcrt_getptd(void)
 #else
     //由于 __current_exception 内部可以确保 ptd 必然存在
 
-    auto ptd = (__vcrt_ptd*)(((char*)__current_exception()) - FIELD_OFFSET(__vcrt_ptd, _curexception));
+    __vcrt_ptd* ptd = (__vcrt_ptd*)(((char*)__current_exception()) - FIELD_OFFSET(__vcrt_ptd, _curexception));
 #endif
     return ptd;
 }

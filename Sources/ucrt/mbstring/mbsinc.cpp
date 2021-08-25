@@ -1,4 +1,4 @@
-/***
+ï»¿/***
 *mbsinc.c - Move MBCS string pointer ahead one charcter.
 *
 *       Copyright (c) Microsoft Corporation. All rights reserved.
@@ -35,7 +35,7 @@
 *
 *******************************************************************************/
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" unsigned char * __cdecl _mbsinc_l(
         const unsigned char *current,
         _locale_t plocinfo
@@ -54,10 +54,12 @@ extern "C" unsigned char * __cdecl _mbsinc_l(
 
         return (unsigned char *)current;
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_mbsinc_l);
 #endif
 
-#if _CRT_NTDDI_MIN <= NTDDI_WS03
-//WinXP»¹ÓÐ2003Õâ¸öº¯ÊýÓÐBug£¬»áµ¼ÖÂÔ½½ç·ÃÎÊ£¬Òò´ËÎÒÃÇÌá¹©Ò»·ÝÐÂµÄ
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
+//WinXPè¿˜æœ‰2003è¿™ä¸ªå‡½æ•°æœ‰Bugï¼Œä¼šå¯¼è‡´è¶Šç•Œè®¿é—®ï¼Œå› æ­¤æˆ‘ä»¬æä¾›ä¸€ä»½æ–°çš„
 extern "C" unsigned char * (__cdecl _mbsinc)(
         const unsigned char *current
         )
@@ -78,4 +80,6 @@ extern "C" unsigned char * (__cdecl _mbsinc)(
 
         return (unsigned char *)current;
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_mbsinc);
 #endif

@@ -1,4 +1,4 @@
-//
+﻿//
 // wctomb.cpp
 //
 //      Copyright (c) Microsoft Corporation. All rights reserved.
@@ -24,10 +24,9 @@
 #include <locale.h>
 #include <limits.h>
 #include <corecrt_internal_mbstring.h>
-#include <winapi_thunks.h>
 
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" int __cdecl _wctomb_s_l(
     int*      const return_value,
     char*     const destination,
@@ -156,9 +155,11 @@ extern "C" int __cdecl _wctomb_s_l(
 
     // The last thing was an if/else, so we already returned.
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_wctomb_s_l);
 #endif
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" errno_t __cdecl wctomb_s (
     int*    const return_value,
     char*   const destination,
@@ -168,9 +169,11 @@ extern "C" errno_t __cdecl wctomb_s (
 {
     return _wctomb_s_l(return_value, destination, destination_count, wchar, nullptr);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(wctomb_s);
 #endif
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" int __cdecl _wctomb_l(
     char*     const destination,
     wchar_t   const wchar,
@@ -194,6 +197,8 @@ extern "C" int __cdecl _wctomb_l(
 
     return return_value;
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_wctomb_l);
 #endif
 
 // Disable the OACR error that warns that 'MB_CUR_MAX' doesn't properly constrain buffer 'destination'.

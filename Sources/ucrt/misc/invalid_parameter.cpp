@@ -6,7 +6,6 @@
 // The invalid parameter handlers and related functionality
 //
 #include <corecrt_internal.h>
-//#include <ptd_downlevel.h>
 
 
 static _invalid_parameter_handler __acrt_invalid_parameter_handler = nullptr;
@@ -14,8 +13,8 @@ static _invalid_parameter_handler __acrt_invalid_parameter_handler = nullptr;
 #if WindowsTargetPlatformMinVersion >= WindowsTargetPlatformWindows6
 static thread_local _invalid_parameter_handler _thread_local_iph;
 #else
-static _invalid_parameter_handler __thread_local_iph[0x4000];
-#define _thread_local_iph (__thread_local_iph[(GetCurrentThreadId() >> 1) % __crt_countof(__thread_local_iph)])
+#include <ptd_downlevel.h>
+#define _thread_local_iph (__LTL_get_ptd_downlevel(TRUE)->_thread_local_iph)
 #endif
 
 #if defined _M_X64 && !defined _UCRT_ENCLAVE_BUILD

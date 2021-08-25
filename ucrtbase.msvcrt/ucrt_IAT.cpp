@@ -394,8 +394,39 @@ _LCRT_DEFINE_IAT_SYMBOL_EXTERN(_libm_sse2_atan_precise);
 _LCRT_DEFINE_IAT_SYMBOL_EXTERN(_libm_sse2_asin_precise);
 _LCRT_DEFINE_IAT_SYMBOL_EXTERN(_libm_sse2_acos_precise);
 
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
+_LCRT_DEFINE_IAT_SYMBOL_EXTERN(__libm_sse2_acos);
+_LCRT_DEFINE_IAT_SYMBOL_EXTERN(__libm_sse2_acosf);
+_LCRT_DEFINE_IAT_SYMBOL_EXTERN(__libm_sse2_asin);
+_LCRT_DEFINE_IAT_SYMBOL_EXTERN(__libm_sse2_asinf);
+_LCRT_DEFINE_IAT_SYMBOL_EXTERN(__libm_sse2_atan);
+_LCRT_DEFINE_IAT_SYMBOL_EXTERN(__libm_sse2_atan2);
+_LCRT_DEFINE_IAT_SYMBOL_EXTERN(__libm_sse2_atanf);
+_LCRT_DEFINE_IAT_SYMBOL_EXTERN(__libm_sse2_cos);
+_LCRT_DEFINE_IAT_SYMBOL_EXTERN(__libm_sse2_cosf);
+_LCRT_DEFINE_IAT_SYMBOL_EXTERN(__libm_sse2_exp);
+_LCRT_DEFINE_IAT_SYMBOL_EXTERN(__libm_sse2_expf);
+_LCRT_DEFINE_IAT_SYMBOL_EXTERN(__libm_sse2_log);
+_LCRT_DEFINE_IAT_SYMBOL_EXTERN(__libm_sse2_log10);
+_LCRT_DEFINE_IAT_SYMBOL_EXTERN(__libm_sse2_log10f);
+_LCRT_DEFINE_IAT_SYMBOL_EXTERN(__libm_sse2_logf);
+_LCRT_DEFINE_IAT_SYMBOL_EXTERN(__libm_sse2_pow);
+_LCRT_DEFINE_IAT_SYMBOL_EXTERN(__libm_sse2_powf);
+_LCRT_DEFINE_IAT_SYMBOL_EXTERN(__libm_sse2_sin);
+_LCRT_DEFINE_IAT_SYMBOL_EXTERN(__libm_sse2_sinf);
+_LCRT_DEFINE_IAT_SYMBOL_EXTERN(__libm_sse2_tan);
+_LCRT_DEFINE_IAT_SYMBOL_EXTERN(__libm_sse2_tanf);
+#endif
+
+
+
+
 #endif
 
 #ifdef _M_ARM
 _LCRT_DEFINE_IAT_SYMBOL_EXTERN(_FPE_Raise);
+#endif
+
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240 && _M_X64
+_LCRT_DEFINE_IAT_SYMBOL_EXTERN(_fpieee_flt);
 #endif

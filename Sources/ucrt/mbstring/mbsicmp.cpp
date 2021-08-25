@@ -1,4 +1,4 @@
-/***
+﻿/***
 *mbsicmp.c - Case-insensitive string comparision routine (MBCS)
 *
 *       Copyright (c) Microsoft Corporation.  All rights reserved.
@@ -15,7 +15,6 @@
 #include <corecrt_internal_mbstring.h>
 #include <locale.h>
 #include <string.h>
-#include <winapi_thunks.h>
 
 #pragma warning(disable:__WARNING_POTENTIAL_BUFFER_OVERFLOW_NULLTERMINATED) // 26018
 
@@ -40,7 +39,7 @@
 *
 *******************************************************************************/
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" int __cdecl _mbsicmp_l(
         const unsigned char *s1,
         const unsigned char *s2,
@@ -138,6 +137,8 @@ extern "C" int __cdecl _mbsicmp_l(
                 return(0);
         }
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_mbsicmp_l);
 #endif
 
 #if 0

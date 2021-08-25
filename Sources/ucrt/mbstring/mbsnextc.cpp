@@ -1,4 +1,4 @@
-/***
+﻿/***
 *mbsnextc.c - Get the next character in an MBCS string.
 *
 *       Copyright (c) Microsoft Corporation. All rights reserved.
@@ -35,7 +35,7 @@
 *
 *******************************************************************************/
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" unsigned int __cdecl _mbsnextc_l(
         const unsigned char *s,
         _locale_t plocinfo
@@ -60,6 +60,8 @@ extern "C" unsigned int __cdecl _mbsnextc_l(
 
         return(next);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_mbsnextc_l);
 #endif
 
 #if 0

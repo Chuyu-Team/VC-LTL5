@@ -1,4 +1,4 @@
-//
+﻿//
 // rand_s.cpp
 //
 //      Copyright (c) Microsoft Corporation. All rights reserved.
@@ -9,7 +9,7 @@
 #include <stdlib.h>
 
 
-
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" errno_t __cdecl rand_s(unsigned int* const result)
 {
     _VALIDATE_RETURN_ERRCODE(result != nullptr, EINVAL);
@@ -23,3 +23,6 @@ extern "C" errno_t __cdecl rand_s(unsigned int* const result)
 
     return 0;
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(rand_s);
+#endif

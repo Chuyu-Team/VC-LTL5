@@ -1,4 +1,4 @@
-/***
+﻿/***
 *strnicmp.cpp - compare n chars of strings, ignoring case
 *
 *       Copyright (c) Microsoft Corporation. All rights reserved.
@@ -38,7 +38,7 @@
 *
 *******************************************************************************/
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" int __cdecl _strnicmp_l (
         char const * const lhs,
         char const * const rhs,
@@ -78,6 +78,8 @@ extern "C" int __cdecl _strnicmp_l (
 
     return result;
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_strnicmp_l);
 #endif
 
 #if !defined(_M_IX86) || defined(_M_HYBRID_X86_ARM64)

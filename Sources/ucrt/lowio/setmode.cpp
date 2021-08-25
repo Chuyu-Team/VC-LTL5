@@ -1,4 +1,4 @@
-//
+﻿//
 // setmode.cpp
 //
 //      Copyright (c) Microsoft Corporation. All rights reserved.
@@ -97,7 +97,7 @@ extern "C" int __cdecl _setmode_nolock(int const fh, int const mode)
 #endif
 
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" errno_t __cdecl _set_fmode(int const mode)
 {
     _VALIDATE_RETURN_ERRCODE(mode == _O_TEXT || mode == _O_BINARY || mode == _O_WTEXT, EINVAL);
@@ -108,9 +108,11 @@ extern "C" errno_t __cdecl _set_fmode(int const mode)
 
     return 0;
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_set_fmode);
 #endif
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" errno_t __cdecl _get_fmode(int* const pMode)
 {
     _VALIDATE_RETURN_ERRCODE(pMode != nullptr, EINVAL);
@@ -121,4 +123,6 @@ extern "C" errno_t __cdecl _get_fmode(int* const pMode)
 
     return 0;
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_get_fmode);
 #endif

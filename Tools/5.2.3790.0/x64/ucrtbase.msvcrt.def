@@ -1,0 +1,1404 @@
+LIBRARY msvcrt.dll
+EXPORTS
+;_Cbuild x
+;_Cmulcc x
+;_Cmulcr x
+;_Exit x
+;_FCbuild x
+;_FCmulcc x
+;_FCmulcr x
+_Getdays
+_Getmonths
+_Gettnames
+;_LCbuild x
+;_LCmulcc x
+;_LCmulcr x
+_Strftime
+;_W_Getdays x
+;_W_Getmonths x
+;_W_Gettnames w
+;_Wcsftime x
+___lc_codepage_func
+___lc_collate_cp_func
+;___lc_locale_name_func x
+___mb_cur_max_func
+;___mb_cur_max_l_func x
+;__acrt_iob_func x
+;__conio_common_vcprintf x
+;__conio_common_vcprintf_p x
+;__conio_common_vcprintf_s x
+;__conio_common_vcscanf
+;__conio_common_vcwprintf x
+;__conio_common_vcwprintf_p x
+;__conio_common_vcwprintf_s x
+;__conio_common_vcwscanf
+;__daylight
+__doserrno
+;__dstbias
+;__fpe_flt_rounds x
+__fpecode
+;__initialize_lconv_for_unsigned_char
+__isascii
+__iscsym
+__iscsymf
+;__iswcsym x
+;__iswcsymf x
+;__p___argc x
+;__p___argv x
+;__p___wargv x
+;__p__acmdln x
+;__p__commode x
+;__p__environ x
+;__p__fmode x
+;__p__mbcasemap x
+;__p__mbctype x
+;__p__pgmptr x
+;__p__wcmdln x
+;__p__wenviron x
+;__p__wpgmptr x
+__pctype_func
+__pwctype_func
+__pxcptinfoptrs
+;__setusermatherr x
+;__stdio_common_vfprintf x
+;__stdio_common_vfprintf_p x
+;__stdio_common_vfprintf_s x
+;__stdio_common_vfscanf x
+;__stdio_common_vfwprintf x
+;__stdio_common_vfwprintf_p x
+;__stdio_common_vfwprintf_s x
+;__stdio_common_vfwscanf x
+;__stdio_common_vsnprintf_s x
+;__stdio_common_vsnwprintf_s x
+;__stdio_common_vsprintf x
+;__stdio_common_vsprintf_p x
+;__stdio_common_vsprintf_s x
+;__stdio_common_vsscanf x
+;__stdio_common_vswprintf x
+;__stdio_common_vswprintf_p x
+;__stdio_common_vswprintf_s x
+;__stdio_common_vswscanf x
+;__strncnt
+;__sys_errlist x
+;__sys_nerr x
+__threadhandle
+__threadid
+;__timezone x
+__toascii
+;__tzname x
+__wcserror
+;__wcserror_s
+;__wcsncnt
+_abs64
+_access
+;_access_s
+_aligned_free
+_aligned_malloc
+;_aligned_msize x
+_aligned_offset_malloc
+_aligned_offset_realloc
+;_aligned_offset_recalloc x
+_aligned_realloc
+;_aligned_recalloc x
+_assert
+_atodbl
+;_atodbl_l
+;_atof_l
+;_atoflt x
+;_atoflt_l
+_atoi64
+;_atoi64_l
+;_atoi_l
+;_atol_l
+_atoldbl
+;_atoldbl_l
+;_atoll_l w
+_beep
+_beginthread
+_beginthreadex
+;_byteswap_uint64 x
+;_byteswap_ulong x
+;_byteswap_ushort x
+;_c_exit x
+_cabs
+_callnewh
+;_calloc_base w
+;_cexit x
+_cgets
+;_cgets_s
+_cgetws
+;_cgetws_s
+_chdir
+_chdrive
+_chgsign
+_chgsignf
+_chmod
+_chsize
+;_chsize_s
+_clearfp
+_close
+_commit
+;_configthreadlocale x
+;_configure_narrow_argv x
+;_configure_wide_argv x
+_control87
+_controlfp
+;_controlfp_s
+_copysign
+_copysignf
+_cputs
+_cputws
+_creat
+;_create_locale x
+;_crt_at_quick_exit x
+;_crt_atexit x
+_ctime32
+;_ctime32_s
+_ctime64
+;_ctime64_s
+_cwait
+;_d_int x
+;_dclass x
+;_dexp x
+;_difftime32
+;_difftime64
+;_dlog x
+;_dnorm x
+;_dpcomp x
+;_dpoly x
+;_dscale x
+;_dsign x
+;_dsin x
+;_dtest x
+;_dunscale x
+_dup
+_dup2
+;_dupenv_s x
+_ecvt
+;_ecvt_s
+_endthread
+_endthreadex
+_eof
+_errno
+;_except1 x
+_execl
+_execle
+_execlp
+_execlpe
+;_execute_onexit_table x
+_execv
+_execve
+_execvp
+_execvpe
+;_exit x
+_expand
+;_fclose_nolock
+_fcloseall
+_fcvt
+;_fcvt_s
+;_fd_int x
+;_fdclass x
+;_fdexp x
+;_fdlog x
+;_fdnorm x
+_fdopen
+;_fdpcomp x
+;_fdpoly x
+;_fdscale x
+;_fdsign x
+;_fdsin x
+;_fdtest x
+;_fdunscale x
+;_fflush_nolock
+;_fgetc_nolock
+_fgetchar
+;_fgetwc_nolock
+_fgetwchar
+_filelength
+_filelengthi64
+_fileno
+_findclose
+;_findfirst32 w
+;_findfirst32i64 w
+_findfirst64
+;_findfirst64i32 x
+;_findnext32 w
+;_findnext32i64 w
+_findnext64
+;_findnext64i32 x
+_finite
+_finitef
+_flushall
+_fpclass
+_fpclassf
+;_fpieee_flt
+_fpreset
+;_fputc_nolock
+;_fputchar x
+;_fputwc_nolock
+;_fputwchar x
+;_fread_nolock
+;_fread_nolock_s
+;_free_base w
+;_free_locale x
+;_fseek_nolock
+;_fseeki64
+;_fseeki64_nolock
+_fsopen
+;_fstat32 w
+;_fstat32i64 w
+_fstat64
+;_fstat64i32 x
+;_ftell_nolock
+;_ftelli64 x
+;_ftelli64_nolock
+_ftime32
+;_ftime32_s
+_ftime64
+;_ftime64_s
+_fullpath
+_futime32
+_futime64
+;_fwrite_nolock
+_gcvt
+;_gcvt_s
+;_get_FMA3_enable x
+;_get_current_locale x
+;_get_daylight x
+;_get_doserrno
+;_get_dstbias x
+;_get_errno
+;_get_fmode
+_get_heap_handle
+;_get_initial_narrow_environment x
+;_get_initial_wide_environment x
+;_get_invalid_parameter_handler x
+;_get_narrow_winmain_command_line x
+_get_osfhandle
+;_get_pgmptr x
+;_get_printf_count_output x
+;_get_stream_buffer_pointers x
+;_get_terminate x
+;_get_thread_local_invalid_parameter_handler x
+;_get_timezone x
+;_get_tzname x
+;_get_wide_winmain_command_line x
+;_get_wpgmptr
+;_getc_nolock
+_getch
+;_getch_nolock
+_getche
+;_getche_nolock
+_getcwd
+_getdcwd
+_getdiskfree
+;_getdllprocaddr x
+_getdrive
+_getdrives
+_getmaxstdio
+_getmbcp
+_getpid
+_getsystime
+_getw
+;_getwc_nolock
+_getwch
+;_getwch_nolock
+_getwche
+;_getwche_nolock
+_getws
+;_getws_s x
+_gmtime32
+;_gmtime32_s
+_gmtime64
+;_gmtime64_s
+_heapchk
+_heapmin
+_heapwalk
+_hypot
+_hypotf
+_i64toa
+;_i64toa_s
+_i64tow
+;_i64tow_s
+;_initialize_narrow_environment x
+;_initialize_onexit_table x
+;_initialize_wide_environment x
+_initterm
+;_initterm_e
+;_invalid_parameter_noinfo x
+;_invalid_parameter_noinfo_noreturn x
+;_invoke_watson x
+;_isalnum_l
+;_isalpha_l
+_isatty
+;_isblank_l x
+;_iscntrl_l
+_isctype
+;_isctype_l
+;_isdigit_l
+;_isgraph_l
+;_isleadbyte_l
+;_islower_l
+_ismbbalnum
+;_ismbbalnum_l
+_ismbbalpha
+;_ismbbalpha_l
+;_ismbbblank x
+;_ismbbblank_l x
+_ismbbgraph
+;_ismbbgraph_l
+_ismbbkalnum
+;_ismbbkalnum_l
+_ismbbkana
+;_ismbbkana_l
+_ismbbkprint
+;_ismbbkprint_l
+_ismbbkpunct
+;_ismbbkpunct_l
+_ismbblead
+;_ismbblead_l
+_ismbbprint
+;_ismbbprint_l
+_ismbbpunct
+;_ismbbpunct_l
+_ismbbtrail
+;_ismbbtrail_l
+_ismbcalnum
+;_ismbcalnum_l
+_ismbcalpha
+;_ismbcalpha_l
+;_ismbcblank x
+;_ismbcblank_l x
+_ismbcdigit
+;_ismbcdigit_l
+_ismbcgraph
+;_ismbcgraph_l
+_ismbchira
+;_ismbchira_l
+_ismbckata
+;_ismbckata_l
+_ismbcl0
+;_ismbcl0_l
+_ismbcl1
+;_ismbcl1_l
+_ismbcl2
+;_ismbcl2_l
+_ismbclegal
+;_ismbclegal_l
+_ismbclower
+;_ismbclower_l
+_ismbcprint
+;_ismbcprint_l
+_ismbcpunct
+;_ismbcpunct_l
+_ismbcspace
+;_ismbcspace_l
+_ismbcsymbol
+;_ismbcsymbol_l
+_ismbcupper
+;_ismbcupper_l
+_ismbslead
+;_ismbslead_l
+_ismbstrail
+;_ismbstrail_l
+_isnan
+_isnanf
+;_isprint_l
+;_ispunct_l x
+;_isspace_l
+;_isupper_l
+;_iswalnum_l
+;_iswalpha_l
+;_iswblank_l x
+;_iswcntrl_l
+;_iswcsym_l x
+;_iswcsymf_l x
+;_iswctype_l x
+;_iswdigit_l
+;_iswgraph_l
+;_iswlower_l
+;_iswprint_l
+;_iswpunct_l
+;_iswspace_l
+;_iswupper_l
+;_iswxdigit_l
+;_isxdigit_l
+_itoa
+;_itoa_s
+_itow
+;_itow_s
+_j0
+_j1
+_jn
+_kbhit
+;_ld_int x
+;_ldclass x
+;_ldexp x
+;_ldlog x
+;_ldpcomp x
+;_ldpoly x
+;_ldscale x
+;_ldsign x
+;_ldsin x
+;_ldtest x
+;_ldunscale x
+_lfind
+;_lfind_s
+;_loaddll x
+_localtime32
+;_localtime32_s
+_localtime64
+;_localtime64_s
+;_lock_file x
+;_lock_locales x
+_locking
+_logb
+_logbf
+_lrotl
+_lrotr
+_lsearch
+;_lsearch_s
+_lseek
+_lseeki64
+_ltoa
+;_ltoa_s
+_ltow
+;_ltow_s
+_makepath
+;_makepath_s
+;_malloc_base w
+_mbbtombc
+;_mbbtombc_l
+_mbbtype
+;_mbbtype_l x
+_mbcasemap DATA
+_mbccpy
+;_mbccpy_l
+;_mbccpy_s
+;_mbccpy_s_l
+_mbcjistojms
+;_mbcjistojms_l
+_mbcjmstojis
+;_mbcjmstojis_l
+_mbclen
+;_mbclen_l
+_mbctohira
+;_mbctohira_l
+_mbctokata
+;_mbctokata_l
+_mbctolower
+;_mbctolower_l
+_mbctombb
+;_mbctombb_l
+_mbctoupper
+;_mbctoupper_l
+;_mblen_l
+_mbsbtype
+;_mbsbtype_l
+;_mbscat_s
+;_mbscat_s_l
+_mbschr
+;_mbschr_l
+_mbscmp
+;_mbscmp_l
+_mbscoll
+;_mbscoll_l
+;_mbscpy_s
+;_mbscpy_s_l
+_mbscspn
+;_mbscspn_l
+_mbsdec
+;_mbsdec_l
+_mbsdup
+_mbsicmp
+;_mbsicmp_l
+_mbsicoll
+;_mbsicoll_l
+;_mbsinc
+;_mbsinc_l
+_mbslen
+;_mbslen_l
+_mbslwr
+;_mbslwr_l
+;_mbslwr_s
+;_mbslwr_s_l
+_mbsnbcat
+;_mbsnbcat_l
+;_mbsnbcat_s
+;_mbsnbcat_s_l
+_mbsnbcmp
+;_mbsnbcmp_l
+_mbsnbcnt
+;_mbsnbcnt_l
+_mbsnbcoll
+;_mbsnbcoll_l
+_mbsnbcpy
+;_mbsnbcpy_l
+;_mbsnbcpy_s
+;_mbsnbcpy_s_l
+_mbsnbicmp
+;_mbsnbicmp_l
+_mbsnbicoll
+;_mbsnbicoll_l
+_mbsnbset
+;_mbsnbset_l
+;_mbsnbset_s
+;_mbsnbset_s_l
+_mbsncat
+;_mbsncat_l
+;_mbsncat_s
+;_mbsncat_s_l
+_mbsnccnt
+;_mbsnccnt_l
+_mbsncmp
+;_mbsncmp_l
+_mbsncoll
+;_mbsncoll_l
+_mbsncpy
+;_mbsncpy_l
+;_mbsncpy_s
+;_mbsncpy_s_l
+_mbsnextc
+;_mbsnextc_l
+_mbsnicmp
+;_mbsnicmp_l
+_mbsnicoll
+;_mbsnicoll_l
+_mbsninc
+;_mbsninc_l
+;_mbsnlen
+;_mbsnlen_l
+_mbsnset
+;_mbsnset_l
+;_mbsnset_s
+;_mbsnset_s_l
+_mbspbrk
+;_mbspbrk_l
+_mbsrchr
+;_mbsrchr_l
+_mbsrev
+;_mbsrev_l
+_mbsset
+;_mbsset_l
+;_mbsset_s
+;_mbsset_s_l
+_mbsspn
+;_mbsspn_l
+_mbsspnp
+;_mbsspnp_l
+_mbsstr
+;_mbsstr_l
+_mbstok
+;_mbstok_l
+;_mbstok_s
+;_mbstok_s_l
+;_mbstowcs_l
+;_mbstowcs_s_l
+_mbstrlen
+;_mbstrlen_l
+;_mbstrnlen
+;_mbstrnlen_l
+_mbsupr
+;_mbsupr_l
+;_mbsupr_s
+;_mbsupr_s_l
+;_mbtowc_l x
+_memccpy
+_memicmp
+;_memicmp_l
+_mkdir
+;_mkgmtime32 w
+_mkgmtime64
+_mktemp
+;_mktemp_s
+_mktime32
+_mktime64
+_msize
+_nextafter
+_nextafterf
+_open
+_open_osfhandle
+_pclose
+_pipe
+_popen
+;_putc_nolock
+_putch
+;_putch_nolock
+_putenv
+;_putenv_s
+_putw
+;_putwc_nolock
+_putwch
+;_putwch_nolock
+_putws
+;_query_app_type x
+;_query_new_handler w
+;_query_new_mode w
+_read
+;_realloc_base w
+;_recalloc x
+;_register_onexit_function x
+;_register_thread_local_exe_atexit_callback x
+_resetstkoflw
+_rmdir
+_rmtmp
+_rotl
+_rotl64
+_rotr
+_rotr64
+_scalb
+_scalbf
+_searchenv
+;_searchenv_s
+;_seh_filter_dll w
+;_seh_filter_exe w
+;_set_FMA3_enable x
+;_set_abort_behavior x
+;_set_app_type x
+_set_controlfp
+;_set_doserrno
+;_set_errno
+_set_error_mode
+;_set_fmode
+;_set_invalid_parameter_handler x
+;_set_new_handler w
+;_set_new_mode w
+;_set_printf_count_output x
+;_set_thread_local_invalid_parameter_handler x
+_seterrormode
+_setmaxstdio
+_setmbcp
+_setmode
+_setsystime
+_sleep
+_sopen
+;_sopen_dispatch x
+;_sopen_s
+_spawnl
+_spawnle
+_spawnlp
+_spawnlpe
+_spawnv
+_spawnve
+_spawnvp
+_spawnvpe
+_splitpath
+;_splitpath_s
+;_stat32 x
+;_stat32i64 x
+;_stat64 x 系统原版存在Bug
+;_stat64i32 x
+_statusfp
+;_strcoll_l
+_strdate
+;_strdate_s
+_strdup
+_strerror
+;_strerror_s
+;_strftime_l x
+_stricmp
+;_stricmp_l
+_stricoll
+;_stricoll_l
+_strlwr
+;_strlwr_l
+;_strlwr_s
+;_strlwr_s_l
+_strncoll
+;_strncoll_l
+_strnicmp
+;_strnicmp_l
+_strnicoll
+;_strnicoll_l
+_strnset
+;_strnset_s
+_strrev
+_strset
+;_strset_s
+_strtime
+;_strtime_s
+;_strtod_l
+;_strtof_l x
+_strtoi64
+;_strtoi64_l
+;_strtoimax_l w
+;_strtol_l
+;_strtold_l w
+;_strtoll_l w
+_strtoui64
+;_strtoui64_l
+;_strtoul_l
+;_strtoull_l w
+;_strtoumax_l w
+_strupr
+;_strupr_l
+;_strupr_s
+;_strupr_s_l
+;_strxfrm_l
+_swab
+_tell
+_telli64
+_tempnam
+_time32
+_time64
+;_timespec32_get x
+;_timespec64_get x
+_tolower
+;_tolower_l
+_toupper
+;_toupper_l
+;_towlower_l
+;_towupper_l
+_tzset
+_ui64toa
+;_ui64toa_s
+_ui64tow
+;_ui64tow_s
+_ultoa
+;_ultoa_s
+_ultow
+;_ultow_s
+_umask
+;_umask_s
+;_ungetc_nolock
+_ungetch
+;_ungetch_nolock
+;_ungetwc_nolock
+_ungetwch
+;_ungetwch_nolock
+_unlink
+;_unloaddll x
+;_unlock_file x
+;_unlock_locales x
+_utime32
+_utime64
+_waccess
+;_waccess_s
+_wasctime
+;_wasctime_s
+;_wassert
+_wchdir
+_wchmod
+_wcreat
+;_wcreate_locale x
+;_wcscoll_l
+_wcsdup
+_wcserror
+;_wcserror_s
+;_wcsftime_l
+_wcsicmp
+;_wcsicmp_l
+_wcsicoll
+;_wcsicoll_l
+_wcslwr
+;_wcslwr_l
+;_wcslwr_s
+;_wcslwr_s_l
+_wcsncoll
+;_wcsncoll_l
+_wcsnicmp
+;_wcsnicmp_l
+_wcsnicoll
+;_wcsnicoll_l
+_wcsnset
+;_wcsnset_s
+_wcsrev
+_wcsset
+;_wcsset_s
+;_wcstod_l x
+;_wcstof_l x
+_wcstoi64
+;_wcstoi64_l
+;_wcstoimax_l w
+;_wcstol_l
+;_wcstold_l x
+;_wcstoll_l w
+;_wcstombs_l
+;_wcstombs_s_l
+_wcstoui64
+;_wcstoui64_l
+;_wcstoul_l
+;_wcstoull_l w
+;_wcstoumax_l w
+_wcsupr
+;_wcsupr_l
+;_wcsupr_s
+;_wcsupr_s_l
+;_wcsxfrm_l
+_wctime32
+;_wctime32_s
+_wctime64
+;_wctime64_s
+;_wctomb_l
+;_wctomb_s_l
+_wctype
+;_wdupenv_s x
+_wexecl
+_wexecle
+_wexeclp
+_wexeclpe
+_wexecv
+_wexecve
+_wexecvp
+_wexecvpe
+_wfdopen
+;_wfindfirst32 w
+;_wfindfirst32i64 w
+_wfindfirst64
+;_wfindfirst64i32 x
+;_wfindnext32
+;_wfindnext32i64 w
+_wfindnext64
+;_wfindnext64i32 x
+_wfopen
+;_wfopen_s
+_wfreopen
+;_wfreopen_s
+_wfsopen
+_wfullpath
+_wgetcwd
+_wgetdcwd
+_wgetenv
+;_wgetenv_s
+_wmakepath
+;_wmakepath_s
+_wmkdir
+_wmktemp
+;_wmktemp_s
+_wopen
+_wperror
+_wpopen
+_wputenv
+;_wputenv_s
+_wremove
+_wrename
+_write
+_wrmdir
+_wsearchenv
+;_wsearchenv_s
+;_wsetlocale t
+_wsopen
+;_wsopen_dispatch x
+;_wsopen_s
+_wspawnl
+_wspawnle
+_wspawnlp
+_wspawnlpe
+_wspawnv
+_wspawnve
+_wspawnvp
+_wspawnvpe
+_wsplitpath
+;_wsplitpath_s
+;_wstat32 x
+;_wstat32i64 x
+;_wstat64 x
+;_wstat64i32 x
+_wstrdate
+;_wstrdate_s
+_wstrtime
+;_wstrtime_s
+_wsystem
+_wtempnam
+_wtmpnam
+;_wtmpnam_s
+_wtof
+;_wtof_l
+_wtoi
+_wtoi64
+;_wtoi64_l
+;_wtoi_l
+_wtol
+;_wtol_l
+;_wtoll w
+;_wtoll_l w
+_wunlink
+_wutime32
+_wutime64
+_y0
+_y1
+_yn
+abort
+abs
+acos
+acosf
+;acosh x
+;acoshf x
+;acoshl x
+asctime
+;asctime_s
+asin
+asinf
+;asinh x
+;asinhf x
+;asinhl x
+atan
+atan2
+atan2f
+atanf
+;atanh x
+;atanhf x
+;atanhl x
+atof
+atoi
+atol
+;atoll w
+bsearch
+;bsearch_s
+;btowc
+;c16rtomb x
+;c32rtomb x
+;cabs w
+;cabsf x
+;cabsl w
+;cacos x
+;cacosf x
+;cacosh x
+;cacoshf x
+;cacoshl x
+;cacosl x
+calloc
+;carg x
+;cargf x
+;cargl x
+;casin x
+;casinf x
+;casinh x
+;casinhf x
+;casinhl x
+;casinl x
+;catan x
+;catanf x
+;catanh x
+;catanhf x 
+;catanhl x
+;catanl x
+;cbrt x
+;cbrtf x
+;cbrtl x
+;ccosx x
+;ccosf x
+;ccosh x
+;ccoshf x
+;ccoshl x
+;ccosl x
+ceil
+ceilf
+;cexp x
+;cexpf x
+;cexpl x
+;cimag x
+;cimagf x
+;cimagl x
+clearerr
+;clearerr_s
+clock
+;clog x
+;clog10 x
+;clog10f x
+;clog10l x
+;clogf x
+;clogl x
+;conj x
+;conjf x
+;conjl x
+;copysign w
+;copysignf w
+;copysignl w
+cos
+cosf
+cosh
+coshf
+;cpow x
+;cpowf x
+;cpowl x
+;cproj x
+;cprojf x
+;cprojl x
+;creal x
+;crealf x
+;creall x
+;csin x
+;csinf x
+;csinh x
+;csinhf x
+;csinhl x
+;csinl x
+;csqrt x
+;csqrtf x
+;csqrtl x
+;ctan x
+;ctanf x
+;ctanh x
+;ctanhf x
+;ctanhl x
+;ctanl x
+div
+;erf x
+;erfc x
+;erfcf x
+;erfcl x
+;erff x
+;erfl x
+;exit x
+exp
+;exp2 x
+;exp2f x
+;exp2l x
+expf
+;expm1 x
+;expm1f x
+;expm1l x
+fabs
+fclose
+;fdim x
+;fdimf x
+;fdiml x
+;feclearexcept x
+;fegetenv x
+;fegetexceptflag x
+;fegetround x
+;feholdexcept x
+feof
+ferror
+;fesetenv x
+;fesetexceptflag x
+;fesetround x
+;fetestexcept x
+fflush
+fgetc
+fgetpos
+fgets
+fgetwc
+fgetws
+floor
+floorf
+;fma x
+;fmaf x
+;fmal x
+;fmax x
+;fmaxf x
+;fmaxl x
+;fmin x
+;fminf x
+;fminl x
+fmod
+fmodf
+fopen
+;fopen_s
+;fputc x
+fputs
+;fputwc x
+fputws
+fread
+;fread_s x
+free
+freopen
+;freopen_s
+frexp
+fseek
+fsetpos
+ftell
+;fwrite x
+getc
+getchar
+getenv
+;getenv_s
+gets
+;gets_s x
+getwc
+getwchar
+;hypot w
+;ilogb x
+;ilogbf x
+;ilogbl x
+;imaxabs x
+;imaxdiv x
+is_wctype
+isalnum
+isalpha
+;isblank x
+iscntrl
+isdigit
+isgraph
+isleadbyte
+islower
+isprint
+ispunct
+isspace
+isupper
+iswalnum
+iswalpha
+iswascii
+;iswblank x
+iswcntrl
+iswctype
+iswdigit
+iswgraph
+iswlower
+iswprint
+iswpunct
+iswspace
+iswupper
+iswxdigit
+isxdigit
+labs
+ldexp
+ldiv
+;lgamma x
+;lgammaf x
+;lgammal x
+;llabs w
+;lldiv x
+;llrint x
+;llrintf x
+;llrintl x
+;llround x
+;llroundf x
+;llroundl x
+;localeconv x Win7的结构体才完整
+log
+log10
+log10f
+;log1p x
+;log1pf x
+;log1pl x
+;log2 x
+;log2f x
+;log2l x
+;logb x
+;logbf x
+;logbl x
+logf
+;lrint x
+;lrintf x
+;lrintl x
+;lround x
+;lroundf x
+;lroundl x
+malloc
+mblen
+;mbrlen
+;mbrtoc16 x
+;mbrtoc32 x
+;mbrtowc
+;mbsrtowcs
+;mbsrtowcs_s
+mbstowcs
+;mbstowcs_s
+mbtowc
+;memcpy_s x
+;memmove_s
+modf
+modff
+;nan x
+;nanf x
+;nanl x
+;nearbyint x
+;nearbyintf x
+;nearbyintl x
+;nextafter w
+;nextafterf x
+;nextafterl w
+;nexttoward w
+;nexttowardf x
+;nexttowardl x
+;norm
+;normf
+;norml
+perror
+pow
+powf
+;putc x
+;putchar x
+puts
+;putwc x
+;putwchar x
+qsort
+;qsort_s
+;quick_exit x
+raise
+rand
+;rand_s
+realloc
+;remainder x
+;remainderf x
+;remainderl x
+remove
+;remquo x
+;remquof x
+;remquol x
+rename
+rewind
+;rint x
+;rintf x
+;rintl x
+;round x
+;roundf x
+;roundl x
+;scalbln x
+;scalblnf x
+;scalblnl x
+;scalbn x
+;scalbnf x
+;scalbnl x
+;set_terminate w
+setbuf
+;setlocale t
+setvbuf
+signal
+sin
+sinf
+sinh
+sinhf
+sqrt
+sqrtf
+srand
+strcat
+;strcat_s
+strcmp
+strcoll
+strcpy
+;strcpy_s
+strcspn
+strerror
+;strerror_s
+strftime
+strlen
+strncat
+;strncat_s
+strncmp
+strncpy
+;strncpy_s
+;strnlen
+strpbrk
+strspn
+strtod
+;strtof x
+;strtoimax w
+strtok
+;strtok_s
+strtol
+;strtold w
+;strtoll w
+strtoul
+;strtoull w
+;strtoumax w
+strxfrm
+system
+tan
+tanf
+tanh
+tanhf
+;terminate w
+;tgamma x
+;tgammaf x
+;tgammal x
+tmpfile
+;tmpfile_s
+tmpnam
+;tmpnam_s
+tolower
+toupper
+;towctrans
+towlower
+towupper
+;trunc x
+;truncf x
+;truncl x
+ungetc
+ungetwc
+;wcrtomb
+;wcrtomb_s
+wcscat
+;wcscat_s
+wcscmp
+wcscoll
+wcscpy
+;wcscpy_s
+wcscspn
+wcsftime
+wcslen
+wcsncat
+;wcsncat_s
+wcsncmp
+wcsncpy
+;wcsncpy_s
+;wcsnlen
+wcspbrk
+;wcsrtombs
+;wcsrtombs_s
+wcsspn
+wcstod
+;wcstof x
+;wcstoimax w
+wcstok
+;wcstok_s
+wcstol
+;wcstold w
+;wcstoll w
+wcstombs
+;wcstombs_s
+wcstoul
+;wcstoull w
+;wcstoumax w
+wcsxfrm
+;wctob
+wctomb
+;wctomb_s
+;wctrans x
+;wctype x
+;wmemcpy_s x
+;wmemmove_s x
+
+
+
+;处于weak需要，历史函数名称继续提供，然后 weak 跳转
+_findfirst
+_findnext
+_findfirsti64
+_findnexti64
+_wfindfirst
+_wfindnext
+_wfindfirsti64
+_wfindnexti64
+_fstat
+_fstati64
+
+_XcptFilter
+__CppXcptFilter
+
+_mkgmtime
+
+?_query_new_handler@@YAP6AH_K@ZXZ
+?_set_new_handler@@YAP6AH_K@ZP6AH0@Z@Z
+?_query_new_mode@@YAHXZ
+?_set_new_mode@@YAHH@Z
+?set_terminate@@YAP6AXXZP6AXXZ@Z
+?terminate@@YAXXZ
+
+
+
+;内部使用的的导出符号
+__argc DATA
+__argv DATA
+__wargv DATA
+_pgmptr DATA
+_wpgmptr DATA
+_acmdln DATA
+_wcmdln DATA
+_fmode DATA
+_commode DATA
+_mbctype DATA
+;_mbcasemap DATA
+
+__set_app_type
+__getmainargs
+__wgetmainargs
+_lock
+_unlock
+_iob DATA
+___lc_handle_func
+
+_environ DATA
+_wenviron DATA

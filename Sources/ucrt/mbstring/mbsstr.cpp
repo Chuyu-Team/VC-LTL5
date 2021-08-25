@@ -1,4 +1,4 @@
-/***
+﻿/***
 * mbsstr.c - Search for one MBCS string inside another
 *
 *       Copyright (c) Microsoft Corporation. All rights reserved.
@@ -36,7 +36,7 @@
 *
 *******************************************************************************/
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" _CONST_RETURN unsigned char * __cdecl _mbsstr_l(
         const unsigned char *str1,
         const unsigned char *str2,
@@ -95,6 +95,8 @@ extern "C" _CONST_RETURN unsigned char * __cdecl _mbsstr_l(
         return(nullptr);
 
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_mbsstr_l);
 #endif
 
 #if 0

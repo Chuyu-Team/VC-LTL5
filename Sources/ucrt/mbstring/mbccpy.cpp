@@ -1,4 +1,4 @@
-/***
+﻿/***
 *mbccpy.c - Copy one character  to another (MBCS)
 *
 *       Copyright (c) Microsoft Corporation. All rights reserved.
@@ -29,7 +29,7 @@
 *
 *******************************************************************************/
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" void __cdecl _mbccpy_l(
         unsigned char *dst,
         const unsigned char *src,
@@ -39,6 +39,8 @@ extern "C" void __cdecl _mbccpy_l(
     /* _mbccpy_s_l sets errno */
     _mbccpy_s_l(dst, 2, nullptr, src, plocinfo);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_mbccpy_l);
 #endif
 
 #if 0

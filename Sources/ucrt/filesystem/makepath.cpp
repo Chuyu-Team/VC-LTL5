@@ -1,4 +1,4 @@
-//
+﻿//
 // makepath.cpp
 //
 //      Copyright (c) Microsoft Corporation.  All rights reserved.
@@ -180,7 +180,7 @@ extern "C" void __cdecl _wmakepath(
 #endif
 
 
-
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" errno_t __cdecl _makepath_s(
     char*       const result_buffer,
     size_t      const result_count,
@@ -193,6 +193,10 @@ extern "C" errno_t __cdecl _makepath_s(
     return common_makepath_s(result_buffer, result_count, drive, directory, file_name, extension);
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(_makepath_s);
+#endif
+
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" errno_t __cdecl _wmakepath_s(
     wchar_t*       const result_buffer,
     size_t         const result_count,
@@ -204,3 +208,6 @@ extern "C" errno_t __cdecl _wmakepath_s(
 {
     return common_makepath_s(result_buffer, result_count, drive, directory, file_name, extension);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_wmakepath_s);
+#endif

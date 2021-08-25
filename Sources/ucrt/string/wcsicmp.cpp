@@ -1,4 +1,4 @@
-/***
+﻿/***
 *wcsicmp.cpp - contains case-insensitive wide string comp routine _wcsicmp
 *
 *       Copyright (c) Microsoft Corporation. All rights reserved.
@@ -36,7 +36,7 @@
 *
 *******************************************************************************/
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" int __cdecl _wcsicmp_l (
         wchar_t const * const lhs,
         wchar_t const * const rhs,
@@ -75,6 +75,8 @@ extern "C" int __cdecl _wcsicmp_l (
 
     return result;
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_wcsicmp_l);
 #endif
 
 extern "C" int __cdecl __ascii_wcsicmp(

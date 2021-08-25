@@ -1,4 +1,4 @@
-/***
+﻿/***
 *wcslwr.c - routine to map upper-case characters in a wchar_t string
 *       to lower-case
 *
@@ -14,7 +14,6 @@
 #include <corecrt_internal_securecrt.h>
 #include <locale.h>
 #include <string.h>
-#include <winapi_thunks.h>
 
 #pragma warning(disable:__WARNING_POTENTIAL_BUFFER_OVERFLOW_NULLTERMINATED) // 26018
 
@@ -38,7 +37,7 @@
 *
 *******************************************************************************/
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" wchar_t * __cdecl _wcslwr_l (
         wchar_t * wsrc,
         _locale_t plocinfo
@@ -47,6 +46,8 @@ extern "C" wchar_t * __cdecl _wcslwr_l (
     _wcslwr_s_l(wsrc, (size_t)(-1), plocinfo);
     return wsrc;
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_wcslwr_l);
 #endif
 
 #if 0
@@ -176,7 +177,7 @@ static errno_t __cdecl _wcslwr_s_l_stat (
     }
 }
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" errno_t __cdecl _wcslwr_s_l (
         wchar_t * wsrc,
         size_t sizeInWords,
@@ -190,9 +191,11 @@ extern "C" errno_t __cdecl _wcslwr_s_l (
 
     return _wcslwr_s_l_stat(wsrc, sizeInWords, plocinfo);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_wcslwr_s_l);
 #endif
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" errno_t __cdecl _wcslwr_s (
         wchar_t * wsrc,
         size_t sizeInWords
@@ -205,4 +208,6 @@ extern "C" errno_t __cdecl _wcslwr_s (
 
 	return 0;
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_wcslwr_s);
 #endif

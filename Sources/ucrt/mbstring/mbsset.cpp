@@ -1,4 +1,4 @@
-/***
+﻿/***
 *mbsset.c - Sets all charcaters of string to given character (MBCS)
 *
 *       Copyright (c) Microsoft Corporation. All rights reserved.
@@ -37,7 +37,7 @@
 *
 *******************************************************************************/
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" unsigned char * __cdecl _mbsset_l(
         unsigned char *string,
         unsigned int val,
@@ -99,6 +99,8 @@ _END_SECURE_CRT_DEPRECATION_DISABLE
 
         return(start);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_mbsset_l);
 #endif
 
 #if 0

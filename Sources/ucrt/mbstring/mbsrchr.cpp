@@ -1,4 +1,4 @@
-/***
+﻿/***
 *mbsrchr.c - Search for last occurence of character (MBCS)
 *
 *       Copyright (c) Microsoft Corporation.  All rights reserved.
@@ -39,7 +39,7 @@
 *
 *******************************************************************************/
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" _CONST_RETURN unsigned char * __cdecl _mbsrchr_l(
         const unsigned char *str,
         unsigned int c,
@@ -77,6 +77,8 @@ extern "C" _CONST_RETURN unsigned char * __cdecl _mbsrchr_l(
 
         return((_CONST_RETURN unsigned char *)r);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_mbsrchr_l);
 #endif
 
 #if 0

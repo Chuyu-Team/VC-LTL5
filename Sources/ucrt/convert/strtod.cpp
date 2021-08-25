@@ -109,7 +109,7 @@ extern "C" long double __cdecl strtold(
 }
 #endif
 
-#if 0
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" long double __cdecl _strtold_l(
     char const* const string,
     char**      const end_ptr,
@@ -118,6 +118,8 @@ extern "C" long double __cdecl _strtold_l(
 {
     return common_strtod_l<double>(string, end_ptr, locale);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_strtold_l);
 #endif
 
 

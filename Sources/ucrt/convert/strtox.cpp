@@ -1,4 +1,4 @@
-//
+﻿//
 // strtox.cpp
 //
 //      Copyright (c) Microsoft Corporation. All rights reserved.
@@ -70,6 +70,7 @@ extern "C" long __cdecl strtol(
 }
 #endif
 
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" long __cdecl _strtol_l(
     char const* const string,
     char**      const end_ptr,
@@ -80,6 +81,8 @@ extern "C" long __cdecl _strtol_l(
     return __crt_strtox::parse_integer_from_string<long>(string, end_ptr, base, locale);
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(_strtol_l);
+#endif
 
 #if 0
 extern "C" unsigned long __cdecl strtoul(
@@ -92,6 +95,7 @@ extern "C" unsigned long __cdecl strtoul(
 }
 #endif
 
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" unsigned long __cdecl _strtoul_l(
     char const* const string,
     char**      const end_ptr,
@@ -102,6 +106,8 @@ extern "C" unsigned long __cdecl _strtoul_l(
     return __crt_strtox::parse_integer_from_string<unsigned long>(string, end_ptr, base, locale);
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(_strtoul_l);
+#endif
 
 
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -140,6 +146,7 @@ extern "C" intmax_t __cdecl strtoimax(
 
 
 
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" __int64 __cdecl _strtoi64_l(
     char const* const string,
     char**      const end_ptr,
@@ -150,6 +157,11 @@ extern "C" __int64 __cdecl _strtoi64_l(
     return __crt_strtox::parse_integer_from_string<__int64>(string, end_ptr, base, locale);
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(_strtoi64_l);
+#endif
+
+
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" long long __cdecl _strtoll_l(
     char const* const string,
     char**      const end_ptr,
@@ -160,6 +172,10 @@ extern "C" long long __cdecl _strtoll_l(
     return __crt_strtox::parse_integer_from_string<long long>(string, end_ptr, base, locale);
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(_strtoll_l);
+#endif
+
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" intmax_t __cdecl _strtoimax_l(
     char const* const string,
     char**      const end_ptr,
@@ -169,6 +185,9 @@ extern "C" intmax_t __cdecl _strtoimax_l(
 {
     return __crt_strtox::parse_integer_from_string<intmax_t>(string, end_ptr, base, locale);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_strtoimax_l);
+#endif
 
 
 #if 0
@@ -201,6 +220,7 @@ extern "C" uintmax_t __cdecl strtoumax(
 #endif
 
 
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" unsigned __int64 __cdecl _strtoui64_l(
     char const* const string,
     char**      const end_ptr,
@@ -211,6 +231,10 @@ extern "C" unsigned __int64 __cdecl _strtoui64_l(
     return __crt_strtox::parse_integer_from_string<unsigned __int64>(string, end_ptr, base, locale);
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(_strtoui64_l);
+#endif
+
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" unsigned long long __cdecl _strtoull_l(
     char const* const string,
     char**      const end_ptr,
@@ -221,6 +245,10 @@ extern "C" unsigned long long __cdecl _strtoull_l(
     return __crt_strtox::parse_integer_from_string<unsigned long long>(string, end_ptr, base, locale);
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(_strtoull_l);
+#endif
+
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" uintmax_t __cdecl _strtoumax_l(
     char const* const string,
     char**      const end_ptr,
@@ -231,6 +259,8 @@ extern "C" uintmax_t __cdecl _strtoumax_l(
     return __crt_strtox::parse_integer_from_string<uintmax_t>(string, end_ptr, base, locale);
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(_strtoumax_l);
+#endif
 
 
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -249,6 +279,7 @@ extern "C" long __cdecl wcstol(
 }
 #endif
 
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" long __cdecl _wcstol_l(
     wchar_t const* const string,
     wchar_t**      const end_ptr,
@@ -258,6 +289,9 @@ extern "C" long __cdecl _wcstol_l(
 {
     return __crt_strtox::parse_integer_from_string<long>(string, end_ptr, base, locale);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_wcstol_l);
+#endif
 
 #if 0
 extern "C" unsigned long __cdecl wcstoul(
@@ -270,6 +304,7 @@ extern "C" unsigned long __cdecl wcstoul(
 }
 #endif
 
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" unsigned long __cdecl _wcstoul_l(
     wchar_t const* const string,
     wchar_t**      const end_ptr,
@@ -280,6 +315,8 @@ extern "C" unsigned long __cdecl _wcstoul_l(
     return __crt_strtox::parse_integer_from_string<unsigned long>(string, end_ptr, base, locale);
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(_wcstoul_l);
+#endif
 
 
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -317,6 +354,7 @@ extern "C" intmax_t __cdecl wcstoimax(
 #endif
 
 
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" __int64 __cdecl _wcstoi64_l(
     wchar_t const* const string,
     wchar_t**      const end_ptr,
@@ -327,6 +365,10 @@ extern "C" __int64 __cdecl _wcstoi64_l(
     return __crt_strtox::parse_integer_from_string<__int64>(string, end_ptr, base, locale);
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(_wcstoi64_l);
+#endif
+
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" long long __cdecl _wcstoll_l(
     wchar_t const* const string,
     wchar_t**      const end_ptr,
@@ -337,6 +379,10 @@ extern "C" long long __cdecl _wcstoll_l(
     return __crt_strtox::parse_integer_from_string<long long>(string, end_ptr, base, locale);
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(_wcstoll_l);
+#endif
+
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" intmax_t __cdecl _wcstoimax_l(
     wchar_t const* const string,
     wchar_t**      const end_ptr,
@@ -347,6 +393,8 @@ extern "C" intmax_t __cdecl _wcstoimax_l(
     return __crt_strtox::parse_integer_from_string<intmax_t>(string, end_ptr, base, locale);
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(_wcstoimax_l);
+#endif
 
 #if 0
 extern "C" unsigned __int64 __cdecl _wcstoui64(
@@ -379,6 +427,7 @@ extern "C" uintmax_t __cdecl wcstoumax(
 
 
 
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" unsigned __int64 __cdecl _wcstoui64_l(
     wchar_t const* const string,
     wchar_t**      const end_ptr,
@@ -389,6 +438,10 @@ extern "C" unsigned __int64 __cdecl _wcstoui64_l(
     return __crt_strtox::parse_integer_from_string<unsigned __int64>(string, end_ptr, base, locale);
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(_wcstoui64_l);
+#endif
+
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" unsigned long long __cdecl _wcstoull_l(
     wchar_t const* const string,
     wchar_t**      const end_ptr,
@@ -399,6 +452,10 @@ extern "C" unsigned long long __cdecl _wcstoull_l(
     return __crt_strtox::parse_integer_from_string<unsigned long long>(string, end_ptr, base, locale);
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(_wcstoull_l);
+#endif
+
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" uintmax_t __cdecl _wcstoumax_l(
     wchar_t const* const string,
     wchar_t**      const end_ptr,
@@ -408,3 +465,6 @@ extern "C" uintmax_t __cdecl _wcstoumax_l(
 {
     return __crt_strtox::parse_integer_from_string<uintmax_t>(string, end_ptr, base, locale);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_wcstoumax_l);
+#endif

@@ -1,4 +1,4 @@
-//
+﻿//
 // initterm.cpp
 //
 //      Copyright (c) Microsoft Corporation. All rights reserved.
@@ -11,6 +11,7 @@
 
 // Calls each function in [first, last).  [first, last) must be a valid range of
 // function pointers.  Each function is called, in order.
+#if 0
 extern "C" void __cdecl _initterm(_PVFV* const first, _PVFV* const last)
 {
     for (_PVFV* it = first; it != last; ++it)
@@ -21,6 +22,7 @@ extern "C" void __cdecl _initterm(_PVFV* const first, _PVFV* const last)
         (**it)();
     }
 }
+#endif
 
 // Calls each function in [first, last).  [first, last) must be a valid range of
 // function pointers.  Each function must return zero on success, nonzero on
@@ -30,6 +32,7 @@ extern "C" void __cdecl _initterm(_PVFV* const first, _PVFV* const last)
 //
 // If a nonzero value is returned, it is expected to be one of the runtime error
 // values (_RT_{NAME}, defined in the internal header files).
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" int __cdecl _initterm_e(_PIFV* const first, _PIFV* const last)
 {
     for (_PIFV* it = first; it != last; ++it)
@@ -44,3 +47,6 @@ extern "C" int __cdecl _initterm_e(_PIFV* const first, _PIFV* const last)
 
     return 0;
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_initterm_e);
+#endif

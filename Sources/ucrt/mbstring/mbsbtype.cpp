@@ -1,4 +1,4 @@
-/***
+﻿/***
 *mbsbtype.c - Return type of byte within a string (MBCS)
 *
 *       Copyright (c) Microsoft Corporation.  All rights reserved.
@@ -48,7 +48,7 @@
 *
 *******************************************************************************/
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" int __cdecl _mbsbtype_l(unsigned char const* string, size_t length, _locale_t const locale)
 {
 	if (!locale)
@@ -79,6 +79,8 @@ extern "C" int __cdecl _mbsbtype_l(unsigned char const* string, size_t length, _
 
     return chartype;
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_mbsbtype_l);
 #endif
 
 #if 0

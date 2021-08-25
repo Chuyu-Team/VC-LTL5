@@ -1,4 +1,4 @@
-/***
+﻿/***
 *ismbcknj.c - contains the Kanji specific is* functions.
 *
 *       Copyright (c) Microsoft Corporation. All rights reserved.
@@ -31,7 +31,7 @@
 *
 *******************************************************************************/
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" int __cdecl _ismbchira_l(
         unsigned int c,
         _locale_t plocinfo
@@ -41,6 +41,8 @@ extern "C" int __cdecl _ismbchira_l(
 
     return((plocinfo ? plocinfo->mbcinfo->mbcodepage : _getmbcp()) == _KANJI_CP && c >= 0x829f && c <= 0x82f1);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_ismbchira_l);
 #endif
 
 #if 0
@@ -68,7 +70,7 @@ extern "C" int __cdecl _ismbchira(
 *
 *******************************************************************************/
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" int __cdecl _ismbckata_l (
         unsigned int c,
         _locale_t plocinfo
@@ -78,6 +80,8 @@ extern "C" int __cdecl _ismbckata_l (
 
     return((plocinfo ? plocinfo->mbcinfo->mbcodepage : _getmbcp()) == _KANJI_CP && c >= 0x8340 && c <= 0x8396 && c != 0x837f);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_ismbckata_l);
 #endif
 
 #if 0
@@ -107,7 +111,7 @@ extern "C" int __cdecl _ismbckata(
 *
 *******************************************************************************/
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" int __cdecl _ismbcsymbol_l(
         unsigned int c,
         _locale_t plocinfo
@@ -117,6 +121,8 @@ extern "C" int __cdecl _ismbcsymbol_l(
 
     return((plocinfo ? plocinfo->mbcinfo->mbcodepage : _getmbcp()) == _KANJI_CP && c >= 0x8141 && c <= 0x81ac && c != 0x817f);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_ismbcsymbol_l);
 #endif
 
 #if 0

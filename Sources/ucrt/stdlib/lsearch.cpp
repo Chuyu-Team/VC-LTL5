@@ -1,4 +1,4 @@
-//
+﻿//
 // lsearch.cpp
 //
 //      Copyright (c) Microsoft Corporation. All rights reserved.
@@ -87,5 +87,9 @@ void* __fileDECL _lsearch(
     ++(*num);
     return last;
 }
+
+#ifdef __USE_CONTEXT
+_LCRT_DEFINE_IAT_SYMBOL(_lsearch_s);
+#endif
 
 #undef __COMPARE

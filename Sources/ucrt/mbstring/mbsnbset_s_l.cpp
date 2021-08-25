@@ -1,4 +1,4 @@
-/***
+﻿/***
 *mbsset_s_l.c - Sets first n bytes of string to given character (MBCS)
 *
 *       Copyright (c) Microsoft Corporation.  All rights reserved.
@@ -18,6 +18,8 @@
 #define _COUNT _CountInBytes
 #define _COUNT_IN_BYTES 1
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 #include "mbsnset_s.inl"
+
+_LCRT_DEFINE_IAT_SYMBOL(_mbsnbset_s_l);
 #endif

@@ -1,4 +1,4 @@
-//
+ï»¿//
 // strerror.cpp
 //
 //      Copyright (c) Microsoft Corporation. All rights reserved.
@@ -41,14 +41,14 @@ static char*& get_ptd_buffer(__acrt_ptd* const ptd, char) throw()
 
 static wchar_t*& get_ptd_buffer(__acrt_ptd* const ptd, wchar_t) throw()
 {
-#if _CRT_NTDDI_MIN < NTDDI_WIN6 && defined(_X86_)
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6 && defined(_X86_)
     const auto OsVersion = __LTL_GetOsMinVersion();
     if (OsVersion < 0x00050001)
     {
         if (ptd->_strerror_buffer)
         {
             /*
-            Win2KÃ»ÓÐ_wcserror_buffer£¬Òò´ËÎÒÃÇÖ»ÄÜÓÃ _strerror_buffer ´ÕºÏÒ»ÏÂ¡£
+            Win2Kæ²¡æœ‰_wcserror_bufferï¼Œå› æ­¤æˆ‘ä»¬åªèƒ½ç”¨ _strerror_buffer å‡‘åˆä¸€ä¸‹ã€‚
             */
             auto _strerror_buffer_new = (char*)realloc(ptd->_strerror_buffer, strerror_buffer_count * sizeof(wchar_t));
             if (!_strerror_buffer_new)
@@ -153,7 +153,7 @@ static errno_t __cdecl common_strerror_s(
     return result == STRUNCATE ? 0 : result;
 }
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" errno_t __cdecl strerror_s(
     char*  const buffer,
     size_t const buffer_count,
@@ -163,6 +163,8 @@ extern "C" errno_t __cdecl strerror_s(
     return common_strerror_s(buffer, buffer_count, error_number);
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(strerror_s);
+
 extern "C" errno_t __cdecl _wcserror_s(
     wchar_t* const buffer,
     size_t   const buffer_count,
@@ -171,4 +173,7 @@ extern "C" errno_t __cdecl _wcserror_s(
 {
     return common_strerror_s(buffer, buffer_count, error_number);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_wcserror_s);
+
 #endif

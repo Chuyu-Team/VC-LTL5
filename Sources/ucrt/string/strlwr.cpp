@@ -1,4 +1,4 @@
-/***
+﻿/***
 *strlwr.c - routine to map upper-case characters in a string to lower-case
 *
 *       Copyright (c) Microsoft Corporation. All rights reserved.
@@ -14,7 +14,6 @@
 #include <limits.h>
 #include <locale.h>
 #include <string.h>
-#include <winapi_thunks.h>
 
 #pragma warning(disable:__WARNING_POTENTIAL_BUFFER_OVERFLOW_NULLTERMINATED) // 26018
 
@@ -43,7 +42,7 @@
 *
 *******************************************************************************/
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" char * __cdecl _strlwr_l (
         char * string,
         _locale_t plocinfo
@@ -52,6 +51,8 @@ extern "C" char * __cdecl _strlwr_l (
     _strlwr_s_l(string, (size_t)(-1), plocinfo);
     return string;
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_strlwr_l);
 #endif
 
 #if 0
@@ -190,7 +191,7 @@ errno_t __cdecl _strlwr_s_l_stat (
     }
 }
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" errno_t __cdecl _strlwr_s_l (
         char * string,
         size_t sizeInBytes,
@@ -205,6 +206,8 @@ extern "C" errno_t __cdecl _strlwr_s_l (
     return _strlwr_s_l_stat(string, sizeInBytes, plocinfo);
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(_strlwr_s_l);
+
 extern "C" errno_t __cdecl _strlwr_s(
         char * string,
         size_t sizeInBytes
@@ -217,4 +220,6 @@ extern "C" errno_t __cdecl _strlwr_s(
 
 	return 0;
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_strlwr_s);
 #endif

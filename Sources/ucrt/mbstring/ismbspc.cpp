@@ -1,4 +1,4 @@
-/***
+﻿/***
 *ismbspc.c - Test is character is whitespace (MBCS)
 *
 *       Copyright (c) Microsoft Corporation.  All rights reserved.
@@ -35,7 +35,7 @@
 *
 *******************************************************************************/
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" int __cdecl _ismbcspace_l(unsigned int const c, _locale_t const locale)
 {
     //_LocaleUpdate locale_update(locale);
@@ -49,6 +49,8 @@ extern "C" int __cdecl _ismbcspace_l(unsigned int const c, _locale_t const local
 
     return __dcrt_multibyte_check_type(c, locale, _SPACE, true);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_ismbcspace_l);
 #endif
 
 #if 0

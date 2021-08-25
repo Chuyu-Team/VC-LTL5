@@ -1,4 +1,4 @@
-/***
+﻿/***
 *mbscspn.c - Find first string char in charset (MBCS)
 *
 *       Copyright (c) Microsoft Corporation.  All rights reserved.
@@ -51,7 +51,7 @@
 *       Input parameters are validated. Refer to the validation section of the function.
 *
 *******************************************************************************/
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 #ifndef _RETURN_PTR
 
 extern "C" size_t __cdecl _mbscspn_l(
@@ -128,6 +128,13 @@ extern "C" const unsigned char * __cdecl _mbspbrk_l(
 #endif  /* _RETURN_PTR */
 
 }
+
+#ifndef _RETURN_PTR
+_LCRT_DEFINE_IAT_SYMBOL(_mbscspn_l);
+#else
+_LCRT_DEFINE_IAT_SYMBOL(_mbspbrk_l);
+#endif
+
 #endif
 
 #if 0

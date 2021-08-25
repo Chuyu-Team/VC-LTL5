@@ -47,10 +47,7 @@
     <ClCompile Include="..\Sources\crt\vcruntime\winapi_thunks.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\Sources\crt\ltl\PTD_Downlevel.cpp">
-      <Filter>源文件\ltl</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Sources\crt\vcruntime\chandler4.cpp">
+    <ClCompile Include="..\Sources\crt\i386\chandler4.c">
       <Filter>源文件\Static</Filter>
     </ClCompile>
     <ClCompile Include="..\Sources\crt\vcruntime\chandler_noexcept.cpp">

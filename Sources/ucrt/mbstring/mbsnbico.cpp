@@ -1,4 +1,4 @@
-/***
+﻿/***
 *mbsnbico.c - Collate n bytes of strings, ignoring case (MBCS)
 *
 *       Copyright (c) Microsoft Corporation. All rights reserved.
@@ -13,7 +13,6 @@
 
 #include <corecrt_internal_mbstring.h>
 #include <locale.h>
-#include <winapi_thunks.h>
 
 
 /***
@@ -39,7 +38,7 @@
 *
 *******************************************************************************/
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" int __cdecl _mbsnbicoll_l(
         const unsigned char *s1,
         const unsigned char *s2,
@@ -77,6 +76,8 @@ extern "C" int __cdecl _mbsnbicoll_l(
         return ret - 2;
 
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_mbsnbicoll_l);
 #endif
 
 #if 0

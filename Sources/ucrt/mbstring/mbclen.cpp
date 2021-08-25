@@ -1,4 +1,4 @@
-/***
+﻿/***
 *mbclen.c - Find length of MBCS character
 *
 *       Copyright (c) Microsoft Corporation. All rights reserved.
@@ -32,7 +32,7 @@
 *
 *******************************************************************************/
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" size_t __cdecl _mbclen_l(unsigned char const* c, _locale_t locale)
 {
     /*  Don't return two if we have leadbyte, EOS.
@@ -40,6 +40,8 @@ extern "C" size_t __cdecl _mbclen_l(unsigned char const* c, _locale_t locale)
     */
     return ((_ismbblead_l)(*c, locale) && c[1] != '\0') ? 2 : 1;
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_mbclen_l);
 #endif
 
 #if 0

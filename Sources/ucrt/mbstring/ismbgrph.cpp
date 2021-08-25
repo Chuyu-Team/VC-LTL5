@@ -1,4 +1,4 @@
-/***
+﻿/***
 *ismbgrph - Test if character is graphical (MBCS)
 *
 *       Copyright (c) Microsoft Corporation.  All rights reserved.
@@ -36,7 +36,7 @@
 *
 *******************************************************************************/
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" int __cdecl _ismbcgraph_l(unsigned int const c, _locale_t const locale)
 {
 	if (!locale)
@@ -50,6 +50,8 @@ extern "C" int __cdecl _ismbcgraph_l(unsigned int const c, _locale_t const local
 
     return __dcrt_multibyte_check_type(c, locale, _PUNCT | _ALPHA | _DIGIT, true);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_ismbcgraph_l);
 #endif
 
 #if 0

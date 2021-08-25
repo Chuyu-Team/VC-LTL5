@@ -1,4 +1,4 @@
-/***
+﻿/***
 *mbclevel.c - Tests if char is hiragana, katakana, alphabet or digit.
 *
 *       Copyright (c) Microsoft Corporation. All rights reserved.
@@ -33,7 +33,7 @@
 *
 *******************************************************************************/
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" int __cdecl _ismbcl0_l(
         unsigned int c,
         _locale_t plocinfo
@@ -48,6 +48,8 @@ extern "C" int __cdecl _ismbcl0_l(
             (_ismbbtrail_l(c & 0x0ff, plocinfo)) &&
             (c < 0x889f) );
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_ismbcl0_l);
 #endif
 
 #if 0
@@ -75,7 +77,7 @@ extern "C" int (__cdecl _ismbcl0)(
 *
 *******************************************************************************/
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" int __cdecl _ismbcl1_l(
         unsigned int c,
         _locale_t plocinfo
@@ -90,6 +92,8 @@ extern "C" int __cdecl _ismbcl1_l(
             (_ismbbtrail_l(c & 0x0ff, plocinfo)) &&
             (c >= 0x889f) && (c <= 0x9872) );
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_ismbcl1_l);
 #endif
 
 #if 0
@@ -117,7 +121,7 @@ extern "C" int (__cdecl _ismbcl1)(
 *
 *******************************************************************************/
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" int __cdecl _ismbcl2_l(
         unsigned int c,
         _locale_t plocinfo
@@ -132,6 +136,8 @@ extern "C" int __cdecl _ismbcl2_l(
             (_ismbbtrail_l(c & 0x0ff, plocinfo)) &&
             (c >= 0x989f) && (c <= 0xEAA4) );
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_ismbcl2_l);
 #endif
 
 #if 0

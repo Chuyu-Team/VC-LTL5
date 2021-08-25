@@ -1,4 +1,4 @@
-/***
+﻿/***
 *mbsncol.c - Collate n characters of two MBCS strings
 *
 *       Copyright (c) Microsoft Corporation. All rights reserved.
@@ -15,7 +15,6 @@
 #include <limits.h>
 #include <locale.h>
 #include <string.h>
-#include <winapi_thunks.h>
 
 /***
 * _mbsncoll(s1, s2, n) - Collate n characters of two MBCS strings
@@ -39,7 +38,7 @@
 *
 *******************************************************************************/
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" int __cdecl _mbsncoll_l(
         const unsigned char *s1,
         const unsigned char *s2,
@@ -85,6 +84,8 @@ extern "C" int __cdecl _mbsncoll_l(
         return ret - 2;
 
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_mbsncoll_l);
 #endif
 
 #if 0

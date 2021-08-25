@@ -1,4 +1,4 @@
-/***
+﻿/***
 *mbsnbicmp.c - Compare n bytes of strings, ignoring case (MBCS)
 *
 *       Copyright (c) Microsoft Corporation.  All rights reserved.
@@ -40,7 +40,7 @@
 *
 *******************************************************************************/
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 int __cdecl _mbsnbicmp_l(
         const unsigned char *s1,
         const unsigned char *s2,
@@ -126,6 +126,8 @@ test:
 
         return(0);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_mbsnbicmp_l);
 #endif
 
 #if 0

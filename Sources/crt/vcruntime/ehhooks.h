@@ -57,6 +57,12 @@ EXTERN_C _VCRTIMP BOOL __cdecl _IsExceptionObjectToBeDestroyed(
 #define __pSETranslator   (*(_se_translator_function*)&(__vcrt_getptd()->_translator))
 #elif WindowsTargetPlatformMinVersion >= WindowsTargetPlatformWindows6
 #define __pSETranslator   (*(_se_translator_function*)&(((_ptd_msvcrt_win6_shared*)__vcrt_getptd())->_translator))
+#elif WindowsTargetPlatformMinVersion >= WindowsTargetPlatformWindowsXP
+
+#define __pSETranslatorWin6   (*(_se_translator_function*)&(((_ptd_msvcrt_win6_shared*)__vcrt_getptd())->_translator))
+#define __pSETranslatorWinXP   (*(_se_translator_function*)&(((_ptd_msvcrt_winxp*)__vcrt_getptd())->_translator))
+#define __pSETranslator (__LTL_GetOsMinVersion() >= MakeMiniVersion(6,0) ? __pSETranslatorWin6 : __pSETranslatorWinXP)
+
 #endif
 
 #ifdef _EH_RELATIVE_FUNCINFO

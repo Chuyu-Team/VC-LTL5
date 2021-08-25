@@ -1,4 +1,4 @@
-/***
+﻿/***
 *mbscpy_s_l.c - Copy one string to another (MBCS)
 *
 *       Copyright (c) Microsoft Corporation.  All rights reserved.
@@ -14,7 +14,7 @@
 #include <corecrt_internal_mbstring.h>
 #include <corecrt_internal_securecrt.h>
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 errno_t __cdecl _mbscpy_s_l(unsigned char *_Dst, size_t _SizeInBytes, const unsigned char *_Src, _LOCALE_ARG_DECL)
 {
     unsigned char *p;
@@ -75,4 +75,6 @@ errno_t __cdecl _mbscpy_s_l(unsigned char *_Dst, size_t _SizeInBytes, const unsi
     _FILL_STRING(_Dst, _SizeInBytes, _SizeInBytes - available + 1);
     _RETURN_NO_ERROR;
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_mbscpy_s_l);
 #endif

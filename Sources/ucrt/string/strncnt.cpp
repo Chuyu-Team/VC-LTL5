@@ -1,4 +1,4 @@
-//
+﻿//
 // strncnt.cpp
 //
 //      Copyright (c) Microsoft Corporation.  All rights reserved.
@@ -9,7 +9,7 @@
 #include <string.h>
 
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" size_t __cdecl __strncnt(
     char const* const string,
     size_t      const count
@@ -22,4 +22,6 @@ extern "C" size_t __cdecl __strncnt(
 
     return n;
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(__strncnt);
 #endif

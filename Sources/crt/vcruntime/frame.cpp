@@ -43,6 +43,12 @@ using namespace FH4;
 #define cxxReThrow   (RENAME_BASE_PTD(__vcrt_getptd)()->_cxxReThrow)
 #elif WindowsTargetPlatformMinVersion >= WindowsTargetPlatformWindows6
 #define cxxReThrow   (((_ptd_msvcrt_win6_shared*)RENAME_BASE_PTD(__vcrt_getptd)())->_cxxReThrow)
+#else
+#include <ptd_downlevel.h>
+
+#define cxxReThrowWin6   (((_ptd_msvcrt_win6_shared*)RENAME_BASE_PTD(__vcrt_getptd)())->_cxxReThrow)
+#define cxxReThrowdownlevel (__LTL_get_ptd_downlevel(TRUE)->_cxxReThrow)
+#define cxxReThrow (__LTL_GetOsMinVersion() >= MakeMiniVersion(6,0) ? cxxReThrowWin6 : cxxReThrowdownlevel)
 #endif
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -208,6 +214,12 @@ static BOOLEAN Is_bad_exception_allowed(ESTypeList *pExceptionSpec);
 #define _pCurrentFuncInfo       (*((ESTypeList **)&(RENAME_BASE_PTD(__vcrt_getptd)()->_curexcspec)))
 #elif WindowsTargetPlatformMinVersion >= WindowsTargetPlatformWindows6
 #define _pCurrentFuncInfo       (*((ESTypeList **)&(((_ptd_msvcrt_win6_shared*)RENAME_BASE_PTD(__vcrt_getptd)())->_curexcspec)))
+#elif WindowsTargetPlatformMinVersion >= WindowsTargetPlatformWindowsXP
+
+#define _pCurrentFuncInfoWin6       (*((ESTypeList **)&(((_ptd_msvcrt_win6_shared*)RENAME_BASE_PTD(__vcrt_getptd)())->_curexcspec)))
+#define _pCurrentFuncInfoWinXP      (*((ESTypeList **)&(((_ptd_msvcrt_winxp*)RENAME_BASE_PTD(__vcrt_getptd)())->_curexcspec)))
+#define _pCurrentFuncInfo (__LTL_GetOsMinVersion() >= MakeMiniVersion(6,0) ? _pCurrentFuncInfoWin6 : _pCurrentFuncInfoWinXP)
+
 #endif
 
 inline ESTypeList* RENAME_EH_EXTERN(__FrameHandler3)::getESTypes(FuncInfo* pFuncInfo)

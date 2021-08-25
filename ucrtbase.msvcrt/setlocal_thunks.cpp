@@ -1423,6 +1423,8 @@ __End:
 	return locale;
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(_wcreate_locale);
+
 #if WindowsTargetPlatformMinVersion < __MakeVersion(10, 0, 10240)
 
 EXTERN_C int __cdecl _configthreadlocale(int i)
@@ -1482,6 +1484,8 @@ EXTERN_C int __cdecl _configthreadlocale(int i)
 	return retval;
 
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_configthreadlocale);
 
 #endif
 

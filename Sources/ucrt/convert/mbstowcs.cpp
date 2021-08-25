@@ -1,4 +1,4 @@
-/***
+﻿/***
 *mbstowcs.c - Convert multibyte char string to wide char string.
 *
 *       Copyright (c) Microsoft Corporation. All rights reserved.
@@ -13,7 +13,6 @@
 #include <locale.h>
 #include <errno.h>
 #include <stdlib.h>
-#include <winapi_thunks.h>
 
 using namespace __crt_mbstring;
 
@@ -189,7 +188,7 @@ static size_t __cdecl _mbstowcs_l_helper(
 
 }
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" size_t __cdecl _mbstowcs_l(
     wchar_t  *pwcs,
     const char *s,
@@ -201,6 +200,8 @@ extern "C" size_t __cdecl _mbstowcs_l(
 
     return _mbstowcs_l_helper(pwcs, s, n, plocinfo);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_mbstowcs_l);
 #endif
 
 #if 0
@@ -248,7 +249,7 @@ extern "C" size_t __cdecl mbstowcs(
 *
 *******************************************************************************/
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" errno_t __cdecl _mbstowcs_s_l(
     size_t *pConvertedChars,
     wchar_t  *pwcs,
@@ -321,9 +322,11 @@ extern "C" errno_t __cdecl _mbstowcs_s_l(
 
     return retvalue;
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_mbstowcs_s_l);
 #endif
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" errno_t __cdecl mbstowcs_s(
     size_t *pConvertedChars,
     wchar_t  *pwcs,
@@ -380,4 +383,6 @@ extern "C" errno_t __cdecl mbstowcs_s(
 
 	return retvalue;
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(mbstowcs_s);
 #endif

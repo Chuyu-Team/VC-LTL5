@@ -504,7 +504,7 @@ typedef struct __crt_multibyte_data
     unsigned char  mbctype[257];
     unsigned char  mbcasemap[256];
     //wchar_t const* mblocalename;
-} _multibyte_data_msvcrt, _multibyte_data;
+} __crt_multibyte_data, _multibyte_data_msvcrt, _multibyte_data;
 
 
 typedef struct __crt_locale_data
@@ -555,7 +555,7 @@ typedef struct __crt_locale_data
                                   _When_((size) < _String_length_(_Curr_), _In_reads_(size))
 
 // Wrappers for locale-related Windows API functionality
-#if 0
+#ifndef __BuildWithMSVCRT
 int __cdecl __acrt_CompareStringA(
     _In_opt_               _locale_t _Plocinfo,
     _In_                   LPCWSTR   _LocaleName,
@@ -566,7 +566,73 @@ int __cdecl __acrt_CompareStringA(
     _In_                   int       _CchCount2,
     _In_                   int       _CodePage
     );
+#else
+#ifdef __cplusplus
 
+namespace WinNT5
+{
+    extern "C"
+    __declspec(dllimport)
+    int
+    __cdecl
+    __crtCompareStringA(
+        _In_ LCID     _Locale,
+        _In_ DWORD    _DwCmpFlags,
+        _In_count_(_CchCount1) LPCSTR   _LpString1,
+        _In_ int      _CchCount1,
+        _In_count_(_CchCount2) LPCSTR   _LpString2,
+        _In_ int      _CchCount2,
+        _In_ int      _Code_page
+        );
+}
+
+
+namespace WinNT6
+{
+    extern "C"
+    __declspec(dllimport)
+    int
+    __cdecl
+    __crtCompareStringA(
+        _In_opt_ _locale_t _Plocinfo,
+        _In_ LCID     _Locale,
+        _In_ DWORD    _DwCmpFlags,
+        _In_count_(_CchCount1) LPCSTR   _LpString1,
+        _In_ int      _CchCount1,
+        _In_count_(_CchCount2) LPCSTR   _LpString2,
+        _In_ int      _CchCount2,
+        _In_ int      _Code_page
+        );
+}
+
+static __forceinline int __cdecl __acrt_CompareStringA(
+    _In_opt_               _locale_t _Plocinfo,
+    _In_                   LCID     _Locale,
+    _In_                   DWORD     _DwCmpFlags,
+    _In_CRT_NLS_string_(_CchCount1) PCCH _LpString1,
+    _In_                   int       _CchCount1,
+    _In_CRT_NLS_string_(_CchCount2) PCCH _LpString2,
+    _In_                   int       _CchCount2,
+    _In_                   int       _Code_page
+    )
+{
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
+    if (__LTL_GetOsMinVersion() < MakeMiniVersion(6, 0))
+    {
+        if (_Plocinfo && _Code_page == 0)
+            _Code_page = _Plocinfo->locinfo->_locale_lc_codepage;
+
+        return WinNT5::__crtCompareStringA(_Locale, _DwCmpFlags, _LpString1, _CchCount1, _LpString2, _CchCount2, _Code_page);
+    }
+#endif
+
+    return WinNT6::__crtCompareStringA(_Plocinfo, _Locale, _DwCmpFlags, _LpString1, _CchCount1, _LpString2, _CchCount2, _Code_page);
+}
+#endif
+
+#endif
+
+#ifndef __BuildWithMSVCRT
 int __cdecl __acrt_CompareStringW(
     _In_                   LPCWSTR  _LocaleName,
     _In_                   DWORD    _DwCmpFlags,
@@ -575,6 +641,8 @@ int __cdecl __acrt_CompareStringW(
     _In_CRT_NLS_string_(_CchCount2) PCWCH _LpString2,
     _In_                   int      _CchCount2
     );
+#else
+#define __acrt_CompareStringW CompareStringW
 #endif
 
 int __cdecl __acrt_GetLocaleInfoA(
@@ -604,7 +672,7 @@ BOOL __cdecl __acrt_GetStringTypeW(
     _Out_               LPWORD      _LpCharType
 );
 
-#if 0
+#ifndef __BuildWithMSVCRT
 _Success_(return != 0)
 int __cdecl __acrt_LCMapStringA(
     _In_opt_                   _locale_t _Plocinfo,
@@ -617,7 +685,72 @@ int __cdecl __acrt_LCMapStringA(
     _In_                       int       _CodePage,
     _In_                       BOOL      _BError
     );
+#else
 
+#ifdef __cplusplus
+
+namespace WinNT5
+{
+    extern "C" __declspec(dllimport)
+    int __cdecl __crtLCMapStringA(
+        _In_ LCID _Locale,
+        _In_ DWORD _DwMapFlag,
+        _In_count_(_CchSrc) LPCSTR _LpSrcStr,
+        _In_ int _CchSrc,
+        _Out_opt_cap_(_CchDest) LPSTR _LpDestStr,
+        _In_ int _CchDest,
+        _In_ int _Code_page,
+        _In_ BOOL _BError
+        );
+}
+
+namespace WinNT6
+{
+    extern "C" __declspec(dllimport)
+    int __cdecl __crtLCMapStringA(
+        _In_opt_ _locale_t _Plocinfo,
+        _In_ LCID _Locale,
+        _In_ DWORD _DwMapFlag,
+        _In_count_(_CchSrc) LPCSTR _LpSrcStr,
+        _In_ int _CchSrc,
+        _Out_opt_cap_(_CchDest) LPSTR _LpDestStr,
+        _In_ int _CchDest,
+        _In_ int _Code_page,
+        _In_ BOOL _BError
+        );
+}
+
+_Success_(return != 0)
+static __forceinline int __cdecl __acrt_LCMapStringA(
+    _In_opt_                   _locale_t _Plocinfo,
+    _In_                       LCID      _Locale,
+    _In_                       DWORD     _DwMapFlag,
+    _In_CRT_NLS_string_(_CchSrc) PCCH    _LpSrcStr,
+    _In_                       int       _CchSrc,
+    _Out_writes_opt_(_CchDest) PCH       _LpDestStr,
+    _In_                       int       _CchDest,
+    _In_                       int       _CodePage,
+    _In_                       BOOL      _BError
+    )
+{
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
+    if (__LTL_GetOsMinVersion() < MakeMiniVersion(6, 0))
+    {
+        if (_Plocinfo && _CodePage == 0)
+            _CodePage = _Plocinfo->locinfo->_locale_lc_codepage;
+
+        return WinNT5::__crtLCMapStringA(_Locale, _DwMapFlag, _LpSrcStr, _CchSrc, _LpDestStr, _CchDest, _CodePage, _BError);
+    }
+#endif
+
+    return WinNT6::__crtLCMapStringA(_Plocinfo, _Locale, _DwMapFlag, _LpSrcStr, _CchSrc, _LpDestStr, _CchDest, _CodePage, _BError);
+}
+#endif
+
+#endif
+
+
+#ifndef __BuildWithMSVCRT
 _Success_(return != 0)
 int __cdecl __acrt_LCMapStringW(
     _In_                       LPCWSTR _LocaleName,
@@ -627,32 +760,34 @@ int __cdecl __acrt_LCMapStringW(
     _Out_writes_opt_(_CchDest) PWCH    _LpDestStr,
     _In_                       int     _CchDest
     );
-
-_Success_(return != 0)
-int __cdecl __acrt_MultiByteToWideChar(
-    _In_                           UINT    _CodePage,
-    _In_                           DWORD   _DWFlags,
-    _In_                           LPCSTR  _LpMultiByteStr,
-    _In_                           int     _CbMultiByte,
-    _Out_writes_opt_(_CchWideChar) LPWSTR  _LpWideCharStr,
-    _In_                           int     _CchWideChar
-    );
-
-_Success_(return != 0)
-int __cdecl __acrt_WideCharToMultiByte(
-    _In_                           UINT    _CodePage,
-    _In_                           DWORD   _DWFlags,
-    _In_                           LPCWSTR _LpWideCharStr,
-    _In_                           int     _CchWideChar,
-    _Out_writes_opt_(_CbMultiByte) LPSTR   _LpMultiByteStr,
-    _In_                           int     _CbMultiByte,
-    _In_opt_                       LPCSTR  _LpDefaultChar,
-    _Out_opt_                      LPBOOL  _LpUsedDefaultChar
-    );
 #else
-#define __acrt_MultiByteToWideChar MultiByteToWideChar
-#define __acrt_WideCharToMultiByte WideCharToMultiByte
+#define __acrt_LCMapStringW LCMapStringW
 #endif
+
+//_Success_(return != 0)
+//int __cdecl __acrt_MultiByteToWideChar(
+//    _In_                           UINT    _CodePage,
+//    _In_                           DWORD   _DWFlags,
+//    _In_                           LPCSTR  _LpMultiByteStr,
+//    _In_                           int     _CbMultiByte,
+//    _Out_writes_opt_(_CchWideChar) LPWSTR  _LpWideCharStr,
+//    _In_                           int     _CchWideChar
+//    );
+#define __acrt_MultiByteToWideChar MultiByteToWideChar
+
+//_Success_(return != 0)
+//int __cdecl __acrt_WideCharToMultiByte(
+//    _In_                           UINT    _CodePage,
+//    _In_                           DWORD   _DWFlags,
+//    _In_                           LPCWSTR _LpWideCharStr,
+//    _In_                           int     _CchWideChar,
+//    _Out_writes_opt_(_CbMultiByte) LPSTR   _LpMultiByteStr,
+//    _In_                           int     _CbMultiByte,
+//    _In_opt_                       LPCSTR  _LpDefaultChar,
+//    _Out_opt_                      LPBOOL  _LpUsedDefaultChar
+//    );
+#define __acrt_WideCharToMultiByte WideCharToMultiByte
+
 
 // Case-insensitive ASCII comparisons
 _Check_return_
@@ -923,7 +1058,7 @@ typedef struct _ptd_msvcrt_win2k_shared
 
 	// Per-thread error message data:
 	char*      _strerror_buffer;            // Pointer to strerror()  / _strerror()  buffer _errmsg
-} _ptd_msvcrt, __acrt_ptd;
+} _ptd_msvcrt_win2k_shared, _ptd_msvcrt, __acrt_ptd;
 
 #ifdef __cplusplus
 

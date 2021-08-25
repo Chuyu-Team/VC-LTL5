@@ -1,4 +1,4 @@
-/***
+﻿/***
 *mbsdec.c - Move MBCS string pointer backward one charcter.
 *
 *       Copyright (c) Microsoft Corporation.  All rights reserved.
@@ -36,7 +36,7 @@
 *
 *******************************************************************************/
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" unsigned char * __cdecl _mbsdec_l(
         const unsigned char *string,
         const unsigned char *current,
@@ -103,6 +103,8 @@ extern "C" unsigned char * __cdecl _mbsdec_l(
 
         return (unsigned char *)(current - 1 - ((current - temp) & 0x01) );
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_mbsdec_l);
 #endif
 
 #if 0

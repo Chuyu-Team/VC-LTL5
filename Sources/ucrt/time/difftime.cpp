@@ -1,4 +1,4 @@
-//
+﻿//
 // difftime.cpp
 //
 //      Copyright (c) Microsoft Corporation. All rights reserved.
@@ -21,12 +21,18 @@ static double __cdecl common_difftime(TimeType const b, TimeType const a) throw(
     return static_cast<double>(b - a);
 }
 
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" double __cdecl _difftime32(__time32_t const b, __time32_t const a)
 {
     return common_difftime(b, a);
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(_difftime32);
+
 extern "C" double __cdecl _difftime64(__time64_t const b, __time64_t const a)
 {
     return common_difftime(b, a);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_difftime64);
+#endif

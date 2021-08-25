@@ -1,4 +1,4 @@
-/***
+﻿/***
 *wcsicoll.c - Collate wide-character locale strings without regard to case
 *
 *       Copyright (c) Microsoft Corporation. All rights reserved.
@@ -12,7 +12,6 @@
 #include <ctype.h>
 #include <locale.h>
 #include <string.h>
-#include <winapi_thunks.h>
 
 #pragma warning(disable:__WARNING_POTENTIAL_BUFFER_OVERFLOW_NULLTERMINATED) // 26018 Prefast can't see that we are checking for terminal nul.
 
@@ -40,7 +39,7 @@
 *
 *******************************************************************************/
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" int __cdecl _wcsicoll_l (
         const wchar_t *_string1,
         const wchar_t *_string2,
@@ -75,6 +74,8 @@ extern "C" int __cdecl _wcsicoll_l (
 
     return (ret - 2);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_wcsicoll_l);
 #endif
 
 #if 0

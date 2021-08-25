@@ -1,4 +1,4 @@
-/***
+﻿/***
 *mbsicoll.c - Collate MBCS strings, ignoring case
 *
 *       Copyright (c) Microsoft Corporation. All rights reserved.
@@ -14,7 +14,6 @@
 #include <corecrt_internal.h>
 #include <corecrt_internal_mbstring.h>
 #include <locale.h>
-#include <winapi_thunks.h>
 
 /***
 * _mbsicoll - Collate MBCS strings, ignoring case
@@ -37,7 +36,7 @@
 *
 *******************************************************************************/
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" int __cdecl _mbsicoll_l(
         const unsigned char *s1,
         const unsigned char *s2,
@@ -74,6 +73,8 @@ extern "C" int __cdecl _mbsicoll_l(
         return ret - 2;
 
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_mbsicoll_l);
 #endif
 
 #if 0

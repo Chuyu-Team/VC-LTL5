@@ -1,4 +1,4 @@
-/***
+﻿/***
 *mbsnbset_s.c - Sets first n bytes of string to given character (MBCS)
 *
 *       Copyright (c) Microsoft Corporation.  All rights reserved.
@@ -14,4 +14,8 @@
 #include <corecrt_internal_mbstring.h>
 #include <corecrt_internal.h>
 
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 _REDIRECT_TO_L_VERSION_4(errno_t, _mbsnbset_s, unsigned char *, size_t, unsigned int, size_t)
+
+_LCRT_DEFINE_IAT_SYMBOL(_mbsnbset_s);
+#endif

@@ -34,5 +34,5 @@ extern "C" errno_t __cdecl wmemmove_s(
     return 0;
 }
 
-_LCRT_DEFINE_IAT_SYMBOL(wmemcpy_s);
+_LCRT_DEFINE_IAT_SYMBOL(wmemmove_s);
 #endif

@@ -1,4 +1,4 @@
-/***
+﻿/***
 *mbstok_s.c - Break string into tokens (MBCS)
 *
 *       Copyright (c) Microsoft Corporation.  All rights reserved.
@@ -14,7 +14,7 @@
 #include <corecrt_internal_mbstring.h>
 #include <corecrt_internal_securecrt.h>
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 EXTERN_C unsigned char * __cdecl _mbstok_s_l(unsigned char *_String, const unsigned char *_Control, unsigned char **_Context, _LOCALE_ARG_DECL)
 {
     unsigned char *token;
@@ -144,8 +144,13 @@ EXTERN_C unsigned char * __cdecl _mbstok_s_l(unsigned char *_String, const unsig
         return token;
     }
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_mbstok_s_l);
+
 #endif
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 _REDIRECT_TO_L_VERSION_3(unsigned char *, _mbstok_s, unsigned char *, const unsigned char *, unsigned char **)
+
+_LCRT_DEFINE_IAT_SYMBOL(_mbstok_s);
 #endif

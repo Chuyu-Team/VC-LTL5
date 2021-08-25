@@ -1,4 +1,4 @@
-//
+﻿//
 // isctype.cpp
 //
 //      Copyright (c) Microsoft Corporation. All rights reserved.
@@ -59,7 +59,7 @@ extern "C" int __cdecl _chvalidator_l(_locale_t const locale, int const c, int c
 //     H.......|.......|.......|.......L
 //         0       0   leadbyte trailbyte
 //
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" int __cdecl _isctype_l(int const c, int const mask, _locale_t const locale)
 {
     //_LocaleUpdate locale_update(locale);
@@ -107,6 +107,8 @@ extern "C" int __cdecl _isctype_l(int const c, int const mask, _locale_t const l
 
     return static_cast<int>(character_type[0] & mask);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_isctype_l);
 #endif
 
 #if 0

@@ -1,4 +1,4 @@
-/***
+﻿/***
 *tombbmbc.c - convert 1-byte code to and from 2-byte code
 *
 *       Copyright (c) Microsoft Corporation.    All rights reserved.
@@ -219,7 +219,7 @@ static struct   {
 *
 *******************************************************************************/
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" unsigned int __cdecl _mbbtombc_l(
         unsigned int c,
         _locale_t plocinfo
@@ -257,6 +257,8 @@ extern "C" unsigned int __cdecl _mbbtombc_l(
 
         return(c);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_mbbtombc_l);
 #endif
 
 #if 0
@@ -285,7 +287,7 @@ extern "C" unsigned int (__cdecl _mbbtombc)(
 *
 *******************************************************************************/
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" unsigned int __cdecl _mbctombb_l(
         unsigned int c,
         _locale_t plocinfo
@@ -325,6 +327,8 @@ extern "C" unsigned int __cdecl _mbctombb_l(
 
     return(c);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_mbctombb_l);
 #endif
 
 #if 0

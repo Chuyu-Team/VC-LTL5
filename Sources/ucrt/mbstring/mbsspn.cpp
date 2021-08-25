@@ -1,4 +1,4 @@
-/***
+﻿/***
 *mbsspn.c - Search for init substring of chars from control string (MBCS).
 *
 *       Copyright (c) Microsoft Corporation.  All rights reserved.
@@ -47,7 +47,7 @@
 *
 *******************************************************************************/
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 #ifndef _RETURN_PTR
 extern "C" size_t __cdecl _mbsspn_l
 #else  /* _RETURN_PTR */
@@ -118,6 +118,13 @@ extern "C" unsigned char * __cdecl _mbsspnp_l
 #endif  /* _RETURN_PTR */
 
 }
+
+#ifndef _RETURN_PTR
+_LCRT_DEFINE_IAT_SYMBOL(_mbsspn_l);
+#else
+_LCRT_DEFINE_IAT_SYMBOL(_mbsspnp_l);
+#endif
+
 #endif
 
 #if 0

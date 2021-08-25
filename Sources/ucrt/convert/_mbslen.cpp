@@ -1,4 +1,4 @@
-//
+﻿//
 // _mbslen.cpp
 //
 //      Copyright (c) Microsoft Corporation. All rights reserved.
@@ -89,7 +89,7 @@ static size_t __cdecl common_mbstrlen_l(
 }
 
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" size_t __cdecl _mbstrlen_l(
     char const* const string,
     _locale_t   const locale
@@ -97,6 +97,8 @@ extern "C" size_t __cdecl _mbstrlen_l(
 {
     return common_mbstrlen_l(string, _CRT_UNBOUNDED_BUFFER_SIZE, locale);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_mbstrlen_l);
 #endif
 
 #if 0
@@ -114,7 +116,7 @@ extern "C" size_t __cdecl _mbstrlen(char const* const string)
 #endif
 
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" size_t __cdecl _mbstrnlen_l(
     char const* const string,
     size_t      const max_size,
@@ -126,9 +128,11 @@ extern "C" size_t __cdecl _mbstrnlen_l(
 
     return common_mbstrlen_l(string, max_size, locale);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_mbstrnlen_l);
 #endif
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" size_t __cdecl _mbstrnlen(
     char const* const string,
     size_t      const max_size
@@ -136,4 +140,6 @@ extern "C" size_t __cdecl _mbstrnlen(
 {
     return _mbstrnlen_l(string, max_size, nullptr);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_mbstrnlen);
 #endif

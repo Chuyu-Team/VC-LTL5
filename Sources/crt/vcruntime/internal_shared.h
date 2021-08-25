@@ -1,4 +1,4 @@
-//
+﻿//
 // internal_shared.h
 //
 //      Copyright (c) Microsoft Corporation. All rights reserved.
@@ -7,6 +7,7 @@
 //
 #pragma once
 
+#include <LTL_Tools.h>
 #include <crtdbg.h>
 #include <intrin.h>
 #include <malloc.h>

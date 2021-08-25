@@ -1,4 +1,4 @@
-/***
+﻿/***
 *wcsnicmp.cpp - compare n chars of wide-character strings, ignoring case
 *
 *       Copyright (c) Microsoft Corporation. All rights reserved.
@@ -41,7 +41,7 @@
 *
 *******************************************************************************/
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" int __cdecl _wcsnicmp_l (
         wchar_t const * const lhs,
         wchar_t const * const rhs,
@@ -87,6 +87,8 @@ extern "C" int __cdecl _wcsnicmp_l (
 
     return result;
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_wcsnicmp_l);
 #endif
 
 extern "C" int __cdecl __ascii_wcsnicmp(

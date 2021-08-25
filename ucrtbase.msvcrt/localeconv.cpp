@@ -1,6 +1,8 @@
 ﻿
 #include <locale.h>
 #include "msvcrt_loadhelper.h"
+#include <LTL_Tools.h>
+#include <Windows.h>
 
 struct lconv_Win7
 {

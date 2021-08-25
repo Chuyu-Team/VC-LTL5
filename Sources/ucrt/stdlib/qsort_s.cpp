@@ -1,4 +1,4 @@
-//
+﻿//
 // qsort_s.cpp
 //
 //      Copyright (c) Microsoft Corporation. All rights reserved.
@@ -10,4 +10,6 @@
 #endif
 
 #define __USE_CONTEXT
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 #include "qsort.cpp"
+#endif

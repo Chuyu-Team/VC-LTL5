@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include <Windows.h>
 
 HMODULE __fastcall __LTL_GetMSVCRTModule();
 

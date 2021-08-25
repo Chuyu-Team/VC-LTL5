@@ -1,4 +1,4 @@
-//
+﻿//
 // strnlen.cpp
 //
 //      Copyright (c) Microsoft Corporation.  All rights reserved.
@@ -193,6 +193,7 @@ static __forceinline size_t __cdecl common_strnlen(
     return common_strnlen_c<Mode>(string, maximum_count);
 }
 
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" size_t __cdecl strnlen(
     char const* const string,
     size_t      const maximum_count
@@ -201,6 +202,10 @@ extern "C" size_t __cdecl strnlen(
     return common_strnlen<bounded>(reinterpret_cast<uint8_t const*>(string), maximum_count);
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(strnlen);
+#endif
+
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" size_t __cdecl wcsnlen(
     wchar_t const* const string,
     size_t         const maximum_count
@@ -208,6 +213,9 @@ extern "C" size_t __cdecl wcsnlen(
 {
     return common_strnlen<bounded>(reinterpret_cast<uint16_t const*>(string), maximum_count);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(wcsnlen);
+#endif
 
 #if 0
 #pragma function(wcslen)

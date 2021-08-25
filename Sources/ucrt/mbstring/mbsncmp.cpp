@@ -1,4 +1,4 @@
-/***
+﻿/***
 *mbsncmp.c - Compare n characters of two MBCS strings
 *
 *       Copyright (c) Microsoft Corporation.  All rights reserved.
@@ -42,7 +42,7 @@
 *
 *******************************************************************************/
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" int __cdecl _mbsncmp_l(
         const unsigned char *s1,
         const unsigned char *s2,
@@ -85,6 +85,8 @@ extern "C" int __cdecl _mbsncmp_l(
 
         return(0);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_mbsncmp_l);
 #endif
 
 #if 0

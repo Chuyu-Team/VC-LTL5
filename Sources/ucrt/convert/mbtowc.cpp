@@ -1,4 +1,4 @@
-/***
+﻿/***
 *mbtowc.c - Convert multibyte char to wide char.
 *
 *       Copyright (c) Microsoft Corporation. All rights reserved.
@@ -41,7 +41,7 @@ using namespace __crt_mbstring;
 *
 *******************************************************************************/
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" int __cdecl _mbtowc_l(
     wchar_t  *pwc,
     const char *s,
@@ -131,6 +131,8 @@ extern "C" int __cdecl _mbtowc_l(
     }
 
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_mbtowc_l);
 #endif
 
 #if 0

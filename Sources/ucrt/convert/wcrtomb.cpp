@@ -1,4 +1,4 @@
-/***
+﻿/***
 *wcrtomb.c - Convert wide character to multibyte character, with locale.
 *
 *       Copyright (c) Microsoft Corporation. All rights reserved.
@@ -15,7 +15,6 @@
 #include <limits.h>
 #include <stdio.h>
 #include <locale.h>
-#include <winapi_thunks.h>
 
 using namespace __crt_mbstring;
 
@@ -145,7 +144,7 @@ static errno_t __cdecl _wcrtomb_s_l(
 *
 *******************************************************************************/
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" errno_t __cdecl wcrtomb_s(
     size_t*    const return_value,
     char*      const destination,
@@ -176,9 +175,11 @@ extern "C" errno_t __cdecl wcrtomb_s(
 
     return e;
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(wcrtomb_s);
 #endif
 
-#if 0
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" size_t __cdecl wcrtomb(
     char*      const destination,
     wchar_t    const wchar,
@@ -189,6 +190,8 @@ extern "C" size_t __cdecl wcrtomb(
     wcrtomb_s(&return_value, destination, (destination == nullptr ? 0 : MB_LEN_MAX), wchar, state);
     return return_value;
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(wcrtomb);
 #endif
 
 /***
@@ -207,7 +210,7 @@ extern "C" size_t __cdecl wcrtomb(
 
 /* Helper shared by secure and non-secure functions. */
 
-#if 0
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" static size_t __cdecl internal_wcsrtombs(
     _Pre_maybenull_ _Post_z_    char*                   destination,
     _Inout_ _Deref_prepost_z_   wchar_t const** const   source,
@@ -218,9 +221,11 @@ extern "C" static size_t __cdecl internal_wcsrtombs(
     /* validation section */
     _VALIDATE_RETURN(source != nullptr, EINVAL, (size_t)-1);
 
-    _LocaleUpdate locale_update(nullptr);
+    //_LocaleUpdate locale_update(nullptr);
+    const auto _locale_lc_codepage = ___lc_codepage_func();
+    const auto _locale_mb_cur_max = ___mb_cur_max_func();
 
-    if (locale_update.GetLocaleT()->locinfo->_public._locale_lc_codepage == CP_UTF8)
+    if (_locale_lc_codepage == CP_UTF8)
     {
         return __wcsrtombs_utf8(destination, source, n, state);
     }
@@ -235,7 +240,7 @@ extern "C" static size_t __cdecl internal_wcsrtombs(
         for (; ; nc += i, ++wcs)
         {
             /* translate but don't store */
-            _wcrtomb_s_l(&i, buf, MB_LEN_MAX, *wcs, state, locale_update.GetLocaleT());
+            _wcrtomb_s_l(&i, buf, MB_LEN_MAX, *wcs, state, nullptr);
             if (i <= 0)
             {
                 return static_cast<size_t>(-1);
@@ -252,7 +257,7 @@ extern "C" static size_t __cdecl internal_wcsrtombs(
         /* translate and store */
         char *t = nullptr;
 
-        if (n < (size_t)locale_update.GetLocaleT()->locinfo->_public._locale_mb_cur_max)
+        if (n < (size_t)_locale_mb_cur_max)
         {
             t = buf;
         }
@@ -261,7 +266,7 @@ extern "C" static size_t __cdecl internal_wcsrtombs(
             t = destination;
         }
 
-        _wcrtomb_s_l(&i, t, MB_LEN_MAX, *wcs, state, locale_update.GetLocaleT());
+        _wcrtomb_s_l(&i, t, MB_LEN_MAX, *wcs, state, nullptr);
         if (i <= 0)
         {
             /* encountered invalid sequence */
@@ -293,7 +298,9 @@ extern "C" static size_t __cdecl internal_wcsrtombs(
     *source = wcs;
     return nc;
 }
+#endif
 
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" size_t __cdecl wcsrtombs(
     char*           const destination,
     wchar_t const** const source,
@@ -303,9 +310,10 @@ extern "C" size_t __cdecl wcsrtombs(
 {
     return internal_wcsrtombs(destination, source, n, state);
 }
-#else
-#define internal_wcsrtombs wcsrtombs
+
+_LCRT_DEFINE_IAT_SYMBOL(wcsrtombs);
 #endif
+
 /***
 *errno_t wcstombs_s() - Convert wide char string to multibyte char string.
 *
@@ -332,7 +340,7 @@ extern "C" size_t __cdecl wcsrtombs(
 *
 *******************************************************************************/
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" errno_t __cdecl wcsrtombs_s(
     size_t*         const return_value,
     char*           const destination,
@@ -390,11 +398,13 @@ extern "C" errno_t __cdecl wcsrtombs_s(
 
     return 0;
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(wcsrtombs_s);
 #endif
 
 
 // Converts a wide character into a one-byte character
-#if 0
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" int __cdecl wctob(wint_t const wchar)
 {
     if (wchar == WEOF)
@@ -410,6 +420,8 @@ extern "C" int __cdecl wctob(wint_t const wchar)
 
     return EOF;
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(wctob);
 #endif
 
 size_t __cdecl __crt_mbstring::__wcsrtombs_utf8(char* dst, const wchar_t** src, size_t len, mbstate_t* ps)

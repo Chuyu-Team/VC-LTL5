@@ -1,4 +1,4 @@
-//
+﻿//
 // rotl.cpp
 //
 //      Copyright (c) Microsoft Corporation. All rights reserved.
@@ -38,9 +38,13 @@ extern "C" unsigned __cdecl _rotl(unsigned value, int shift)
 }
 #endif
 
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows2003
 extern "C" unsigned __int64 __cdecl _rotl64(unsigned __int64 value, int shift)
 {
     shift &= 0x3f;
     value = (value >> (0x40 - shift)) | (value << shift);
     return value;
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_rotl64);
+#endif

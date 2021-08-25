@@ -1,4 +1,4 @@
-//
+﻿//
 // atoldbl.cpp
 //
 //      Copyright (c) Microsoft Corporation. All rights reserved.
@@ -812,6 +812,7 @@ static void __cdecl convert_ld12_to_ldouble(
     *U_EXP_LD   (result) = sign | exponent;
 }
 
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" int __cdecl _atoldbl_l(_LDOUBLE* const result, char* const string, _locale_t const locale)
 {
     //_LocaleUpdate locale_update(locale);
@@ -825,6 +826,9 @@ extern "C" int __cdecl _atoldbl_l(_LDOUBLE* const result, char* const string, _l
     convert_ld12_to_ldouble(&intermediate_result, result);
     return transform_into_return_value(conversion_status);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_atoldbl_l);
+#endif
 
 #if 0
 extern "C" int __cdecl _atoldbl(_LDOUBLE* const result, char* const string)

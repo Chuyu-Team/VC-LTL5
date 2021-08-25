@@ -1,9 +1,7 @@
-﻿
-
-#ifdef _M_IX86
-
+﻿#include <float.h>
 #include <intrin.h>
 
+#ifdef _M_IX86
 extern "C" extern int __isa_available;
 
 extern "C" unsigned int __cdecl __get_fpsr_sse2();
@@ -323,4 +321,39 @@ extern "C" int __cdecl __control87_2(
 
 _LCRT_DEFINE_IAT_SYMBOL(__control87_2);
 
+#endif
+
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
+extern "C" void __cdecl _set_controlfp(
+	_In_ unsigned int _NewValue,
+	_In_ unsigned int _Mask
+	)
+{
+	if (_NewValue == 0x9001F
+		|| _Mask==0xFFFFFFFF)
+	{
+		return;
+	}
+
+#ifdef _M_IX86
+	unsigned short currentState;
+
+	__asm { fstcw currentState }
+
+	if ((currentState&0x1F3D)== 0x23D 
+		&& (__isa_available < 1 || (_mm_getcsr() & 0xFEC0) == 0x1E80))
+	{
+		return;
+	}
+#elif defined (_M_AMD64)
+	if ((_mm_getcsr() & 0xFEC0) == 0x1E80)
+		return;
+#else
+#error "不支持此体系"
+#endif
+
+	_controlfp(_NewValue, _Mask &0xFFF7FFFF);
+}
+
+_LCRT_DEFINE_IAT_SYMBOL(_set_controlfp);
 #endif

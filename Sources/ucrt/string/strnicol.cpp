@@ -1,4 +1,4 @@
-/***
+﻿/***
 *strnicoll.c - Collate locale strings without regard to case
 *
 *       Copyright (c) Microsoft Corporation. All rights reserved.
@@ -12,7 +12,6 @@
 #include <ctype.h>
 #include <locale.h>
 #include <string.h>
-#include <winapi_thunks.h>
 
 
 /***
@@ -39,7 +38,7 @@
 *
 *******************************************************************************/
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" int __cdecl _strnicoll_l (
         const char *_string1,
         const char *_string2,
@@ -80,6 +79,8 @@ extern "C" int __cdecl _strnicoll_l (
 
     return (ret - 2);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_strnicoll_l);
 #endif
 
 #if 0

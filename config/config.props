@@ -17,39 +17,6 @@
     <!--如果没有对应的语言支持文件夹则直接使用英语（1033）-->
     <LTL_LANGID Condition="('$(LTL_LANGID)' == '') or (!Exists('$(MSBuildThisFileDirectory)$(LTL_LANGID)'))">1033</LTL_LANGID>
   </PropertyGroup>
-  
-  <PropertyGroup>
-    <LTLWindowsTargetPlatformMinVersionBuild></LTLWindowsTargetPlatformMinVersionBuild>
-    <LTLWindowsTargetPlatformMinVersionBuild Condition=" '$(WindowsTargetPlatformMinVersion)'!=''">$([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Build)</LTLWindowsTargetPlatformMinVersionBuild>
-    <LTLWindowsTargetPlatformMinVersionBuild Condition=" '$(LTLWindowsTargetPlatformMinVersionBuild)'=='' and '$(SupportLTL)'=='ucrt'">10240</LTLWindowsTargetPlatformMinVersionBuild>
-    <LTLWindowsTargetPlatformMinVersionBuild Condition=" '$(LTLWindowsTargetPlatformMinVersionBuild)'==''">6000</LTLWindowsTargetPlatformMinVersionBuild>
-  </PropertyGroup>
-
-  <!--搜索最适合的UCRT版本-->
-  <Choose>
-    <When Condition="'$(LTLWindowsTargetPlatformMinVersionBuild)' >= '19041'">
-      <PropertyGroup>
-        <LTLWindowsTargetPlatformMinVersion>10.0.19041.0</LTLWindowsTargetPlatformMinVersion>
-      </PropertyGroup>
-    </When>
-    <When Condition="'$(PlatformShortName)'=='arm64' or '$(LTLWindowsTargetPlatformMinVersionBuild)' >= '10240'">
-      <PropertyGroup>
-        <LTLWindowsTargetPlatformMinVersion>10.0.10240.0</LTLWindowsTargetPlatformMinVersion>
-      </PropertyGroup>
-    </When>
-    <When Condition="'$(PlatformShortName)'=='arm' or '$(LTLWindowsTargetPlatformMinVersionBuild)' >= '9200'">
-      <PropertyGroup>
-        <LTLWindowsTargetPlatformMinVersion>6.2.9200.0</LTLWindowsTargetPlatformMinVersion>
-      </PropertyGroup>
-    </When>
-    <Otherwise>
-      <!--其他情况，统一为6.0.6000.0-->
-      <PropertyGroup>
-        <LTLWindowsTargetPlatformMinVersion>6.0.6000.0</LTLWindowsTargetPlatformMinVersion>
-      </PropertyGroup>
-    </Otherwise>
-  </Choose>
-
   <PropertyGroup>
     <!--XP Mode-->
     <VCLTLSupportPlatformToolsetWinXP Condition="('$(VCLTLSupportPlatformToolsetWinXP)'=='') And ('$(PlatformToolset)'=='v140_xp')">true</VCLTLSupportPlatformToolsetWinXP>
@@ -79,6 +46,53 @@
     <!--检测是否是Debug编译-->
     <VCLTLUseDebugLibraries Condition="('$(UseDebugLibraries)'=='true') Or ('$(Configuration)'=='Debug')">true</VCLTLUseDebugLibraries>
   </PropertyGroup>
+
+  <PropertyGroup>
+    <LTLWindowsTargetPlatformMinVersionBuild></LTLWindowsTargetPlatformMinVersionBuild>
+    <LTLWindowsTargetPlatformMinVersionBuild Condition=" '$(WindowsTargetPlatformMinVersion)'!=''">$([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Build)</LTLWindowsTargetPlatformMinVersionBuild>
+    <LTLWindowsTargetPlatformMinVersionBuild Condition=" '$(LTLWindowsTargetPlatformMinVersionBuild)'=='' and '$(SupportLTL)'=='ucrt'">10240</LTLWindowsTargetPlatformMinVersionBuild>
+    <!--兼容一下以前的Windows XP模式-->
+    <LTLWindowsTargetPlatformMinVersionBuild Condition=" '$(LTLWindowsTargetPlatformMinVersionBuild)'=='' and ('$(VCLTLSupportPlatformToolsetWinXP)' == 'true' or '$(SupportWinXP)' == 'true')">2600</LTLWindowsTargetPlatformMinVersionBuild>
+    <LTLWindowsTargetPlatformMinVersionBuild Condition=" '$(LTLWindowsTargetPlatformMinVersionBuild)'==''">6000</LTLWindowsTargetPlatformMinVersionBuild>
+  </PropertyGroup>
+
+  <!--搜索最适合的UCRT版本-->
+  <Choose>
+    <When Condition="'$(LTLWindowsTargetPlatformMinVersionBuild)' >= '19041'">
+      <PropertyGroup>
+        <LTLWindowsTargetPlatformMinVersion>10.0.19041.0</LTLWindowsTargetPlatformMinVersion>
+      </PropertyGroup>
+    </When>
+    <When Condition="'$(Platform)'=='arm64' or '$(LTLWindowsTargetPlatformMinVersionBuild)' >= '10240'">
+      <PropertyGroup>
+        <LTLWindowsTargetPlatformMinVersion>10.0.10240.0</LTLWindowsTargetPlatformMinVersion>
+      </PropertyGroup>
+    </When>
+    <When Condition="'$(Platform)'=='arm' or '$(LTLWindowsTargetPlatformMinVersionBuild)' >= '9200'">
+      <PropertyGroup>
+        <LTLWindowsTargetPlatformMinVersion>6.2.9200.0</LTLWindowsTargetPlatformMinVersion>
+      </PropertyGroup>
+    </When>
+    <When Condition="'$(LTLWindowsTargetPlatformMinVersionBuild)' >= '6000'">
+      <PropertyGroup>
+        <LTLWindowsTargetPlatformMinVersion>6.0.6000.0</LTLWindowsTargetPlatformMinVersion>
+      </PropertyGroup>
+    </When>
+    <When Condition="'$(Platform)'=='x64'">
+      <PropertyGroup>
+        <SupportWinXP>true</SupportWinXP>
+        <LTLWindowsTargetPlatformMinVersion>5.2.3790.0</LTLWindowsTargetPlatformMinVersion>
+      </PropertyGroup>
+    </When>
+    <Otherwise>
+      <!--其他情况，统一为5.1.2600.0-->
+      <PropertyGroup>
+        <SupportWinXP>true</SupportWinXP>
+        <LTLWindowsTargetPlatformMinVersion>5.1.2600.0</LTLWindowsTargetPlatformMinVersion>
+      </PropertyGroup>
+    </Otherwise>
+  </Choose>
+
   
   <PropertyGroup>
     <!--VC-LTL核心版本号，由于4.X并不兼容3.X。此值可以用于兼容性判断。-->

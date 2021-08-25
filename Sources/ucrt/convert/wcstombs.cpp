@@ -1,4 +1,4 @@
-/***
+﻿/***
 *wcstombs.c - Convert wide char string to multibyte char string.
 *
 *       Copyright (c) Microsoft Corporation. All rights reserved.
@@ -14,7 +14,6 @@
 #include <errno.h>
 #include <stdint.h>
 #include <stdlib.h>
-#include <winapi_thunks.h>
 
 /***
 *size_t __cdecl wcsncnt - count wide characters in a string, up to n.
@@ -283,7 +282,7 @@ static size_t __cdecl _wcstombs_l_helper (
 
 }
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" size_t __cdecl _wcstombs_l (
         char * s,
         const wchar_t * pwcs,
@@ -293,6 +292,8 @@ extern "C" size_t __cdecl _wcstombs_l (
 {
     return _wcstombs_l_helper(s, pwcs, n, plocinfo);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_wcstombs_l);
 #endif
 
 #if 0
@@ -331,7 +332,7 @@ extern "C" size_t __cdecl wcstombs (
 *
 *******************************************************************************/
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" errno_t __cdecl _wcstombs_s_l (
         size_t *pConvertedChars,
         char * dst,
@@ -398,9 +399,11 @@ extern "C" errno_t __cdecl _wcstombs_s_l (
 
     return retvalue;
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_wcstombs_s_l);
 #endif
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" errno_t __cdecl wcstombs_s (
         size_t *pConvertedChars,
         char * dst,
@@ -411,4 +414,6 @@ extern "C" errno_t __cdecl wcstombs_s (
 {
     return _wcstombs_s_l(pConvertedChars, dst, sizeInBytes, src, n, nullptr);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(wcstombs_s);
 #endif

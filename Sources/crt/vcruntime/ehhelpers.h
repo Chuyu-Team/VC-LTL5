@@ -11,20 +11,27 @@
 #define _pForeignExcept   (*((EHExceptionRecord **)&(RENAME_BASE_PTD(__vcrt_getptd)()->_pForeignException)))
 #elif WindowsTargetPlatformMinVersion >= WindowsTargetPlatformWindows6
 #define _pForeignExcept   (*((EHExceptionRecord **)&(((_ptd_msvcrt_win6_shared*)RENAME_BASE_PTD(__vcrt_getptd)())->_pForeignException)))
-#endif
-
-#endif
-
-#ifdef __BuildWithMSVCRT
-
-#if(WindowsTargetPlatformMinVersion >= __MakeVersion(6, 0, 6000))
-#define pFrameInfoChain   (*((FRAMEINFO **)    &(((_ptd_msvcrt_win6_shared*)RENAME_BASE_PTD(__vcrt_getptd)())->_pFrameInfoChain)))
 #else
-#error 暂时不支持
+#include <ptd_downlevel.h>
+
+#define _pForeignExceptWin6   (*((EHExceptionRecord **)&(((_ptd_msvcrt_win6_shared*)RENAME_BASE_PTD(__vcrt_getptd)())->_pForeignException)))
+#define _pForeignExceptdownlevel  (*((EHExceptionRecord **)&(__LTL_get_ptd_downlevel(TRUE)->_pForeignException)))
+#define _pForeignExcept (__LTL_GetOsMinVersion() >= MakeMiniVersion(6, 0) ? _pForeignExceptWin6 : _pForeignExceptdownlevel)
+
 #endif
 
-#else
+#endif
+
+#if WindowsTargetPlatformMinVersion >= WindowsTargetPlatformWindows10_10240
 #define pFrameInfoChain   (*((FRAMEINFO **)    &(RENAME_BASE_PTD(__vcrt_getptd)()->_pFrameInfoChain)))
+#elif WindowsTargetPlatformMinVersion >= WindowsTargetPlatformWindows6
+#define pFrameInfoChain   (*((FRAMEINFO **)    &(((_ptd_msvcrt_win6_shared*)RENAME_BASE_PTD(__vcrt_getptd)())->_pFrameInfoChain)))
+#elif WindowsTargetPlatformMinVersion >= WindowsTargetPlatformWindowsXP
+
+#define pFrameInfoChainWin6   (*((FRAMEINFO **)    &(((_ptd_msvcrt_win6_shared*)RENAME_BASE_PTD(__vcrt_getptd)())->_pFrameInfoChain)))
+#define pFrameInfoChainWinXP   (*((FRAMEINFO **)    &(((_ptd_msvcrt_winxp*)RENAME_BASE_PTD(__vcrt_getptd)())->_pFrameInfoChain)))
+#define pFrameInfoChain (__LTL_GetOsMinVersion() >= MakeMiniVersion(6, 0) ? pFrameInfoChainWin6 : pFrameInfoChainWinXP)
+
 #endif
 
 // Pre-V4 managed exception code

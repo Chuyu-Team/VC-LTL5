@@ -1,4 +1,4 @@
-//
+﻿//
 // wcstok_s.cpp
 //
 //      Copyright (c) Microsoft Corporation.  All rights reserved.
@@ -68,7 +68,7 @@ extern "C" wchar_t* __cdecl __acrt_wcstok_s_novalidation(
 }
 
 
-
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" wchar_t* __cdecl wcstok_s(
     wchar_t*       const string,
     wchar_t const* const control,
@@ -81,3 +81,6 @@ extern "C" wchar_t* __cdecl wcstok_s(
 
     return __acrt_wcstok_s_novalidation(string, control, context);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(wcstok_s);
+#endif

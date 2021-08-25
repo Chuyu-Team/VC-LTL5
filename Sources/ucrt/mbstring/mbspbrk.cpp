@@ -1,4 +1,4 @@
-/***
+﻿/***
 *mbspbrk.c - Find first string char in charset, pointer return (MBCS)
 *
 *       Copyright (c) Microsoft Corporation.  All rights reserved.
@@ -13,6 +13,6 @@
 #endif
 
 #define _RETURN_PTR
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 #include "mbscspn.cpp"
 #endif

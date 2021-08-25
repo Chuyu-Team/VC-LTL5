@@ -1,4 +1,4 @@
-//
+﻿//
 // wcsncpy_s.cpp
 //
 //      Copyright (c) Microsoft Corporation.  All rights reserved.
@@ -9,6 +9,7 @@
 #include <corecrt_internal_string_templates.h>
 #include <string.h>
 
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" errno_t __cdecl wcsncpy_s(
     wchar_t*       const destination,
     size_t         const size_in_elements,
@@ -18,3 +19,6 @@ extern "C" errno_t __cdecl wcsncpy_s(
 {
     return common_tcsncpy_s(destination, size_in_elements, source, count);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(wcsncpy_s);
+#endif

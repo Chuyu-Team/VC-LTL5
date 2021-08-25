@@ -1,4 +1,4 @@
-/***
+﻿/***
 *stricmp.cpp - contains case-insensitive string comp routine _stricmp
 *
 *       Copyright (c) Microsoft Corporation. All rights reserved.
@@ -36,7 +36,7 @@
 *
 *******************************************************************************/
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" int __cdecl _stricmp_l (
         char const * const lhs,
         char const * const rhs,
@@ -68,8 +68,11 @@ extern "C" int __cdecl _stricmp_l (
 
     return result;
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_stricmp_l);
 #endif
 
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" int __cdecl __ascii_stricmp (
         char const * const lhs,
         char const * const rhs
@@ -91,6 +94,7 @@ extern "C" int __cdecl __ascii_stricmp (
 
     return result;
 }
+#endif
 
 #if 0
 extern "C" int __cdecl _stricmp (

@@ -1,4 +1,4 @@
-/***
+﻿/***
 *strupr.c - routine to map lower-case characters in a string to upper-case
 *
 *       Copyright (c) Microsoft Corporation. All rights reserved.
@@ -14,7 +14,6 @@
 #include <limits.h>
 #include <locale.h>
 #include <string.h>
-#include <winapi_thunks.h>
 
 #pragma warning(disable:__WARNING_POTENTIAL_BUFFER_OVERFLOW_NULLTERMINATED) // 26018
 
@@ -43,7 +42,7 @@
 *
 *******************************************************************************/
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" char * __cdecl _strupr_l (
         char * string,
         _locale_t plocinfo
@@ -52,6 +51,8 @@ extern "C" char * __cdecl _strupr_l (
     _strupr_s_l(string, (size_t)(-1), plocinfo);
     return (string);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_strupr_l);
 #endif
 
 #if 0
@@ -191,7 +192,7 @@ static errno_t __cdecl _strupr_s_l_stat (
     }
 }
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" errno_t __cdecl _strupr_s_l (
         char * string,
         size_t sizeInBytes,
@@ -206,6 +207,8 @@ extern "C" errno_t __cdecl _strupr_s_l (
     return _strupr_s_l_stat(string, sizeInBytes, plocinfo);
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(_strupr_s_l);
+
 extern "C" errno_t __cdecl _strupr_s (
         char * string,
         size_t sizeInBytes
@@ -218,4 +221,6 @@ extern "C" errno_t __cdecl _strupr_s (
 	_strupr(string);
 	return 0;
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_strupr_s);
 #endif

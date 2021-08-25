@@ -1,4 +1,4 @@
-/***
+﻿/***
 *mbccpy_s.c - Copy one character  to another (MBCS)
 *
 *       Copyright (c) Microsoft Corporation. All rights reserved.
@@ -10,5 +10,9 @@
 
 #include <corecrt_internal_mbstring.h>
 
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 #pragma warning(suppress:__WARNING_POSTCONDITION_NULLTERMINATION_VIOLATION) // 26036
 _REDIRECT_TO_L_VERSION_4(errno_t, _mbccpy_s, unsigned char *, size_t , int *, const unsigned char *)
+
+_LCRT_DEFINE_IAT_SYMBOL(_mbccpy_s);
+#endif

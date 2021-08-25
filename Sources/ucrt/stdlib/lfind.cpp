@@ -1,4 +1,4 @@
-//
+﻿//
 // lfind.cpp
 //
 //      Copyright (c) Microsoft Corporation. All rights reserved.
@@ -76,5 +76,9 @@ void* __fileDECL _lfind(
 
     return nullptr;
 }
+
+#ifdef __USE_CONTEXT
+_LCRT_DEFINE_IAT_SYMBOL(_lfind_s);
+#endif
 
 #undef __COMPARE

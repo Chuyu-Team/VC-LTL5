@@ -1,4 +1,4 @@
-/***
+﻿/***
 * mbschr.c - Search MBCS string for character
 *
 *       Copyright (c) Microsoft Corporation.  All rights reserved.
@@ -10,6 +10,7 @@
 #ifndef _MBCS
     #error This file should only be compiled with _MBCS defined
 #endif
+
 
 #include <corecrt_internal_mbstring.h>
 #include <locale.h>
@@ -40,7 +41,7 @@
 *
 *******************************************************************************/
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" _CONST_RETURN unsigned char * __cdecl _mbschr_l(
         const unsigned char *string,
         unsigned int c,
@@ -77,6 +78,8 @@ extern "C" _CONST_RETURN unsigned char * __cdecl _mbschr_l(
 
         return nullptr;
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_mbschr_l);
 #endif
 
 #if 0

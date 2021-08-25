@@ -31,12 +31,6 @@
       Category="VC_LTL"
       DisplayName="启用 VC-LTL 轻量模式"
       Description="开启 VC-LTL 轻量模式，轻量模式更加注重体积控制，但是CRT规范将会维持在 Visual Studio 2008。如果你需要高度兼容微软 UCRT，那么请不要打开此选项！！！" />
-
-    <BoolProperty
-      Name="SupportWinXP"
-      Category="VC_LTL"
-      DisplayName="启用 Windows XP 兼容"
-      Description="强制开启 Windows XP 兼容模式，默认情况下仅在选择 Windows XP 工具集时才开启。" />
     
      <BoolProperty
       Name="SupportLTL"
@@ -49,6 +43,10 @@
       Category="VC_LTL"
       DisplayName="目标CRT版本"
       Description="选择合适的链接目标，默认优化到msvcrt 6.0.6000.0。">
+      <EnumValue
+        Name="5.1.2600.0"
+        DisplayName="msvcrt 5.1.2600.0（Windows XP/2003以及更高版本）"/>
+
       <EnumValue
         Name="6.0.6000.0"
         DisplayName="msvcrt 6.0.6000.0（Windows Vista/2008以及更高版本）"/>

@@ -1,4 +1,4 @@
-/***
+﻿/***
 *towlower.cpp - convert wide character to lower case
 *
 *       Copyright (c) Microsoft Corporation. All rights reserved.
@@ -10,7 +10,6 @@
 #include <corecrt_internal.h>
 #include <ctype.h>
 #include <locale.h>
-#include <winapi_thunks.h>
 
 /***
 *wint_t _towlower_l(c, ptloci) - convert wide character to lower case
@@ -26,7 +25,7 @@
 *
 *******************************************************************************/
 
-#if _CRT_NTDDI_MIN < 0x06000000
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
 extern "C" wint_t __cdecl _towlower_l (
         wint_t c,
         _locale_t plocinfo
@@ -72,6 +71,8 @@ extern "C" wint_t __cdecl _towlower_l (
     return widechar;
 
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_towlower_l);
 #endif
 
 /***
