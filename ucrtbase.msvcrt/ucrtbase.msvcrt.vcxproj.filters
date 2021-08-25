@@ -771,6 +771,9 @@
     <ClCompile Include="..\Sources\crt\ptd_downlevel.cpp">
       <Filter>头文件\ltl</Filter>
     </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\locale\GetStringTypeA.cpp">
+      <Filter>源文件\objs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="msvcrt_loadhelper.h">

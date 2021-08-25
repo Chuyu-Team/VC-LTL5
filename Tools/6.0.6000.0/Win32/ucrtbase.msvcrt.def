@@ -1430,3 +1430,6 @@ ___lc_handle_func
 
 _environ  DATA
 _wenviron DATA
+
+__crtLCMapStringA DATA
+__crtCompareStringA DATA

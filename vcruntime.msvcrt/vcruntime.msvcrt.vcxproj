@@ -86,7 +86,7 @@
     <RootNamespace>vcruntime.msvcrt</RootNamespace>
     <WindowsTargetPlatformVersion>$([Microsoft.Build.Utilities.ToolLocationHelper]::GetLatestSDKTargetPlatformVersion('Windows', '10.0'))</WindowsTargetPlatformVersion>
     <!--如果外部没有定义，那么默认值为 最低支持版本-->
-    <WindowsTargetPlatformMinVersion Condition="'$(WindowsTargetPlatformMinVersion)' == '' and '$(Platform)' == 'ARM' ">6.2.9600.0</WindowsTargetPlatformMinVersion>
+    <WindowsTargetPlatformMinVersion Condition="'$(WindowsTargetPlatformMinVersion)' == '' and '$(Platform)' == 'ARM' ">6.2.9200.0</WindowsTargetPlatformMinVersion>
     <WindowsTargetPlatformMinVersion Condition="'$(WindowsTargetPlatformMinVersion)' == '' and '$(Platform)' == 'x64' ">5.2.3790.0</WindowsTargetPlatformMinVersion>
     <WindowsTargetPlatformMinVersion Condition="'$(WindowsTargetPlatformMinVersion)' == ''">5.1.2600.0</WindowsTargetPlatformMinVersion>
     <ProjectName>vcruntime.msvcrt</ProjectName>

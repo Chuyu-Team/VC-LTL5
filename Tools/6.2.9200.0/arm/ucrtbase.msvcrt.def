@@ -1383,7 +1383,6 @@ _wcmdln DATA
 _fmode DATA
 _commode DATA
 _mbctype DATA
-;_mbcasemap DATA
 
 __set_app_type
 __getmainargs
@@ -1392,3 +1391,6 @@ _lock
 _unlock
 _iob DATA
 ___lc_handle_func
+
+__crtLCMapStringA DATA
+__crtCompareStringA DATA

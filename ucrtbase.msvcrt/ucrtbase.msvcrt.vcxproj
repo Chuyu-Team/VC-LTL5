@@ -85,7 +85,7 @@
     <ProjectGuid>{089d1c58-7669-4916-b1a2-7bbf6ea236b4}</ProjectGuid>
     <RootNamespace>ucrtbasemsvcrt</RootNamespace>
     <WindowsTargetPlatformVersion>$([Microsoft.Build.Utilities.ToolLocationHelper]::GetLatestSDKTargetPlatformVersion('Windows', '10.0'))</WindowsTargetPlatformVersion>
-    <WindowsTargetPlatformMinVersion Condition="'$(WindowsTargetPlatformMinVersion)' == '' and '$(Platform)' == 'arm'">6.2.9600.0</WindowsTargetPlatformMinVersion>
+    <WindowsTargetPlatformMinVersion Condition="'$(WindowsTargetPlatformMinVersion)' == '' and '$(Platform)' == 'arm'">6.2.9200.0</WindowsTargetPlatformMinVersion>
     <WindowsTargetPlatformMinVersion Condition="'$(WindowsTargetPlatformMinVersion)' == '' and '$(Platform)' == 'x64'">5.2.3790.0</WindowsTargetPlatformMinVersion>
     <WindowsTargetPlatformMinVersion Condition="'$(WindowsTargetPlatformMinVersion)' == ''">5.1.2600.0</WindowsTargetPlatformMinVersion>
     <WindowsTargetPlatformMinVersionBuild>$([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Build)</WindowsTargetPlatformMinVersionBuild>
@@ -445,6 +445,7 @@
     <ClCompile Include="..\Sources\ucrt\internal\report_runtime_error.cpp" />
     <ClCompile Include="..\Sources\ucrt\internal\shared_initialization.cpp" />
     <ClCompile Include="..\Sources\ucrt\internal\winapi_thunks.cpp" />
+    <ClCompile Include="..\Sources\ucrt\locale\GetStringTypeA.cpp" />
     <ClCompile Include="..\Sources\ucrt\lowio\setmode.cpp">
       <ExcludedFromBuild Condition="'$(WindowsTargetPlatformMinVersionBuild)' &gt;= '6000'">true</ExcludedFromBuild>
     </ClCompile>

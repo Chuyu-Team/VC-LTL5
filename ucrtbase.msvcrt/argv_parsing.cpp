@@ -8,8 +8,8 @@
 
 #if defined _M_ARM64 || defined _M_ARM
 #define __USING_LOCAL_ENVIRON
-extern "C" char** _environ;
-extern "C" wchar_t** _wenviron;
+extern "C" char** _environ = nullptr;
+extern "C" wchar_t** _wenviron = nullptr;
 #endif
 
 

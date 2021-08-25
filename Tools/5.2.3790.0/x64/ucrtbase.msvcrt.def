@@ -1390,7 +1390,6 @@ _wcmdln DATA
 _fmode DATA
 _commode DATA
 _mbctype DATA
-;_mbcasemap DATA
 
 __set_app_type
 __getmainargs
@@ -1402,3 +1401,6 @@ ___lc_handle_func
 
 _environ DATA
 _wenviron DATA
+
+__crtLCMapStringA DATA
+__crtCompareStringA DATA
