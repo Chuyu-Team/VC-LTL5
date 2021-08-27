@@ -1392,5 +1392,9 @@ _unlock
 _iob DATA
 ___lc_handle_func
 
+_daylight DATA
+_timezone DATA
+_tzname DATA
+
 __crtLCMapStringA DATA
 __crtCompareStringA DATA

@@ -1429,6 +1429,11 @@ ___lc_handle_func
 
 _environ  DATA
 _wenviron DATA
+_daylight DATA
+_dstbias DATA
+_timezone DATA
+_tzname DATA
 __lc_collate_cp DATA
+
 __crtLCMapStringA DATA
 __crtCompareStringA DATA

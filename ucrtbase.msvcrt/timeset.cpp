@@ -4,18 +4,18 @@
 #include <time.h>
 
 #undef _daylight
-__declspec(dllimport) extern int _daylight;
+extern "C" __declspec(dllimport) extern int _daylight;
 
-#if !defined _ARM64_ && !defined _ARM_
+#if defined _AMD64_ || defined _X86_
 #undef _dstbias
-__declspec(dllimport) extern long _dstbias;
+extern "C" __declspec(dllimport) extern long _dstbias;
 #endif
 
 #undef _timezone
-__declspec(dllimport) extern long _timezone;
+extern "C" __declspec(dllimport) extern long _timezone;
 
 #undef _tzname
-__declspec(dllimport) extern char* _tzname[2];
+extern "C" __declspec(dllimport) extern char* _tzname[2];
 
 extern "C" errno_t __cdecl _get_daylight(
 	_Out_ int* _Daylight
