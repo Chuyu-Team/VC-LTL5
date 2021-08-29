@@ -370,3 +370,10 @@ FodyWeavers.xsd
 Dynamic/
 Static/
 .test/
+*.id0
+*.id1
+*.nam
+*.til
+*.id2
+*.xlsx
+SymbolCache/

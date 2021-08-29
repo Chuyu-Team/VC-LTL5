@@ -1,11 +1,12 @@
 ﻿
 
+#if defined(_M_X64) || defined(_M_ARM)
 _LCRT_DEFINE_IAT_SYMBOL_EXTERN(__NLG_Dispatch2);
 _LCRT_DEFINE_IAT_SYMBOL_EXTERN(__NLG_Return2);
-
-#ifdef _M_IX86
-_LCRT_DEFINE_IAT_SYMBOL_EXTERN(_NLG_Return);
 #endif
+
+_LCRT_DEFINE_IAT_SYMBOL(__report_gsfailure);
+
 
 
 #if defined(_M_IX86) && WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6

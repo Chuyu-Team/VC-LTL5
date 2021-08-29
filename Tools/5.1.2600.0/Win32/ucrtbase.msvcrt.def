@@ -1392,10 +1392,19 @@ _wfindfirsti64
 _wfindnexti64
 _fstat
 _fstati64
-
+localtime
+ctime
+_wctime
+gmtime
+mktime
+_ftime
+_futime
+_utime
+_wutime
+time
 
 _XcptFilter
-__CppXcptFilter
+;__CppXcptFilter
 
 ?_query_new_handler@@YAP6AHI@ZXZ
 ?_set_new_handler@@YAP6AHI@ZP6AHI@Z@Z
@@ -1437,3 +1446,9 @@ __lc_collate_cp DATA
 
 __crtLCMapStringA DATA
 __crtCompareStringA DATA
+
+__p__daylight
+__p__dstbias
+_sys_nerr DATA
+_sys_errlist DATA
+_pwctype DATA

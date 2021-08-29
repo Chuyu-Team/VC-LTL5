@@ -265,39 +265,24 @@ EXTERN_C __declspec(dllimport) void __cdecl _amsg_exit(
 // from the base vcruntime DLL.
 
 #ifdef __BuildWithMSVCRT
-__forceinline __vcrt_ptd* __cdecl __vcrt_getptd_noexit(void)
-{
-    __vcrt_ptd* ptd = (__vcrt_ptd*)(((unsigned char*)_errno()) - FIELD_OFFSET(__vcrt_ptd, _terrno));
-
-    /*
-    当 _thandle = -1，这表明此线程的ptd通过msvcrt.dll begin_thread 或者 __getptd_noexit 创建。
-    当 _thandle = 0，这表明此线程的ptd通过msvcrt.dll的DllMain创建。
-    当 _thandle = 其他，这表明msvcrt.dll内部内存已经申请失败。
-    */
-    return (ptd->_thandle == (uintptr_t)-1/*Current Thread Handle*/ || ptd->_thandle == 0) ? ptd : (__vcrt_ptd*)NULL;
-}
+#define __vcrt_getptd_noexit __acrt_getptd_noexit
 #else
 #define __vcrt_getptd_noexit __vcrt_getptd
 #endif
 //__vcrt_ptd* __cdecl __vcrt_getptd_noinit(void);
 #define __vcrt_getptd_noinit __vcrt_getptd_noexit
 
-
-__forceinline  __vcrt_ptd* __cdecl __vcrt_getptd(void)
-{
 #ifdef __BuildWithMSVCRT
-    __vcrt_ptd* ptd = __vcrt_getptd_noexit();
-    if (!ptd)
-    {
-        _amsg_exit(16);
-    }
+#define __vcrt_getptd __acrt_getptd
 #else
+__forceinline __vcrt_ptd* __cdecl __vcrt_getptd(void)
+{
     //由于 __current_exception 内部可以确保 ptd 必然存在
 
     __vcrt_ptd* ptd = (__vcrt_ptd*)(((char*)__current_exception()) - FIELD_OFFSET(__vcrt_ptd, _curexception));
-#endif
     return ptd;
 }
+#endif
 
 
 void __cdecl __vcrt_freeptd(_Inout_opt_ __vcrt_ptd* _Ptd);

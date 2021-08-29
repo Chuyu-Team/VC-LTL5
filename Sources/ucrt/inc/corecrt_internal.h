@@ -1600,14 +1600,40 @@ __declspec(dllimport) void __cdecl _amsg_exit(
 );
 
 
-__acrt_ptd* __cdecl _getptd_noexit(void);
-
-__acrt_ptd* __cdecl __acrt_getptd(void);
 __acrt_ptd* __cdecl __acrt_getptd_head(void);
+#ifdef __BuildWithMSVCRT
 __forceinline __acrt_ptd* __cdecl __acrt_getptd_noexit(void)
 {
-	return _getptd_noexit();
+    __acrt_ptd* ptd = (__acrt_ptd*)(((unsigned char*)_errno()) - FIELD_OFFSET(__acrt_ptd, _terrno));
+
+    /*
+    当 _thandle = -1，这表明此线程的ptd通过msvcrt.dll begin_thread 或者 __getptd_noexit 创建。
+    当 _thandle = 0，这表明此线程的ptd通过msvcrt.dll的DllMain创建。
+    当 _thandle = 其他，这表明msvcrt.dll内部内存已经申请失败。
+    */
+    return (ptd->_thandle == (uintptr_t)-1/*Current Thread Handle*/ || ptd->_thandle == 0) ? ptd : (__acrt_ptd*)NULL;
 }
+#else
+__acrt_ptd* __cdecl __acrt_getptd_noexit(void);
+#endif
+
+#ifdef __BuildWithMSVCRT
+__forceinline __acrt_ptd* __cdecl __acrt_getptd(void)
+{
+    __acrt_ptd* ptd = __acrt_getptd_noexit();
+
+    if (!ptd)
+    {
+        _amsg_exit(16);
+    }
+
+    return ptd;
+}
+#else
+__acrt_ptd* __cdecl __acrt_getptd(void);
+#endif
+
+
 void        __cdecl __acrt_freeptd(void);
 
 
@@ -2286,8 +2312,13 @@ _Check_return_ __forceinline unsigned char __cdecl _tolower_fast_internal(
 		return tolower(c);
     return locale->locinfo->pclmap[c];
 }
-
+#if WindowsTargetPlatformMinVersion >= WindowsTargetPlatformWindows2003
 __declspec(dllimport) extern const unsigned short _wctype[];
+#else
+#undef _pwctype
+__declspec(dllimport) extern const wctype_t * _pwctype;
+#define _wctype (_pwctype -1)
+#endif
 
 _Check_return_ __forceinline wint_t _towupper_fast_internal(
     _In_ unsigned char const c,

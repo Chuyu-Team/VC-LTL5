@@ -12,9 +12,5 @@
       <LibFile>$(VCToolsInstallDir)lib\$(PlatformShortName)\libvcruntime.lib</LibFile>
       <OutDir>$(IntDir)objr\vcruntime\</OutDir>
     </ExtractItem>
-    <ExtractItem Include="d:\agent\_work\4\s\Intermediate\vctools\libvcruntime.nativeproj_520857879\objr\x86\exsup.obj">
-      <LibFile>$(VCToolsInstallDir)lib\$(PlatformShortName)\libvcruntime.lib</LibFile>
-      <OutDir>$(IntDir)objr\vcruntime\</OutDir>
-    </ExtractItem>
   </ItemGroup>
 </Project>

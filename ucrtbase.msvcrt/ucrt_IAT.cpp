@@ -245,7 +245,7 @@ _LCRT_DEFINE_IAT_SYMBOL_EXTERN(asinhf);
 _LCRT_DEFINE_IAT_SYMBOL_EXTERN(atanhf);
 _LCRT_DEFINE_IAT_SYMBOL_EXTERN(cbrtf);
 
-#ifdef _X86_
+#ifdef _M_IX86
 extern "C" _Check_return_ float     __cdecl _chgsignf(_In_ float _X)
 {
 	/*
@@ -366,9 +366,9 @@ _LCRT_DEFINE_IAT_SYMBOL_EXTERN(lldiv);
 
 #ifndef _DLL
 //VC-LTL-4.0.0.15以前版本会强制添加__declspec(dllimport)修饰，所以，为了兼容历史代码，给以下函数添加 IAT 符号。
-_LCRT_DEFINE_IAT_SYMBOL_EXTERN(_lfind_s);
-_LCRT_DEFINE_IAT_SYMBOL_EXTERN(_lsearch_s);
-_LCRT_DEFINE_IAT_SYMBOL_EXTERN(qsort_s);
+//_LCRT_DEFINE_IAT_SYMBOL_EXTERN(_lfind_s);
+//_LCRT_DEFINE_IAT_SYMBOL_EXTERN(_lsearch_s);
+//_LCRT_DEFINE_IAT_SYMBOL_EXTERN(qsort_s);
 #endif
 
 #endif
@@ -419,6 +419,7 @@ _LCRT_DEFINE_IAT_SYMBOL_EXTERN(__libm_sse2_tanf);
 #endif
 
 
+_LCRT_DEFINE_IAT_SYMBOL_EXTERN(powf);
 
 
 #endif
@@ -429,4 +430,8 @@ _LCRT_DEFINE_IAT_SYMBOL_EXTERN(_FPE_Raise);
 
 #if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240 && _M_X64
 _LCRT_DEFINE_IAT_SYMBOL_EXTERN(_fpieee_flt);
+#endif
+
+#ifdef _M_IX86
+_LCRT_DEFINE_IAT_SYMBOL_EXTERN(_crt_debugger_hook);
 #endif

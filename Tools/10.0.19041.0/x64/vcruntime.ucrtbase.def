@@ -46,7 +46,7 @@ __std_type_info_name
 __unDName
 __unDNameEx
 __uncaught_exception
-;__uncaught_exceptions x
+__uncaught_exceptions
 ;__vcrt_GetModuleFileNameW w
 ;__vcrt_GetModuleHandleW w
 ;__vcrt_InitializeCriticalSectionEx w

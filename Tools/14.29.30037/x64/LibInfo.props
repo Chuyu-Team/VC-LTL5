@@ -6,6 +6,8 @@
       <LibFile>$(VCToolsInstallDir)lib\$(PlatformShortName)\libvcruntime.lib</LibFile>
       <OutDir>$(IntDir)objr\libvcruntime\</OutDir>
     </ExtractItem>
+  </ItemGroup>
+  <ItemGroup Condition="'$(WindowsTargetPlatformMinVersionBuild)' &lt; '10240'">
     <ExtractItem Include="d:\agent\_work\4\s\Intermediate\vctools\libvcruntime.nativeproj_520857879\objr\amd64\notify.obj">
       <LibFile>$(VCToolsInstallDir)lib\$(PlatformShortName)\libvcruntime.lib</LibFile>
       <OutDir>$(IntDir)objr\libvcruntime\</OutDir>

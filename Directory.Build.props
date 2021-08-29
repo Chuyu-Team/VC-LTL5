@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+项目的全局配置
+
+
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="'$(WindowsTargetPlatformMinVersionBuild)' != ''">
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(SolutionDir)Sources\crt;$(SolutionDir)Sources\crt\vcruntime;$(SolutionDir)Sources\ucrt;$(SolutionDir)Sources\ucrt\inc;$(SolutionDir)TargetPlatform\header;$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\header;$(IncludePath)</IncludePath>
+    <AllProjectIncludesArePublic>true</AllProjectIncludesArePublic>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(WindowsTargetPlatformMinVersionBuild)' != ''">
+    <ClCompile>
+      <PreprocessorDefinitions>WindowsTargetPlatformMinVersion=(($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Major.ToString('00')) &lt;&lt; 12) + ($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Minor.ToString('00')) &lt;&lt; 8) + $([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Build));_VCRT_ALLOW_INTERNALS;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_RUNTIME_LIBRARY_MISMATCH;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(WindowsTargetPlatformMinVersionBuild)' &lt; '10240'">__BuildWithMSVCRT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      
+      <EnableEnhancedInstructionSet Condition="'$(Platform)' == 'Win32'">NoExtensions</EnableEnhancedInstructionSet>
+      <DisableSpecificWarnings>4200;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <!--最低支持目标为XP 2003时，则还需要禁用threadSafeInit-->
+      <AdditionalOptions Condition="'$(WindowsTargetPlatformMinVersionBuild)' &gt;= '6000'">/Zc:threadSafeInit- %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <!--从兼容性考虑，继续向上搜索 Directory.Build.props-->
+  <PropertyGroup>
+    <DirectoryBuildPropsPath>$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))</DirectoryBuildPropsPath>
+  </PropertyGroup>
+  <Import Project="$(DirectoryBuildPropsPath)" Condition="'$(DirectoryBuildPropsPath)' != ''"/>
+</Project>

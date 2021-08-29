@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <ItemGroup>
+  <ItemGroup Condition="'$(_GetProjectAllConfiguration)' == 'true'">
     <!--WinXP支持配置（5.1.2600.0 + 5.2.3790.0）-->
     <ProjectConfiguration Include="Dynamic|Win32">
       <Configuration>Dynamic</Configuration>
@@ -23,7 +23,7 @@
       <WindowsTargetPlatformMinVersion>5.2.3790.0</WindowsTargetPlatformMinVersion>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemGroup>
+  <ItemGroup Condition="'$(_GetProjectAllConfiguration)' == 'true'">
     <!--6.0.6000.0配置-->
     <ProjectConfiguration Include="Dynamic|Win32">
       <Configuration>Dynamic</Configuration>
@@ -157,7 +157,6 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dynamic|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <AllProjectIncludesArePublic>true</AllProjectIncludesArePublic>
-    <IncludePath>$(SolutionDir)Sources\crt;$(SolutionDir)Sources\crt\vcruntime;$(SolutionDir)Sources\ucrt;$(SolutionDir)Sources\ucrt\inc;$(SolutionDir)TargetPlatform\header;$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\header;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\lib\$(Platform)\</OutDir>
     <TargetName>ucrt</TargetName>
     <IntDir>$(Platform)\$(Configuration)\$(WindowsTargetPlatformMinVersion)\</IntDir>
@@ -166,14 +165,12 @@
     <TargetName>ucrt</TargetName>
     <LinkIncremental>false</LinkIncremental>
     <AllProjectIncludesArePublic>true</AllProjectIncludesArePublic>
-    <IncludePath>$(SolutionDir)Sources\crt;$(SolutionDir)Sources\crt\vcruntime;$(SolutionDir)Sources\ucrt;$(SolutionDir)Sources\ucrt\inc;$(SolutionDir)TargetPlatform\header;$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\header;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\lib\$(Platform)\</OutDir>
     <IntDir>$(Platform)\$(Configuration)\$(WindowsTargetPlatformMinVersion)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Static|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <AllProjectIncludesArePublic>true</AllProjectIncludesArePublic>
-    <IncludePath>$(SolutionDir)Sources\crt;$(SolutionDir)Sources\crt\vcruntime;$(SolutionDir)Sources\ucrt;$(SolutionDir)Sources\ucrt\inc;$(SolutionDir)TargetPlatform\header;$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\header;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\lib\$(Platform)\</OutDir>
     <TargetName>libucrt</TargetName>
     <IntDir>$(Platform)\$(Configuration)\$(WindowsTargetPlatformMinVersion)\</IntDir>
@@ -182,14 +179,12 @@
     <TargetName>libucrt</TargetName>
     <LinkIncremental>false</LinkIncremental>
     <AllProjectIncludesArePublic>true</AllProjectIncludesArePublic>
-    <IncludePath>$(SolutionDir)Sources\crt;$(SolutionDir)Sources\crt\vcruntime;$(SolutionDir)Sources\ucrt;$(SolutionDir)Sources\ucrt\inc;$(SolutionDir)TargetPlatform\header;$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\header;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\lib\$(Platform)\</OutDir>
     <IntDir>$(Platform)\$(Configuration)\$(WindowsTargetPlatformMinVersion)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dynamic|x64'">
     <LinkIncremental>false</LinkIncremental>
     <AllProjectIncludesArePublic>true</AllProjectIncludesArePublic>
-    <IncludePath>$(SolutionDir)Sources\crt;$(SolutionDir)Sources\crt\vcruntime;$(SolutionDir)Sources\ucrt;$(SolutionDir)Sources\ucrt\inc;$(SolutionDir)TargetPlatform\header;$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\header;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\lib\$(Platform)\</OutDir>
     <TargetName>ucrt</TargetName>
     <IntDir>$(Platform)\$(Configuration)\$(WindowsTargetPlatformMinVersion)\</IntDir>
@@ -197,7 +192,6 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Static|x64'">
     <LinkIncremental>false</LinkIncremental>
     <AllProjectIncludesArePublic>true</AllProjectIncludesArePublic>
-    <IncludePath>$(SolutionDir)Sources\crt;$(SolutionDir)Sources\crt\vcruntime;$(SolutionDir)Sources\ucrt;$(SolutionDir)Sources\ucrt\inc;$(SolutionDir)TargetPlatform\header;$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\header;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\lib\$(Platform)\</OutDir>
     <TargetName>libucrt</TargetName>
     <IntDir>$(Platform)\$(Configuration)\$(WindowsTargetPlatformMinVersion)\</IntDir>
@@ -211,7 +205,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <ForcedIncludeFiles>$(ProjectDir)msvcrt_build_type.h;suppress.h;framework.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
-      <PreprocessorDefinitions>TargetVCRuntimeVersion=(($([System.Version]::Parse('$(TargetVCRuntimeVersion)').Major.ToString('00')) &lt;&lt; 12) + ($([System.Version]::Parse('$(TargetVCRuntimeVersion)').Minor.ToString('00')) &lt;&lt; 8) + $([System.Version]::Parse('$(TargetVCRuntimeVersion)').Build));WindowsTargetPlatformMinVersion=(($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Major.ToString('00')) &lt;&lt; 12) + ($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Minor.ToString('00')) &lt;&lt; 8) + $([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Build));_VCRT_ALLOW_INTERNALS;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_RUNTIME_LIBRARY_MISMATCH;__BuildWithMSVCRT;_EXCLUDE_MBSTRING_CONST_CORRECT_OVERLOADS;_ACRTIMP=;WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_EXCLUDE_MBSTRING_CONST_CORRECT_OVERLOADS;_ACRTIMP=;WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DebugInformationFormat>OldStyle</DebugInformationFormat>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <EnableEnhancedInstructionSet>NoExtensions</EnableEnhancedInstructionSet>
@@ -239,7 +233,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <ForcedIncludeFiles>$(ProjectDir)msvcrt_build_type.h;suppress.h;framework.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
-      <PreprocessorDefinitions>TargetVCRuntimeVersion=(($([System.Version]::Parse('$(TargetVCRuntimeVersion)').Major.ToString('00')) &lt;&lt; 12) + ($([System.Version]::Parse('$(TargetVCRuntimeVersion)').Minor.ToString('00')) &lt;&lt; 8) + $([System.Version]::Parse('$(TargetVCRuntimeVersion)').Build));WindowsTargetPlatformMinVersion=(($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Major.ToString('00')) &lt;&lt; 12) + ($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Minor.ToString('00')) &lt;&lt; 8) + $([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Build));_VCRT_ALLOW_INTERNALS;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_RUNTIME_LIBRARY_MISMATCH;__BuildWithMSVCRT;_EXCLUDE_MBSTRING_CONST_CORRECT_OVERLOADS;_ACRTIMP=;WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_EXCLUDE_MBSTRING_CONST_CORRECT_OVERLOADS;_ACRTIMP=;WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DebugInformationFormat>OldStyle</DebugInformationFormat>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <DisableSpecificWarnings>4200;%(DisableSpecificWarnings)</DisableSpecificWarnings>
@@ -262,7 +256,7 @@
       <WarningLevel>Level3</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>TargetVCRuntimeVersion=(($([System.Version]::Parse('$(TargetVCRuntimeVersion)').Major.ToString('00')) &lt;&lt; 12) + ($([System.Version]::Parse('$(TargetVCRuntimeVersion)').Minor.ToString('00')) &lt;&lt; 8) + $([System.Version]::Parse('$(TargetVCRuntimeVersion)').Build));WindowsTargetPlatformMinVersion=(($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Major.ToString('00')) &lt;&lt; 12) + ($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Minor.ToString('00')) &lt;&lt; 8) + $([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Build));_VCRT_ALLOW_INTERNALS;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_RUNTIME_LIBRARY_MISMATCH;__BuildWithMSVCRT;_EXCLUDE_MBSTRING_CONST_CORRECT_OVERLOADS;_ACRTIMP=;WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_EXCLUDE_MBSTRING_CONST_CORRECT_OVERLOADS;_ACRTIMP=;WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <ForcedIncludeFiles>$(ProjectDir)msvcrt_build_type.h;suppress.h;framework.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
@@ -289,7 +283,7 @@
       <WarningLevel>Level3</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>TargetVCRuntimeVersion=(($([System.Version]::Parse('$(TargetVCRuntimeVersion)').Major.ToString('00')) &lt;&lt; 12) + ($([System.Version]::Parse('$(TargetVCRuntimeVersion)').Minor.ToString('00')) &lt;&lt; 8) + $([System.Version]::Parse('$(TargetVCRuntimeVersion)').Build));WindowsTargetPlatformMinVersion=(($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Major.ToString('00')) &lt;&lt; 12) + ($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Minor.ToString('00')) &lt;&lt; 8) + $([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Build));_VCRT_ALLOW_INTERNALS;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_RUNTIME_LIBRARY_MISMATCH;__BuildWithMSVCRT;_EXCLUDE_MBSTRING_CONST_CORRECT_OVERLOADS;_ACRTIMP=;WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_EXCLUDE_MBSTRING_CONST_CORRECT_OVERLOADS;_ACRTIMP=;WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <ForcedIncludeFiles>$(ProjectDir)msvcrt_build_type.h;suppress.h;framework.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
@@ -315,7 +309,7 @@
       <WarningLevel>Level3</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>TargetVCRuntimeVersion=(($([System.Version]::Parse('$(TargetVCRuntimeVersion)').Major.ToString('00')) &lt;&lt; 12) + ($([System.Version]::Parse('$(TargetVCRuntimeVersion)').Minor.ToString('00')) &lt;&lt; 8) + $([System.Version]::Parse('$(TargetVCRuntimeVersion)').Build));WindowsTargetPlatformMinVersion=(($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Major.ToString('00')) &lt;&lt; 12) + ($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Minor.ToString('00')) &lt;&lt; 8) + $([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Build));_VCRT_ALLOW_INTERNALS;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_RUNTIME_LIBRARY_MISMATCH;__BuildWithMSVCRT;_EXCLUDE_MBSTRING_CONST_CORRECT_OVERLOADS;_ACRTIMP=;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_EXCLUDE_MBSTRING_CONST_CORRECT_OVERLOADS;_ACRTIMP=;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <ForcedIncludeFiles>$(ProjectDir)msvcrt_build_type.h;suppress.h;framework.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
@@ -341,7 +335,7 @@
       <WarningLevel>Level3</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>TargetVCRuntimeVersion=(($([System.Version]::Parse('$(TargetVCRuntimeVersion)').Major.ToString('00')) &lt;&lt; 12) + ($([System.Version]::Parse('$(TargetVCRuntimeVersion)').Minor.ToString('00')) &lt;&lt; 8) + $([System.Version]::Parse('$(TargetVCRuntimeVersion)').Build));WindowsTargetPlatformMinVersion=(($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Major.ToString('00')) &lt;&lt; 12) + ($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Minor.ToString('00')) &lt;&lt; 8) + $([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Build));_VCRT_ALLOW_INTERNALS;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_RUNTIME_LIBRARY_MISMATCH;__BuildWithMSVCRT;_EXCLUDE_MBSTRING_CONST_CORRECT_OVERLOADS;_ACRTIMP=;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_EXCLUDE_MBSTRING_CONST_CORRECT_OVERLOADS;_ACRTIMP=;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <ForcedIncludeFiles>$(ProjectDir)msvcrt_build_type.h;suppress.h;framework.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
@@ -725,8 +719,14 @@
       <ExcludedFromBuild Condition="'$(WindowsTargetPlatformMinVersionBuild)' &gt;= '6000'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\Sources\ucrt\stdlib\byteswap.cpp" />
+    <ClCompile Include="..\Sources\ucrt\stdlib\imaxabs.cpp">
+      <ExcludedFromBuild Condition="'$(WindowsTargetPlatformMinVersionBuild)' &gt;= '3790'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\Sources\ucrt\stdlib\lfind_s.cpp">
       <ExcludedFromBuild Condition="'$(WindowsTargetPlatformMinVersionBuild)' &gt;= '6000'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\stdlib\llabs.cpp">
+      <ExcludedFromBuild Condition="'$(WindowsTargetPlatformMinVersionBuild)' &gt;= '3790'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\Sources\ucrt\stdlib\lsearch_s.cpp">
       <ExcludedFromBuild Condition="'$(WindowsTargetPlatformMinVersionBuild)' &gt;= '6000'">true</ExcludedFromBuild>

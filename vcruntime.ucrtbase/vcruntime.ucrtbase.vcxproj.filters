@@ -56,5 +56,8 @@
     <ClCompile Include="VC_LTL_Config.c">
       <Filter>源文件\ltl</Filter>
     </ClCompile>
+    <ClCompile Include="notify.cpp">
+      <Filter>源文件\ltl</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

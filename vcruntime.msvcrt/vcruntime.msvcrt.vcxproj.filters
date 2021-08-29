@@ -22,6 +22,9 @@
     <Filter Include="源文件\ltl">
       <UniqueIdentifier>{d51362f9-6761-4c0c-9b19-2ac364b62a92}</UniqueIdentifier>
     </Filter>
+    <Filter Include="源文件\ltl\i386">
+      <UniqueIdentifier>{dfd9e4b3-48df-43df-ab8c-ced570978e07}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Sources\crt\framework.h">
@@ -89,5 +92,10 @@
     <ClCompile Include="jbcxrval.cpp">
       <Filter>源文件\ltl</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <MASM Include="i386\exsup.asm">
+      <Filter>源文件\ltl\i386</Filter>
+    </MASM>
   </ItemGroup>
 </Project>

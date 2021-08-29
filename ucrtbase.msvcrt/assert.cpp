@@ -1,6 +1,6 @@
 ﻿
 
-__declspec(dllimport) void __cdecl _assert(
+extern "C" __declspec(dllimport) void __cdecl _assert(
 	_In_z_ char const* _Message,
 	_In_z_ char const* _File,
 	_In_   unsigned       _Line

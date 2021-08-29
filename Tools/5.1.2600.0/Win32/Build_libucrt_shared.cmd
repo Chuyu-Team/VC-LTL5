@@ -460,7 +460,7 @@ lib "%libfile%" /remove:d:\os\obj\x86fre\minkernel\crts\ucrt\src\appcrt\dll\mt\.
 ::lib "%libfile%" /remove:d:\os\obj\x86fre\minkernel\crts\ucrt\src\appcrt\dll\mt\..\..\tran\i386\mt\objfre\i386\acos_asin_t_table.obj
 ::lib "%libfile%" /remove:d:\os\obj\x86fre\minkernel\crts\ucrt\src\appcrt\dll\mt\..\..\tran\i386\mt\objfre\i386\acos_asin_tbl_addr.obj
 ::lib "%libfile%" /remove:d:\os\obj\x86fre\minkernel\crts\ucrt\src\appcrt\dll\mt\..\..\tran\i386\mt\objfre\i386\acos_sse2.obj
-lib "%libfile%" /remove:d:\os\obj\x86fre\minkernel\crts\ucrt\src\appcrt\dll\mt\..\..\tran\i386\mt\objfre\i386\acosf_asinf_t_table.obj
+::lib "%libfile%" /remove:d:\os\obj\x86fre\minkernel\crts\ucrt\src\appcrt\dll\mt\..\..\tran\i386\mt\objfre\i386\acosf_asinf_t_table.obj
 ::lib "%libfile%" /remove:d:\os\obj\x86fre\minkernel\crts\ucrt\src\appcrt\dll\mt\..\..\tran\i386\mt\objfre\i386\acosf_sse2.obj
 ::lib "%libfile%" /remove:d:\os\obj\x86fre\minkernel\crts\ucrt\src\appcrt\dll\mt\..\..\tran\i386\mt\objfre\i386\asin_sse2.obj
 ::lib "%libfile%" /remove:d:\os\obj\x86fre\minkernel\crts\ucrt\src\appcrt\dll\mt\..\..\tran\i386\mt\objfre\i386\asinf_sse2.obj
@@ -471,7 +471,7 @@ lib "%libfile%" /remove:d:\os\obj\x86fre\minkernel\crts\ucrt\src\appcrt\dll\mt\.
 lib "%libfile%" /remove:d:\os\obj\x86fre\minkernel\crts\ucrt\src\appcrt\dll\mt\..\..\tran\i386\mt\objfre\i386\ceil.obj
 ::lib "%libfile%" /remove:d:\os\obj\x86fre\minkernel\crts\ucrt\src\appcrt\dll\mt\..\..\tran\i386\mt\objfre\i386\cos_sin_ctable.obj
 ::lib "%libfile%" /remove:d:\os\obj\x86fre\minkernel\crts\ucrt\src\appcrt\dll\mt\..\..\tran\i386\mt\objfre\i386\cos_sse2.obj
-lib "%libfile%" /remove:d:\os\obj\x86fre\minkernel\crts\ucrt\src\appcrt\dll\mt\..\..\tran\i386\mt\objfre\i386\cosf_sinf_ctable.obj
+::lib "%libfile%" /remove:d:\os\obj\x86fre\minkernel\crts\ucrt\src\appcrt\dll\mt\..\..\tran\i386\mt\objfre\i386\cosf_sinf_ctable.obj
 ::lib "%libfile%" /remove:d:\os\obj\x86fre\minkernel\crts\ucrt\src\appcrt\dll\mt\..\..\tran\i386\mt\objfre\i386\cosf_sse2.obj
 ::lib "%libfile%" /remove:d:\os\obj\x86fre\minkernel\crts\ucrt\src\appcrt\dll\mt\..\..\tran\i386\mt\objfre\i386\exp_sse2.obj
 ::lib "%libfile%" /remove:d:\os\obj\x86fre\minkernel\crts\ucrt\src\appcrt\dll\mt\..\..\tran\i386\mt\objfre\i386\exp_tables.obj

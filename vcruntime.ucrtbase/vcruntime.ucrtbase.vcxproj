@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <ItemGroup>
+  <ItemGroup Condition="'$(_GetProjectAllConfiguration)' == 'true'">
     <!--10.0.10240.0-->
     <ProjectConfiguration Include="Dynamic|ARM">
       <Configuration>Dynamic</Configuration>
@@ -235,7 +235,7 @@
       <WarningLevel>Level3</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>TargetVCRuntimeVersion=(($([System.Version]::Parse('$(TargetVCRuntimeVersion)').Major.ToString('00')) &lt;&lt; 12) + ($([System.Version]::Parse('$(TargetVCRuntimeVersion)').Minor.ToString('00')) &lt;&lt; 8) + $([System.Version]::Parse('$(TargetVCRuntimeVersion)').Build));WindowsTargetPlatformMinVersion=(($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Major.ToString('00')) &lt;&lt; 12) + ($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Minor.ToString('00')) &lt;&lt; 8) + $([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Build));_VCRT_ALLOW_INTERNALS;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_RUNTIME_LIBRARY_MISMATCH;WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions);%(PreprocessorDefinitions);%(PreprocessorDefinitions);%(PreprocessorDefinitions);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <WholeProgramOptimization>false</WholeProgramOptimization>
@@ -260,7 +260,7 @@
       <WarningLevel>Level3</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>TargetVCRuntimeVersion=(($([System.Version]::Parse('$(TargetVCRuntimeVersion)').Major.ToString('00')) &lt;&lt; 12) + ($([System.Version]::Parse('$(TargetVCRuntimeVersion)').Minor.ToString('00')) &lt;&lt; 8) + $([System.Version]::Parse('$(TargetVCRuntimeVersion)').Build));WindowsTargetPlatformMinVersion=(($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Major.ToString('00')) &lt;&lt; 12) + ($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Minor.ToString('00')) &lt;&lt; 8) + $([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Build));_VCRT_ALLOW_INTERNALS;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_RUNTIME_LIBRARY_MISMATCH;WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions);%(PreprocessorDefinitions);%(PreprocessorDefinitions);%(PreprocessorDefinitions);%(PreprocessorDefinitions);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <WholeProgramOptimization>false</WholeProgramOptimization>
@@ -284,7 +284,7 @@
       <WarningLevel>Level3</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>TargetVCRuntimeVersion=(($([System.Version]::Parse('$(TargetVCRuntimeVersion)').Major.ToString('00')) &lt;&lt; 12) + ($([System.Version]::Parse('$(TargetVCRuntimeVersion)').Minor.ToString('00')) &lt;&lt; 8) + $([System.Version]::Parse('$(TargetVCRuntimeVersion)').Build));WindowsTargetPlatformMinVersion=(($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Major.ToString('00')) &lt;&lt; 12) + ($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Minor.ToString('00')) &lt;&lt; 8) + $([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Build));_VCRT_ALLOW_INTERNALS;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_RUNTIME_LIBRARY_MISMATCH;WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions);%(PreprocessorDefinitions);%(PreprocessorDefinitions);%(PreprocessorDefinitions);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <WholeProgramOptimization>false</WholeProgramOptimization>
@@ -309,7 +309,7 @@
       <WarningLevel>Level3</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>TargetVCRuntimeVersion=(($([System.Version]::Parse('$(TargetVCRuntimeVersion)').Major.ToString('00')) &lt;&lt; 12) + ($([System.Version]::Parse('$(TargetVCRuntimeVersion)').Minor.ToString('00')) &lt;&lt; 8) + $([System.Version]::Parse('$(TargetVCRuntimeVersion)').Build));WindowsTargetPlatformMinVersion=(($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Major.ToString('00')) &lt;&lt; 12) + ($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Minor.ToString('00')) &lt;&lt; 8) + $([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Build));_VCRT_ALLOW_INTERNALS;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_RUNTIME_LIBRARY_MISMATCH;WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions);%(PreprocessorDefinitions);%(PreprocessorDefinitions);%(PreprocessorDefinitions);%(PreprocessorDefinitions);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <WholeProgramOptimization>false</WholeProgramOptimization>
@@ -333,7 +333,7 @@
       <WarningLevel>Level3</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>TargetVCRuntimeVersion=(($([System.Version]::Parse('$(TargetVCRuntimeVersion)').Major.ToString('00')) &lt;&lt; 12) + ($([System.Version]::Parse('$(TargetVCRuntimeVersion)').Minor.ToString('00')) &lt;&lt; 8) + $([System.Version]::Parse('$(TargetVCRuntimeVersion)').Build));WindowsTargetPlatformMinVersion=(($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Major.ToString('00')) &lt;&lt; 12) + ($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Minor.ToString('00')) &lt;&lt; 8) + $([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Build));_VCRT_ALLOW_INTERNALS;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_RUNTIME_LIBRARY_MISMATCH;NDEBUG;_LIB;%(PreprocessorDefinitions);%(PreprocessorDefinitions);%(PreprocessorDefinitions);%(PreprocessorDefinitions);%(PreprocessorDefinitions);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <WholeProgramOptimization>false</WholeProgramOptimization>
@@ -357,7 +357,7 @@
       <WarningLevel>Level3</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>TargetVCRuntimeVersion=(($([System.Version]::Parse('$(TargetVCRuntimeVersion)').Major.ToString('00')) &lt;&lt; 12) + ($([System.Version]::Parse('$(TargetVCRuntimeVersion)').Minor.ToString('00')) &lt;&lt; 8) + $([System.Version]::Parse('$(TargetVCRuntimeVersion)').Build));WindowsTargetPlatformMinVersion=(($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Major.ToString('00')) &lt;&lt; 12) + ($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Minor.ToString('00')) &lt;&lt; 8) + $([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Build));_VCRT_ALLOW_INTERNALS;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_RUNTIME_LIBRARY_MISMATCH;NDEBUG;_LIB;%(PreprocessorDefinitions);%(PreprocessorDefinitions);%(PreprocessorDefinitions);%(PreprocessorDefinitions);%(PreprocessorDefinitions);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <WholeProgramOptimization>false</WholeProgramOptimization>
@@ -381,7 +381,7 @@
       <WarningLevel>Level3</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>TargetVCRuntimeVersion=(($([System.Version]::Parse('$(TargetVCRuntimeVersion)').Major.ToString('00')) &lt;&lt; 12) + ($([System.Version]::Parse('$(TargetVCRuntimeVersion)').Minor.ToString('00')) &lt;&lt; 8) + $([System.Version]::Parse('$(TargetVCRuntimeVersion)').Build));WindowsTargetPlatformMinVersion=(($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Major.ToString('00')) &lt;&lt; 12) + ($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Minor.ToString('00')) &lt;&lt; 8) + $([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Build));_VCRT_ALLOW_INTERNALS;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_RUNTIME_LIBRARY_MISMATCH;NDEBUG;_LIB;%(PreprocessorDefinitions);%(PreprocessorDefinitions);%(PreprocessorDefinitions);%(PreprocessorDefinitions);%(PreprocessorDefinitions);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <WholeProgramOptimization>false</WholeProgramOptimization>
@@ -405,7 +405,7 @@
       <WarningLevel>Level3</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>TargetVCRuntimeVersion=(($([System.Version]::Parse('$(TargetVCRuntimeVersion)').Major.ToString('00')) &lt;&lt; 12) + ($([System.Version]::Parse('$(TargetVCRuntimeVersion)').Minor.ToString('00')) &lt;&lt; 8) + $([System.Version]::Parse('$(TargetVCRuntimeVersion)').Build));WindowsTargetPlatformMinVersion=(($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Major.ToString('00')) &lt;&lt; 12) + ($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Minor.ToString('00')) &lt;&lt; 8) + $([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Build));_VCRT_ALLOW_INTERNALS;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;_ALLOW_RUNTIME_LIBRARY_MISMATCH;NDEBUG;_LIB;%(PreprocessorDefinitions);%(PreprocessorDefinitions);%(PreprocessorDefinitions);%(PreprocessorDefinitions);%(PreprocessorDefinitions);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <WholeProgramOptimization>false</WholeProgramOptimization>
@@ -456,6 +456,9 @@
     </ClCompile>
     <ClCompile Include="..\Sources\crt\vcruntime\winapi_thunks.cpp">
       <ExcludedFromBuild Condition="'$(Platform)' != 'Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="notify.cpp">
+      <ExcludedFromBuild Condition="'$(Platform)' != 'x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="VC_LTL_Config.c">
       <ForcedIncludeFiles>

@@ -774,6 +774,12 @@
     <ClCompile Include="..\Sources\ucrt\locale\GetStringTypeA.cpp">
       <Filter>源文件\objs</Filter>
     </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\stdlib\llabs.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\stdlib\imaxabs.cpp">
+      <Filter>源文件\WinXP</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="msvcrt_loadhelper.h">

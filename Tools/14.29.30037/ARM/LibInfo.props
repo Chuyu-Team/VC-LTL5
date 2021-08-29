@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Condition="'$(WindowsTargetPlatformMinVersionBuild)' &lt; '10240'">
+    <ExtractItem Include="D:\agent\_work\61\s\Intermediate\vctools\libvcruntime.nativeproj_520857879\objr\arm\notify.obj">
+      <LibFile>$(VCToolsInstallDir)lib\$(PlatformShortName)\libvcruntime.lib</LibFile>
+      <OutDir>$(IntDir)objr\libvcruntime\</OutDir>
+    </ExtractItem>
+  </ItemGroup>
+</Project>

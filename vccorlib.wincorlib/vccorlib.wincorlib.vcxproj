@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <ItemGroup>
+  <ItemGroup Condition="'$(_GetProjectAllConfiguration)' == 'true'">
     <!--6.2.9200.0平台，虽然从 6.3.9600.0开始才存在wincorlib，但是我们为了简化这个问题，就指定为6.2.9200.0-->
     <ProjectConfiguration Include="Dynamic|ARM">
       <Configuration>Dynamic</Configuration>
@@ -98,13 +98,13 @@
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\lib\$(Platform)\</OutDir>
     <TargetName>vccorlib140.pacth</TargetName>
-    <IncludePath>$(ProjectDir);$(SolutionDir)Sources\crt;$(SolutionDir)TargetPlatform\header;$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\header;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir);$(IncludePath)</IncludePath>
     <AllProjectIncludesArePublic>true</AllProjectIncludesArePublic>
     <IntDir>$(Platform)\$(Configuration)\$(WindowsTargetPlatformMinVersion)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dynamic|ARM'">
     <TargetName>vccorlib140.pacth</TargetName>
-    <IncludePath>$(ProjectDir);$(SolutionDir)Sources\crt;$(SolutionDir)TargetPlatform\header;$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\header;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir);$(IncludePath)</IncludePath>
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\lib\$(Platform)\</OutDir>
     <AllProjectIncludesArePublic>true</AllProjectIncludesArePublic>
@@ -114,13 +114,13 @@
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\lib\$(Platform)\</OutDir>
     <TargetName>vccorlib140.pacth</TargetName>
-    <IncludePath>$(ProjectDir);$(SolutionDir)Sources\crt;$(SolutionDir)TargetPlatform\header;$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\header;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir);$(IncludePath)</IncludePath>
     <AllProjectIncludesArePublic>true</AllProjectIncludesArePublic>
     <IntDir>$(Platform)\$(Configuration)\$(WindowsTargetPlatformMinVersion)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dynamic|ARM64'">
     <TargetName>vccorlib140.pacth</TargetName>
-    <IncludePath>$(ProjectDir);$(SolutionDir)Sources\crt;$(SolutionDir)TargetPlatform\header;$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\header;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir);$(IncludePath)</IncludePath>
     <AllProjectIncludesArePublic>true</AllProjectIncludesArePublic>
     <IntDir>$(Platform)\$(Configuration)\$(WindowsTargetPlatformMinVersion)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
@@ -133,7 +133,7 @@
       <Optimization>MinSpace</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WindowsTargetPlatformMinVersion=(($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Major.ToString('00')) &lt;&lt; 12) + ($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Minor.ToString('00')) &lt;&lt; 8) + $([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Build));VCWINRT_DLL;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;WIN32;NDEBUG;WINRT_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>VCWINRT_DLL;WIN32;NDEBUG;WINRT_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <CompileAsWinRT>true</CompileAsWinRT>
       <AdditionalOptions>/Zc:twoPhase- /Zc:strictStrings- /Zc:ternary- %(AdditionalOptions)</AdditionalOptions>
       <AdditionalUsingDirectories>$(VCIDEInstallDir)vcpackages;$(WindowsSDKDir)UnionMetadata\$(WindowsTargetPlatformVersion);%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
@@ -163,7 +163,7 @@
       <Optimization>MinSpace</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WindowsTargetPlatformMinVersion=(($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Major.ToString('00')) &lt;&lt; 12) + ($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Minor.ToString('00')) &lt;&lt; 8) + $([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Build));VCWINRT_DLL;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;WIN32;NDEBUG;WINRT_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>VCWINRT_DLL;WIN32;NDEBUG;WINRT_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <CompileAsWinRT>true</CompileAsWinRT>
       <AdditionalOptions>/Zc:twoPhase- /Zc:strictStrings- /Zc:ternary- %(AdditionalOptions)</AdditionalOptions>
       <AdditionalUsingDirectories>$(VCIDEInstallDir)vcpackages;$(WindowsSDKDir)UnionMetadata\$(WindowsTargetPlatformVersion);%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
@@ -193,7 +193,7 @@
       <Optimization>MinSpace</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WindowsTargetPlatformMinVersion=(($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Major.ToString('00')) &lt;&lt; 12) + ($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Minor.ToString('00')) &lt;&lt; 8) + $([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Build));VCWINRT_DLL;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;NDEBUG;WINRT_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>VCWINRT_DLL;NDEBUG;WINRT_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <CompileAsWinRT>true</CompileAsWinRT>
       <AdditionalOptions>/Zc:twoPhase- /Zc:strictStrings- /Zc:ternary- %(AdditionalOptions)</AdditionalOptions>
       <AdditionalUsingDirectories>$(VCIDEInstallDir)vcpackages;$(WindowsSDKDir)UnionMetadata\$(WindowsTargetPlatformVersion);%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
@@ -224,7 +224,7 @@
       <Optimization>MinSpace</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WindowsTargetPlatformMinVersion=(($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Major.ToString('00')) &lt;&lt; 12) + ($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Minor.ToString('00')) &lt;&lt; 8) + $([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Build));VCWINRT_DLL;_ALLOW_RUNTIME_LIBRARY_MISMATCH;_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH;NDEBUG;WINRT_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>VCWINRT_DLL;NDEBUG;WINRT_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <CompileAsWinRT>true</CompileAsWinRT>
       <AdditionalOptions>/Zc:twoPhase- /Zc:strictStrings- /Zc:ternary- %(AdditionalOptions)</AdditionalOptions>
       <AdditionalUsingDirectories>$(VCIDEInstallDir)vcpackages;$(WindowsSDKDir)UnionMetadata\$(WindowsTargetPlatformVersion);%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
@@ -269,7 +269,8 @@
       <ExcludedFromBuild Condition="'$(Platform)'!='Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="VC_LTL_Config.c">
-      <ForcedIncludeFiles></ForcedIncludeFiles>
+      <ForcedIncludeFiles>
+      </ForcedIncludeFiles>
       <CompileAsWinRT>false</CompileAsWinRT>
     </ClCompile>
   </ItemGroup>
