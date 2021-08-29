@@ -155,10 +155,6 @@
     <PlatformToolset>$(DefaultPlatformToolset)</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
-  <PropertyGroup>
-    <TargetVCRuntimeVersion Condition="'$(TargetVCRuntimeVersion)' == ''">$(VCToolsVersion)</TargetVCRuntimeVersion>
-    <TargetVCRuntimeVersion Condition="'$(TargetVCRuntimeVersion)' == ''">14.0.0.0</TargetVCRuntimeVersion>
-  </PropertyGroup>
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
   <ImportGroup Label="Shared">
@@ -468,7 +464,10 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
-  <Import Project="$(SolutionDir)Tools\$(TargetVCRuntimeVersion)\$(Platform)\LibInfo.props" Condition="Exists('$(SolutionDir)Tools\$(TargetVCRuntimeVersion)\$(Platform)\LibInfo.props')" />
+  <Import Project="$(SolutionDir)Tools\$(VCToolsVersion)\$(Platform)\LibInfo.props" Condition="Exists('$(SolutionDir)Tools\$(VCToolsVersion)\$(Platform)\LibInfo.props')" />
+  <Target Name="SafeCheck" BeforeTargets="PrepareForBuild">
+    <Error Text="$(SolutionDir)Tools\$(VCToolsVersion) 目录不存在！" Condition="'$(VCToolsVersion)' == '' or (!Exists('$(SolutionDir)Tools\$(VCToolsVersion)'))"/>
+  </Target>
   <Target Name="EXTRACT_obj" AfterTargets="_ClCompile" Inputs="%(ExtractItem.LibFile)" Outputs="%(ExtractItem.OutDir)%(ExtractItem.Filename)%(ExtractItem.Extension)" Condition="'@(ExtractItem)' !=''">
     <!--确保文件夹必定存在-->
     <MakeDir Directories="%(ExtractItem.OutDir)" />
