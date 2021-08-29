@@ -1,0 +1,194 @@
+﻿name: Build&Test
+
+on: [push]
+
+jobs:
+  Build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: 恢复缓存
+      id: ltlCache
+      uses: actions/cache@v2
+      with:
+        path: Tools/**/libucrt_shared.lib
+        key: ltl_${{ hashFiles('**/Build_libucrt_shared.cmd') }}
+
+    - name: 初始化
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: |
+          if (-not (Test-Path Tools))
+          {
+              mkdir -p Tools
+          }
+
+          # Procdump工具，用于单元测试崩溃诊断
+          Invoke-WebRequest -Uri https://download.sysinternals.com/files/Procdump.zip  -OutFile Tools\Procdump.zip
+          &7z e Tools\Procdump.zip "-o$Env:GITHUB_WORKSPACE\Tools"
+
+          
+          $ProgramFiles = ${env:ProgramFiles(x86)}
+
+          if (-not $ProgramFiles)
+          {
+              $ProgramFiles = $env:ProgramFiles
+          }
+          
+          $BuiltInVsWhereExe = "$ProgramFiles\Microsoft Visual Studio\Installer\vswhere.exe"
+
+          if (-not (Test-Path $BuiltInVsWhereExe))
+          {
+              throw "找不到vswhere.exe！"
+          }
+          
+          Write-Output $BuiltInVsWhereExe
+          
+          $LatestVisualStudioRoot = & $BuiltInVsWhereExe -latest -prerelease -property installationPath
+          
+          if (-not (Test-Path $LatestVisualStudioRoot))
+          {
+              throw "找不到 VisualStudioRoot！"
+          }
+          
+          echo "LatestVisualStudioRoot=$LatestVisualStudioRoot" >> $env:GITHUB_ENV
+          
+          $MSBuildBinPath="$LatestVisualStudioRoot\MSBuild\Current\Bin"
+          
+          if (-not (Test-Path $MSBuildBinPath))
+          {
+              $installationVersion = & $BuiltInVsWhereExe -latest -prerelease -property installationVersion
+              $majorVersion = "$installationVersion".Split('.')[0]
+              
+              $MSBuildBinPath="$LatestVisualStudioRoot\MSBuild\$majorVersion.0\Bin"
+          }
+          
+          if (-not (Test-Path $MSBuildBinPath))
+          {
+              throw "找不到 MSBuildBinPath！"
+          }
+          
+          echo "MSBuildBinPath=$MSBuildBinPath" >> $env:GITHUB_ENV
+          
+          if($env:GITHUB_REF.StartsWith("refs/tags/v", "CurrentCultureIgnoreCase"))
+          {
+              $BuildVersion = $env:GITHUB_REF.Remove(0, 11);
+              echo "BuildVersion=$BuildVersion" >> $env:GITHUB_ENV
+
+              # github的内置版本有Bug，此行必须添加，否则无法获得内容
+              git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+
+              $releaseNotes = & git tag -l --format='%(contents)' $env:GITHUB_REF.Remove(0, 10)
+              $content = [System.IO.File]::ReadAllText("Nuget\VC-LTL.nuspec")
+              
+              # 使用此文本替换 .nuspec 中的 releaseNotes
+              # [System.IO.File]::WriteAllText("YY-Thunks-New.nuspec", $content)
+              # 微软这个大爷……
+              
+              $releaseNotesToken = '$releaseNotes$'
+              $releaseNotesIndex = $content.IndexOf($releaseNotesToken)
+              
+              if($releaseNotesIndex -ne -1)
+              {
+                  echo $content.Substring(0, $releaseNotesIndex) | out-file "Nuget\VC-LTL-New.nuspec" -NoNewline
+                  echo $releaseNotes | out-file "Nuget\VC-LTL-New.nuspec" -Append
+                  echo $content.Remove(0, $releaseNotesIndex + $releaseNotesToken.Length) | out-file "Nuget\VC-LTL-New.nuspec" -NoNewline -Append
+              }
+          }
+
+    - name: 执行编译
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      shell: pwsh
+      run: |
+          # MSBuild 目录更新到 Path
+          $Env:Path="${{env.MSBuildBinPath}};${{env.LatestVisualStudioRoot}}\Common7\IDE\CommonExtensions\Microsoft\TestWindow;" + $Env:Path
+
+          # 编译项目
+          &msbuild Build.proj "-m" "-p:TagVersion=${{env.BuildVersion}}"
+          if($lastexitcode -ne 0)
+          {
+              throw "VC-LTL.vcxproj编译失败！退出代码：$lastexitcode"
+          }
+
+    - name: 执行单元测试
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      shell: pwsh
+      run: |
+          # MSBuild 目录更新到 Path
+          $Env:Path="${{env.MSBuildBinPath}};${{env.LatestVisualStudioRoot}}\Common7\IDE\CommonExtensions\Microsoft\TestWindow;" + $Env:Path
+          
+          # 设置 PROCDUMP_PATH 目录
+          $Env:PROCDUMP_PATH="$Env:GITHUB_WORKSPACE\Tools"
+
+          # 编译单元测试项目
+          &msbuild UnitTest\UnitTest.vcxproj "-p:Configuration=Release;Platform=Win32;SolutionDir=$Env:GITHUB_WORKSPACE\\"
+          if($lastexitcode -ne 0)
+          {
+              throw "单元测试编译失败！退出代码：$lastexitcode"
+          }
+          
+          $RunFaild = 0
+
+          &vstest.console Release\UnitTest.dll "/logger:trx;LogFileName=UnitTest.trx" --Parallel "/Blame:CollectDump;CollectAlways=false;DumpType=full"
+          if($lastexitcode -ne 0)
+          {
+              $RunFaild = 1
+          }       
+
+          if($RunFaild -ne 0)
+          {
+              throw "UnitTest单元测试失败！"
+          }
+    - uses: dorny/test-reporter@v1
+      if: success() || failure()
+      with:
+        name: 单元测试报告
+        path: TestResults/*.trx
+        reporter: dotnet-trx
+        
+    - name: 文件打包
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      shell: cmd
+      run: |          
+          ::打包Nuget
+          if "${{env.BuildVersion}}" NEQ "" (
+              nuget pack Nuget\VC-LTL-New.nuspec -Properties version=${{env.BuildVersion}};commit=%GITHUB_SHA%
+          )
+                    
+    - uses: actions/upload-artifact@v2
+      with:
+        path: |
+            Nuget/*.nupkg
+            *.zip
+
+    # 失败时我们收集一些信息，用于诊断
+    - uses: actions/upload-artifact@v2
+      if: failure()
+      with:
+        name: ErrorLog
+        path: |
+            TestResults/**/*.dmp
+            TestResults/**/Sequence_*.xml
+            Release\UnitTest.dll
+            Release\UnitTest.pdb
+            Release\*.log
+            UnitTest/SymbolBuildTest/.test/**/Build.log
+
+    - uses: xresloader/upload-to-github-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        file: "VC-LTL-*.zip"
+        overwrite: true
+        tags: true
+        draft: false
+
+    - name: 内容发布
+      if: contains(github.ref, 'tags/')
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      shell: cmd
+      run: |
+         :: 把生成的nuget包发布到nuget中
+         nuget push Nuget\VC-LTL.${{env.BuildVersion}}.nupkg -ApiKey ${{ secrets.NUGET_TOKEN }} -Source https://api.nuget.org/v3/index.json
+
