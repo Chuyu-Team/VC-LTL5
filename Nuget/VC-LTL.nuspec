@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/01/nuspec.xsd">
+  <metadata minClientVersion="2.5">
+    <id>VC-LTL</id>
+    <version>5.0.1-Beta4</version>
+    <title>VC-LTL for Visual Studio 2015, 2017, 2019</title>
+    <summary>VC-LTL for Visual Studio 2015, 2017, 2019，编译精巧的程序原来如此简单。</summary>
+    <authors>YY</authors>
+    <owners>初雨团队</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">EPL-2.0</license>
+    <icon>images\logo-small.png</icon>
+    <iconUrl>https://raw.githubusercontent.com/wiki/Chuyu-Team/VC-LTL/image/logo-small.png</iconUrl>
+    <projectUrl>https://github.com/Chuyu-Team/VC-LTL5</projectUrl>
+    <description>功能 —— 编译精巧的程序原来如此简单
+
+  * 晚起的鸟儿也有虫虫吃，优雅的引用方式，仅添加一个属性表就能享受极致的体积体验。
+  * 无缝使用最新C/C++库以及最新编译器，尽情的使用最新规范。神马异常流防护（guard:cf）、静态对象线程安全初始化（threadSafeInit）……统统放马过来吧！！
+  * 拥有比微软原版更好的兼容性，即使想兼容Windows XP RTM也可以安心的对新编译器说“Yes”。
+  * 完全的开放代码，广泛的接受用户意见，希望大家能踊跃的 pull requests，为VC-LTL添砖加瓦。
+
+</description>
+    <releaseNotes>$releaseNotes$</releaseNotes>
+    <copyright>Copyright© Chuyu Team</copyright>
+    <tags>初雨团队 Chuyu YY VC-LTL native nativepackage</tags>
+    <repository type="git" url="https://github.com/Chuyu-Team/VC-LTL5.git" branch="master" commit="$commit$" />
+    <dependencies>
+      <dependency id="YY.NuGet.Import.Helper" version="1.0.0.4" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src=".\logo-small.png" target="images\logo-small.png" />
+    <file src=".\VC-LTL.props" target="build\native\VC-LTL.props"/>
+    <file src="..\config\**" target="build\native\config\" exclude="..\config\config.cmake;..\config\config.cmd;..\config\config.pri;..\config\1033\config.strings.cmd;..\config\2052\config.strings.cmd;"/>
+    <file src="..\TargetPlatform\**" target="build\native\TargetPlatform\"/>
+  </files>
+</package>
