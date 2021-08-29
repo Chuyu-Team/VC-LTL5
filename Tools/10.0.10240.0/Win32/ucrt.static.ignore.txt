@@ -1,0 +1,2 @@
+__crt_debugger_hook
+__imp___crt_debugger_hook
