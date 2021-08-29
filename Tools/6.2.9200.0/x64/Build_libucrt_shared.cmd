@@ -1,9 +1,16 @@
 set libfile=%~dp0libucrt_shared.lib
 
 
-copy "C:\Program Files (x86)\Windows Kits\10\Lib\10.0.19041.0\ucrt\x64\libucrt.lib" "%libfile%" /y
+set "BuiltInVsWhereExe=%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe"
+if not defined ProgramFiles(x86) ( set "BuiltInVsWhereExe=%ProgramFiles%\Microsoft Visual Studio\Installer\vswhere.exe" )
 
-@call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvars32.bat"
+if not exist "%BuiltInVsWhereExe%" (echo 请安装VS2017或者更高版本然后继续！& goto:eof )
+
+for /f "tokens=*" %%i in ('"%BuiltInVsWhereExe%" -latest -prerelease -property installationPath') do ( set LatestVisualStudioRoot=%%i)
+
+@call "%LatestVisualStudioRoot%\VC\Auxiliary\Build\vcvars32.bat"
+
+copy "%WindowsSdkDir%Lib\10.0.19041.0\ucrt\x64\libucrt.lib" "%libfile%" /y
 
 
 lib "%libfile%" /remove:d:\os\obj\amd64fre\minkernel\crts\ucrt\src\appcrt\dll\mt\..\..\..\desktopcrt\conio\mt\objfre\amd64\cgets.obj

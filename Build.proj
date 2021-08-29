@@ -18,6 +18,9 @@
     <SolutionPath>$(SolutionDir)$(SolutionFileName)</SolutionPath>
     <WindowsTargetPlatformVersion>$([Microsoft.Build.Utilities.ToolLocationHelper]::GetLatestSDKTargetPlatformVersion('Windows', '10.0'))</WindowsTargetPlatformVersion>
     <GlobalProperties>PreferredToolArchitecture=x64;BuildingSolutionFile=true;SolutionDir=$(SolutionDir); SolutionExt=$(SolutionExt); SolutionFileName=$(SolutionFileName); SolutionName=$(SolutionName); SolutionPath=$(SolutionPath)</GlobalProperties>
+
+    <UniversalCRTSdkDir Condition="'$(UniversalCRTSdkDir)' == ''">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Windows Kits\Installed Roots@KitsRoot10)</UniversalCRTSdkDir>
+    <UniversalCRTSdkDir Condition="'$(UniversalCRTSdkDir)' == ''">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Kits\Installed Roots@KitsRoot10)</UniversalCRTSdkDir>
   </PropertyGroup>
 
   <ItemGroup>
@@ -40,16 +43,25 @@
       <Output TaskParameter="TargetOutputs" ItemName="%(ProjectReferenceWork.OutItemName)" />
     </MSBuild>
 
-    <!--前置环境准备-->
-    <Exec
-      Command="cmd /c %22$(MSBuildThisFileDirectory)Tools\%(ProjectReference.WindowsTargetPlatformMinVersion)\%(ProjectReference.Platform)\Build_libucrt_shared.cmd%22"
-      WorkingDirectory="$(MSBuildThisFileDirectory)Tools\%(ProjectReference.WindowsTargetPlatformMinVersion)\%(ProjectReference.Platform)"
-      Condition="Exists('$(MSBuildThisFileDirectory)Tools\%(ProjectReference.WindowsTargetPlatformMinVersion)\%(ProjectReference.Platform)\Build_libucrt_shared.cmd') and !Exists('$(MSBuildThisFileDirectory)Tools\%(ProjectReference.WindowsTargetPlatformMinVersion)\%(ProjectReference.Platform)\libucrt_shared.lib')"/>
+    <ItemGroup>
+      <WindowsTargetPlatformMinVersionItem
+        Include="$(MSBuildThisFileFullPath)"
+        KeepDuplicates="false"
+        Condition="Exists('$(MSBuildThisFileDirectory)Tools\%(ProjectReference.WindowsTargetPlatformMinVersion)\%(ProjectReference.Platform)\Build_libucrt_shared.cmd') and !Exists('$(MSBuildThisFileDirectory)Tools\%(ProjectReference.WindowsTargetPlatformMinVersion)\%(ProjectReference.Platform)\libucrt_shared.lib')"
+        AdditionalProperties="WindowsTargetPlatformMinVersion=%(ProjectReference.WindowsTargetPlatformMinVersion);Platform=%(ProjectReference.Platform)"
+        />
+    </ItemGroup>
 
-    <MSBuild Projects="@(ProjectReference)" BuildInParallel="True" Properties="$(GlobalProperties)"/>
+    <Message Text="%(WindowsTargetPlatformMinVersionItem.AdditionalProperties)" Importance="high"/>
+    
+    <!--前置环境准备-->
+    <MSBuild Projects="@(WindowsTargetPlatformMinVersionItem)" StopOnFirstFailure="True" Targets="Build_libucrt_shared" BuildInParallel="True" Properties="$(GlobalProperties)"/>
+    
+    
+    <MSBuild Projects="@(ProjectReference)" StopOnFirstFailure="True" BuildInParallel="True" Properties="$(GlobalProperties)"/>
   </Target>
 
-  <Target Name="CopySpectreFiles" AfterTargets="Build">
+  <Target Name="CopyLibFiles" AfterTargets="Build">
     <Copy
       SourceFiles="$(UniversalCRTSdkDir)Lib\$(WindowsTargetPlatformVersion)\ucrt\arm\ucrt.lib"
       DestinationFiles="$(MSBuildThisFileDirectory)TargetPlatform\10.0.10240.0\lib\ARM\libucrt.lib"
@@ -106,7 +118,7 @@
       />
   </Target>
   
-  <Target Name="Pack" AfterTargets="CopySpectreFiles">
+  <Target Name="Pack" AfterTargets="CopyLibFiles">
     <PropertyGroup>
       <ZipFileName Condition="'$(TagVersion)' == ''">VC-LTL-Binary.7z</ZipFileName>
       <ZipFileName Condition="'$(TagVersion)' != ''">VC-LTL-$(TagVersion)-Binary.7z</ZipFileName>
@@ -123,5 +135,13 @@
       AdditionalMetadata="Configuration=%(ProjectConfiguration.Configuration);Platform=%(ProjectConfiguration.Platform);WindowsTargetPlatformMinVersion=%(ProjectConfiguration.WindowsTargetPlatformMinVersion);AdditionalProperties=Configuration=%(ProjectConfiguration.Configuration)%3BPlatform=%(ProjectConfiguration.Platform)%3BWindowsTargetPlatformMinVersion=%(ProjectConfiguration.WindowsTargetPlatformMinVersion)">
       <Output TaskParameter="Include" ItemName="AllProjectReferenceConfigurations"/>
     </CreateItem>
+  </Target>
+  <Target Name="Build_libucrt_shared" Inputs="$(MSBuildThisFileDirectory)Tools\$(WindowsTargetPlatformMinVersion)\$(Platform)\Build_libucrt_shared.cmd" Outputs="$(MSBuildThisFileDirectory)Tools\$(WindowsTargetPlatformMinVersion)\$(Platform)\libucrt_shared.lib">
+
+    <Message Text="$(WindowsTargetPlatformMinVersion)\$(Platform) 进入" Importance="high"/>
+    <Exec
+      Command="cmd /c %22$(MSBuildThisFileDirectory)Tools\$(WindowsTargetPlatformMinVersion)\$(Platform)\Build_libucrt_shared.cmd%22"
+      WorkingDirectory="$(MSBuildThisFileDirectory)Tools\$(WindowsTargetPlatformMinVersion)\$(Platform)"
+      Condition="Exists('$(MSBuildThisFileDirectory)Tools\$(WindowsTargetPlatformMinVersion)\$(Platform)\Build_libucrt_shared.cmd')"/>
   </Target>
 </Project>
