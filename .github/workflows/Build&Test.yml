@@ -159,8 +159,8 @@ jobs:
     - uses: actions/upload-artifact@v2
       with:
         path: |
-            Nuget/*.nupkg
-            *.zip
+            *.nupkg
+            *.7z
 
     # 失败时我们收集一些信息，用于诊断
     - uses: actions/upload-artifact@v2
@@ -179,7 +179,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        file: "VC-LTL-*.zip"
+        file: "VC-LTL-*.7z"
         overwrite: true
         tags: true
         draft: false
@@ -190,5 +190,5 @@ jobs:
       shell: cmd
       run: |
          :: 把生成的nuget包发布到nuget中
-         nuget push Nuget\VC-LTL.${{env.BuildVersion}}.nupkg -ApiKey ${{ secrets.NUGET_TOKEN }} -Source https://api.nuget.org/v3/index.json
+         nuget push VC-LTL.${{env.BuildVersion}}.nupkg -ApiKey ${{ secrets.NUGET_TOKEN }} -Source https://api.nuget.org/v3/index.json
 

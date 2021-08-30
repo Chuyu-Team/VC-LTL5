@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/01/nuspec.xsd">
   <metadata minClientVersion="2.5">
     <id>VC-LTL</id>
-    <version>5.0.1-Beta4</version>
+    <version>$version$</version>
     <title>VC-LTL for Visual Studio 2015, 2017, 2019</title>
     <summary>VC-LTL for Visual Studio 2015, 2017, 2019，编译精巧的程序原来如此简单。</summary>
     <authors>YY</authors>
