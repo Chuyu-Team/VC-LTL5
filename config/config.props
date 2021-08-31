@@ -111,6 +111,9 @@
 
     <VC_LTL_Include>$(VC_LTL_Root)TargetPlatform\header;$(VC_LTL_Root)TargetPlatform\$(LTLWindowsTargetPlatformMinVersion)\header</VC_LTL_Include>
     <VC_LTL_Library>$(VC_LTL_Root)TargetPlatform\$(LTLWindowsTargetPlatformMinVersion)\lib\$(Platform);$(IntDir)VC-LTL5.tmp\$(LTLWindowsTargetPlatformMinVersion)\$(Platform)</VC_LTL_Library>
+    
+    <!--如果启用了干净导入表模式，那么额外附加CleanImport的路径-->
+    <VC_LTL_Library Condition="'$(CleanImport)' == 'true' and Exists('$(VC_LTL_Root)TargetPlatform\$(LTLWindowsTargetPlatformMinVersion)\lib\$(Platform)\CleanImport')">$(VC_LTL_Root)TargetPlatform\$(LTLWindowsTargetPlatformMinVersion)\lib\$(Platform)\CleanImport;$(VC_LTL_Library)</VC_LTL_Library>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(SupportLTL)'=='true' or '$(SupportLTL)'=='ucrt'">

@@ -38,6 +38,12 @@
       DisplayName="Enable VC-LTL"
       Description="Allow the current project to enable VC-LTL."/>
 
+    <BoolProperty
+      Name="CleanImport"
+      Category="VC_LTL"
+      DisplayName="Enable Clean import table"
+      Description="Do not use ucrt apiset, such as api-ms-win-crt-time-l1-1-0.dll (for geeks)."/>
+    
     <EnumProperty
       Name="WindowsTargetPlatformMinVersion"
       Category="VC_LTL"

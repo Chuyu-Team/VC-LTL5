@@ -12,6 +12,10 @@ if(NOT SupportLTL)
 	set(SupportLTL "true")
 endif()
 
+if(NOT CleanImport)
+	set(CleanImport "false")
+endif()
+
 if(${SupportLTL} STREQUAL "true")
 	if(NOT CMAKE_BUILD_TYPE)
 		message(WARNING "VC-LTL not load, because CMAKE_BUILD_TYPE is not defined!!!")
@@ -184,6 +188,12 @@ if(${SupportLTL} STREQUAL "true")
     set(VC_LTL_Include ${VC_LTL_Root}/TargetPlatform/header;${VC_LTL_Root}/TargetPlatform/${LTLWindowsTargetPlatformMinVersion}/header)
     set(VC_LTL_Library ${VC_LTL_Root}/TargetPlatform/${LTLWindowsTargetPlatformMinVersion}/lib/${LTLPlatform})
 
+	# 如果开启了 CleanImport 那么优先使用 CleanImport
+	if(${CleanImport} STREQUAL "true")
+		if(EXISTS ${VC_LTL_Root}/TargetPlatform/${LTLWindowsTargetPlatformMinVersion}/lib/${LTLPlatform}/CleanImport)
+			set(VC_LTL_Library ${VC_LTL_Root}/TargetPlatform/${LTLWindowsTargetPlatformMinVersion}/lib/${LTLPlatform}/CleanImport;${VC_LTL_Library})
+		endif()
+	endif()
 	#message("INCLUDE " $ENV{INCLUDE})
 	#message("LIB " $ENV{LIB})
 

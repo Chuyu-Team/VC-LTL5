@@ -33,8 +33,14 @@ equals(LTLPlatform, x86) {
 }
 
 # 环境变量选项
+CleanImport = $$CleanImport
+isEmpty(CleanImport){
+    CleanImport=false
+}
+
+# 环境变量选项
 SupportWinXP_t = $$SupportWinXP
-isEmpty(t){
+isEmpty(SupportWinXP_t){
     SupportWinXP_t = $$(SupportWinXP)
 }
 
@@ -106,6 +112,13 @@ message($$VC_LTL_Info)
 QMAKE_INCDIR += \
 	$$VC_LTL_Root/TargetPlatform/header \
     $$VC_LTL_Root/TargetPlatform/$$LTLWindowsTargetPlatformMinVersion/header
+
+equals(CleanImport, true) {
+    exists($$VC_LTL_Root/TargetPlatform/$$LTLWindowsTargetPlatformMinVersion/lib/$$LTLPlatform/CleanImport) {
+        QMAKE_LIBS += \
+            -L$$VC_LTL_Root/TargetPlatform/$$LTLWindowsTargetPlatformMinVersion/lib/$$LTLPlatform/CleanImport
+    }
+}
 
 QMAKE_LIBS += \
     -L$$VC_LTL_Root/TargetPlatform/$$LTLWindowsTargetPlatformMinVersion/lib/$$LTLPlatform
