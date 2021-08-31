@@ -497,4 +497,7 @@
     <Exec Command="%22$(SolutionDir)Tools\LibMaker.exe%22 CreateWeaks /MACHINE:$(PlatformShortName) /def:%22$(SolutionDir)Tools\$(WindowsTargetPlatformMinVersion)\$(Platform)\vcruntime.ucrtbase.weak.def%22 /out:%22$(IntDir)objs\weak%22" />
     <Exec Command="lib %22$(IntDir)vcruntime.ucrtbase.lib%22 %22$(IntDir)objs\weak\*%22" />
   </Target>
+  <Target Name="CopyFiles" AfterTargets="Lib" Inputs="$(UniversalCRTSdkDir)Lib\$(WindowsTargetPlatformVersion)\ucrt\$(PlatformShortName)\ucrt.lib" Outputs="$(OutDir)\libucrt.lib">
+    <Copy SourceFiles="$(UniversalCRTSdkDir)Lib\$(WindowsTargetPlatformVersion)\ucrt\$(PlatformShortName)\ucrt.lib" DestinationFiles="$(OutDir)\libucrt.lib" />
+  </Target>
 </Project>

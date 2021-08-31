@@ -60,65 +60,8 @@
     
     <MSBuild Projects="@(ProjectReference)" StopOnFirstFailure="True" BuildInParallel="True" Properties="$(GlobalProperties)"/>
   </Target>
-
-  <Target Name="CopyLibFiles" AfterTargets="Build">
-    <Copy
-      SourceFiles="$(UniversalCRTSdkDir)Lib\$(WindowsTargetPlatformVersion)\ucrt\arm\ucrt.lib"
-      DestinationFiles="$(MSBuildThisFileDirectory)TargetPlatform\10.0.10240.0\lib\ARM\libucrt.lib"
-      />
-    <Copy
-      SourceFiles="$(UniversalCRTSdkDir)Lib\$(WindowsTargetPlatformVersion)\ucrt\arm\ucrt.lib"
-      DestinationFiles="$(MSBuildThisFileDirectory)TargetPlatform\10.0.19041.0\lib\ARM\libucrt.lib"
-      />
-    
-    <Copy
-      SourceFiles="$(UniversalCRTSdkDir)Lib\$(WindowsTargetPlatformVersion)\ucrt\arm64\ucrt.lib"
-      DestinationFiles="$(MSBuildThisFileDirectory)TargetPlatform\10.0.10240.0\lib\arm64\libucrt.lib"
-      />
-    <Copy
-      SourceFiles="$(UniversalCRTSdkDir)Lib\$(WindowsTargetPlatformVersion)\ucrt\arm64\ucrt.lib"
-      DestinationFiles="$(MSBuildThisFileDirectory)TargetPlatform\10.0.19041.0\lib\arm64\libucrt.lib"
-      />
-    
-    <Copy
-      SourceFiles="$(UniversalCRTSdkDir)Lib\$(WindowsTargetPlatformVersion)\ucrt\x64\ucrt.lib"
-      DestinationFiles="$(MSBuildThisFileDirectory)TargetPlatform\10.0.10240.0\lib\x64\libucrt.lib"
-      />
-    <Copy
-      SourceFiles="$(UniversalCRTSdkDir)Lib\$(WindowsTargetPlatformVersion)\ucrt\x64\ucrt.lib"
-      DestinationFiles="$(MSBuildThisFileDirectory)TargetPlatform\10.0.19041.0\lib\x64\libucrt.lib"
-      />
-    
-    <Copy
-      SourceFiles="$(UniversalCRTSdkDir)Lib\$(WindowsTargetPlatformVersion)\ucrt\x86\ucrt.lib"
-      DestinationFiles="$(MSBuildThisFileDirectory)TargetPlatform\10.0.10240.0\lib\Win32\libucrt.lib"
-      />
-    <Copy
-      SourceFiles="$(UniversalCRTSdkDir)Lib\$(WindowsTargetPlatformVersion)\ucrt\x86\ucrt.lib"
-      DestinationFiles="$(MSBuildThisFileDirectory)TargetPlatform\10.0.19041.0\lib\Win32\libucrt.lib"
-      />
-
-
-
-    <Copy
-      SourceFiles="$(MSBuildThisFileDirectory)\TargetPlatform\10.0.10240.0\lib\ARM\vccorlib140.pacth.lib"
-      DestinationFiles="$(MSBuildThisFileDirectory)\TargetPlatform\10.0.19041.0\lib\ARM\vccorlib140.pacth.lib"
-      />
-    <Copy
-      SourceFiles="$(MSBuildThisFileDirectory)\TargetPlatform\10.0.10240.0\lib\ARM64\vccorlib140.pacth.lib"
-      DestinationFiles="$(MSBuildThisFileDirectory)\TargetPlatform\10.0.19041.0\lib\ARM64\vccorlib140.pacth.lib"
-      />
-    <Copy
-      SourceFiles="$(MSBuildThisFileDirectory)\TargetPlatform\10.0.10240.0\lib\Win32\vccorlib140.pacth.lib"
-      DestinationFiles="$(MSBuildThisFileDirectory)\TargetPlatform\10.0.19041.0\lib\Win32\vccorlib140.pacth.lib"
-      />
-    <Copy
-      SourceFiles="$(MSBuildThisFileDirectory)\TargetPlatform\10.0.10240.0\lib\x64\vccorlib140.pacth.lib"
-      DestinationFiles="$(MSBuildThisFileDirectory)\TargetPlatform\10.0.19041.0\lib\x64\vccorlib140.pacth.lib"
-      />
-  </Target>
   
-  <Target Name="Pack" AfterTargets="CopyLibFiles">
+  <Target Name="Pack">
     <PropertyGroup>
       <ZipFileName Condition="'$(TagVersion)' == ''">VC-LTL-Binary.7z</ZipFileName>
       <ZipFileName Condition="'$(TagVersion)' != ''">VC-LTL-$(TagVersion)-Binary.7z</ZipFileName>
