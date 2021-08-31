@@ -165,7 +165,7 @@ jobs:
       run: |
           set "Path=${{env.MSBuildBinPath}};%Path%"
           ::生成二进制包
-          msbuild Build.proj -p:TagVersion=${{env.BuildVersion}}
+          msbuild Build.proj -p:TagVersion=${{env.BuildVersion}} -t:Pack
 
           ::打包Nuget
           if "${{env.BuildVersion}}" NEQ "" (
