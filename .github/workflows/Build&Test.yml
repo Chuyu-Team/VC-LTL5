@@ -8,8 +8,18 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    
+
+    - name: 恢复编译产物
+      id: ltlBinCache
+      uses: actions/cache@v2
+      with:
+        path: |
+            TargetPlatform/**/*.lib
+            TargetPlatform/**/*.pdb
+        key: ltl_${{github.sha}}
+
     - name: 恢复缓存
+      if: steps.ltlBinCache.outputs.cache-hit != 'true'
       id: ltlCache
       uses: actions/cache@v2
       with:
@@ -98,6 +108,7 @@ jobs:
           }
 
     - name: 执行编译
+      if: steps.ltlBinCache.outputs.cache-hit != 'true'
       working-directory: ${{env.GITHUB_WORKSPACE}}
       shell: pwsh
       run: |
@@ -112,6 +123,7 @@ jobs:
           }
 
     - name: 执行单元测试
+      if: steps.ltlBinCache.outputs.cache-hit != 'true'
       working-directory: ${{env.GITHUB_WORKSPACE}}
       shell: pwsh
       run: |
@@ -155,7 +167,7 @@ jobs:
           if "${{env.BuildVersion}}" NEQ "" (
               nuget pack Nuget\VC-LTL-New.nuspec -Properties version=${{env.BuildVersion}};commit=%GITHUB_SHA%
           )
-                    
+
     - uses: actions/upload-artifact@v2
       with:
         path: |
