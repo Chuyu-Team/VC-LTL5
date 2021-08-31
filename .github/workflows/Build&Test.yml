@@ -162,7 +162,11 @@ jobs:
     - name: 文件打包
       working-directory: ${{env.GITHUB_WORKSPACE}}
       shell: cmd
-      run: |          
+      run: |
+          set "Path=${{env.MSBuildBinPath}};%Path%"
+          ::生成二进制包
+          msbuild Build.proj -p:TagVersion=${{env.BuildVersion}}
+
           ::打包Nuget
           if "${{env.BuildVersion}}" NEQ "" (
               nuget pack Nuget\VC-LTL-New.nuspec -Properties version=${{env.BuildVersion}};commit=%GITHUB_SHA%
