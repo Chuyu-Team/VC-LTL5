@@ -15,12 +15,16 @@ if "%INCLUDE%" == "" echo %ERROR_VC_LTL_CANNOT_FOUND_INCLUDE_ENV%&&goto:eof
 
 if "%LIB%" == "" echo %ERROR_VC_LTL_CANNOT_FOUND_LIB_ENV%&&goto:eof
 
-if "%VisualStudioVersion%" == "14.0" set DefaultVCLTLToolsVersion=14.0.24231
-if "%VisualStudioVersion%" == "15.0" set DefaultVCLTLToolsVersion=14.16.27023
-if "%VisualStudioVersion%" == "16.0" set DefaultVCLTLToolsVersion=14.29.30037
 
-if "%DefaultVCLTLToolsVersion%" == "" echo %ERROR_VC_LTL_NOT_SUPPORT_PLATFORM_TOOLSET%&&goto:eof
 
+if "%VisualStudioVersion%" == "14.0" goto CheckPlatform
+if "%VisualStudioVersion%" == "15.0" goto CheckPlatform
+if "%VisualStudioVersion%" == "16.0" goto CheckPlatform
+if "%VisualStudioVersion%" == "17.0" goto CheckPlatform
+
+echo %ERROR_VC_LTL_NOT_SUPPORT_PLATFORM_TOOLSET%&&goto:eof
+
+:CheckPlatform
 
 if /i "%Platform%" == "" goto Start_VC_LTL
 
