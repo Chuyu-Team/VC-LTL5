@@ -32,6 +32,6 @@
     <file src=".\logo-small.png" target="images\logo-small.png" />
     <file src=".\VC-LTL.props" target="build\native\VC-LTL.props"/>
     <file src="..\config\**" target="build\native\config\" exclude="..\config\config.cmake;..\config\config.cmd;..\config\config.pri;..\config\1033\config.strings.cmd;..\config\2052\config.strings.cmd;"/>
-    <file src="..\TargetPlatform\**" target="build\native\TargetPlatform\"/>
+    <file src="..\TargetPlatform\**" target="build\native\TargetPlatform\" exclude="**\*.idb"/>
   </files>
 </package>
