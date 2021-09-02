@@ -241,6 +241,7 @@ namespace UnitTest
 				{ "vcruntime", "ucrtbased", "msvcrt" }
 				);
 		}
+
 		TEST_METHOD(vcruntime_ucrt_debug所有符号可以被链接)
 		{
 			TestLib(
@@ -311,7 +312,7 @@ namespace UnitTest
 				{ "vcruntime", "ucrtbase" }
 				);
 		}
-				
+		
 		TEST_METHOD(ucrt_msvcrt_Debug模式所有符号可以被链接)
 		{
 			TestLib(
@@ -382,6 +383,7 @@ namespace UnitTest
 				{ "vcruntime", "ucrtbased", "msvcrt" }
 				);
 		}
+
 		TEST_METHOD(ucrt_ucrt_Debug模式所有符号可以被链接)
 		{
 			TestLib(
@@ -420,6 +422,50 @@ namespace UnitTest
 				{ "vcruntime", "ucrtbased", "msvcrt" }
 				);
 		}
+
+
+		TEST_METHOD(ucrt_ucrt清洁模式所有符号可以被链接)
+		{
+			TestLib(
+				CurrentUniversalCRTSdkDir LR"(ucrt\x86\ucrt.lib)",
+				L"ucrt",
+				L"Win32",
+				{ L"Dynamic", L"Static" },
+				{ L"10.0.10240.0", L"10.0.19041.0" },
+				{ "vcruntime", "ucrtbased", "msvcrt", "API-MS-WIN-CRT-"},
+				L"CleanImport=true"
+				);
+
+			TestLib(
+				CurrentUniversalCRTSdkDir LR"(ucrt\x64\ucrt.lib)",
+				L"ucrt",
+				L"x64",
+				{ L"Dynamic", L"Static" },
+				{ L"10.0.10240.0", L"10.0.19041.0" },
+				{ "vcruntime", "ucrtbased", "msvcrt", "API-MS-WIN-CRT-"},
+				L"CleanImport=true"
+				);
+
+			TestLib(
+				CurrentUniversalCRTSdkDir LR"(ucrt\arm\ucrt.lib)",
+				L"ucrt",
+				L"arm",
+				{ L"Dynamic", L"Static" },
+				{ L"10.0.10240.0", L"10.0.19041.0" },
+				{ "vcruntime", "ucrtbased", "msvcrt", "API-MS-WIN-CRT-"},
+				L"CleanImport=true"
+				);
+
+			TestLib(
+				CurrentUniversalCRTSdkDir LR"(ucrt\arm64\ucrt.lib)",
+				L"ucrt",
+				L"arm64",
+				{ L"Dynamic", L"Static" },
+				{ L"10.0.10240.0", L"10.0.19041.0" },
+				{ "vcruntime", "ucrtbased", "msvcrt", "API-MS-WIN-CRT-"},
+				L"CleanImport=true"
+				);
+		}
 	private:
 		static LSTATUS TestLib(
 			LPCWSTR SrcLibPath,
@@ -427,7 +473,8 @@ namespace UnitTest
 			LPCWSTR szPlatform,
 			std::initializer_list<LPCWSTR> szConfigurations,
 			std::initializer_list<LPCWSTR> szWindowsTargetPlatformMinVersions,
-			std::initializer_list<LPCSTR> FaildDllList
+			std::initializer_list<LPCSTR> FaildDllList,
+			LPCWSTR BuildProperty = nullptr
 			)
 		{
 			auto&& Symbols = GetALlSymbols(SrcLibPath);
@@ -438,7 +485,7 @@ namespace UnitTest
 				{
 					auto&& ExclusionSymbols = GetIgnoreSymbolsList(DstLibName, szPlatform, szConfiguration, szWindowsTargetPlatformMinVersion);
 
-					TestSymbols(Symbols, ExclusionSymbols, DstLibName, szPlatform, szConfiguration, szWindowsTargetPlatformMinVersion, FaildDllList);
+					TestSymbols(Symbols, ExclusionSymbols, DstLibName, szPlatform, szConfiguration, szWindowsTargetPlatformMinVersion, FaildDllList, BuildProperty);
 				}
 			}
 
@@ -452,7 +499,8 @@ namespace UnitTest
 			LPCWSTR szPlatform,
 			LPCWSTR szConfiguration,
 			LPCWSTR szWindowsTargetPlatformMinVersion,
-			std::initializer_list<LPCSTR> FaildDllList
+			std::initializer_list<LPCSTR> FaildDllList,
+			LPCWSTR BuildProperty = nullptr
 			)
 		{
 			Assert::AreNotEqual(TestSymbols.size(), size_t(0));
@@ -496,6 +544,17 @@ namespace UnitTest
 			SymbolsTestCppRootPath += szPlatform;
 			SymbolsTestCppRootPath += L'.';
 			SymbolsTestCppRootPath += szConfiguration;
+
+			if (BuildProperty)
+			{
+				SymbolsTestCppRootPath += L'.';
+				CString szBuildProperty = BuildProperty;
+
+				szBuildProperty.Replace(L'\\', L'_');
+				szBuildProperty.Replace(L'/', L'_');
+				SymbolsTestCppRootPath += szBuildProperty;
+			}
+
 			SymbolsTestCppRootPath += L'\\';
 
 			CreateDirectoryW(SymbolsTestCppRootPath, nullptr);
@@ -516,6 +575,13 @@ namespace UnitTest
 				szPlatform,
 				szWindowsTargetPlatformMinVersion,
 				SymbolsTestCppRootPath.GetString());
+
+			if (BuildProperty)
+			{
+				Cmd.ReleaseBufferSetLength(Cmd.GetLength() - 1);
+				Cmd += L';';
+				Cmd += BuildProperty;
+			}
 
 			CString OutString;
 
