@@ -58,10 +58,11 @@ static errno_t __cdecl _wcrtomb_s_l(
 
     //_LocaleUpdate locale_update(locale);
 
+    
     _ASSERTE(
-        locale_update.GetLocaleT()->locinfo->_public._locale_mb_cur_max == 1 ||
-        locale_update.GetLocaleT()->locinfo->_public._locale_mb_cur_max == 2 ||
-        locale_update.GetLocaleT()->locinfo->_public._locale_lc_codepage == CP_UTF8);
+        __mb_cur_max == 1 ||
+        __mb_cur_max == 2 ||
+        ___lc_codepage_func() == CP_UTF8);
 
     if (state)
         state->_Wchar = 0;

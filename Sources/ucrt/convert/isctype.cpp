@@ -37,14 +37,18 @@ extern "C" int __cdecl _chvalidator(int const c, int const mask)
     return _chvalidator_l(nullptr, c, mask);
 }
 
+_LCRT_DEFINE_IAT_SYMBOL(_chvalidator);
+
 extern "C" int __cdecl _chvalidator_l(_locale_t const locale, int const c, int const mask)
 {
     _ASSERTE(c >= -1 && c <= 255);
 
-    _LocaleUpdate locale_update(locale);
+    //_LocaleUpdate locale_update(locale);
 
-    return __acrt_locale_get_ctype_array_value(locale_update.GetLocaleT()->locinfo->_public._locale_pctype, c, mask);
+    return __acrt_locale_get_ctype_array_value(locale ? locale->locinfo->_public._locale_pctype : _pctype, c, mask);
 }
+
+_LCRT_DEFINE_IAT_SYMBOL(_chvalidator_l);
 
 #endif // _DEBUG
 

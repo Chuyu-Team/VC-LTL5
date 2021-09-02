@@ -741,9 +741,6 @@
     <ClCompile Include="..\Sources\ucrt\startup\initterm.cpp">
       <Filter>源文件\WinXP</Filter>
     </ClCompile>
-    <ClCompile Include="..\Sources\ucrt\convert\isctype.cpp">
-      <Filter>源文件\WinXP</Filter>
-    </ClCompile>
     <ClCompile Include="..\Sources\ucrt\mbstring\ismbalnm.cpp">
       <Filter>源文件\WinXP</Filter>
     </ClCompile>
@@ -779,6 +776,12 @@
     </ClCompile>
     <ClCompile Include="..\Sources\ucrt\stdlib\imaxabs.cpp">
       <Filter>源文件\WinXP</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ltl\debug_heap.cpp">
+      <Filter>源文件\ltl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\convert\isctype.cpp">
+      <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

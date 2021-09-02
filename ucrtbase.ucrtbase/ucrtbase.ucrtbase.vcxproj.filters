@@ -13,11 +13,19 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="源文件\ltl">
+      <UniqueIdentifier>{47dc5db3-6884-4d3f-a696-05bbaae35559}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="..\Sources\ltl\debug_heap.cpp">
+      <Filter>源文件\ltl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ucrt\misc\invalid_parameter.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="$(SymbolsTestCppPath)" />
+    <ClCompile Include="..\Sources\ucrt\convert\isctype.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

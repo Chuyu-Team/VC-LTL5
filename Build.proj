@@ -25,11 +25,11 @@
 
   <ItemGroup>
     <ProjectReferenceWork Include="$(MSBuildThisFileDirectory)vcruntime.msvcrt\vcruntime.msvcrt.vcxproj" OutItemName="ProjectReference"/>
-    
     <ProjectReferenceWork Include="$(MSBuildThisFileDirectory)ucrtbase.msvcrt\ucrtbase.msvcrt.vcxproj" OutItemName="ProjectReference"/>
     
     <ProjectReferenceWork Include="$(MSBuildThisFileDirectory)vcruntime.ucrtbase\vcruntime.ucrtbase.vcxproj" OutItemName="ProjectReference"/>
-    
+    <ProjectReferenceWork Include="$(MSBuildThisFileDirectory)ucrtbase.ucrtbase\ucrtbase.ucrtbase.vcxproj" OutItemName="ProjectReference"/>
+
     <ProjectReferenceWork Include="$(MSBuildThisFileDirectory)vccorlib.wincorlib\vccorlib.wincorlib.vcxproj" OutItemName="ProjectReference"/>
   </ItemGroup>
   

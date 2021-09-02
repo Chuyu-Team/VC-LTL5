@@ -44,8 +44,8 @@ static size_t __cdecl common_mbstrlen_l(
 	}
 
     _ASSERTE(
-        locale_update.GetLocaleT()->locinfo->_public._locale_mb_cur_max == 1 ||
-        locale_update.GetLocaleT()->locinfo->_public._locale_mb_cur_max == 2);
+        _locale_mb_cur_max == 1 ||
+        _locale_mb_cur_max == 2);
 
     // Handle single byte character sets:
     if (_locale_mb_cur_max == 1)

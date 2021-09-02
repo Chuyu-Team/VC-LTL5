@@ -42,15 +42,15 @@ extern "C" int __cdecl _mblen_l(
     }
 
     _ASSERTE(
-        locale_update.GetLocaleT()->locinfo->_public._locale_mb_cur_max == 1 ||
-        locale_update.GetLocaleT()->locinfo->_public._locale_mb_cur_max == 2);
+        locale->locinfo->_public._locale_mb_cur_max == 1 ||
+        locale->locinfo->_public._locale_mb_cur_max == 2);
 
     if (_isleadbyte_l(static_cast<unsigned char>(*string), locale))
     {
-        _ASSERTE(locale_update.GetLocaleT()->locinfo->_public._locale_lc_codepage != CP_UTF8 && L"UTF-8 isn't supported in this _mblen_l function yet!!!");
+        _ASSERTE(locale->locinfo->_public._locale_lc_codepage != CP_UTF8 && L"UTF-8 isn't supported in this _mblen_l function yet!!!");
 
         // If this is a lead byte, then the codepage better be a multibyte codepage
-        _ASSERTE(locale_update.GetLocaleT()->locinfo->_public._locale_mb_cur_max > 1);
+        _ASSERTE(locale->locinfo->_public._locale_mb_cur_max > 1);
 
         // Multi-byte character; verify that it is valid:
         if (locale->locinfo->_locale_mb_cur_max <= 1)

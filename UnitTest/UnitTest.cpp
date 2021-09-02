@@ -2,6 +2,8 @@
 #include "CppUnitTest.h"
 #include <winnt.h>
 
+#pragma comment(lib, "ntdll.lib")
+
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 void EndianChange(const byte* Src, byte* Dst, size_t cData)
@@ -108,7 +110,27 @@ typedef struct
 
 }SecondSec;
 
+class DllImportInfo
+{
+public:
+	CStringA DllName;
+	//所有CRT导入都是名称导入，所以我们直接把序号导入丢弃！
+	std::vector<CStringA> ImportNames;
 
+	DllImportInfo()
+	{
+	}
+
+	DllImportInfo(const DllImportInfo& value) = default;
+
+	DllImportInfo(DllImportInfo&& value)
+		: DllName(value.DllName)
+		, ImportNames(std::move(value.ImportNames))
+	{
+		value.DllName.Empty();
+	}
+
+};
 
 
 namespace UnitTest
@@ -117,69 +139,296 @@ namespace UnitTest
 	{
 	public:
 		
-		TEST_METHOD(vcruntime所有符号可以被链接)
+		TEST_METHOD(vcruntime_msvcrt模式所有符号可以被链接)
 		{
 			TestLib(
 				VCToolsInstallDir LR"(lib\x86\vcruntime.lib)",
 				L"vcruntime",
 				L"Win32",
 				{ L"Dynamic", L"Static" },
-				{ L"5.1.2600.0", L"6.0.6000.0", L"6.2.9200.0", L"10.0.10240.0", L"10.0.19041.0" });
+				{ L"5.1.2600.0", L"6.0.6000.0", L"6.2.9200.0" },
+				{ "vcruntime", "ucrtbase" }
+				);
+
 
 			TestLib(
 				VCToolsInstallDir LR"(lib\x64\vcruntime.lib)",
 				L"vcruntime",
 				L"x64",
 				{ L"Dynamic", L"Static" },
-				{ L"5.2.3790.0", L"6.0.6000.0", L"6.2.9200.0", L"10.0.10240.0", L"10.0.19041.0" });
+				{ L"5.2.3790.0", L"6.0.6000.0", L"6.2.9200.0" },
+				{ "vcruntime", "ucrtbase" }
+				);
+
 			
 			TestLib(
 				VCToolsInstallDir LR"(lib\arm\vcruntime.lib)",
 				L"vcruntime",
 				L"arm",
 				{ L"Dynamic", L"Static" },
-				{ L"6.2.9200.0", L"10.0.10240.0", L"10.0.19041.0" });
+				{ L"6.2.9200.0" },
+				{ "vcruntime", "ucrtbase" }
+				);
+		}
+		
+		TEST_METHOD(vcruntime_msvcrt_Debug模式所有符号可以被链接)
+		{
+			TestLib(
+				VCToolsInstallDir LR"(lib\x86\vcruntimed.lib)",
+				L"vcruntime",
+				L"Win32",
+				{ L"DDynamic", L"DStatic" },
+				{ L"5.1.2600.0", L"6.0.6000.0", L"6.2.9200.0" },
+				{ "vcruntime", "ucrtbase" }
+				);
+
+
+			TestLib(
+				VCToolsInstallDir LR"(lib\x64\vcruntimed.lib)",
+				L"vcruntime",
+				L"x64",
+				{ L"DDynamic", L"DStatic" },
+				{ L"5.2.3790.0", L"6.0.6000.0", L"6.2.9200.0" },
+				{ "vcruntime", "ucrtbase" }
+				);
+
+			
+			TestLib(
+				VCToolsInstallDir LR"(lib\arm\vcruntimed.lib)",
+				L"vcruntime",
+				L"arm",
+				{ L"DDynamic", L"DStatic" },
+				{ L"6.2.9200.0" },
+				{ "vcruntime", "ucrtbase" }
+				);
+		}
+
+		TEST_METHOD(vcruntime_ucrt模式所有符号可以被链接)
+		{
+			TestLib(
+				VCToolsInstallDir LR"(lib\x86\vcruntime.lib)",
+				L"vcruntime",
+				L"Win32",
+				{ L"Dynamic", L"Static" },
+				{ L"10.0.10240.0", L"10.0.19041.0" },
+				{ "vcruntime", "ucrtbased", "msvcrt" }
+				);
+
+			TestLib(
+				VCToolsInstallDir LR"(lib\x64\vcruntime.lib)",
+				L"vcruntime",
+				L"x64",
+				{ L"Dynamic", L"Static" },
+				{ L"10.0.10240.0", L"10.0.19041.0" },
+				{ "vcruntime", "ucrtbased", "msvcrt" }
+				);
+
+			TestLib(
+				VCToolsInstallDir LR"(lib\arm\vcruntime.lib)",
+				L"vcruntime",
+				L"arm",
+				{ L"Dynamic", L"Static" },
+				{ L"10.0.10240.0", L"10.0.19041.0" },
+				{ "vcruntime", "ucrtbased", "msvcrt" }
+				);
 
 			TestLib(
 				VCToolsInstallDir LR"(lib\arm64\vcruntime.lib)",
 				L"vcruntime",
 				L"arm64",
 				{ L"Dynamic", L"Static" },
-				{ L"10.0.10240.0", L"10.0.19041.0" });
+				{ L"10.0.10240.0", L"10.0.19041.0" },
+				{ "vcruntime", "ucrtbased", "msvcrt" }
+				);
+		}
+		TEST_METHOD(vcruntime_ucrt_debug所有符号可以被链接)
+		{
+			TestLib(
+				VCToolsInstallDir LR"(lib\x86\vcruntimed.lib)",
+				L"vcruntime",
+				L"Win32",
+				{ L"DDynamic", L"DStatic" },
+				{ L"10.0.10240.0", L"10.0.19041.0" },
+				{ "vcruntime", "ucrtbased", "msvcrt" }
+				);
+
+			TestLib(
+				VCToolsInstallDir LR"(lib\x64\vcruntimed.lib)",
+				L"vcruntime",
+				L"x64",
+				{ L"DDynamic", L"DStatic" },
+				{ L"10.0.10240.0", L"10.0.19041.0" },
+				{ "vcruntime", "ucrtbased", "msvcrt" }
+				);
+			
+			TestLib(
+				VCToolsInstallDir LR"(lib\arm\vcruntimed.lib)",
+				L"vcruntime",
+				L"arm",
+				{ L"DDynamic", L"DStatic" },
+				{ L"10.0.10240.0", L"10.0.19041.0" },
+				{ "vcruntime", "ucrtbased", "msvcrt" }
+				);
+
+			TestLib(
+				VCToolsInstallDir LR"(lib\arm64\vcruntimed.lib)",
+				L"vcruntime",
+				L"arm64",
+				{ L"DDynamic", L"DStatic" },
+				{ L"10.0.10240.0", L"10.0.19041.0" },
+				{ "vcruntime", "ucrtbased", "msvcrt" }
+				);
 		}
 
-		TEST_METHOD(ucrt所有符号可以被链接)
+		TEST_METHOD(ucrt_msvcrt模式所有符号可以被链接)
 		{
 			TestLib(
 				CurrentUniversalCRTSdkDir LR"(ucrt\x86\ucrt.lib)",
 				L"ucrt",
 				L"Win32",
 				{ L"Dynamic", L"Static" },
-				{ L"5.1.2600.0", L"6.0.6000.0", L"6.2.9200.0", L"10.0.10240.0", L"10.0.19041.0" });
+				{ L"5.1.2600.0", L"6.0.6000.0", L"6.2.9200.0" },
+				{ "vcruntime", "ucrtbase" }
+				);
+
 
 			TestLib(
 				CurrentUniversalCRTSdkDir LR"(ucrt\x64\ucrt.lib)",
 				L"ucrt",
 				L"x64",
 				{ L"Dynamic", L"Static" },
-				{ L"5.2.3790.0", L"6.0.6000.0", L"6.2.9200.0", L"10.0.10240.0", L"10.0.19041.0" });
+				{ L"5.2.3790.0", L"6.0.6000.0", L"6.2.9200.0" },
+				{ "vcruntime", "ucrtbase" }
+				);
+
 
 			TestLib(
 				CurrentUniversalCRTSdkDir LR"(ucrt\arm\ucrt.lib)",
 				L"ucrt",
 				L"arm",
 				{ L"Dynamic", L"Static" },
-				{ L"6.2.9200.0", L"10.0.10240.0", L"10.0.19041.0" });
+				{ L"6.2.9200.0" },
+				{ "vcruntime", "ucrtbase" }
+				);
+		}
+				
+		TEST_METHOD(ucrt_msvcrt_Debug模式所有符号可以被链接)
+		{
+			TestLib(
+				CurrentUniversalCRTSdkDir LR"(ucrt\x86\ucrtd.lib)",
+				L"ucrt",
+				L"Win32",
+				{ L"DDynamic", L"DStatic" },
+				{ L"5.1.2600.0", L"6.0.6000.0", L"6.2.9200.0" },
+				{ "vcruntime", "ucrtbase" }
+				);
+
+
+			TestLib(
+				CurrentUniversalCRTSdkDir LR"(ucrt\x64\ucrtd.lib)",
+				L"ucrt",
+				L"x64",
+				{ L"DDynamic", L"DStatic" },
+				{ L"5.2.3790.0", L"6.0.6000.0", L"6.2.9200.0" },
+				{ "vcruntime", "ucrtbase" }
+				);
+
+
+			TestLib(
+				CurrentUniversalCRTSdkDir LR"(ucrt\arm\ucrtd.lib)",
+				L"ucrt",
+				L"arm",
+				{ L"DDynamic", L"DStatic" },
+				{ L"6.2.9200.0" },
+				{ "vcruntime", "ucrtbase" }
+				);
+		}
+
+		TEST_METHOD(ucrt_ucrt模式所有符号可以被链接)
+		{
+			TestLib(
+				CurrentUniversalCRTSdkDir LR"(ucrt\x86\ucrt.lib)",
+				L"ucrt",
+				L"Win32",
+				{ L"Dynamic", L"Static" },
+				{ L"10.0.10240.0", L"10.0.19041.0" },
+				{ "vcruntime", "ucrtbased", "msvcrt" }
+				);
+
+			TestLib(
+				CurrentUniversalCRTSdkDir LR"(ucrt\x64\ucrt.lib)",
+				L"ucrt",
+				L"x64",
+				{ L"Dynamic", L"Static" },
+				{ L"10.0.10240.0", L"10.0.19041.0" },
+				{ "vcruntime", "ucrtbased", "msvcrt" }
+				);
+
+			TestLib(
+				CurrentUniversalCRTSdkDir LR"(ucrt\arm\ucrt.lib)",
+				L"ucrt",
+				L"arm",
+				{ L"Dynamic", L"Static" },
+				{ L"10.0.10240.0", L"10.0.19041.0" },
+				{ "vcruntime", "ucrtbased", "msvcrt" }
+				);
 
 			TestLib(
 				CurrentUniversalCRTSdkDir LR"(ucrt\arm64\ucrt.lib)",
 				L"ucrt",
 				L"arm64",
 				{ L"Dynamic", L"Static" },
-				{ L"10.0.10240.0", L"10.0.19041.0" });
+				{ L"10.0.10240.0", L"10.0.19041.0" },
+				{ "vcruntime", "ucrtbased", "msvcrt" }
+				);
+		}
+		TEST_METHOD(ucrt_ucrt_Debug模式所有符号可以被链接)
+		{
+			TestLib(
+				CurrentUniversalCRTSdkDir LR"(ucrt\x86\ucrtd.lib)",
+				L"ucrt",
+				L"Win32",
+				{ L"DDynamic", L"DStatic" },
+				{ L"10.0.10240.0", L"10.0.19041.0" },
+				{ "vcruntime", "ucrtbased", "msvcrt" }
+				);
+
+			TestLib(
+				CurrentUniversalCRTSdkDir LR"(ucrt\x64\ucrtd.lib)",
+				L"ucrt",
+				L"x64",
+				{ L"DDynamic", L"DStatic" },
+				{ L"10.0.10240.0", L"10.0.19041.0" },
+				{ "vcruntime", "ucrtbased", "msvcrt" }
+				);
+
+			TestLib(
+				CurrentUniversalCRTSdkDir LR"(ucrt\arm\ucrtd.lib)",
+				L"ucrt",
+				L"arm",
+				{ L"DDynamic", L"DStatic" },
+				{ L"10.0.10240.0", L"10.0.19041.0" },
+				{ "vcruntime", "ucrtbased", "msvcrt" }
+				);
+			
+			TestLib(
+				CurrentUniversalCRTSdkDir LR"(ucrt\arm64\ucrtd.lib)",
+				L"ucrt",
+				L"arm64",
+				{ L"DDynamic", L"DStatic" },
+				{ L"10.0.10240.0", L"10.0.19041.0" },
+				{ "vcruntime", "ucrtbased", "msvcrt" }
+				);
 		}
 	private:
-		static LSTATUS TestLib(LPCWSTR SrcLibPath, LPCWSTR DstLibName, LPCWSTR szPlatform, std::initializer_list<LPCWSTR> szConfigurations, std::initializer_list<LPCWSTR> szWindowsTargetPlatformMinVersions)
+		static LSTATUS TestLib(
+			LPCWSTR SrcLibPath,
+			LPCWSTR DstLibName,
+			LPCWSTR szPlatform,
+			std::initializer_list<LPCWSTR> szConfigurations,
+			std::initializer_list<LPCWSTR> szWindowsTargetPlatformMinVersions,
+			std::initializer_list<LPCSTR> FaildDllList
+			)
 		{
 			auto&& Symbols = GetALlSymbols(SrcLibPath);
 
@@ -189,14 +438,22 @@ namespace UnitTest
 				{
 					auto&& ExclusionSymbols = GetIgnoreSymbolsList(DstLibName, szPlatform, szConfiguration, szWindowsTargetPlatformMinVersion);
 
-					TestSymbols(Symbols, ExclusionSymbols, DstLibName, szPlatform, szConfiguration, szWindowsTargetPlatformMinVersion);
+					TestSymbols(Symbols, ExclusionSymbols, DstLibName, szPlatform, szConfiguration, szWindowsTargetPlatformMinVersion, FaildDllList);
 				}
 			}
 
 			return ERROR_SUCCESS;
 		}
 
-		static LSTATUS TestSymbols(const std::vector<CStringA>& TestSymbols, const std::set<CStringA>& ExclusionSymbols, LPCWSTR DstLibName, LPCWSTR szPlatform, LPCWSTR szConfiguration, LPCWSTR szWindowsTargetPlatformMinVersion)
+		static LSTATUS TestSymbols(
+			const std::vector<CStringA>& TestSymbols,
+			const std::set<CStringA>& ExclusionSymbols,
+			LPCWSTR DstLibName,
+			LPCWSTR szPlatform,
+			LPCWSTR szConfiguration,
+			LPCWSTR szWindowsTargetPlatformMinVersion,
+			std::initializer_list<LPCSTR> FaildDllList
+			)
 		{
 			Assert::AreNotEqual(TestSymbols.size(), size_t(0));
 
@@ -225,7 +482,7 @@ namespace UnitTest
 			}
 
 
-			auto SymbolsTest = BuildRefCPPCode(TestSymbols, Machine, ExclusionSymbols, wcsicmp(szConfiguration, L"Static") == 0);
+			auto SymbolsTest = BuildRefCPPCode(TestSymbols, Machine, ExclusionSymbols, StrStrIW(szConfiguration, L"Static") != nullptr);
 
 			CString SymbolsTestCppRootPath = SymbolBuildTestPath;
 			SymbolsTestCppRootPath += L".test\\";
@@ -245,7 +502,7 @@ namespace UnitTest
 
 			;
 
-			auto lStatus = CreateFileByData(SymbolsTestCppRootPath + L"SymbolsTest.cpp", SymbolsTest.GetString(), SymbolsTest.GetLength());
+			auto lStatus = CreateFileByData(SymbolsTestCppRootPath + L"SymbolsTest.h", SymbolsTest.GetString(), SymbolsTest.GetLength());
 
 			Assert::AreEqual(lStatus, ERROR_SUCCESS, SymbolsTestCppRootPath + L"无法创建");
 
@@ -285,6 +542,25 @@ namespace UnitTest
 				Assert::AreEqual(OutString.Find(Warning), -1, CString(L"出现了") + Warning + L"\r\n" + BuildLog);
 			}
 
+
+			//测试导入表是否符合预期
+			auto && DllImportInfos = GetDllImportInfo(SymbolsTestCppRootPath + L"SymbolBuildTest.exe");
+
+			for (auto FaildDllName : FaildDllList)
+			{
+				for (auto& Item : DllImportInfos)
+				{
+					if (StrStrIA(Item.DllName, FaildDllName))
+					{
+						CStringW Error;
+
+						Error.Format(L"超出预期的导入！%hs     ", Item.DllName.GetString());
+
+
+						Assert::Fail(Error + BuildLog);
+					}
+				}
+			}
 
 
 			return lStatus;
@@ -353,40 +629,11 @@ namespace UnitTest
 		{
 			CStringA CCode;
 
-			CCode += "#pragma warning(disable : 4483)\r\n"
-				     "namespace SymbolsTest {\r\n";
+			//CCode += "#pragma warning(disable : 4483)\r\n"
+			//	     "namespace SymbolsTest {\r\n";
 
 
-
-			for (auto& Symbol : Symbols)
-			{
-				//忽略所有 IAT
-				if (IgnoreIAT && strncmp(Symbol, "__imp_", 5) == 0)
-					continue;
-
-				if (ExclusionSymbols.find(Symbol) != ExclusionSymbols.end())
-					continue;
-
-				//首先展开所有的声明
-				//extern void* __identifier(_CRT_STRINGIZE_(NAME));
-
-				CCode += "extern \"C\" extern void* __identifier(\"";
-
-				auto szSymbol = Symbol.GetString();
-
-				if (Machine == IMAGE_FILE_MACHINE_I386 && szSymbol[0] == '_')
-				{
-					++szSymbol;
-				}
-				
-				CCode += szSymbol;
-
-				CCode += "\");\r\n";
-			}
-
-			CCode += "\r\n\r\n"
-				     "extern \"C\" void SymbolsTest()\r\n"
-				     "{\r\n";
+			//_CrtCheckMemory
 
 			for (auto& Symbol : Symbols)
 			{
@@ -396,24 +643,11 @@ namespace UnitTest
 
 				if (ExclusionSymbols.find(Symbol) != ExclusionSymbols.end())
 					continue;
+
+				CCode += "#pragma comment(linker, \"/include:" + Symbol + "\")\r\n";
 				
-				//&__identifier(_CRT_STRINGIZE_(NAME));
-
-				CCode += "&__identifier(\"";
-				auto szSymbol = Symbol.GetString();
-
-				if (Machine == IMAGE_FILE_MACHINE_I386 && szSymbol[0] == '_')
-				{
-					++szSymbol;
-				}
-
-				CCode += szSymbol;
-
-				CCode += "\");\r\n";
 			}
 
-			CCode += "}"
-			         "}";
 			return CCode;
 		}
 
@@ -549,6 +783,12 @@ namespace UnitTest
 			InnoreListPath += L'\\';
 			InnoreListPath += DstLibName;
 			InnoreListPath += L'.';
+
+			if (wcsicmp(szConfiguration, L"ddynamic") == 0)
+				szConfiguration = L"dynamic";
+			else if (wcsicmp(szConfiguration, L"dstatic") == 0)
+				szConfiguration = L"static";
+
 			InnoreListPath += szConfiguration;
 			InnoreListPath += L".ignore.txt";
 
@@ -580,5 +820,186 @@ namespace UnitTest
 			return ExclusionSymbols;
 		}
 
+		template<class IMAGE_THUNK_DATA_T>
+		static void BuildProcNames(PVOID pBase, PIMAGE_NT_HEADERS  pNtHeader, IMAGE_THUNK_DATA_T* pThunkData, std::vector<CStringA>& ProcNames)
+		{
+			for (; pThunkData->u1.AddressOfData; ++pThunkData)
+			{
+				if (pThunkData->u1.AddressOfData >> ((sizeof(pThunkData->u1.AddressOfData) * 8) - 1))
+				{
+					//不支持序号，直接忽略即可
+					//Ordinal.insert(pThunkData->u1.Ordinal & 0xffff);
+				}
+				else if (auto pImportByName = (PIMAGE_IMPORT_BY_NAME)YY::RtlImageRvaToVa(pNtHeader, pBase, pThunkData->u1.AddressOfData, NULL))
+				{
+					ProcNames.push_back(pImportByName->Name);
+				}
+				else
+				{
+					CStringW Error;
+					Error.Format(L"Error：无法加载偏移 %I64X /?\n", (long long)pThunkData->u1.AddressOfData);
+
+					Assert::Fail(Error);
+				}
+			}
+		}
+
+#define IMAGE_FIRST_DIRECTORY(ntheader) (IMAGE_DATA_DIRECTORY*)((byte*)IMAGE_FIRST_SECTION(ntheader)-sizeof(IMAGE_DATA_DIRECTORY)*IMAGE_NUMBEROF_DIRECTORY_ENTRIES)
+
+		template<class IMAGE_THUNK_DATA_T>
+		static void BuildImport(PVOID pBase, PIMAGE_NT_HEADERS  pNtHeader, std::vector<DllImportInfo>& Infos)
+		{
+			auto pDirectorys = IMAGE_FIRST_DIRECTORY(pNtHeader);
+
+			auto& Imort = pDirectorys[IMAGE_DIRECTORY_ENTRY_IMPORT];
+
+			auto pImport = (IMAGE_IMPORT_DESCRIPTOR*)YY::RtlImageRvaToVa(pNtHeader, pBase, Imort.VirtualAddress, NULL);
+
+			if (!pImport)
+			{
+				Assert::AreNotEqual((void*)pImport, (void*)nullptr);
+				return;
+			}
+
+			for (; pImport->Name; ++pImport)
+			{
+				auto DllName = (const char*)YY::RtlImageRvaToVa(pNtHeader, pBase, pImport->Name, NULL);
+
+				Assert::AreNotEqual(DllName, nullptr);
+
+				if (!DllName)
+				{
+					continue;
+				}
+
+				DllImportInfo Info;
+				Info.DllName = DllName;
+
+				auto pThunkData = (IMAGE_THUNK_DATA_T*)YY::RtlImageRvaToVa(pNtHeader, pBase, pImport->OriginalFirstThunk, NULL);
+
+				Assert::AreNotEqual((void*)pThunkData, (void*)nullptr);
+
+				if (!pThunkData)
+				{
+					//wprintf(L"Error：程序无法读取 dllname = %S OriginalFirstThunk Rva= 0x%.8X。\n", DllName, pImport->OriginalFirstThunk);
+
+					continue;
+				}
+
+
+				BuildProcNames(pBase, pNtHeader, pThunkData, Info.ImportNames);
+
+				Infos.push_back(std::move(Info));
+
+			}
+		}
+
+		template<class IMAGE_THUNK_DATA_T>
+		static void BuildDelayImport(PVOID pBase, PIMAGE_NT_HEADERS  pNtHeader, std::vector<DllImportInfo>& Infos)
+		{
+			auto pDirectorys = IMAGE_FIRST_DIRECTORY(pNtHeader);
+
+			auto& Imort = pDirectorys[IMAGE_DIRECTORY_ENTRY_DELAY_IMPORT];
+
+			if (Imort.VirtualAddress == 0)
+				return;
+
+			auto pImport = (IMAGE_DELAYLOAD_DESCRIPTOR*)YY::RtlImageRvaToVa(pNtHeader, pBase, Imort.VirtualAddress, NULL);
+
+			Assert::AreNotEqual((void*)pImport, (void*)nullptr);
+
+			if (!pImport)
+			{
+				//wprintf(L"Warning：无法加载导入表。\n");
+				return;
+			}
+
+			for (; pImport->DllNameRVA; ++pImport)
+			{
+				auto DllName = (const char*)YY::RtlImageRvaToVa(pNtHeader, pBase, pImport->DllNameRVA, NULL);
+
+				Assert::AreNotEqual(DllName, nullptr);
+
+				if (!DllName)
+				{
+					//wprintf(L"Error：程序无法读取 Rva= 0x%.8X。\n", pImport->DllNameRVA);
+
+					continue;
+				}
+
+				DllImportInfo Info;
+				Info.DllName = DllName;
+				
+
+				auto pThunkData = (IMAGE_THUNK_DATA_T*)YY::RtlImageRvaToVa(pNtHeader, pBase, pImport->ImportNameTableRVA, NULL);
+
+				Assert::AreNotEqual((void*)pThunkData, (void*)nullptr);
+
+				if (!pThunkData)
+				{
+					//wprintf(L"Error：程序无法读取 dllname = %S OriginalFirstThunk Rva= 0x%.8X。\n", DllName, pImport->ImportNameTableRVA);
+
+					continue;
+				}
+
+				BuildProcNames(pBase, pNtHeader, pThunkData, Info.ImportNames);
+
+				Infos.push_back(std::move(Info));
+
+			}
+		}
+
+		static std::vector<DllImportInfo> GetDllImportInfo(LPCWSTR szWin32PEFilePath)
+		{
+			std::vector<DllImportInfo> Infos;
+
+			PVOID pBase = nullptr;
+
+			do
+			{
+				auto hFile = CreateFileW(szWin32PEFilePath, GENERIC_READ, FILE_SHARE_READ | FILE_SHARE_DELETE, NULL, OPEN_EXISTING, 0, 0);
+
+				if (hFile == INVALID_HANDLE_VALUE)
+				{
+					break;
+				}
+
+				auto hMap = CreateFileMappingW(hFile, NULL, PAGE_READONLY, 0, 0, NULL);
+				if (hMap != NULL)
+				{
+					pBase = (PVOID)MapViewOfFile(hMap, FILE_MAP_READ, 0, 0, 0);
+
+					CloseHandle(hMap);
+				}
+				
+				CloseHandle(hFile);
+				
+			} while (false);
+
+			if (pBase == nullptr)
+				return Infos;
+
+
+			auto pNtHeader = YY::RtlImageNtHeader((PVOID)pBase);
+
+			switch (pNtHeader->FileHeader.Machine)
+			{
+			case IMAGE_FILE_MACHINE_I386:
+			case IMAGE_FILE_MACHINE_ARMNT:
+				BuildImport<IMAGE_THUNK_DATA32>(pBase, pNtHeader, Infos);
+				BuildDelayImport<IMAGE_THUNK_DATA32>(pBase, pNtHeader, Infos);
+				break;
+			case IMAGE_FILE_MACHINE_AMD64:
+			case IMAGE_FILE_MACHINE_ARM64:
+				BuildImport<IMAGE_THUNK_DATA64>(pBase, pNtHeader, Infos);
+				BuildDelayImport<IMAGE_THUNK_DATA64>(pBase, pNtHeader, Infos);
+				break;
+			default:
+				Assert::Fail();
+				break;
+			}
+
+			return Infos;
+		}
 	};
 }

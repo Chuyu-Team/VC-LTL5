@@ -6,6 +6,10 @@
 
 #ifndef PCH_H
 #define PCH_H
+#define UMDF_USING_NTSTATUS
+#define WIN32_LEAN_AND_MEAN             // 从 Windows 头文件中排除极少使用的内容
+
+#include "..\Sources\crt\km.h"
 
 // 添加要在此处预编译的标头
 #include <Windows.h>

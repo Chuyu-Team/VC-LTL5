@@ -43,9 +43,6 @@
 
     <!--VC-LTL仅支持x86、x64、arm、arm64-->
     <VCLTLSupportPlatform Condition="('$(Platform)'=='Win32') Or ('$(Platform)'=='x64') Or ('$(Platform)'=='arm') Or ('$(Platform)'=='arm64')">true</VCLTLSupportPlatform>
-
-    <!--检测是否是Debug编译-->
-    <VCLTLUseDebugLibraries Condition="('$(UseDebugLibraries)'=='true') Or ('$(Configuration)'=='Debug')">true</VCLTLUseDebugLibraries>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -102,7 +99,7 @@
     <LTL_Mode Condition=" '$(DisableAdvancedSupport)'=='true' ">Light</LTL_Mode>
     <LTL_Mode Condition=" '$(DisableAdvancedSupport)'!='true' ">Advanced</LTL_Mode>
 
-    <SupportLTL Condition="('$(SupportLTL)'!='false') And (('$(DriverTargetPlatform)'=='Universal') Or ('$(VCLTLSupportPlatformToolset)' != 'true') Or ('$(VCLTLUseDebugLibraries)'=='true'))">false</SupportLTL>
+    <SupportLTL Condition="('$(SupportLTL)'!='false') And (('$(DriverTargetPlatform)'=='Universal') Or ('$(VCLTLSupportPlatformToolset)' != 'true'))">false</SupportLTL>
     <SupportLTL Condition="('$(SupportLTL)'=='') And ('$(VCLTLSupportPlatform)'=='true')">true</SupportLTL>
 
     <SupportWinXP Condition=" ('$(SupportWinXP)'=='') And ('$(VCLTLSupportPlatformToolsetWinXP)'=='true')">true</SupportWinXP>
@@ -176,7 +173,9 @@
   WindowsTargetPlatformMinVersion : $(LTLWindowsTargetPlatformMinVersion)
   Platform         : $(Platform)
 " Importance="high" Condition="('$(SupportLTL)'=='true') Or ('$(SupportLTL)'=='ucrt')"/>
+    <!--
     <Warning Code="LTL2000" Text="$(ERROR_VC_LTL_NOT_SUPPORT_DEBUG)" Condition="'$(UseDebugLibraries)'=='true'" />
+    -->
     <!--
     <Warning Code="LTL2001" Text="$(ERROR_VC_LTL_NOT_SUPPORT_MFC)" Condition="'$(UseOfMFC)'!='false'" />
     -->

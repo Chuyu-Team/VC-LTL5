@@ -80,8 +80,8 @@ extern "C" int __cdecl _mbtowc_l(
         return result;
     }
 
-    _ASSERTE(_loc_update.GetLocaleT()->locinfo->_public._locale_mb_cur_max == 1 ||
-             _loc_update.GetLocaleT()->locinfo->_public._locale_mb_cur_max == 2);
+    _ASSERTE(plocinfo->locinfo->_public._locale_mb_cur_max == 1 ||
+             plocinfo->locinfo->_public._locale_mb_cur_max == 2);
 
     if (plocinfo->locinfo->lc_handle[LC_CTYPE] == 0)
     {
@@ -92,11 +92,11 @@ extern "C" int __cdecl _mbtowc_l(
 
     if (_isleadbyte_l((unsigned char) *s, plocinfo))
     {
-        _ASSERTE(_loc_update.GetLocaleT()->locinfo->_public._locale_lc_codepage != CP_UTF8 && L"UTF-8 isn't supported in this _mbtowc_l function yet!!!");
+        _ASSERTE(plocinfo->locinfo->_public._locale_lc_codepage != CP_UTF8 && L"UTF-8 isn't supported in this _mbtowc_l function yet!!!");
 
         /* multi-byte char */
         // If this is a lead byte, then the codepage better be a multibyte codepage
-        _ASSERTE(_loc_update.GetLocaleT()->locinfo->_public._locale_mb_cur_max > 1);
+        _ASSERTE(plocinfo->locinfo->_public._locale_mb_cur_max > 1);
 
         if ((plocinfo->locinfo->_locale_mb_cur_max <= 1) || ((int) n < plocinfo->locinfo->_locale_mb_cur_max) ||
             (__acrt_MultiByteToWideChar(plocinfo->locinfo->_locale_lc_codepage,

@@ -509,6 +509,24 @@ typedef struct __crt_multibyte_data
 
 typedef struct __crt_locale_data
 {
+#if WindowsTargetPlatformMinVersion > WindowsTargetPlatformWindows10_10240
+    __crt_locale_data_public  _public;
+    long                      refcount;
+    unsigned int              lc_collate_cp;
+    unsigned int              lc_time_cp;
+    int                       lc_clike;
+    __crt_locale_refcount     lc_category[6];
+    long* lconv_intl_refcount;
+    long* lconv_num_refcount;
+    long* lconv_mon_refcount;
+    struct lconv* lconv;
+    long* ctype1_refcount;
+    unsigned short* ctype1;
+    unsigned char const* pclmap;
+    unsigned char const* pcumap;
+    __crt_lc_time_data const* lc_time_curr;
+    wchar_t* locale_name[6];
+#else
     union
     {
         __crt_locale_data_public  _public;
@@ -544,7 +562,7 @@ typedef struct __crt_locale_data
             struct __crt_lc_time_data* lc_time_curr;
         };
     };
-
+#endif
 } __crt_locale_data, _locale_data_msvcrt;
 
 // Unusual: < 0 => string length
@@ -982,7 +1000,7 @@ __inline int __CRTDECL __acrt_isleadbyte_l_noupdate(
     _In_ _locale_t const locale
     )
 {
-    return __acrt_locale_get_ctype_array_value(locale ? locale->locinfo->_locale_pctype : __pctype_func(), c, _LEADBYTE);
+    return __acrt_locale_get_ctype_array_value(locale ? locale->locinfo->_public._locale_pctype : __pctype_func(), c, _LEADBYTE);
 }
 
 
@@ -2385,7 +2403,7 @@ _Check_return_ __forceinline unsigned short __cdecl _ctype_fast_check_internal(
     _In_ _locale_t const     locale
     )
 {
-	unsigned short const* _locale_pctype = locale ? locale->locinfo->_locale_pctype : __pctype_func();
+	unsigned short const* _locale_pctype = locale ? locale->locinfo->_public._locale_pctype : __pctype_func();
     return _locale_pctype[c] & _Mask;
 }
 

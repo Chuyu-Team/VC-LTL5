@@ -7,10 +7,15 @@
 //
 #include <corecrt_internal.h>
 
-
+#if WindowsTargetPlatformMinVersion >= WindowsTargetPlatformWindows10_10240
+#define __acrt_invalid_parameter_handler _get_invalid_parameter_handler()
+#else
 static _invalid_parameter_handler __acrt_invalid_parameter_handler = nullptr;
+#endif
 
-#if WindowsTargetPlatformMinVersion >= WindowsTargetPlatformWindows6
+#if WindowsTargetPlatformMinVersion >= WindowsTargetPlatformWindows10_10240
+#define _thread_local_iph _get_thread_local_invalid_parameter_handler()
+#elif WindowsTargetPlatformMinVersion >= WindowsTargetPlatformWindows6
 static thread_local _invalid_parameter_handler _thread_local_iph;
 #else
 #include <ptd_downlevel.h>
@@ -107,7 +112,7 @@ extern "C" void __cdecl _invalid_parameter(
         return;
     }
 
-    auto& global_handler = __acrt_invalid_parameter_handler;
+    auto global_handler = __acrt_invalid_parameter_handler;
     if (global_handler)
     {
         global_handler(expression, function_name, file_name, line_number, reserved);
@@ -117,6 +122,10 @@ extern "C" void __cdecl _invalid_parameter(
     _invoke_watson(expression, function_name, file_name, line_number, reserved);
 }
 
+#ifdef _DEBUG
+_LCRT_DEFINE_IAT_SYMBOL(_invalid_parameter);
+#endif
+
 //EXTERN_C _ACRTIMP void __cdecl _invalid_parameter(
 //        _In_opt_z_ wchar_t const*,
 //        _In_opt_z_ wchar_t const*,
@@ -125,16 +134,19 @@ extern "C" void __cdecl _invalid_parameter(
 //        _In_       uintptr_t
 //        );
 
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
 extern "C" void __cdecl _invalid_parameter_noinfo()
 {
     _invalid_parameter(nullptr, nullptr, nullptr, 0, 0);
 }
 
 _LCRT_DEFINE_IAT_SYMBOL(_invalid_parameter_noinfo);
+#endif
 
 // This is used by inline code in the C++ Standard Library and the SafeInt
 // library.  Because it is __declspec(noreturn), the compiler can better
 // optimize use of the invalid parameter handler for inline code.
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
 extern "C" __declspec(noreturn) void __cdecl _invalid_parameter_noinfo_noreturn()
 {
     _invalid_parameter(nullptr, nullptr, nullptr, 0, 0);
@@ -142,13 +154,15 @@ extern "C" __declspec(noreturn) void __cdecl _invalid_parameter_noinfo_noreturn(
 }
 
 _LCRT_DEFINE_IAT_SYMBOL(_invalid_parameter_noinfo_noreturn);
-
+#endif
 
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 //
 // _invoke_watson
 //
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
+
 #if (defined _M_IX86 || defined _M_X64) && !defined _UCRT_ENCLAVE_BUILD
 
     extern "C" void __cdecl __acrt_call_reportfault(
@@ -271,29 +285,32 @@ _LCRT_DEFINE_IAT_SYMBOL(_invalid_parameter_noinfo_noreturn);
 #endif
 
     _LCRT_DEFINE_IAT_SYMBOL(_invoke_watson);
-
+#endif //WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
 
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 //
 // Handler Accessors
 //
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
 extern "C" _invalid_parameter_handler __cdecl _set_invalid_parameter_handler(_invalid_parameter_handler const new_handler)
 {
 	return __crt_interlocked_exchange_pointer(&__acrt_invalid_parameter_handler, new_handler);
 }
 
 _LCRT_DEFINE_IAT_SYMBOL(_set_invalid_parameter_handler);
+#endif
 
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
 extern "C" _invalid_parameter_handler __cdecl _get_invalid_parameter_handler()
 {
     return __acrt_invalid_parameter_handler;
 }
 
 _LCRT_DEFINE_IAT_SYMBOL(_get_invalid_parameter_handler);
+#endif
 
-
-
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
 extern "C" _invalid_parameter_handler __cdecl _set_thread_local_invalid_parameter_handler(_invalid_parameter_handler const new_handler)
 {
     _invalid_parameter_handler const old_handler = _thread_local_iph;
@@ -302,10 +319,13 @@ extern "C" _invalid_parameter_handler __cdecl _set_thread_local_invalid_paramete
 }
 
 _LCRT_DEFINE_IAT_SYMBOL(_set_thread_local_invalid_parameter_handler);
+#endif
 
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
 extern "C" _invalid_parameter_handler __cdecl _get_thread_local_invalid_parameter_handler()
 {
     return _thread_local_iph;
 }
 
 _LCRT_DEFINE_IAT_SYMBOL(_get_thread_local_invalid_parameter_handler);
+#endif

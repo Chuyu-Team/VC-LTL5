@@ -367,6 +367,8 @@ FodyWeavers.xsd
 *.idb
 *.i64
 
+DDynamic/
+DStatic/
 Dynamic/
 Static/
 .test/
