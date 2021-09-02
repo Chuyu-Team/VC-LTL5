@@ -82,9 +82,9 @@ If you need to use the heap debugging, please disable VC-LTL.
 ### 2.3. Supported Build Tools
 |   Build Tool   | Helper      
 | -------------- | --
-| Visual Studio  | [VC-LTL helper for Visual Studio.props](#32-using-vc-ltl-in-visual-studio)
-| CMake          | [VC-LTL helper for cmake.cmake](#33-using-vc-ltl-in-cmake)
-| NMake, CL      | [VC-LTL helper for nmake.cmd](#34-using-vc-ltl-in-nmakecl)
+| Visual Studio  | [VC-LTL helper for Visual Studio.props](#31-using-vc-ltl-in-visual-studio)
+| CMake          | [VC-LTL helper for cmake.cmake](#32-using-vc-ltl-in-cmake)
+| NMake, CL      | [VC-LTL helper for nmake.cmd](#33-using-vc-ltl-in-nmakecl)
 | QMake          | VC-LTL helper for qmake.pri
 
 ### 2.4. Supported Windows Versions
@@ -203,5 +203,5 @@ Is the file size smaller? If you fail to compile, please refer to [4. FAQ](#4-fa
 * VC-LTL的Debug模式不支持堆调试功能，如果您需要使用这些功能，可以针对Debug配置关闭VC-LTL。
 
 ## Excursus - Third Party Licenses
-* [Visual Studio](https://gitee.com/Chuyu-Team/VC-LTL5/tree/master/ThirdPartyLicenses/Visual Studio)
-* [Windows 10 SDK](https://gitee.com/Chuyu-Team/VC-LTL5/tree/master/ThirdPartyLicenses/Windows 10 SDK)
+* [Visual Studio](https://github.com/Chuyu-Team/VC-LTL5/tree/master/ThirdPartyLicenses/Visual%20Studio)
+* [Windows 10 SDK](https://github.com/Chuyu-Team/VC-LTL5/tree/master/ThirdPartyLicenses/Windows%2010%20SDK)

@@ -74,9 +74,9 @@ VC-LTL 5.0开始，ABI与微软原版`兼容`，您可以直接使用现有的�
 ### 2.3. 支持的编译工具
 |    编译工具    | 支持文件
 | -------------- | --
-| Visual Studio  | [VC-LTL helper for Visual Studio.props](#32-在visual-studio中使用vc-ltl)
-| CMake          | [VC-LTL helper for cmake.cmake](#33-在cmake中使用vc-ltl)
-| NMake、CL      | [VC-LTL helper for nmake.cmd](#34-在nmake纯cl中使用vc-ltl)
+| Visual Studio  | [VC-LTL helper for Visual Studio.props](#31-在visual-studio中使用vc-ltl)
+| CMake          | [VC-LTL helper for cmake.cmake](#32-在cmake中使用vc-ltl)
+| NMake、CL      | [VC-LTL helper for nmake.cmd](#33-在nmake纯cl中使用vc-ltl)
 | QMake          | VC-LTL helper for qmake.pri
 
 ### 2.4. 支持的操作系统
@@ -97,6 +97,9 @@ VC-LTL 5.0开始，ABI与微软原版`兼容`，您可以直接使用现有的�
 ## 3. 使用方法
 下面我们将进入主题，我们给大家准备了丰富的[VC-LTL示例](https://github.com/Chuyu-Team/vc-ltl-samples)供大家参考，也欢迎加入我们的QQ群（633710173）。
 
+
+### 3.1. 在Visual Studio中使用VC-LTL
+
 #### 3.1.1. 引用VC-LTL
 
 ##### 3.1.1.1. 通过NuGet引用（推荐）
@@ -106,7 +109,7 @@ VC-LTL 5.0开始，ABI与微软原版`兼容`，您可以直接使用现有的�
 ![InstallByNuGet](https://raw.githubusercontent.com/wiki/Chuyu-Team/VC-LTL/zh-Hans/image/InstallByNuGet.png)
 
 ##### 3.1.1.2. 通过注册表引用
-假如，你将[VC-LTL Binary](https://gitee.com/Chuyu-Team/VC-LTL5/releases)下载并解压至`D:\Src\VC-LTL`（具体位置无任何要求），双击`D:\Src\VC-LTL\Install.cmd`即可。
+假如，你将[VC-LTL Binary](https://github.com/Chuyu-Team/VC-LTL5/releases/latest)下载并解压至`D:\Src\VC-LTL`（具体位置无任何要求），双击`D:\Src\VC-LTL\Install.cmd`即可。
 
 > 脚本会在`HKCU\Code\VC-LTL`创建注册表。
 
@@ -123,7 +126,7 @@ VC-LTL 5.0开始，ABI与微软原版`兼容`，您可以直接使用现有的�
 
 ### 3.2. 在CMake中使用VC-LTL
 
-假如，你将[VC-LTL Binary](https://gitee.com/Chuyu-Team/VC-LTL5/releases)下载并解压至`D:\Src\VC-LTL`（具体位置无任何要求），双击`D:\Src\VC-LTL\Install.cmd`即可。
+假如，你将[VC-LTL Binary](https://github.com/Chuyu-Team/VC-LTL5/releases/latest)下载并解压至`D:\Src\VC-LTL`（具体位置无任何要求），双击`D:\Src\VC-LTL\Install.cmd`即可。
 
 > 脚本会在`HKCU\Code\VC-LTL`创建注册表。
 
@@ -147,7 +150,7 @@ add_subdirectory(src)
 
 ### 3.3. 在NMake/纯CL中使用VC-LTL
 
-假如，你将[VC-LTL Binary](https://gitee.com/Chuyu-Team/VC-LTL5/releases)下载并解压至`D:\Src\VC-LTL`（具体位置无任何要求），双击`D:\Src\VC-LTL\Install.cmd`即可。
+假如，你将[VC-LTL Binary](https://github.com/Chuyu-Team/VC-LTL5/releases/latest)下载并解压至`D:\Src\VC-LTL`（具体位置无任何要求），双击`D:\Src\VC-LTL\Install.cmd`即可。
 
 > 脚本会在`HKCU\Code\VC-LTL`创建注册表。
 
@@ -192,5 +195,5 @@ nmake /f Test.mak
 
 
 ## 附：第三方依赖项许可
-* [Visual Studio](https://gitee.com/Chuyu-Team/VC-LTL5/tree/master/ThirdPartyLicenses/Visual Studio)
-* [Windows 10 SDK](https://gitee.com/Chuyu-Team/VC-LTL5/tree/master/ThirdPartyLicenses/Windows 10 SDK)
+* [Visual Studio](https://github.com/Chuyu-Team/VC-LTL5/tree/master/ThirdPartyLicenses/Visual%20Studio)
+* [Windows 10 SDK](https://github.com/Chuyu-Team/VC-LTL5/tree/master/ThirdPartyLicenses/Windows%2010%20SDK)
