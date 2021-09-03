@@ -141,13 +141,19 @@ namespace UnitTest
 		
 		TEST_METHOD(vcruntime_msvcrt模式所有符号可以被链接)
 		{
+			DllImportInfo Info;
+
+			Info.DllName = L"msvcrt.dll";
+			Info.ImportNames.push_back(L"__unDName");
+
+
 			TestLib(
 				VCToolsInstallDir LR"(lib\x86\vcruntime.lib)",
 				L"vcruntime",
 				L"Win32",
 				{ L"Dynamic", L"Static" },
 				{ L"5.1.2600.0", L"6.0.6000.0", L"6.2.9200.0" },
-				{ "vcruntime", "ucrtbase" }
+				Info
 				);
 
 
@@ -157,7 +163,7 @@ namespace UnitTest
 				L"x64",
 				{ L"Dynamic", L"Static" },
 				{ L"5.2.3790.0", L"6.0.6000.0", L"6.2.9200.0" },
-				{ "vcruntime", "ucrtbase" }
+				Info
 				);
 
 			
@@ -167,19 +173,25 @@ namespace UnitTest
 				L"arm",
 				{ L"Dynamic", L"Static" },
 				{ L"6.2.9200.0" },
-				{ "vcruntime", "ucrtbase" }
+				Info
 				);
 		}
 		
 		TEST_METHOD(vcruntime_msvcrt_Debug模式所有符号可以被链接)
 		{
+			DllImportInfo Info;
+
+			Info.DllName = L"msvcrt.dll";
+			Info.ImportNames.push_back(L"__unDName");
+
+
 			TestLib(
 				VCToolsInstallDir LR"(lib\x86\vcruntimed.lib)",
 				L"vcruntime",
 				L"Win32",
 				{ L"DDynamic", L"DStatic" },
 				{ L"5.1.2600.0", L"6.0.6000.0", L"6.2.9200.0" },
-				{ "vcruntime", "ucrtbase" }
+				Info
 				);
 
 
@@ -189,7 +201,7 @@ namespace UnitTest
 				L"x64",
 				{ L"DDynamic", L"DStatic" },
 				{ L"5.2.3790.0", L"6.0.6000.0", L"6.2.9200.0" },
-				{ "vcruntime", "ucrtbase" }
+				Info
 				);
 
 			
@@ -199,19 +211,24 @@ namespace UnitTest
 				L"arm",
 				{ L"DDynamic", L"DStatic" },
 				{ L"6.2.9200.0" },
-				{ "vcruntime", "ucrtbase" }
+				Info
 				);
 		}
 
 		TEST_METHOD(vcruntime_ucrt模式所有符号可以被链接)
 		{
+			DllImportInfo Info;
+
+			Info.DllName = L"ucrtbase.dll";
+			Info.ImportNames.push_back(L"__unDName");
+
 			TestLib(
 				VCToolsInstallDir LR"(lib\x86\vcruntime.lib)",
 				L"vcruntime",
 				L"Win32",
 				{ L"Dynamic", L"Static" },
 				{ L"10.0.10240.0", L"10.0.19041.0" },
-				{ "vcruntime", "ucrtbased", "msvcrt" }
+				Info
 				);
 
 			TestLib(
@@ -220,7 +237,7 @@ namespace UnitTest
 				L"x64",
 				{ L"Dynamic", L"Static" },
 				{ L"10.0.10240.0", L"10.0.19041.0" },
-				{ "vcruntime", "ucrtbased", "msvcrt" }
+				Info
 				);
 
 			TestLib(
@@ -229,7 +246,7 @@ namespace UnitTest
 				L"arm",
 				{ L"Dynamic", L"Static" },
 				{ L"10.0.10240.0", L"10.0.19041.0" },
-				{ "vcruntime", "ucrtbased", "msvcrt" }
+				Info
 				);
 
 			TestLib(
@@ -238,19 +255,25 @@ namespace UnitTest
 				L"arm64",
 				{ L"Dynamic", L"Static" },
 				{ L"10.0.10240.0", L"10.0.19041.0" },
-				{ "vcruntime", "ucrtbased", "msvcrt" }
+				Info
 				);
 		}
 
 		TEST_METHOD(vcruntime_ucrt_debug所有符号可以被链接)
 		{
+			DllImportInfo Info;
+
+			Info.DllName = L"ucrtbase.dll";
+			Info.ImportNames.push_back(L"__unDName");
+
+
 			TestLib(
 				VCToolsInstallDir LR"(lib\x86\vcruntimed.lib)",
 				L"vcruntime",
 				L"Win32",
 				{ L"DDynamic", L"DStatic" },
 				{ L"10.0.10240.0", L"10.0.19041.0" },
-				{ "vcruntime", "ucrtbased", "msvcrt" }
+				Info
 				);
 
 			TestLib(
@@ -259,7 +282,7 @@ namespace UnitTest
 				L"x64",
 				{ L"DDynamic", L"DStatic" },
 				{ L"10.0.10240.0", L"10.0.19041.0" },
-				{ "vcruntime", "ucrtbased", "msvcrt" }
+				Info
 				);
 			
 			TestLib(
@@ -268,7 +291,7 @@ namespace UnitTest
 				L"arm",
 				{ L"DDynamic", L"DStatic" },
 				{ L"10.0.10240.0", L"10.0.19041.0" },
-				{ "vcruntime", "ucrtbased", "msvcrt" }
+				Info
 				);
 
 			TestLib(
@@ -277,19 +300,25 @@ namespace UnitTest
 				L"arm64",
 				{ L"DDynamic", L"DStatic" },
 				{ L"10.0.10240.0", L"10.0.19041.0" },
-				{ "vcruntime", "ucrtbased", "msvcrt" }
+				Info
 				);
 		}
 
 		TEST_METHOD(ucrt_msvcrt模式所有符号可以被链接)
 		{
+			DllImportInfo Info;
+
+			Info.DllName = L"msvcrt.dll";
+			Info.ImportNames.push_back(L"_beginthread");
+
+
 			TestLib(
 				CurrentUniversalCRTSdkDir LR"(ucrt\x86\ucrt.lib)",
 				L"ucrt",
 				L"Win32",
 				{ L"Dynamic", L"Static" },
 				{ L"5.1.2600.0", L"6.0.6000.0", L"6.2.9200.0" },
-				{ "vcruntime", "ucrtbase" }
+				Info
 				);
 
 
@@ -299,7 +328,7 @@ namespace UnitTest
 				L"x64",
 				{ L"Dynamic", L"Static" },
 				{ L"5.2.3790.0", L"6.0.6000.0", L"6.2.9200.0" },
-				{ "vcruntime", "ucrtbase" }
+				Info
 				);
 
 
@@ -309,19 +338,24 @@ namespace UnitTest
 				L"arm",
 				{ L"Dynamic", L"Static" },
 				{ L"6.2.9200.0" },
-				{ "vcruntime", "ucrtbase" }
+				Info
 				);
 		}
 		
 		TEST_METHOD(ucrt_msvcrt_Debug模式所有符号可以被链接)
 		{
+			DllImportInfo Info;
+
+			Info.DllName = L"msvcrt.dll";
+			Info.ImportNames.push_back(L"_beginthread");
+
 			TestLib(
 				CurrentUniversalCRTSdkDir LR"(ucrt\x86\ucrtd.lib)",
 				L"ucrt",
 				L"Win32",
 				{ L"DDynamic", L"DStatic" },
 				{ L"5.1.2600.0", L"6.0.6000.0", L"6.2.9200.0" },
-				{ "vcruntime", "ucrtbase" }
+				Info
 				);
 
 
@@ -331,7 +365,7 @@ namespace UnitTest
 				L"x64",
 				{ L"DDynamic", L"DStatic" },
 				{ L"5.2.3790.0", L"6.0.6000.0", L"6.2.9200.0" },
-				{ "vcruntime", "ucrtbase" }
+				Info
 				);
 
 
@@ -341,19 +375,24 @@ namespace UnitTest
 				L"arm",
 				{ L"DDynamic", L"DStatic" },
 				{ L"6.2.9200.0" },
-				{ "vcruntime", "ucrtbase" }
+				Info
 				);
 		}
 
 		TEST_METHOD(ucrt_ucrt模式所有符号可以被链接)
 		{
+			DllImportInfo Info;
+
+			Info.DllName = L"api-ms-win-crt-runtime-l1-1-0.dll";
+			Info.ImportNames.push_back(L"_beginthread");
+
 			TestLib(
 				CurrentUniversalCRTSdkDir LR"(ucrt\x86\ucrt.lib)",
 				L"ucrt",
 				L"Win32",
 				{ L"Dynamic", L"Static" },
 				{ L"10.0.10240.0", L"10.0.19041.0" },
-				{ "vcruntime", "ucrtbased", "msvcrt" }
+				Info
 				);
 
 			TestLib(
@@ -362,7 +401,7 @@ namespace UnitTest
 				L"x64",
 				{ L"Dynamic", L"Static" },
 				{ L"10.0.10240.0", L"10.0.19041.0" },
-				{ "vcruntime", "ucrtbased", "msvcrt" }
+				Info
 				);
 
 			TestLib(
@@ -371,7 +410,7 @@ namespace UnitTest
 				L"arm",
 				{ L"Dynamic", L"Static" },
 				{ L"10.0.10240.0", L"10.0.19041.0" },
-				{ "vcruntime", "ucrtbased", "msvcrt" }
+				Info
 				);
 
 			TestLib(
@@ -380,19 +419,26 @@ namespace UnitTest
 				L"arm64",
 				{ L"Dynamic", L"Static" },
 				{ L"10.0.10240.0", L"10.0.19041.0" },
-				{ "vcruntime", "ucrtbased", "msvcrt" }
+				Info
 				);
 		}
 
 		TEST_METHOD(ucrt_ucrt_Debug模式所有符号可以被链接)
 		{
+			DllImportInfo Info;
+
+			Info.DllName = L"ucrtbase.dll";
+			Info.ImportNames.push_back(L"_beginthread");
+
+
+
 			TestLib(
 				CurrentUniversalCRTSdkDir LR"(ucrt\x86\ucrtd.lib)",
 				L"ucrt",
 				L"Win32",
 				{ L"DDynamic", L"DStatic" },
 				{ L"10.0.10240.0", L"10.0.19041.0" },
-				{ "vcruntime", "ucrtbased", "msvcrt" }
+				Info
 				);
 
 			TestLib(
@@ -401,7 +447,7 @@ namespace UnitTest
 				L"x64",
 				{ L"DDynamic", L"DStatic" },
 				{ L"10.0.10240.0", L"10.0.19041.0" },
-				{ "vcruntime", "ucrtbased", "msvcrt" }
+				Info
 				);
 
 			TestLib(
@@ -410,7 +456,7 @@ namespace UnitTest
 				L"arm",
 				{ L"DDynamic", L"DStatic" },
 				{ L"10.0.10240.0", L"10.0.19041.0" },
-				{ "vcruntime", "ucrtbased", "msvcrt" }
+				Info
 				);
 			
 			TestLib(
@@ -419,20 +465,25 @@ namespace UnitTest
 				L"arm64",
 				{ L"DDynamic", L"DStatic" },
 				{ L"10.0.10240.0", L"10.0.19041.0" },
-				{ "vcruntime", "ucrtbased", "msvcrt" }
+				Info
 				);
 		}
 
 
 		TEST_METHOD(ucrt_ucrt清洁模式所有符号可以被链接)
 		{
+			DllImportInfo Info;
+
+			Info.DllName = L"ucrtbase.dll";
+			Info.ImportNames.push_back(L"_beginthread");
+
 			TestLib(
 				CurrentUniversalCRTSdkDir LR"(ucrt\x86\ucrt.lib)",
 				L"ucrt",
 				L"Win32",
 				{ L"Dynamic", L"Static" },
 				{ L"10.0.10240.0", L"10.0.19041.0" },
-				{ "vcruntime", "ucrtbased", "msvcrt", "API-MS-WIN-CRT-"},
+				Info,
 				L"CleanImport=true"
 				);
 
@@ -442,7 +493,7 @@ namespace UnitTest
 				L"x64",
 				{ L"Dynamic", L"Static" },
 				{ L"10.0.10240.0", L"10.0.19041.0" },
-				{ "vcruntime", "ucrtbased", "msvcrt", "API-MS-WIN-CRT-"},
+				Info,
 				L"CleanImport=true"
 				);
 
@@ -452,7 +503,7 @@ namespace UnitTest
 				L"arm",
 				{ L"Dynamic", L"Static" },
 				{ L"10.0.10240.0", L"10.0.19041.0" },
-				{ "vcruntime", "ucrtbased", "msvcrt", "API-MS-WIN-CRT-"},
+				Info,
 				L"CleanImport=true"
 				);
 
@@ -462,7 +513,7 @@ namespace UnitTest
 				L"arm64",
 				{ L"Dynamic", L"Static" },
 				{ L"10.0.10240.0", L"10.0.19041.0" },
-				{ "vcruntime", "ucrtbased", "msvcrt", "API-MS-WIN-CRT-"},
+				Info,
 				L"CleanImport=true"
 				);
 		}
@@ -473,7 +524,7 @@ namespace UnitTest
 			LPCWSTR szPlatform,
 			std::initializer_list<LPCWSTR> szConfigurations,
 			std::initializer_list<LPCWSTR> szWindowsTargetPlatformMinVersions,
-			std::initializer_list<LPCSTR> FaildDllList,
+			const DllImportInfo& Info,
 			LPCWSTR BuildProperty = nullptr
 			)
 		{
@@ -483,9 +534,57 @@ namespace UnitTest
 			{
 				for (auto szWindowsTargetPlatformMinVersion : szWindowsTargetPlatformMinVersions)
 				{
-					auto&& ExclusionSymbols = GetIgnoreSymbolsList(DstLibName, szPlatform, szConfiguration, szWindowsTargetPlatformMinVersion);
+					CStringW ErrorExt;
+					ErrorExt.AppendFormat(L"DstLibName=%s\r\n", DstLibName);
+					ErrorExt.AppendFormat(L"szPlatform=%s\r\n", szPlatform);
+					ErrorExt.AppendFormat(L"szConfiguration=%s\r\n", szConfiguration);
+					ErrorExt.AppendFormat(L"szWindowsTargetPlatformMinVersion=%s\r\n", szWindowsTargetPlatformMinVersion);
+					ErrorExt.AppendFormat(L"BuildProperty=%s\r\n", BuildProperty);
 
-					TestSymbols(Symbols, ExclusionSymbols, DstLibName, szPlatform, szConfiguration, szWindowsTargetPlatformMinVersion, FaildDllList, BuildProperty);
+					auto&& ExclusionSymbols = GetIgnoreSymbolsList(DstLibName, szPlatform, szConfiguration, szWindowsTargetPlatformMinVersion);
+					std::vector<DllImportInfo> DllImportInfos;
+
+					TestSymbols(Symbols, ExclusionSymbols, DstLibName, szPlatform, szConfiguration, szWindowsTargetPlatformMinVersion, DllImportInfos, BuildProperty);
+
+					Assert::AreNotEqual(DllImportInfos.size(), size_t(0), ErrorExt.GetString());
+
+
+					//关键的来自DLL的函数是否被导入
+					const DllImportInfo* pInfo = nullptr;
+					for (auto& Item : DllImportInfos)
+					{
+						if (stricmp(Info.DllName, Item.DllName) == 0)
+						{
+							pInfo = &Item;
+							break;
+						}
+					}
+
+					Assert::IsNotNull(pInfo, ErrorExt);
+
+					if (pInfo)
+					{
+						for (auto& FunName : Info.ImportNames)
+						{
+							bool bFound = false;
+
+							for (auto& ImportName : pInfo->ImportNames)
+							{
+								if (ImportName == FunName)
+								{
+									bFound = true;
+									break;
+								}
+							}
+
+
+							if (!bFound)
+							{
+								Assert::Fail(CStringW(Info.DllName) + L"->" + CStringW(FunName) + L"   没有发现被导入！\r\n" + ErrorExt);
+							}
+						}
+					}
+
 				}
 			}
 
@@ -499,7 +598,7 @@ namespace UnitTest
 			LPCWSTR szPlatform,
 			LPCWSTR szConfiguration,
 			LPCWSTR szWindowsTargetPlatformMinVersion,
-			std::initializer_list<LPCSTR> FaildDllList,
+			std::vector<DllImportInfo>& Infos,
 			LPCWSTR BuildProperty = nullptr
 			)
 		{
@@ -608,27 +707,8 @@ namespace UnitTest
 				Assert::AreEqual(OutString.Find(Warning), -1, CString(L"出现了") + Warning + L"\r\n" + BuildLog);
 			}
 
-
-			//测试导入表是否符合预期
-			auto && DllImportInfos = GetDllImportInfo(SymbolsTestCppRootPath + L"SymbolBuildTest.exe");
-
-			for (auto FaildDllName : FaildDllList)
-			{
-				for (auto& Item : DllImportInfos)
-				{
-					if (StrStrIA(Item.DllName, FaildDllName))
-					{
-						CStringW Error;
-
-						Error.Format(L"超出预期的导入！%hs     ", Item.DllName.GetString());
-
-
-						Assert::Fail(Error + BuildLog);
-					}
-				}
-			}
-
-
+			Infos = std::move(GetDllImportInfo(SymbolsTestCppRootPath + L"SymbolBuildTest.exe"));
+			
 			return lStatus;
 		}
 
