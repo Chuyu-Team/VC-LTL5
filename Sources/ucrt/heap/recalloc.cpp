@@ -64,11 +64,11 @@ extern "C" __declspec(noinline) _CRTRESTRICT void* __cdecl _recalloc(
     size_t const size
     )
 {
-    #ifdef _DEBUG
-    return _recalloc_dbg(block, count, size, _NORMAL_BLOCK, nullptr, 0);
-    #else
+    //#ifdef _DEBUG
+    //return _recalloc_dbg(block, count, size, _NORMAL_BLOCK, nullptr, 0);
+    //#else
     return _recalloc_base(block, count, size);
-    #endif
+    //#endif
 }
 
 _LCRT_DEFINE_IAT_SYMBOL(_recalloc);

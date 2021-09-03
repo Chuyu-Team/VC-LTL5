@@ -563,11 +563,11 @@ extern "C" __declspec(noinline) size_t __cdecl _aligned_msize(
     size_t const alignment,
     size_t const offset)
 {
-    #ifdef _DEBUG
-    return _aligned_msize_dbg(block, alignment, offset);
-    #else
+    //#ifdef _DEBUG
+    //return _aligned_msize_dbg(block, alignment, offset);
+    //#else
     return _aligned_msize_base(block, alignment, offset);
-    #endif
+    //#endif
 }
 
 _LCRT_DEFINE_IAT_SYMBOL(_aligned_msize);
@@ -609,11 +609,11 @@ extern "C" __declspec(noinline) _CRTRESTRICT void* __cdecl _aligned_offset_recal
     size_t const offset
     )
 {
-    #ifdef _DEBUG
-    return _aligned_offset_recalloc_dbg(block, count, size, alignment, offset, nullptr, 0);
-    #else
+    //#ifdef _DEBUG
+    //return _aligned_offset_recalloc_dbg(block, count, size, alignment, offset, nullptr, 0);
+    //#else
     return _aligned_offset_recalloc_base(block, count, size, alignment, offset);
-    #endif
+    //#endif
 }
 
 _LCRT_DEFINE_IAT_SYMBOL(_aligned_offset_recalloc);
@@ -640,11 +640,11 @@ extern "C" __declspec(noinline) _CRTRESTRICT void* __cdecl _aligned_recalloc(
     size_t const alignment
     )
 {
-    #ifdef _DEBUG
-    return _aligned_offset_recalloc_dbg(block, count, size, alignment, 0, nullptr, 0);
-    #else
+    //#ifdef _DEBUG
+    //return _aligned_offset_recalloc_dbg(block, count, size, alignment, 0, nullptr, 0);
+    //#else
     return _aligned_recalloc_base(block, count, size, alignment);
-    #endif
+    //#endif
 }
 
 _LCRT_DEFINE_IAT_SYMBOL(_aligned_recalloc);
