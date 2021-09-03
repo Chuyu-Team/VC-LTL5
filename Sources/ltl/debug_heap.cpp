@@ -196,7 +196,16 @@ extern "C" int __cdecl _CrtIsMemoryBlock(
     _Out_opt_ int* _LineNumber
 )
 {
-    return 0;
+    if (_RequestNumber)
+        *_RequestNumber = 0;
+
+    if (_FileName)
+        *_FileName = "";
+
+    if (_LineNumber)
+        *_LineNumber = 0;
+
+    return 1;
 }
 
 _LCRT_DEFINE_IAT_SYMBOL(_CrtIsMemoryBlock);
@@ -265,7 +274,7 @@ extern "C" int __cdecl _CrtReportBlockType(
     _In_opt_ void const* _Block
     )
 {
-    return 0;
+    return -1;
 }
 
 _LCRT_DEFINE_IAT_SYMBOL(_CrtReportBlockType);
