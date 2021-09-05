@@ -572,11 +572,16 @@ typedef struct __crt_locale_data
                                   _When_((size) >= _String_length_(_Curr_), _Pre_z_)        \
                                   _When_((size) < _String_length_(_Curr_), _In_reads_(size))
 
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
+    #define LocaleNameOrId(Name, Id) Id
+#else
+    #define LocaleNameOrId(Name, Id) Name
+#endif
+
 // Wrappers for locale-related Windows API functionality
-#ifndef __BuildWithMSVCRT
 int __cdecl __acrt_CompareStringA(
     _In_opt_               _locale_t _Plocinfo,
-    _In_                   LPCWSTR   _LocaleName,
+    _In_    LocaleNameOrId(LPCWSTR   _LocaleName, LCID _LocaleId),
     _In_                   DWORD     _DwCmpFlags,
     _In_CRT_NLS_string_(_CchCount1) PCCH _LpString1,
     _In_                   int       _CchCount1,
@@ -584,84 +589,16 @@ int __cdecl __acrt_CompareStringA(
     _In_                   int       _CchCount2,
     _In_                   int       _CodePage
     );
-#else
-#ifdef __cplusplus
-
-namespace WinNT5
-{
-    extern "C"
-    __declspec(dllimport)
-    int
-    __cdecl
-    __crtCompareStringA(
-        _In_ LCID     _Locale,
-        _In_ DWORD    _DwCmpFlags,
-        _In_count_(_CchCount1) LPCSTR   _LpString1,
-        _In_ int      _CchCount1,
-        _In_count_(_CchCount2) LPCSTR   _LpString2,
-        _In_ int      _CchCount2,
-        _In_ int      _Code_page
-        );
-}
 
 
-namespace WinNT6
-{
-    extern "C"
-    __declspec(dllimport)
-    int
-    __cdecl
-    __crtCompareStringA(
-        _In_opt_ _locale_t _Plocinfo,
-        _In_ LCID     _Locale,
-        _In_ DWORD    _DwCmpFlags,
-        _In_count_(_CchCount1) LPCSTR   _LpString1,
-        _In_ int      _CchCount1,
-        _In_count_(_CchCount2) LPCSTR   _LpString2,
-        _In_ int      _CchCount2,
-        _In_ int      _Code_page
-        );
-}
-
-static __forceinline int __cdecl __acrt_CompareStringA(
-    _In_opt_               _locale_t _Plocinfo,
-    _In_                   LCID     _Locale,
-    _In_                   DWORD     _DwCmpFlags,
-    _In_CRT_NLS_string_(_CchCount1) PCCH _LpString1,
-    _In_                   int       _CchCount1,
-    _In_CRT_NLS_string_(_CchCount2) PCCH _LpString2,
-    _In_                   int       _CchCount2,
-    _In_                   int       _Code_page
-    )
-{
-#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
-    if (__LTL_GetOsMinVersion() < MakeMiniVersion(6, 0))
-    {
-        if (_Plocinfo && _Code_page == 0)
-            _Code_page = _Plocinfo->locinfo->_locale_lc_codepage;
-
-        return WinNT5::__crtCompareStringA(_Locale, _DwCmpFlags, _LpString1, _CchCount1, _LpString2, _CchCount2, _Code_page);
-    }
-#endif
-
-    return WinNT6::__crtCompareStringA(_Plocinfo, _Locale, _DwCmpFlags, _LpString1, _CchCount1, _LpString2, _CchCount2, _Code_page);
-}
-#endif
-
-#endif
-
-#ifndef __BuildWithMSVCRT
 int __cdecl __acrt_CompareStringW(
-    _In_                   LPCWSTR  _LocaleName,
+    _In_    LocaleNameOrId(LPCWSTR  _LocaleName, LCID _LocaleId),
     _In_                   DWORD    _DwCmpFlags,
     _In_CRT_NLS_string_(_CchCount1) PCWCH _LpString1,
     _In_                   int      _CchCount1,
     _In_CRT_NLS_string_(_CchCount2) PCWCH _LpString2,
     _In_                   int      _CchCount2
     );
-#else
-#define __acrt_CompareStringW CompareStringW
-#endif
 
 int __cdecl __acrt_GetLocaleInfoA(
     _In_opt_ _locale_t _Locale,
@@ -690,11 +627,10 @@ BOOL __cdecl __acrt_GetStringTypeW(
     _Out_               LPWORD      _LpCharType
 );
 
-#ifndef __BuildWithMSVCRT
 _Success_(return != 0)
 int __cdecl __acrt_LCMapStringA(
     _In_opt_                   _locale_t _Plocinfo,
-    _In_                       LPCWSTR   _LocaleName,
+    _In_        LocaleNameOrId(LPCWSTR   _LocaleName, LCID _LocaleId),
     _In_                       DWORD     _DwMapFlag,
     _In_CRT_NLS_string_(_CchSrc) PCCH    _LpSrcStr,
     _In_                       int       _CchSrc,
@@ -703,84 +639,17 @@ int __cdecl __acrt_LCMapStringA(
     _In_                       int       _CodePage,
     _In_                       BOOL      _BError
     );
-#else
-
-#ifdef __cplusplus
-
-namespace WinNT5
-{
-    extern "C" __declspec(dllimport)
-    int __cdecl __crtLCMapStringA(
-        _In_ LCID _Locale,
-        _In_ DWORD _DwMapFlag,
-        _In_count_(_CchSrc) LPCSTR _LpSrcStr,
-        _In_ int _CchSrc,
-        _Out_opt_cap_(_CchDest) LPSTR _LpDestStr,
-        _In_ int _CchDest,
-        _In_ int _Code_page,
-        _In_ BOOL _BError
-        );
-}
-
-namespace WinNT6
-{
-    extern "C" __declspec(dllimport)
-    int __cdecl __crtLCMapStringA(
-        _In_opt_ _locale_t _Plocinfo,
-        _In_ LCID _Locale,
-        _In_ DWORD _DwMapFlag,
-        _In_count_(_CchSrc) LPCSTR _LpSrcStr,
-        _In_ int _CchSrc,
-        _Out_opt_cap_(_CchDest) LPSTR _LpDestStr,
-        _In_ int _CchDest,
-        _In_ int _Code_page,
-        _In_ BOOL _BError
-        );
-}
-
-_Success_(return != 0)
-static __forceinline int __cdecl __acrt_LCMapStringA(
-    _In_opt_                   _locale_t _Plocinfo,
-    _In_                       LCID      _Locale,
-    _In_                       DWORD     _DwMapFlag,
-    _In_CRT_NLS_string_(_CchSrc) PCCH    _LpSrcStr,
-    _In_                       int       _CchSrc,
-    _Out_writes_opt_(_CchDest) PCH       _LpDestStr,
-    _In_                       int       _CchDest,
-    _In_                       int       _CodePage,
-    _In_                       BOOL      _BError
-    )
-{
-#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
-    if (__LTL_GetOsMinVersion() < MakeMiniVersion(6, 0))
-    {
-        if (_Plocinfo && _CodePage == 0)
-            _CodePage = _Plocinfo->locinfo->_locale_lc_codepage;
-
-        return WinNT5::__crtLCMapStringA(_Locale, _DwMapFlag, _LpSrcStr, _CchSrc, _LpDestStr, _CchDest, _CodePage, _BError);
-    }
-#endif
-
-    return WinNT6::__crtLCMapStringA(_Plocinfo, _Locale, _DwMapFlag, _LpSrcStr, _CchSrc, _LpDestStr, _CchDest, _CodePage, _BError);
-}
-#endif
-
-#endif
 
 
-#ifndef __BuildWithMSVCRT
 _Success_(return != 0)
 int __cdecl __acrt_LCMapStringW(
-    _In_                       LPCWSTR _LocaleName,
+    _In_        LocaleNameOrId(LPCWSTR _LocaleName, LCID _LocaleId),
     _In_                       DWORD   _DWMapFlag,
     _In_CRT_NLS_string_(_CchSrc) PCWCH _LpSrcStr,
     _In_                       int     _CchSrc,
     _Out_writes_opt_(_CchDest) PWCH    _LpDestStr,
     _In_                       int     _CchDest
     );
-#else
-#define __acrt_LCMapStringW LCMapStringW
-#endif
 
 //_Success_(return != 0)
 //int __cdecl __acrt_MultiByteToWideChar(
@@ -1970,18 +1839,19 @@ extern "C++"
 //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 #define __acrt_AreFileApisANSI AreFileApisANSI
 
-#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
-int WINAPI __acrt_CompareStringEx(
-    _In_opt_                       LPCWSTR          locale_name,
-    _In_                           DWORD            flags,
-    _In_NLS_string_(string1_count) LPCWCH           string1,
-    _In_                           int              string1_count,
-    _In_NLS_string_(string2_count) LPCWCH           string2,
-    _In_                           int              string2_count,
-    _Reserved_                     LPNLSVERSIONINFO version,
-    _Reserved_                     LPVOID           reserved,
-    _Reserved_                     LPARAM           param
-    );
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
+//int WINAPI __acrt_CompareStringEx(
+//    _In_opt_                       LPCWSTR          locale_name,
+//    _In_                           DWORD            flags,
+//    _In_NLS_string_(string1_count) LPCWCH           string1,
+//    _In_                           int              string1_count,
+//    _In_NLS_string_(string2_count) LPCWCH           string2,
+//    _In_                           int              string2_count,
+//    _Reserved_                     LPNLSVERSIONINFO version,
+//    _Reserved_                     LPVOID           reserved,
+//    _Reserved_                     LPARAM           param
+//    );
+#define __acrt_CompareStringEx(locale_id, flags, string1, string1_count, string2, string2_count, version, reserved, param) CompareStringW(locale_id, flags, string1, string1_count, string2, string2_count)
 #else
 #define __acrt_CompareStringEx CompareStringEx
 #endif
@@ -2108,18 +1978,19 @@ BOOL WINAPI __acrt_IsValidLocaleName(
 #define __acrt_IsValidLocaleName IsValidLocaleName
 #endif
 
-#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
-int WINAPI __acrt_LCMapStringEx(
-    _In_opt_                            LPCWSTR          locale_name,
-    _In_                                DWORD            flags,
-    _In_CRT_NLS_string_(source_count)   LPCWSTR          source,
-    _In_                                int              source_count,
-    _Out_writes_opt_(destination_count) LPWSTR           destination,
-    _In_                                int              destination_count,
-    _In_opt_                            LPNLSVERSIONINFO version,
-    _In_opt_                            LPVOID           reserved,
-    _In_opt_                            LPARAM           sort_handle
-    );
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
+//int WINAPI __acrt_LCMapStringEx(
+//    _In_opt_                            LPCWSTR          locale_name,
+//    _In_                                DWORD            flags,
+//    _In_CRT_NLS_string_(source_count)   LPCWSTR          source,
+//    _In_                                int              source_count,
+//    _Out_writes_opt_(destination_count) LPWSTR           destination,
+//    _In_                                int              destination_count,
+//    _In_opt_                            LPNLSVERSIONINFO version,
+//    _In_opt_                            LPVOID           reserved,
+//    _In_opt_                            LPARAM           sort_handle
+//    );
+#define __acrt_LCMapStringEx(locale_id, flags, source, source_count, destination, destination_count, version, reserved, sort_handle) LCMapStringW(locale_id, flags, source, source_count, destination, destination_count)
 #else
 #define __acrt_LCMapStringEx LCMapStringEx
 #endif

@@ -1,4 +1,4 @@
-/***
+﻿/***
 *a_map.c - A version of LCMapString.
 *
 *       Copyright (c) Microsoft Corporation.  All rights reserved.
@@ -40,7 +40,7 @@
 
 static _Success_(return != 0) int __cdecl __acrt_LCMapStringA_stat(
         _In_opt_                    _locale_t plocinfo,
-        _In_                        LPCWSTR   LocaleName,
+        _In_         LocaleNameOrId(LPCWSTR   LocaleName, LCID LocaleId),
         _In_                        DWORD     dwMapFlags,
         _In_CRT_NLS_string_(cchSrc) PCCH      lpSrcStr,
         _In_                        int       cchSrc,
@@ -88,7 +88,7 @@ static _Success_(return != 0) int __cdecl __acrt_LCMapStringA_stat(
      */
 
     if (0 == code_page)
-        code_page = plocinfo->locinfo->_public._locale_lc_codepage;
+        code_page = plocinfo ? plocinfo->locinfo->_public._locale_lc_codepage : ___lc_codepage_func();
 
     /* find out how big a buffer we need (includes nullptr if any) */
     if ( 0 == (inbuff_size =
@@ -117,7 +117,7 @@ static _Success_(return != 0) int __cdecl __acrt_LCMapStringA_stat(
         return retval;
 
     /* get size required for string mapping */
-    if ( 0 == (retval = __acrt_LCMapStringEx( LocaleName,
+    if ( 0 == (retval = __acrt_LCMapStringEx( LocaleNameOrId(LocaleName, LocaleId),
                                               dwMapFlags,
                                               inwbuffer.get(),
                                               inbuff_size,
@@ -142,7 +142,7 @@ static _Success_(return != 0) int __cdecl __acrt_LCMapStringA_stat(
             // the destination buffer is actually required to be an array of bytes,
             // despite the type of the buffer being a wchar_t*.
             __pragma(warning(suppress: __WARNING_BUFFER_OVERFLOW))
-            if ( 0 == (retval = __acrt_LCMapStringEx( LocaleName,
+            if ( 0 == (retval = __acrt_LCMapStringEx( LocaleNameOrId(LocaleName, LocaleId),
                                     dwMapFlags,
                                     inwbuffer.get(),
                                     inbuff_size,
@@ -165,7 +165,7 @@ static _Success_(return != 0) int __cdecl __acrt_LCMapStringA_stat(
             return 0;
 
         /* do string mapping */
-        if ( 0 == (retval = __acrt_LCMapStringEx( LocaleName,
+        if ( 0 == (retval = __acrt_LCMapStringEx( LocaleNameOrId(LocaleName, LocaleId),
                                 dwMapFlags,
                                 inwbuffer.get(),
                                 inbuff_size,
@@ -209,7 +209,7 @@ static _Success_(return != 0) int __cdecl __acrt_LCMapStringA_stat(
 
 extern "C" int __cdecl __acrt_LCMapStringA(
         _locale_t const plocinfo,
-        PCWSTR    const LocaleName,
+        LocaleNameOrId(PCWSTR    const LocaleName, LCID LocaleId),
         DWORD     const dwMapFlags,
         PCCH      const lpSrcStr,
         int       const cchSrc,
@@ -219,11 +219,11 @@ extern "C" int __cdecl __acrt_LCMapStringA(
         BOOL      const bError
         )
 {
-    _LocaleUpdate _loc_update(plocinfo);
+    //_LocaleUpdate _loc_update(plocinfo);
 
     return __acrt_LCMapStringA_stat(
-            _loc_update.GetLocaleT(),
-            LocaleName,
+            plocinfo,
+            LocaleNameOrId(LocaleName, LocaleId),
             dwMapFlags,
             lpSrcStr,
             cchSrc,

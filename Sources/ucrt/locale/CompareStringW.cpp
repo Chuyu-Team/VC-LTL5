@@ -1,4 +1,4 @@
-/***
+﻿/***
 *w_cmp.c - W versions of CompareString.
 *
 *       Copyright (c) Microsoft Corporation. All rights reserved.
@@ -33,7 +33,7 @@
 *******************************************************************************/
 
 extern "C" int __cdecl __acrt_CompareStringW(
-        LPCWSTR  LocaleName,
+        LocaleNameOrId(LPCWSTR  LocaleName, LCID LocaleId),
         DWORD    dwCmpFlags,
         PCWCH    lpString1,
         int      cchCount1,
@@ -55,7 +55,7 @@ extern "C" int __cdecl __acrt_CompareStringW(
         return (cchCount1 - cchCount2 == 0) ? 2 :
                (cchCount1 - cchCount2 < 0) ? 1 : 3;
 
-    return __acrt_CompareStringEx( LocaleName,
+    return __acrt_CompareStringEx( LocaleNameOrId(LocaleName, LocaleId),
                            dwCmpFlags,
                            lpString1,
                            cchCount1,

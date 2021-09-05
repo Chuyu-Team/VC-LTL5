@@ -1,4 +1,4 @@
-/***
+﻿/***
 *w_map.c - W version of LCMapString.
 *
 *       Copyright (c) Microsoft Corporation.  All rights reserved.
@@ -43,7 +43,11 @@
 *******************************************************************************/
 
 extern "C" int __cdecl __acrt_LCMapStringW(
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
+    LCID          Locale,
+#else
     LPCWSTR const locale_name,
+#endif
     DWORD   const map_flags,
     LPCWSTR const source,
     int           source_count,
@@ -70,5 +74,9 @@ extern "C" int __cdecl __acrt_LCMapStringW(
         }
     }
 
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
+    return LCMapStringW(Locale, map_flags, source, source_count, destination, destination_count);
+#else
     return __acrt_LCMapStringEx(locale_name, map_flags, source, source_count, destination, destination_count, nullptr, nullptr, 0);
+#endif
 }

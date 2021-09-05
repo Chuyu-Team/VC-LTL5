@@ -743,7 +743,11 @@
     <ClCompile Include="..\Sources\ucrt\internal\report_runtime_error.cpp" />
     <ClCompile Include="..\Sources\ucrt\internal\shared_initialization.cpp" />
     <ClCompile Include="..\Sources\ucrt\internal\winapi_thunks.cpp" />
+    <ClCompile Include="..\Sources\ucrt\locale\CompareStringA.cpp" />
+    <ClCompile Include="..\Sources\ucrt\locale\CompareStringW.cpp" />
     <ClCompile Include="..\Sources\ucrt\locale\GetStringTypeA.cpp" />
+    <ClCompile Include="..\Sources\ucrt\locale\LCMapStringA.cpp" />
+    <ClCompile Include="..\Sources\ucrt\locale\LCMapStringW.cpp" />
     <ClCompile Include="..\Sources\ucrt\lowio\setmode.cpp">
       <ExcludedFromBuild Condition="'$(WindowsTargetPlatformMinVersionBuild)' &gt;= '6000'">true</ExcludedFromBuild>
     </ClCompile>

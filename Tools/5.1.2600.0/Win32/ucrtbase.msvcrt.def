@@ -1444,8 +1444,6 @@ _timezone DATA
 _tzname DATA
 __lc_collate_cp DATA
 
-__crtLCMapStringA DATA
-__crtCompareStringA DATA
 
 __p__daylight
 __p__dstbias

@@ -1,4 +1,4 @@
-/***
+﻿/***
 *a_cmp.c - A version of CompareString.
 *
 *       Copyright (c) Microsoft Corporation. All rights reserved.
@@ -9,6 +9,7 @@
 *
 *******************************************************************************/
 #include <corecrt_internal.h>
+#include <locale.h>
 
 
 
@@ -40,7 +41,7 @@
 
 static int __cdecl InternalCompareStringA(
     _locale_t plocinfo,
-    LPCWSTR   LocaleName,
+    LocaleNameOrId(LPCWSTR   LocaleName, LCID LocaleId),
     DWORD     dwCmpFlags,
     PCCH      lpString1,
     int       cchCount1,
@@ -73,7 +74,7 @@ static int __cdecl InternalCompareStringA(
      */
 
     if (0 == code_page)
-        code_page = plocinfo->locinfo->_public._locale_lc_codepage;
+        code_page = plocinfo ? plocinfo->locinfo->_public._locale_lc_codepage : ___lc_codepage_func();
 
     /*
      * Special case: at least one count is zero
@@ -195,7 +196,7 @@ static int __cdecl InternalCompareStringA(
         return 0;
 
     return __acrt_CompareStringEx(
-        LocaleName,
+        LocaleNameOrId(LocaleName, LocaleId),
         dwCmpFlags,
         wbuffer1.get(),
         buff_size1,
@@ -208,7 +209,7 @@ static int __cdecl InternalCompareStringA(
 
 extern "C" int __cdecl __acrt_CompareStringA(
     _locale_t const locale,
-    LPCWSTR   const locale_name,
+    LocaleNameOrId(LPCWSTR   const locale_name, LCID locale_id),
     DWORD     const compare_flags,
     PCCH      const string1,
     int       const string1_count,
@@ -217,11 +218,11 @@ extern "C" int __cdecl __acrt_CompareStringA(
     int       const code_page
     )
 {
-    _LocaleUpdate locale_update(locale);
+    //_LocaleUpdate locale_update(locale);
 
     return InternalCompareStringA(
-        locale_update.GetLocaleT(),
-        locale_name,
+        locale,
+        LocaleNameOrId(locale_name, locale_id),
         compare_flags,
         string1,
         string1_count,

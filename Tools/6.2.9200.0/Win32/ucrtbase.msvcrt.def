@@ -1434,8 +1434,6 @@ _dstbias DATA
 _timezone DATA
 _tzname DATA
 
-__crtLCMapStringA DATA
-__crtCompareStringA DATA
 
 _sys_nerr DATA
 _sys_errlist DATA

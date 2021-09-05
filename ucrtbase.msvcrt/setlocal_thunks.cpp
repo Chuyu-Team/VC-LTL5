@@ -400,25 +400,6 @@ extern "C" extern unsigned char const __newcumap[384]
 
 #endif
 
-namespace Thunks
-{
-	//extern "C" __declspec(dllimport) int* __cdecl _errno(void);
-
-	namespace WinXP
-	{
-		extern "C" __declspec(dllimport) int(__cdecl __crtLCMapStringA)
-		(
-			_In_ LCID _Locale,
-			_In_ DWORD _DwMapFlag,
-			_In_count_(_CchSrc) LPCSTR _LpSrcStr,
-			_In_ int _CchSrc,
-			_Out_opt_cap_(_CchDest) LPSTR _LpDestStr,
-			_In_ int _CchDest,
-			_In_ int _Code_page,
-			_In_ BOOL _BError
-		);
-	}
-}
 
 __declspec(noinline) __inline bool __fastcall IsPointerInMsvcrtDll(const void* p)
 {
@@ -907,7 +888,7 @@ EXTERN_C _locale_t __cdecl _get_current_locale(void)
 					}
 				}
 
-				if ((Thunks::WinXP::__crtLCMapStringA)(locinfo->lc_handle[LC_CTYPE],
+				if (__acrt_LCMapStringA(nullptr, locinfo->lc_handle[LC_CTYPE],
 					LCMAP_LOWERCASE,
 					(char*)TmpBuffer + 1,
 					_CTABSIZE - 2,
@@ -919,7 +900,7 @@ EXTERN_C _locale_t __cdecl _get_current_locale(void)
 					break;
 				}
 
-				if ((Thunks::WinXP::__crtLCMapStringA)(locinfo->lc_handle[LC_CTYPE],
+				if (__acrt_LCMapStringA(nullptr, locinfo->lc_handle[LC_CTYPE],
 					LCMAP_UPPERCASE,
 					(char*)TmpBuffer + 1,
 					_CTABSIZE - 2,
