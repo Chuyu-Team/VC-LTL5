@@ -153,7 +153,7 @@ jobs:
               throw "UnitTest单元测试失败！"
           }
     - uses: dorny/test-reporter@v1
-      if: success() || failure()
+      if: steps.ltlBinCache.outputs.cache-hit != 'true' && (success() || failure())
       with:
         name: 单元测试报告
         path: TestResults/*.trx
