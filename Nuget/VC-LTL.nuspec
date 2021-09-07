@@ -3,8 +3,8 @@
   <metadata minClientVersion="2.5">
     <id>VC-LTL</id>
     <version>$version$</version>
-    <title>VC-LTL for Visual Studio 2015, 2017, 2019</title>
-    <summary>VC-LTL for Visual Studio 2015, 2017, 2019，编译精巧的程序原来如此简单。</summary>
+    <title>VC-LTL for Visual Studio 2015, 2017, 2019, 2022</title>
+    <summary>VC-LTL for Visual Studio 2015, 2017, 2019, 2022，编译精巧的程序原来如此简单。</summary>
     <authors>YY</authors>
     <owners>初雨团队</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -22,7 +22,7 @@
 </description>
     <releaseNotes>$releaseNotes$</releaseNotes>
     <copyright>Copyright© Chuyu Team</copyright>
-    <tags>初雨团队 Chuyu YY VC-LTL native nativepackage</tags>
+    <tags>初雨团队 Chuyu YY native nativepackage</tags>
     <repository type="git" url="https://github.com/Chuyu-Team/VC-LTL5.git" branch="master" commit="$commit$" />
     <dependencies>
       <dependency id="YY.NuGet.Import.Helper" version="1.0.0.4" />
