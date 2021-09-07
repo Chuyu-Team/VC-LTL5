@@ -160,6 +160,7 @@ jobs:
         reporter: dotnet-trx
 
     - name: 匹配Redist缓存
+      if: contains(github.ref, 'tags/')
       id: ltlRedistCache
       uses: actions/cache@v2
       with:
