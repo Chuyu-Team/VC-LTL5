@@ -158,7 +158,14 @@ jobs:
         name: 单元测试报告
         path: TestResults/*.trx
         reporter: dotnet-trx
-        
+
+    - name: 匹配Redist缓存
+      id: ltlRedistCache
+      uses: actions/cache@v2
+      with:
+        path: VC-LTL*-Redist.7z
+        key: ltl_${{ hashFiles('Redist/**/*.dll') }}
+
     - name: 文件打包
       working-directory: ${{env.GITHUB_WORKSPACE}}
       shell: cmd
@@ -166,6 +173,12 @@ jobs:
           set "Path=${{env.MSBuildBinPath}};%Path%"
           ::生成二进制包
           msbuild Build.proj -p:TagVersion=${{env.BuildVersion}} -t:Pack
+
+          :: 如果 Redist 内容从来没有变过，那么我们不需要生成，直接使用上一次的结果就可以了
+          if /i "${{steps.ltlRedistCache.outputs.cache-hit}}" NEQ "true" (
+              msbuild Build.proj -p:TagVersion=${{env.BuildVersion}} -t:PackRedist
+          )
+
 
           ::打包Nuget
           if "${{env.BuildVersion}}" NEQ "" (
@@ -190,8 +203,10 @@ jobs:
             Dynamic\UnitTest.pdb
             Dynamic\*.log
             UnitTest/SymbolBuildTest/.test/**/Build.log
+            *.7z
 
     - uses: xresloader/upload-to-github-release@v1
+      if: contains(github.ref, 'tags/')
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:

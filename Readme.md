@@ -35,7 +35,7 @@ people.
 
 ### 1.1. The principle of VC-LTL
 After using the VC-LTL, the binaries will be dynamically linked to the built-in
-`msvcrt.dll` in the Windows to reduce the binaries size. It is generally 
+`msvcrt.dll` or `ucrtbase.dll` in the Windows to reduce the binaries size. It is generally 
 available if you use the VC-LTL in the project using the C Runtime, STL or MFC.
 
 > After using the VC-LTL, the size of the binaries will reduce about 30%
@@ -62,7 +62,7 @@ from the pure C source code.
 | ConcRT | 100%                   | 100%       |   100%     |   100%       | 
 |   ATL  | 100%                   | 100%       |   100%     |   100%       | 
 |   MFC  | 100%                   | 100%       |   100%     |   100%       | 
-|   AMP  | 100%                   | 100%       |   100%     |   100%       | Requires `vcamp140.dll` from the Visual C++ Runtime
+|   AMP  | X                      | X          |   X        |   100%       | Requires `vcamp140.dll` from the Visual C++ Runtime
 | OpenMP | 100%                   | 100%       |   100%     |   100%       | Requires `vcomp140.dll` from the Visual C++ Runtime
 
 

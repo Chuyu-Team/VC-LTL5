@@ -55,7 +55,7 @@ VC-LTL最初是Dism++专用运行时。2017年3月6号从Dism++源代码中分�
 | ConcRT | 100%                   | 100%       |   100%     |   100%       | Visual Studio自身提供。
 |   ATL  | 100%                   | 100%       |   100%     |   100%       | Visual Studio自身提供。
 |   MFC  | 100%                   | 100%       |   100%     |   100%       | Visual Studio自身提供。
-|   AMP  | 100%                   | 100%       |   100%     |   100%       | Visual Studio自身提供，需要带上`vcamp140.dll`。
+|   AMP  | X                      | X          |   X        |   100%       | Visual Studio自身提供，需要带上`vcamp140.dll`。
 | OpenMP | 100%                   | 100%       |   100%     |   100%       | Visual Studio自身提供，需要带上`vcomp140.dll`。
 
 
