@@ -876,16 +876,9 @@
   </Target>
   <!--生成只有ucrtbase导出的vcrt动态库-->
   <Target Name="Build_ucrtbase_lib" AfterTargets="_ClCompile" Inputs="$(SolutionDir)Tools\$(WindowsTargetPlatformMinVersion)\$(Platform)\vcruntime.ucrtbase.def;$(SolutionDir)Tools\$(WindowsTargetPlatformMinVersion)\$(Platform)\vcruntime.ucrtbase.weak.def" Outputs="$(IntDir)vcruntime.ucrtbase.lib">
-    <PropertyGroup>
-      <vcruntime_path>$(VCToolsInstallDir)lib\$(PlatformShortName)\vcruntime.lib</vcruntime_path>
-      <vcruntime_path Condition="'$(Platform)' == 'ARM64'">$(IntDir)vcruntime_no_ec.lib</vcruntime_path>
-    </PropertyGroup>
-    <!--如果是arm64，那么删除ec相关符号，我们暂时不做支持-->
-    <Copy SourceFiles="$(VCToolsInstallDir)lib\$(PlatformShortName)\vcruntime.lib" DestinationFiles="$(IntDir)vcruntime_no_ec.lib" OverwriteReadOnlyFiles="true" Condition="'$(Platform)' == 'ARM64'" />
-    <Exec Command="lib $(vcruntime_path) /remove:123" Condition="'$(Platform)' == 'ARM64'" />
     <Exec Command="lib /def:%22$(SolutionDir)Tools\$(WindowsTargetPlatformMinVersion)\$(Platform)\vcruntime.ucrtbase.def%22 /out:%22$(IntDir)vcruntime.ucrtbase.lib%22 /MACHINE:$(PlatformShortName)" />
     <!--复制lib属性，Win32下面 __seh_longjmp_unwind@4 这类接口需要标记导出类型-->
-    <Exec Command="%22$(SolutionDir)Tools\LibMaker.exe%22 CopyLibType %22$(IntDir)vcruntime.ucrtbase.lib%22 %22$(vcruntime_path)%22" />
+    <Exec Command="%22$(SolutionDir)Tools\LibMaker.exe%22 CopyLibType %22$(IntDir)vcruntime.ucrtbase.lib%22 %22$(VCToolsInstallDir)lib\$(PlatformShortName)\vcruntime.lib%22" />
     <RemoveDir Directories="$(IntDir)objs\weak" />
     <MakeDir Directories="$(IntDir)objs\weak" />
     <Exec Command="%22$(SolutionDir)Tools\LibMaker.exe%22 CreateWeaks /MACHINE:$(PlatformShortName) /def:%22$(SolutionDir)Tools\$(WindowsTargetPlatformMinVersion)\$(Platform)\vcruntime.ucrtbase.weak.def%22 /out:%22$(IntDir)objs\weak%22" />
