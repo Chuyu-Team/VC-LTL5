@@ -63,12 +63,26 @@ if(NOT VC_LTL_Root)
 endif()
 
 if(NOT VC_LTL_Root)
-    GET_FILENAME_COMPONENT(FOUND_FILE "[HKEY_CURRENT_USER\\Code\\VC-LTL;Root]" NAME)
-    if (NOT ${FOUND_FILE} STREQUAL "registry")
-        set(VC_LTL_Root ${FOUND_FILE})
+    EXECUTE_PROCESS(COMMAND reg query "HKEY_CURRENT_USER\\Code\\VC-LTL" -v "Root"
+                    OUTPUT_VARIABLE FOUND_FILE 
+                    ERROR_VARIABLE ERROR_INFO
+                   )
+
+    string(REGEX MATCH "[a-zA-Z]:\\\\.+\\\\" 
+           FOUND_LTL 
+           ${FOUND_FILE})
+    if (NOT ${FOUND_LTL} STREQUAL "")
+        set(VC_LTL_Root ${FOUND_LTL})
+    endif()
+
+    if(NOT DEFINED VC_LTL_Root) 
+        string(REGEX MATCH "\\\\\\\\.+\\\\" FOUND_LTL ${FOUND_FILE})
+        if (NOT ${FOUND_LTL} STREQUAL "")
+            set(VC_LTL_Root ${FOUND_LTL})
+        endif()
     endif()
 endif()
 
 if(VC_LTL_Root)
-    include("${VC_LTL_Root}/config/config.cmake")
+    include("${VC_LTL_Root}\\config\\config.cmake")
 endif()
