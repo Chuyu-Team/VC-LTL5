@@ -149,6 +149,14 @@
     <Exec Command="%22$(MSBuildThisFileDirectory)Tools\LibMaker.exe%22 RemoveAPISet %22%(RedistFiles.identity)%22 %22$(MSBuildThisFileDirectory)Tools\ApiSetMap.txt%22" WorkingDirectory="$(MSBuildThisFileDirectory)"/>
   </Target>
 
+  <!-- VC-LTL Rust crate 编译准备 -->
+  <Target Name="PrepareToCompileRustLanguageSupport" AfterTargets="Build">
+    <ItemGroup>
+      <TargetPlatformFiles Include="$(SolutionDir)TargetPlatform\**\lib\*.*"/>
+    </ItemGroup>
+    <Copy SourceFiles="@(TargetPlatformFiles)" DestinationFiles="@(TargetPlatformFiles->'$(SolutionDir)Rust\TargetPlatform\%(RecursiveDir)%(Filename)%(Extension)')" />
+  </Target>
+
   <Target Name="Pack">
     <PropertyGroup>
       <ZipFileName Condition="'$(TagVersion)' == ''">VC-LTL-Binary.7z</ZipFileName>
