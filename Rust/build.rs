@@ -1,3 +1,13 @@
+/*
+ * PROJECT:   Rust language support for VC-LTL
+ * FILE:      build.rs
+ * PURPOSE:   Implementation for build script
+ *
+ * LICENSE:   The MIT License
+ *
+ * DEVELOPER: Mouri_Naruto (Mouri_Naruto AT Outlook.com)
+ */
+
 fn main()
 {
     if !std::env::var("CARGO_CFG_WINDOWS").is_ok()
@@ -29,7 +39,7 @@ fn main()
         "CARGO_CFG_TARGET_ARCH should be set by cargo.");
 
     let target_platform;
-    let mut minimum_version= 6000;
+    let mut minimum_version = 6000;
 
     if target_arch.contains("x86_64")
     {
@@ -69,8 +79,6 @@ fn main()
         return;
     }
 
-    let clean_import_mode =
-        std::env::var("VC_LTL_CLEAN_IMPORT").is_ok();
     let minimum_version_string;
 
     if minimum_version >= 19041
@@ -98,36 +106,16 @@ fn main()
         minimum_version_string = "5.1.2600.0"
     }
 
-    let library_folder_standard = &format!(
+    let library_folder = &format!(
         "{}/TargetPlatform/{}/lib/{}",
         package_root,
         minimum_version_string,
         target_platform);
-    let library_folder_clean_import = &format!(
-        "{}/TargetPlatform/{}/lib/{}/CleanImport",
-        package_root,
-        minimum_version_string,
-        target_platform);
-    let library_folder_standard_exists =
-        std::path::Path::new(library_folder_standard).exists();
-    let library_folder_clean_import_exists =
-        std::path::Path::new(library_folder_clean_import).exists();
 
-    if !library_folder_standard_exists
+    if !std::path::Path::new(library_folder).exists()
     {
         println!("cargo:warning=VC-LTL can't find lib files, please download the binary files from https://github.com/Chuyu-Team/VC-LTL/releases/latest. So the VC-LTL stage is skipped.");
         return;
-    }
-
-    let library_folder;
-
-    if clean_import_mode && library_folder_clean_import_exists
-    {
-        library_folder = library_folder_clean_import;
-    }
-    else
-    {
-        library_folder = library_folder_standard;
     }
 
     println!("cargo:warning=#######################################################################");
