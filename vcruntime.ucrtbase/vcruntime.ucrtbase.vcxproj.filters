@@ -56,8 +56,8 @@
     <ClCompile Include="VC_LTL_Config.c">
       <Filter>源文件\ltl</Filter>
     </ClCompile>
-    <ClCompile Include="notify.cpp">
+    <MASM Include="notify.x64.asm">
       <Filter>源文件\ltl</Filter>
-    </ClCompile>
+    </MASM>
   </ItemGroup>
 </Project>
