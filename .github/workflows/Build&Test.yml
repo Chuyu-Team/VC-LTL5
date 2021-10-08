@@ -159,14 +159,6 @@ jobs:
         path: TestResults/*.trx
         reporter: dotnet-trx
 
-    - name: 匹配Redist缓存
-      if: contains(github.ref, 'tags/')
-      id: ltlRedistCache
-      uses: actions/cache@v2
-      with:
-        path: VC-LTL*-Redist.7z
-        key: ltl_${{ hashFiles('Redist/**/*.dll') }}
-
     - name: 文件打包
       working-directory: ${{env.GITHUB_WORKSPACE}}
       shell: cmd
@@ -175,8 +167,8 @@ jobs:
           ::生成二进制包
           msbuild Build.proj -p:TagVersion=${{env.BuildVersion}} -t:Pack
 
-          :: 如果 Redist 内容从来没有变过，那么我们不需要生成，直接使用上一次的结果就可以了
-          if /i "${{steps.ltlRedistCache.outputs.cache-hit}}" NEQ "true" (
+          :: 打包Redist
+          if "${{env.BuildVersion}}" NEQ "" (
               msbuild Build.proj -p:TagVersion=${{env.BuildVersion}} -t:PackRedist
           )
 
@@ -185,6 +177,21 @@ jobs:
           if "${{env.BuildVersion}}" NEQ "" (
               nuget pack Nuget\VC-LTL-New.nuspec -Properties version=${{env.BuildVersion}};commit=%GITHUB_SHA%
           )
+
+    - name: 匹配Redist缓存
+      if: contains(github.ref, 'tags/')
+      id: ltlRedistCache
+      uses: actions/cache@v2
+      with:
+        path: VC-LTL*-Redist.7z
+        key: ltl_Redist_${{ hashFiles('Redist/**/*.dll') }}
+
+    - name: 文件清理
+      if: steps.ltlRedistCache.outputs.cache-hit == 'true'
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      shell: cmd
+      run: |
+           del VC-LTL-${{env.BuildVersion}}-Redist.7z /Q /F
 
     - uses: actions/upload-artifact@v2
       with:
