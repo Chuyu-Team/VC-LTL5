@@ -292,6 +292,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.props" />
   </ImportGroup>
   <ImportGroup Label="Shared">
   </ImportGroup>
@@ -847,9 +848,9 @@
     <ClCompile Include="..\Sources\crt\vcruntime\winapi_thunks.cpp">
       <ExcludedFromBuild Condition="'$(Platform)' != 'Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="notify.cpp">
+    <MASM Include="notify.x64.asm">
       <ExcludedFromBuild Condition="'$(Platform)' != 'x64'">true</ExcludedFromBuild>
-    </ClCompile>
+    </MASM>
     <ClCompile Include="VC_LTL_Config.c">
       <ForcedIncludeFiles>
       </ForcedIncludeFiles>
@@ -857,6 +858,7 @@
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.targets" />
   </ImportGroup>
   <Import Project="$(SolutionDir)Tools\$(VCToolsVersion)\$(Platform)\LibInfo.props" Condition="Exists('$(SolutionDir)Tools\$(VCToolsVersion)\$(Platform)\LibInfo.props')" />
   <Target Name="SafeCheck" BeforeTargets="PrepareForBuild">
