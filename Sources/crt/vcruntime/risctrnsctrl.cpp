@@ -81,7 +81,7 @@ extern "C" void __cdecl _SetThrowImageBase(uintptr_t NewThrowImageBase)
 #if _VCRT_BUILD_FH4
 
 #if WindowsTargetPlatformMinVersion >= WindowsTargetPlatformWindows6
-thread_local int VC_LTL_UCRT_CatchStateInParent;
+thread_local int VC_LTL_UCRT_CatchStateInParent = INVALID_CATCH_SPECIFIC_STATE;
 #endif
 
 #endif
