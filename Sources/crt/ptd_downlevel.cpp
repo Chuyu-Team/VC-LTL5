@@ -37,6 +37,11 @@ EXTERN_C ptd_downlevel * __fastcall __LTL_get_ptd_downlevel(BOOL bCanAlloc)
 					sizeof(pPTD_downlevelGroup[i]) - size_t(&((ptd_downlevel*)NULL)->_thread_local_iph));
 
 
+				__if_exists(ptd_downlevel::_CatchStateInParent)
+				{
+					pPTD_downlevelGroup[i]._CatchStateInParent = -2;//INVALID_CATCH_SPECIFIC_STATE
+				}
+
 				return &pPTD_downlevelGroup[i];
 			}
 		}
