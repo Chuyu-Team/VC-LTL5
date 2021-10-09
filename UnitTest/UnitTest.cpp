@@ -631,6 +631,8 @@ namespace UnitTest
 
 			auto SymbolsTest = BuildRefCPPCode(TestSymbols, Machine, ExclusionSymbols, StrStrIW(szConfiguration, L"Static") != nullptr);
 
+
+#if 0
 			CString SymbolsTestCppRootPath = SymbolBuildTestPath;
 			SymbolsTestCppRootPath += L".test\\";
 
@@ -695,6 +697,13 @@ namespace UnitTest
 			CreateFileByData(BuildLog, OutString.GetString(), OutString.GetLength() * sizeof(OutString[0]));
 
 			Assert::AreEqual(lStatus, ERROR_SUCCESS, BuildLog);
+#else
+			CString SymbolsTestCppRootPath;
+
+			auto OutString = RunMSBuildTest(SymbolsTest, DstLibName, szPlatform, szConfiguration, szWindowsTargetPlatformMinVersion, BuildProperty, &SymbolsTestCppRootPath);
+
+#endif
+
 
 			//把这些链接信息拉黑处理
 			constexpr static LPCWSTR LinkWarnings[] =
@@ -704,12 +713,12 @@ namespace UnitTest
 
 			for (auto Warning : LinkWarnings)
 			{
-				Assert::AreEqual(OutString.Find(Warning), -1, CString(L"出现了") + Warning + L"\r\n" + BuildLog);
+				Assert::AreEqual(OutString.Find(Warning), -1, CString(L"出现了") + Warning + L"\r\n" + SymbolsTestCppRootPath + L"Build.log");
 			}
 
 			Infos = std::move(GetDllImportInfo(SymbolsTestCppRootPath + L"SymbolBuildTest.exe"));
 			
-			return lStatus;
+			return ERROR_SUCCESS;
 		}
 
 		static std::vector<CStringA> GetALlSymbols(LPCWSTR szLibFile)
@@ -757,19 +766,6 @@ namespace UnitTest
 			return Symbols;
 		}
 
-		static byte* ReadFileData(LPCWSTR szFile)
-		{
-			auto hFile = CreateFileW(szFile, GENERIC_READ, FILE_SHARE_READ | FILE_SHARE_DELETE, nullptr, OPEN_EXISTING, 0, nullptr);
-			if (hFile == INVALID_HANDLE_VALUE)
-				return nullptr;
-
-			DWORD cbData = GetFileSize(hFile, nullptr);
-			auto pData = (byte*)malloc(cbData);
-
-			ReadFile(hFile, pData, cbData, &cbData, nullptr);
-
-			return pData;
-		}
 
 		static CStringA BuildRefCPPCode(const std::vector<CStringA>& Symbols, WORD Machine, const std::set<CStringA>& ExclusionSymbols, bool IgnoreIAT)
 		{
@@ -797,125 +793,8 @@ namespace UnitTest
 			return CCode;
 		}
 
-		static LSTATUS CreateFileByData(LPCWSTR FilePath, const void* Data, DWORD ccbData)
-		{
-			if (Data == NULL)
-				return ERROR_DATABASE_FULL;
-
-			DWORD FileAttr = GetFileAttributes(FilePath);
-
-			if (FileAttr != INVALID_FILE_ATTRIBUTES && (FileAttr & FILE_ATTRIBUTE_READONLY))
-			{
-				SetFileAttributes(FilePath, FileAttr & (-1 ^ FILE_ATTRIBUTE_READONLY));
-			}
-
-			LSTATUS lStatus = ERROR_SUCCESS;
-
-			auto thFile = CreateFile(FilePath, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL | FILE_FLAG_BACKUP_SEMANTICS, 0);
-
-			if (thFile != INVALID_HANDLE_VALUE)
-			{
-				if (!WriteFile(thFile, Data, ccbData, &ccbData, NULL))
-				{
-					lStatus = GetLastError();
-				}
-
-				CloseHandle(thFile);
-			}
-			else
-			{
-				lStatus = GetLastError();
-			}
-
-			if (FileAttr != INVALID_FILE_ATTRIBUTES)
-			{
-				SetFileAttributes(FilePath, FileAttr);
-			}
 
 
-			return lStatus;
-		}
-
-
-		static LSTATUS RunCmd(LPCWSTR FilePath, CString CmdString, CString* pOutString)
-		{
-			SECURITY_ATTRIBUTES sa;
-			HANDLE hRead, hWrite;
-
-			sa.nLength = sizeof(SECURITY_ATTRIBUTES);
-			sa.lpSecurityDescriptor = NULL;
-			sa.bInheritHandle = TRUE;
-			if (!CreatePipe(&hRead, &hWrite, &sa, 0))
-			{
-				return GetLastError();
-			}
-
-			STARTUPINFO si = { sizeof(STARTUPINFO) };
-			PROCESS_INFORMATION pi;
-
-			GetStartupInfo(&si);
-			si.hStdError = hWrite;
-			si.hStdOutput = hWrite;
-			si.wShowWindow = SW_HIDE;
-			si.dwFlags = STARTF_USESHOWWINDOW | STARTF_USESTDHANDLES;
-			//关键步骤，CreateProcess函数参数意义请查阅MSDN
-			//auto TT= EXECDOSCMD.GetBuffer();
-
-			wchar_t SystempPath[MAX_PATH + 1];
-
-			GetSystemDirectoryW(SystempPath, _countof(SystempPath));
-
-			if (!CreateProcessW(FilePath, CmdString.GetBuffer(), NULL, NULL, TRUE, CREATE_UNICODE_ENVIRONMENT, NULL, SystempPath, &si, &pi))
-			{
-				return GetLastError();
-			}
-
-			CloseHandle(hWrite);
-
-			DWORD bytesRead;
-
-			CStringA OutString;
-			//OutString.reserve(1024);
-
-			//OutString.GetBuffer(1024);
-			while (ReadFile(hRead, OutString.GetBuffer(OutString.GetLength() + 1024) + OutString.GetLength(), 1024, &bytesRead, NULL) && bytesRead)
-			{
-				OutString.ReleaseBufferSetLength(OutString.GetLength() + bytesRead);
-
-				//OutString._Mylast() += bytesRead;
-				//OutString.reserve(OutString.size() + 1024);
-
-
-				//buffer中就是执行的结果，可以保存到文本，也可以直接输出
-				//TRACE(buffer);
-				//等待10毫秒
-
-				Sleep(5);
-
-			}
-
-			CloseHandle(hRead);
-
-			WaitForSingleObject(pi.hProcess, INFINITE);
-
-			LSTATUS lStatus = ERROR_INVALID_FUNCTION;
-
-			GetExitCodeProcess(pi.hProcess, (LPDWORD)&lStatus);
-
-
-			CloseHandle(pi.hThread);
-			CloseHandle(pi.hProcess);
-
-			//*OutString._Mylast() = NULL;
-			if (pOutString)
-			{
-				*pOutString = OutString;
-			}
-
-
-			//EXECDOSCMD.
-			return lStatus;
-		}
 
 		static std::set<CStringA> GetIgnoreSymbolsList(LPCWSTR DstLibName, LPCWSTR szPlatform, LPCWSTR szConfiguration, LPCWSTR szWindowsTargetPlatformMinVersion)
 		{

@@ -16,5 +16,32 @@
 #include <vector>
 #include <set>
 #include <atlstr.h>
+#include "CppUnitTest.h"
 
+LSTATUS RunCmd(LPCWSTR FilePath, CString CmdString, CString* pOutString);
+
+LSTATUS CreateFileByData(LPCWSTR FilePath, const void* Data, DWORD ccbData);
+
+byte* ReadFileData(LPCWSTR szFile);
+
+CString RunMSBuildTest(
+	CStringA FileData,
+	LPCWSTR DetectName,
+	LPCWSTR szPlatform,
+	LPCWSTR szConfiguration,
+	LPCWSTR szWindowsTargetPlatformMinVersion,
+	LPCWSTR BuildProperty = nullptr,
+	CStringW* pTempRoot = nullptr
+	);
+
+CString RunMSBuildTest(
+	const void* FileData,
+	DWORD cbFileData,
+	LPCWSTR DetectName,
+	LPCWSTR szPlatform,
+	LPCWSTR szConfiguration,
+	LPCWSTR szWindowsTargetPlatformMinVersion,
+	LPCWSTR BuildProperty = nullptr,
+	CStringW* pTempRoot = nullptr
+	);
 #endif //PCH_H
