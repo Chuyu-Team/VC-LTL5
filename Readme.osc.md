@@ -4,6 +4,7 @@
 ![contributors](https://img.shields.io/github/contributors-anon/Chuyu-Team/VC-LTL5)
 ![release](https://img.shields.io/github/v/release/Chuyu-Team/VC-LTL5?include_prereleases)
 ![nuget](https://img.shields.io/nuget/vpre/VC-LTL)
+[![crates.io](https://img.shields.io/crates/v/vc-ltl.svg)](https://crates.io/crates/vc-ltl)
 [![Build&Test](https://github.com/Chuyu-Team/VC-LTL5/actions/workflows/Build&Test.yml/badge.svg)](https://github.com/Chuyu-Team/VC-LTL5/actions/workflows/Build&Test.yml)
 
 - [English](Readme.md)
