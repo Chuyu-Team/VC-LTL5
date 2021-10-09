@@ -20,6 +20,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <!--最低支持目标为XP 2003时，则还需要禁用threadSafeInit-->
       <AdditionalOptions Condition="'$(WindowsTargetPlatformMinVersionBuild)' &gt;= '6000'">/Zc:threadSafeInit- %(AdditionalOptions)</AdditionalOptions>
+      <SupportJustMyCode>false</SupportJustMyCode>
     </ClCompile>
   </ItemDefinitionGroup>
   <!--从兼容性考虑，继续向上搜索 Directory.Build.props-->
