@@ -107,7 +107,9 @@ jobs:
               }
 
               # 替换 Cargo.toml 的版本号以为 crate 包生成做准备
-              (Get-Content -path "Rust\Cargo.toml.template" -Raw) -replace 'version = "$version$"','version = "$BuildVersion"' | Out-File -FilePath "Rust\Cargo.toml"
+              $Cargo = [System.IO.File]::ReadAllText("Rust\Cargo.toml.template")
+              $Cargo = $Cargo.Replace('$version$', $BuildVersion)
+              [System.IO.File]::WriteAllText("Rust\Cargo.toml", $Cargo)
           }
 
     - name: 执行编译
@@ -169,17 +171,22 @@ jobs:
           set "Path=${{env.MSBuildBinPath}};%Path%"
           ::生成二进制包
           msbuild Build.proj -p:TagVersion=${{env.BuildVersion}} -t:Pack
+          if %ERRORLEVEL% NEQ 0 exit /B %ERRORLEVEL%
 
           :: 打包Redist
           if "${{env.BuildVersion}}" NEQ "" (
               msbuild Build.proj -p:TagVersion=${{env.BuildVersion}} -t:PackRedist
           )
+          
+          if %ERRORLEVEL% NEQ 0 exit /B %ERRORLEVEL%
 
 
           ::打包Nuget
           if "${{env.BuildVersion}}" NEQ "" (
               nuget pack Nuget\VC-LTL-New.nuspec -Properties version=${{env.BuildVersion}};commit=%GITHUB_SHA%
           )
+
+          if %ERRORLEVEL% NEQ 0 exit /B %ERRORLEVEL%
 
     - name: 匹配Redist缓存
       if: contains(github.ref, 'tags/')
@@ -239,22 +246,24 @@ jobs:
         set "Path=${{env.MSBuildBinPath}};%Path%"
 
         :: 准备 Rust 打包所需要的内容
-        if "${{env.BuildVersion}}" NEQ "" (
-            msbuild Build.proj -t:PrepareToCompileRustLanguageSupport
-        )
+        msbuild Build.proj -t:PrepareToCompileRustLanguageSupport
+        if %ERRORLEVEL% NEQ 0 exit /B %ERRORLEVEL%
+
 
         :: 切换到 Rust 目录
         pushd Rust
         
         :: 登录 Cargo
         cargo login ${{ secrets.CARGO_TOKEN }}
+        if %ERRORLEVEL% NEQ 0 exit /B %ERRORLEVEL%
 
         :: 生成并发布 
         cargo publish --allow-dirty
+        if %ERRORLEVEL% NEQ 0 exit /B %ERRORLEVEL%
 
         :: 切换回项目目录
         popd
 
         :: 把生成的nuget包发布到nuget中
         nuget push VC-LTL.${{env.BuildVersion}}.nupkg -ApiKey ${{ secrets.NUGET_TOKEN }} -Source https://api.nuget.org/v3/index.json
-
+        if %ERRORLEVEL% NEQ 0 exit /B %ERRORLEVEL%
