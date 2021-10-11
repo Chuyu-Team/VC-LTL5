@@ -105,6 +105,9 @@ jobs:
                   echo $releaseNotes | out-file "Nuget\VC-LTL-New.nuspec" -Append
                   echo $content.Remove(0, $releaseNotesIndex + $releaseNotesToken.Length) | out-file "Nuget\VC-LTL-New.nuspec" -NoNewline -Append
               }
+
+              # 替换 Cargo.toml 的版本号以为 crate 包生成做准备
+              (Get-Content -path "Rust\Cargo.toml.template" -Raw) -replace 'version = "$version$"','version = "$BuildVersion"' | Out-File -FilePath "Rust\Cargo.toml"
           }
 
     - name: 执行编译
@@ -223,11 +226,35 @@ jobs:
         tags: true
         draft: false
 
+    - uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+        
     - name: 内容发布
       if: contains(github.ref, 'tags/')
       working-directory: ${{env.GITHUB_WORKSPACE}}
       shell: cmd
       run: |
-         :: 把生成的nuget包发布到nuget中
-         nuget push VC-LTL.${{env.BuildVersion}}.nupkg -ApiKey ${{ secrets.NUGET_TOKEN }} -Source https://api.nuget.org/v3/index.json
+
+        set "Path=${{env.MSBuildBinPath}};%Path%"
+
+        :: 准备 Rust 打包所需要的内容
+        if "${{env.BuildVersion}}" NEQ "" (
+            msbuild Build.proj -t:PrepareToCompileRustLanguageSupport
+        )
+
+        :: 切换到 Rust 目录
+        pushd Rust
+        
+        :: 登录 Cargo
+        cargo login ${{ secrets.CARGO_TOKEN }}
+
+        :: 生成并发布 
+        cargo publish --allow-dirty
+
+        :: 切换回项目目录
+        popd
+
+        :: 把生成的nuget包发布到nuget中
+        nuget push VC-LTL.${{env.BuildVersion}}.nupkg -ApiKey ${{ secrets.NUGET_TOKEN }} -Source https://api.nuget.org/v3/index.json
 
