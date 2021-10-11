@@ -1,0 +1,13 @@
+[package]
+edition = "2018"
+name = "vc-ltl"
+version = "$version$"
+authors = ["mingkuang <mingkuang@live.com>", "Kenji Mouri <Mouri_Naruto@Outlook.com>"]
+build = "build.rs"
+include = ["/src", "/TargetPlatform", "build.rs"]
+description = "Shared to msvcrt.dll or ucrtbase.dll and optimize the application file size."
+readme = "ReadMe.md"
+license-file = "LICENSE"
+repository = "https://github.com/Chuyu-Team/VC-LTL5"
+
+[dependencies]

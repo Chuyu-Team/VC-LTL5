@@ -149,6 +149,21 @@
     <Exec Command="%22$(MSBuildThisFileDirectory)Tools\LibMaker.exe%22 RemoveAPISet %22%(RedistFiles.identity)%22 %22$(MSBuildThisFileDirectory)Tools\ApiSetMap.txt%22" WorkingDirectory="$(MSBuildThisFileDirectory)"/>
   </Target>
 
+  <!-- VC-LTL Rust crate 编译准备 -->
+  <Target Name="PrepareToCompileRustLanguageSupport">
+    <ItemGroup>
+      <RustTargetPlatform_x86 Include="$(SolutionDir)TargetPlatform\6.0.6000.0\lib\Win32\*ucrt.*;$(SolutionDir)TargetPlatform\6.0.6000.0\lib\Win32\*vcruntime.*;" />
+      <RustTargetPlatform_x64 Include="$(SolutionDir)TargetPlatform\6.0.6000.0\lib\x64\*ucrt.*;$(SolutionDir)TargetPlatform\6.0.6000.0\lib\x64\*vcruntime.*;" />
+      <RustTargetPlatform_arm64 Include="$(SolutionDir)TargetPlatform\10.0.10240.0\lib\ARM64\*ucrt.*;$(SolutionDir)TargetPlatform\10.0.10240.0\lib\ARM64\*vcruntime.*;" />
+      <RustTargetPlatform_Common Include="$(SolutionDir)Readme.md;$(SolutionDir)LICENSE;" />
+    </ItemGroup>
+
+    <Copy SourceFiles="@(RustTargetPlatform_x86)" DestinationFolder="$(SolutionDir)Rust\TargetPlatform\6.0.6000.0\lib\Win32" />
+    <Copy SourceFiles="@(RustTargetPlatform_x64)" DestinationFolder="$(SolutionDir)Rust\TargetPlatform\6.0.6000.0\lib\x64" />
+    <Copy SourceFiles="@(RustTargetPlatform_arm64)" DestinationFolder="$(SolutionDir)Rust\TargetPlatform\10.0.10240.0\lib\ARM64" />
+    <Copy SourceFiles="@(RustTargetPlatform_Common)" DestinationFolder="$(SolutionDir)Rust" />
+  </Target>
+
   <Target Name="Pack">
     <PropertyGroup>
       <ZipFileName Condition="'$(TagVersion)' == ''">VC-LTL-Binary.7z</ZipFileName>
