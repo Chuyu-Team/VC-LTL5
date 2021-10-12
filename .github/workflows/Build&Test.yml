@@ -1,6 +1,6 @@
 ﻿name: Build&Test
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
   Build:
@@ -27,7 +27,7 @@ jobs:
         key: ltl_${{ hashFiles('**/Build_libucrt_shared.cmd') }}
 
     - name: 初始化
-      working-directory: ${{env.GITHUB_WORKSPACE}}
+      working-directory: ${{github.workspace}}
       run: |
           if (-not (Test-Path Tools))
           {
@@ -114,7 +114,7 @@ jobs:
 
     - name: 执行编译
       if: steps.ltlBinCache.outputs.cache-hit != 'true'
-      working-directory: ${{env.GITHUB_WORKSPACE}}
+      working-directory: ${{github.workspace}}
       shell: pwsh
       run: |
           # MSBuild 目录更新到 Path
@@ -129,7 +129,7 @@ jobs:
 
     - name: 执行单元测试
       if: steps.ltlBinCache.outputs.cache-hit != 'true'
-      working-directory: ${{env.GITHUB_WORKSPACE}}
+      working-directory: ${{github.workspace}}
       shell: pwsh
       run: |
           # MSBuild 目录更新到 Path
@@ -165,7 +165,7 @@ jobs:
         reporter: dotnet-trx
 
     - name: 文件打包
-      working-directory: ${{env.GITHUB_WORKSPACE}}
+      working-directory: ${{github.workspace}}
       shell: cmd
       run: |
           set "Path=${{env.MSBuildBinPath}};%Path%"
@@ -198,7 +198,7 @@ jobs:
 
     - name: 文件清理
       if: steps.ltlRedistCache.outputs.cache-hit == 'true'
-      working-directory: ${{env.GITHUB_WORKSPACE}}
+      working-directory: ${{github.workspace}}
       shell: cmd
       run: |
            del VC-LTL-${{env.BuildVersion}}-Redist.7z /Q /F
@@ -239,7 +239,7 @@ jobs:
         
     - name: 内容发布
       if: contains(github.ref, 'tags/')
-      working-directory: ${{env.GITHUB_WORKSPACE}}
+      working-directory: ${{github.workspace}}
       shell: cmd
       run: |
 
