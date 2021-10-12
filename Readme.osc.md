@@ -1,15 +1,13 @@
 ﻿# VC-LTL——编译精巧的程序原来如此简单
-![license](https://img.shields.io/github/license/Chuyu-Team/VC-LTL5)
+[![license](https://img.shields.io/github/license/Chuyu-Team/VC-LTL5)](https://github.com/Chuyu-Team/VC-LTL5/blob/master/LICENSE)
 ![downloads](https://img.shields.io/github/downloads/Chuyu-Team/VC-LTL5/total)
-![contributors](https://img.shields.io/github/contributors-anon/Chuyu-Team/VC-LTL5)
-![release](https://img.shields.io/github/v/release/Chuyu-Team/VC-LTL5?include_prereleases)
-![nuget](https://img.shields.io/nuget/vpre/VC-LTL)
+[![contributors](https://img.shields.io/github/contributors-anon/Chuyu-Team/VC-LTL5)](https://github.com/Chuyu-Team/VC-LTL5/graphs/contributors)
+[![release](https://img.shields.io/github/v/release/Chuyu-Team/VC-LTL5?include_prereleases)](https://github.com/Chuyu-Team/VC-LTL5/releases)
+[![nuget](https://img.shields.io/nuget/vpre/VC-LTL)](https://www.nuget.org/packages/VC-LTL)
 [![crates.io](https://img.shields.io/crates/v/vc-ltl.svg)](https://crates.io/crates/vc-ltl)
 [![Build&Test](https://github.com/Chuyu-Team/VC-LTL5/actions/workflows/Build&Test.yml/badge.svg)](https://github.com/Chuyu-Team/VC-LTL5/actions/workflows/Build&Test.yml)
 
 - [English](Readme.md)
-
-> 这是VC-LTL 5.0版本，代码完全重构，仍然在试水中！如果是生产力环境中请使用[VC-LTL 4](https://github.com/Chuyu-Team/VC-LTL/releases/latest)。
 
 ![Logo](https://raw.githubusercontent.com/wiki/Chuyu-Team/VC-LTL/image/Logo.png)<br/>
 我愿化成一座做石桥，经受五百年的风吹，五百年的日晒，五百年的雨打，只求她从桥上走过！
@@ -66,7 +64,7 @@ VC-LTL 5.0开始，ABI与微软原版`兼容`，您可以直接使用现有的�
 
 除此之外，为了提供行为的一致性还提供了Debug版库，它依然会使用msvcrt.dll或者ucrtbase.dll，但是它不支持堆调试功能，如果您需要在Debug使用堆调试功能请临时禁用VC-LTL。
 
-### 2.2. 支持的IDE
+### 2.2. 支持的Visual Studio版本
 * Visual Studio 2015（包含Clang with Microsoft CodeGen、Clang 3.7 with Microsoft CodeGen、Clang-LLVM）
 * Visual Studio 2017（包含Clang with Microsoft CodeGen、Clang-LLVM）
 * Visual Studio 2019（包含Clang-LLVM）
@@ -75,10 +73,11 @@ VC-LTL 5.0开始，ABI与微软原版`兼容`，您可以直接使用现有的�
 ### 2.3. 支持的编译工具
 |    编译工具    | 支持文件
 | -------------- | --
-| Visual Studio  | [VC-LTL helper for Visual Studio.props](#31-在visual-studio中使用vc-ltl)
+| Visual Studio  | NuGet 或者 [VC-LTL helper for Visual Studio.props](#31-在visual-studio中使用vc-ltl)
 | CMake          | [VC-LTL helper for cmake.cmake](#32-在cmake中使用vc-ltl)
 | NMake、CL      | [VC-LTL helper for nmake.cmd](#33-在nmake纯cl中使用vc-ltl)
 | QMake          | VC-LTL helper for qmake.pri
+| Rust           | crate
 
 ### 2.4. 支持的操作系统
 |   操作系统                                          | x86 | x64 | arm | arm64 

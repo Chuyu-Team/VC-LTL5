@@ -1,15 +1,13 @@
 ﻿# VC-LTL - An elegant way to compile lighter binaries.
-![license](https://img.shields.io/github/license/Chuyu-Team/VC-LTL5)
+[![license](https://img.shields.io/github/license/Chuyu-Team/VC-LTL5)](https://github.com/Chuyu-Team/VC-LTL5/blob/master/LICENSE)
 ![downloads](https://img.shields.io/github/downloads/Chuyu-Team/VC-LTL5/total)
-![contributors](https://img.shields.io/github/contributors-anon/Chuyu-Team/VC-LTL5)
-![release](https://img.shields.io/github/v/release/Chuyu-Team/VC-LTL5?include_prereleases)
-![nuget](https://img.shields.io/nuget/vpre/VC-LTL)
+[![contributors](https://img.shields.io/github/contributors-anon/Chuyu-Team/VC-LTL5)](https://github.com/Chuyu-Team/VC-LTL5/graphs/contributors)
+[![release](https://img.shields.io/github/v/release/Chuyu-Team/VC-LTL5?include_prereleases)](https://github.com/Chuyu-Team/VC-LTL5/releases)
+[![nuget](https://img.shields.io/nuget/vpre/VC-LTL)](https://www.nuget.org/packages/VC-LTL)
 [![crates.io](https://img.shields.io/crates/v/vc-ltl.svg)](https://crates.io/crates/vc-ltl)
 [![Build&Test](https://github.com/Chuyu-Team/VC-LTL5/actions/workflows/Build&Test.yml/badge.svg)](https://github.com/Chuyu-Team/VC-LTL5/actions/workflows/Build&Test.yml)
 
 - [简体中文](Readme.osc.md)
-
-> 这是VC-LTL 5.0版本，代码完全重构，仍然在试水中！如果是生产力环境中请使用[VC-LTL 4](https://github.com/Chuyu-Team/VC-LTL/releases/latest)。
 
 ![Logo](https://raw.githubusercontent.com/wiki/Chuyu-Team/VC-LTL/image/Logo.png)<br/>
 I would like to turn into a stone bridge, go through 500 years of wind, 500 years of Sun, rain for 500 years, but she walked off a bridge!
@@ -83,10 +81,11 @@ If you need to use the heap debugging, please disable VC-LTL.
 ### 2.3. Supported Build Tools
 |   Build Tool   | Helper      
 | -------------- | --
-| Visual Studio  | [VC-LTL helper for Visual Studio.props](#31-using-vc-ltl-in-visual-studio)
+| Visual Studio  | NuGet or [VC-LTL helper for Visual Studio.props](#31-using-vc-ltl-in-visual-studio)
 | CMake          | [VC-LTL helper for cmake.cmake](#32-using-vc-ltl-in-cmake)
 | NMake, CL      | [VC-LTL helper for nmake.cmd](#33-using-vc-ltl-in-nmakecl)
 | QMake          | VC-LTL helper for qmake.pri
+| Rust           | crate
 
 ### 2.4. Supported Windows Versions
 |         OS                                          | x86 | x64 | arm | arm64 
