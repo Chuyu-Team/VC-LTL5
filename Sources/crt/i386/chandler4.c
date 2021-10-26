@@ -303,6 +303,13 @@ ValidateLocalCookies(
 #if defined(_M_IX86) && !defined(CRTDLL) && !defined(_M_HYBRID)
 // Filter incorrect x86 floating point exceptions, unless linkopt that provides an empty filter is available.
 #pragma comment(linker, "/alternatename:__filter_x86_sse2_floating_point_exception=__filter_x86_sse2_floating_point_exception_default")
+
+//只有2019的msvcrt才会实现__filter_x86_sse2_floating_point_exception_default，所以我们再默认实现一个 _filter_x86_sse2_floating_point_exception_default_2015_2017_shim
+#pragma comment(linker, "/alternatename:__filter_x86_sse2_floating_point_exception_default=__filter_x86_sse2_floating_point_exception_default_2015_2017_shim")
+long __cdecl _filter_x86_sse2_floating_point_exception_default_2015_2017_shim(long const exception_code)
+{
+    return exception_code;
+}
 #endif
 
 #if !defined(CRTDLL)
