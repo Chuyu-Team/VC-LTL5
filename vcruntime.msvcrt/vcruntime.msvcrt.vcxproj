@@ -740,14 +740,11 @@
   <ImportGroup Label="ExtensionTargets">
     <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.targets" />
   </ImportGroup>
-  <Import Project="$(SolutionDir)Tools\$(VCToolsVersion)\$(Platform)\LibInfo.props" Condition="Exists('$(SolutionDir)Tools\$(VCToolsVersion)\$(Platform)\LibInfo.props')" />
-  <Target Name="SafeCheck" BeforeTargets="PrepareForBuild">
-    <Error Text="$(SolutionDir)Tools\$(VCToolsVersion) 目录不存在！" Condition="'$(VCToolsVersion)' == '' or (!Exists('$(SolutionDir)Tools\$(VCToolsVersion)'))" />
-  </Target>
+  <Import Project="$(SolutionDir)Tools\VCRuntime\$(Platform)\LibInfo.props" Condition="Exists('$(SolutionDir)Tools\VCRuntime\$(Platform)\LibInfo.props')" />
   <Target Name="EXTRACT_obj" AfterTargets="_ClCompile" Inputs="%(ExtractItem.LibFile)" Outputs="%(ExtractItem.OutDir)%(ExtractItem.Filename)%(ExtractItem.Extension)" Condition="'@(ExtractItem)' !=''">
     <!--确保文件夹必定存在-->
     <MakeDir Directories="%(ExtractItem.OutDir)" />
-    <Exec Command="lib %22%(ExtractItem.LibFile)%22 /EXTRACT:%(ExtractItem.Identity) /out:%22%(ExtractItem.OutDir)%(ExtractItem.Filename)%(ExtractItem.Extension)%22 /MACHINE:$(PlatformShortName)" />
+    <Exec Command="%22$(SolutionDir)Tools\LibMaker.exe%22 ExportObj %22%(ExtractItem.LibFile)%22 %(ExtractItem.Identity) %22%(ExtractItem.OutDir)%(ExtractItem.Filename)%(ExtractItem.Extension)%22" />
     <ItemGroup>
       <Obj Include="%(ExtractItem.OutDir)%(ExtractItem.Filename)%(ExtractItem.Extension)">
         <LinkCompiled>true</LinkCompiled>
