@@ -195,5 +195,5 @@ nmake /f Test.mak
 
 
 ## 附：第三方依赖项许可
-* [Visual Studio](https://github.com/Chuyu-Team/VC-LTL5/tree/master/ThirdPartyLicenses/Visual%20Studio)
-* [Windows 10 SDK](https://github.com/Chuyu-Team/VC-LTL5/tree/master/ThirdPartyLicenses/Windows%2010%20SDK)
+* [Visual Studio](https://visualstudio.microsoft.com/license-terms/)
+* [Windows Software Developer Kit](https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/)
