@@ -17,13 +17,6 @@ if(NOT CleanImport)
 endif()
 
 if(${SupportLTL} STREQUAL "true")
-	if(NOT CMAKE_BUILD_TYPE)
-		message(WARNING "VC-LTL not load, because CMAKE_BUILD_TYPE is not defined!!!")
-		set(SupportLTL "false")
-	endif()
-endif()
-
-if(${SupportLTL} STREQUAL "true")
 	if(NOT CMAKE_SYSTEM_NAME)
 		message(WARNING "VC-LTL not load, because CMAKE_SYSTEM_NAME is not defined!!!")
 		set(SupportLTL "false")
