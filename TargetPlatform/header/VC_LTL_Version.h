@@ -1,4 +1,4 @@
-
+﻿
 #ifndef __LTL_Version_Include
 #define __LTL_Version_Include
 
