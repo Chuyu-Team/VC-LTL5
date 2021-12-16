@@ -1402,6 +1402,7 @@ _futime
 _utime
 _wutime
 time
+__lconv_init
 
 _XcptFilter
 ;__CppXcptFilter

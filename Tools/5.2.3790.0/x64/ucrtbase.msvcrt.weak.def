@@ -214,3 +214,5 @@ _iswalnum_l=iswalnum
 _iswprint_l=iswprint
 _iswgraph_l=iswgraph
 _iswcntrl_l=iswcntrl
+
+__initialize_lconv_for_unsigned_char=__lconv_init

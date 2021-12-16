@@ -229,3 +229,5 @@ _getdrives=GetLogicalDrives
 _seterrormode=SetErrorMode
 __threadhandle=GetCurrentThread
 __threadid=GetCurrentThreadId
+
+__initialize_lconv_for_unsigned_char=__lconv_init

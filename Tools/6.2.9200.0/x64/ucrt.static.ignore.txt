@@ -2,7 +2,6 @@ _fputwc_nolock
 _ungetwch_nolock
 _ftelli64_nolock
 __imp__ftell_nolock
-__initialize_lconv_for_unsigned_char
 __imp__getc_nolock
 __imp__ungetch_nolock
 _fwrite_nolock
@@ -47,7 +46,6 @@ _fread_nolock_s
 __imp__ungetwc_nolock
 __imp__fread_nolock_s
 _fgetc_nolock
-__imp___initialize_lconv_for_unsigned_char
 _getc_nolock
 _ungetwc_nolock
 _getwc_nolock

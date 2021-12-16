@@ -15,8 +15,6 @@ __imp___ftelli64_nolock
 __ftelli64_nolock
 ;Œ¢»ÌBug
 __mbcasemap
-__imp____initialize_lconv_for_unsigned_char
-___initialize_lconv_for_unsigned_char
 __imp___getwc_nolock
 __getwc_nolock
 __imp___fflush_nolock

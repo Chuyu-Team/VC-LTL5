@@ -1364,6 +1364,7 @@ _wfindfirsti64
 _wfindnexti64
 _fstat
 _fstati64
+__lconv_init
 
 _XcptFilter
 __CppXcptFilter

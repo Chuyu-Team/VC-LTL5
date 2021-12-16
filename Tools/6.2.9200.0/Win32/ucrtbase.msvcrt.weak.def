@@ -218,3 +218,5 @@ _tan_default=tan
 
 __timezone=__p__timezone
 __tzname=__p__tzname
+
+__initialize_lconv_for_unsigned_char=__lconv_init

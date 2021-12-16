@@ -198,3 +198,5 @@ _seh_filter_dll=__CppXcptFilter
 
 
 _loaddll=LoadLibraryA
+
+__initialize_lconv_for_unsigned_char=__lconv_init

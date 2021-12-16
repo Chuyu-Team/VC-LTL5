@@ -247,3 +247,4 @@ _iswgraph_l=iswgraph
 _iswcntrl_l=iswcntrl
 
 _time32=time
+__initialize_lconv_for_unsigned_char=__lconv_init
