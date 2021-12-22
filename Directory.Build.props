@@ -20,6 +20,8 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <!--最低支持目标为XP 2003时，则还需要禁用threadSafeInit-->
       <AdditionalOptions Condition="'$(WindowsTargetPlatformMinVersionBuild)' &gt;= '6000'">/Zc:threadSafeInit- %(AdditionalOptions)</AdditionalOptions>
+      <!--避免使用tlsGuards，因为VC-LTL能确保不会使用那些动态的。此外避免高版本依赖-->
+      <AdditionalOptions>/Zc:tlsGuards- %(AdditionalOptions)</AdditionalOptions>
       <SupportJustMyCode>false</SupportJustMyCode>
     </ClCompile>
   </ItemDefinitionGroup>
