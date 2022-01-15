@@ -55,21 +55,26 @@ extern "C" __declspec(naked) DECLSPEC_GUARD_SUPPRESS EXCEPTION_DISPOSITION __cde
 		//
 		mov     esi, eax
 		mov     ecx, 9
-		lea     edi, FuncInfo_downlevel
+		lea     eax, FuncInfo_downlevel
+		mov     edi, eax
 		rep movsd
-	}
 
-	FuncInfo_downlevel.magicNumber = EH_MAGIC_NUMBER1;
+		//FuncInfo_downlevel.magicNumber = EH_MAGIC_NUMBER1;
+		mov     edx, dword ptr[eax]
+		and     edx, 0F9930520h
+		or      edx, 19930520h
+		mov     dword ptr[eax], edx
 
-	__asm
-	{
-		lea eax, FuncInfo_downlevel
-	}
 
-	__CxxFrameHandler(pExcept, pRN, pContext, pDC);
+		//__CxxFrameHandler(eax, pExcept, pRN, pContext, pDC);
+		push    dword ptr[pDC]
+		push    dword ptr[pContext]
+		push    dword ptr[pRN]
+		push    dword ptr[pExcept]
+		//eax
+		call    __CxxFrameHandler
+		add         esp, 10h
 
-	__asm
-	{
 		pop     edi
 		pop     esi
 		pop     ebx
