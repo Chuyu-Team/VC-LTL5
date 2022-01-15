@@ -723,6 +723,13 @@
     <ClCompile Include="jbcxrval.cpp">
       <ExcludedFromBuild Condition="'$(WindowsTargetPlatformMinVersionBuild)' &gt;= '6000'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="setjmp.cpp">
+		<OmitFramePointers>true</OmitFramePointers>
+    </ClCompile>
+    <ClCompile Include="setjmpex.cpp">
+		<OmitFramePointers>true</OmitFramePointers>
+		<ExcludedFromBuild Condition="'$(Platform)' == 'Win32'">true</ExcludedFromBuild>
+	</ClCompile>
     <ClCompile Include="vcruntime_IAT.cpp" />
     <ClCompile Include="VC_LTL_Config.c">
       <ForcedIncludeFiles>

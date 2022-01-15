@@ -92,6 +92,12 @@
     <ClCompile Include="jbcxrval.cpp">
       <Filter>源文件\ltl</Filter>
     </ClCompile>
+    <ClCompile Include="setjmpex.cpp">
+      <Filter>源文件\ltl</Filter>
+    </ClCompile>
+    <ClCompile Include="setjmp.cpp">
+      <Filter>源文件\ltl</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <MASM Include="i386\exsup.asm">

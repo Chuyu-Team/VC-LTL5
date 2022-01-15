@@ -75,7 +75,7 @@ wcsstr
 
 
 ;某些老符号，通过某些形式转换到了新符号
-setjmp
+_setjmp
 _setjmpex
 ?set_unexpected@@YAP6AXXZP6AXXZ@Z
 ?_set_se_translator@@YAP6AXIPAU_EXCEPTION_POINTERS@@@ZP6AXI0@Z@Z

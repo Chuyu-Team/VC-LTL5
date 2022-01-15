@@ -76,7 +76,7 @@ wcsstr
 
 
 ;内部转发需要
-setjmp
+_setjmp
 _setjmpex
 ?_set_se_translator@@YAP6AXIPEAU_EXCEPTION_POINTERS@@@ZP6AXI0@Z@Z
 ?set_unexpected@@YAP6AXXZP6AXXZ@Z

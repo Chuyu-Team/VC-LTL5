@@ -12,10 +12,10 @@ set_unexpected=?set_unexpected@@YAP6AXXZP6AXXZ@Z
 unexpected=?unexpected@@YAXXZ
 
 ;命名发生了改变
-__intrinsic_setjmp=setjmp
-__intrinsic_setjmpex=_setjmpex
-
-
+__intrinsic_setjmp=_setjmp DATA
+__intrinsic_setjmpex=_setjmpex DATA
+setjmp=_setjmp
+setjmpex=_setjmpex
 
 ; x64 调用约定统一，所以可以直接转发
 __vcrt_GetModuleFileNameW=GetModuleFileNameW
