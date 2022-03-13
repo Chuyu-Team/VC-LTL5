@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ExtractItem Include="\objr\arm64\softmemtag.obj">
+      <LibFile>$(VCToolsInstallDir)lib\$(PlatformShortName)\libvcruntime.lib</LibFile>
+      <OutDir>$(IntDir)objr\libvcruntime\</OutDir>
+    </ExtractItem>
+  </ItemGroup>
+</Project>

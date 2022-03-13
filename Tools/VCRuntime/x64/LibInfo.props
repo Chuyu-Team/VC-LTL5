@@ -13,4 +13,10 @@
       <OutDir>$(IntDir)objr\libvcruntime\</OutDir>
     </ExtractItem>
   </ItemGroup>
+  <ItemGroup>
+    <ExtractItem Include="\objr\amd64\softmemtag.obj">
+      <LibFile>$(VCToolsInstallDir)lib\$(PlatformShortName)\libvcruntime.lib</LibFile>
+      <OutDir>$(IntDir)objr\libvcruntime\</OutDir>
+    </ExtractItem>
+  </ItemGroup>
 </Project>
