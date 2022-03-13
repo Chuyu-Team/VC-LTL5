@@ -27,5 +27,14 @@
     <ClCompile Include="..\Sources\ucrt\convert\isctype.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="..\Sources\ltl\dbgrpt.cpp">
+      <Filter>源文件\ltl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ltl\dbgrptt.cpp">
+      <Filter>源文件\ltl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Sources\ltl\debug_fill_threshold.cpp">
+      <Filter>源文件\ltl</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

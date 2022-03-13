@@ -494,6 +494,7 @@
       <DisableSpecificWarnings>4200;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <OmitDefaultLibName>true</OmitDefaultLibName>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -661,6 +662,9 @@
     <ClCompile Include="..\Sources\crt\ptd_downlevel.cpp">
       <ExcludedFromBuild Condition="'$(WindowsTargetPlatformMinVersionBuild)' &gt;= '6000'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\Sources\ltl\dbgrpt.cpp" />
+    <ClCompile Include="..\Sources\ltl\dbgrptt.cpp" />
+    <ClCompile Include="..\Sources\ltl\debug_fill_threshold.cpp" />
     <ClCompile Include="..\Sources\ltl\debug_heap.cpp">
       <ExcludedFromBuild Condition="'$(UseDebugLibraries)' != 'true'">true</ExcludedFromBuild>
     </ClCompile>

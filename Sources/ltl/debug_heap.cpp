@@ -7,103 +7,15 @@
 */
 
 #include <crtdbg.h>
+#include <stdlib.h>
+#include <Windows.h>
+#include <winnt.h>
 
-extern "C" int __cdecl _CrtDbgReport(
-    _In_       int         _ReportType,
-    _In_opt_z_ char const* _FileName,
-    _In_       int         _Linenumber,
-    _In_opt_z_ char const* _ModuleName,
-    _In_opt_z_ char const* _Format,
-    ...)
-{
-    return 0;
-}
-
-_LCRT_DEFINE_IAT_SYMBOL(_CrtDbgReport);
-
-
-extern "C" int __cdecl _CrtDbgReportW(
-    _In_       int            _ReportType,
-    _In_opt_z_ wchar_t const* _FileName,
-    _In_       int            _LineNumber,
-    _In_opt_z_ wchar_t const* _ModuleName,
-    _In_opt_z_ wchar_t const* _Format,
-    ...)
-{
-    return 0;
-}
-
-_LCRT_DEFINE_IAT_SYMBOL(_CrtDbgReportW);
-
-
-extern "C" int __cdecl _VCrtDbgReportA(
-    _In_       int         _ReportType,
-    _In_opt_   void* _ReturnAddress,
-    _In_opt_z_ char const* _FileName,
-    _In_       int         _LineNumber,
-    _In_opt_z_ char const* _ModuleName,
-    _In_opt_z_ char const* _Format,
-    va_list     _ArgList
-    )
-{
-    return 0;
-}
-
-_LCRT_DEFINE_IAT_SYMBOL(_VCrtDbgReportA);
-
-extern "C" int __cdecl _VCrtDbgReportW(
-    _In_       int            _ReportType,
-    _In_opt_   void* _ReturnAddress,
-    _In_opt_z_ wchar_t const* _FileName,
-    _In_       int            _LineNumber,
-    _In_opt_z_ wchar_t const* _ModuleName,
-    _In_opt_z_ wchar_t const* _Format,
-    va_list        _ArgList
-    )
-{
-    return 0;
-}
-
-_LCRT_DEFINE_IAT_SYMBOL(_VCrtDbgReportW);
-
-
-extern "C" size_t __cdecl _CrtSetDebugFillThreshold(
-    _In_ size_t _NewDebugFillThreshold
-    )
-{
-    return 0;
-}
-
-_LCRT_DEFINE_IAT_SYMBOL(_CrtSetDebugFillThreshold);
-
-extern "C" size_t __cdecl _CrtGetDebugFillThreshold(void)
-{
-    return 0;
-}
-
-_LCRT_DEFINE_IAT_SYMBOL(_CrtGetDebugFillThreshold);
-
-
-extern "C" _HFILE __cdecl _CrtSetReportFile(
-    _In_     int    _ReportType,
-    _In_opt_ _HFILE _ReportFile
-    )
-{
-    return NULL;
-}
-
-_LCRT_DEFINE_IAT_SYMBOL(_CrtSetReportFile);
-
-
-extern "C" int __cdecl _CrtSetReportMode(
-    _In_ int _ReportType,
-    _In_ int _ReportMode
-    )
-{
-    return 0;
-}
-
-_LCRT_DEFINE_IAT_SYMBOL(_CrtSetReportMode);
+//-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+//
+// Global Mutable State (Synchronized by the AppCRT Heap Lock)
+//
+//-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
 
 extern "C" int* __cdecl __p__crtDbgFlag(void)
@@ -121,6 +33,115 @@ extern "C" long* __cdecl __p__crtBreakAlloc(void)
 }
 
 _LCRT_DEFINE_IAT_SYMBOL(__p__crtBreakAlloc);
+
+
+
+//-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+//
+// Public Debug Heap Allocation APIs
+//
+//-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+
+extern "C" __declspec(noinline) void* __cdecl _malloc_dbg(
+    size_t      const size,
+    int         const block_use,
+    char const* const file_name,
+    int         const line_number
+    )
+{
+    return malloc(size);
+}
+
+_LCRT_DEFINE_IAT_SYMBOL(_malloc_dbg);
+
+extern "C" __declspec(noinline) void* __cdecl _calloc_dbg(
+    size_t      const count,
+    size_t      const element_size,
+    int         const block_use,
+    char const* const file_name,
+    int         const line_number
+    )
+{
+    return calloc(count, element_size);
+}
+
+_LCRT_DEFINE_IAT_SYMBOL(_calloc_dbg);
+
+
+extern "C" __declspec(noinline) void* __cdecl _realloc_dbg(
+    void*       const block,
+    size_t      const requested_size,
+    int         const block_use,
+    char const* const file_name,
+    int         const line_number
+    )
+{
+    return realloc(block, requested_size);
+}
+
+_LCRT_DEFINE_IAT_SYMBOL(_realloc_dbg);
+
+extern "C" __declspec(noinline) void* __cdecl _recalloc_dbg(
+    void*       const block,
+    size_t      const count,
+    size_t      const element_size,
+    int         const block_use,
+    char const* const file_name,
+    int         const line_number
+    )
+{
+    return _recalloc(block, count, element_size);
+}
+
+_LCRT_DEFINE_IAT_SYMBOL(_recalloc_dbg);
+
+extern "C" __declspec(noinline) void* __cdecl _expand_dbg(
+    void*       const block,
+    size_t      const requested_size,
+    int         const block_use,
+    char const* const file_name,
+    int         const line_number
+    )
+{
+    return _expand(block, requested_size);
+}
+
+_LCRT_DEFINE_IAT_SYMBOL(_expand_dbg);
+
+extern "C" __declspec(noinline) void __cdecl _free_dbg(void* const block, int const block_use)
+{
+    //UNREFERENCED_PARAMETER(block_use);
+
+    return free(block);
+}
+
+_LCRT_DEFINE_IAT_SYMBOL(_free_dbg);
+
+extern "C" __declspec(noinline) size_t __cdecl _msize_dbg(void* const block, int const block_use)
+{
+    return _msize(block);
+}
+
+_LCRT_DEFINE_IAT_SYMBOL(_msize_dbg);
+
+
+
+//-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+//
+// Public Debug Heap Control and Status APIs
+//
+//-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+
+extern "C" long __cdecl _CrtSetBreakAlloc(
+    _In_ long _NewValue
+    )
+{
+    return 0;
+}
+
+_LCRT_DEFINE_IAT_SYMBOL(_CrtSetBreakAlloc);
 
 extern "C" void __cdecl _CrtSetDbgBlockType(
     void* const block,
@@ -147,147 +168,12 @@ extern "C" _CRT_ALLOC_HOOK __cdecl _CrtSetAllocHook(
 
 _LCRT_DEFINE_IAT_SYMBOL(_CrtSetAllocHook);
 
-extern "C" _CRT_DUMP_CLIENT __cdecl _CrtGetDumpClient(void)
-{
-    return nullptr;
-}
-
-_LCRT_DEFINE_IAT_SYMBOL(_CrtGetDumpClient);
-
-extern "C" _CRT_DUMP_CLIENT __cdecl _CrtSetDumpClient(
-    _In_opt_ _CRT_DUMP_CLIENT _PFnNewDump
-    )
-{
-    return nullptr;
-}
-
-_LCRT_DEFINE_IAT_SYMBOL(_CrtSetDumpClient);
-
-
 extern "C" int __cdecl _CrtCheckMemory(void)
 {
     return 1;
 }
 
 _LCRT_DEFINE_IAT_SYMBOL(_CrtCheckMemory);
-
-extern "C" void __cdecl _CrtDoForAllClientObjects(
-    _In_ _CrtDoForAllClientObjectsCallback _Callback,
-    _In_ void* _Context
-    )
-{
-
-}
-
-_LCRT_DEFINE_IAT_SYMBOL(_CrtDoForAllClientObjects);
-
-extern "C" int __cdecl _CrtDumpMemoryLeaks(void)
-{
-    return 0;
-}
-
-_LCRT_DEFINE_IAT_SYMBOL(_CrtDumpMemoryLeaks);
-
-extern "C" int __cdecl _CrtIsMemoryBlock(
-    _In_opt_  void const* _Block,
-    _In_      unsigned int _Size,
-    _Out_opt_ long* _RequestNumber,
-    _Out_opt_ char** _FileName,
-    _Out_opt_ int* _LineNumber
-)
-{
-    if (_RequestNumber)
-        *_RequestNumber = 0;
-
-    if (_FileName)
-        *_FileName = "";
-
-    if (_LineNumber)
-        *_LineNumber = 0;
-
-    return 1;
-}
-
-_LCRT_DEFINE_IAT_SYMBOL(_CrtIsMemoryBlock);
-
-_Check_return_
-extern "C" int __cdecl _CrtIsValidHeapPointer(
-    _In_opt_ void const* _Pointer
-)
-{
-    return 1;
-}
-
-_LCRT_DEFINE_IAT_SYMBOL(_CrtIsValidHeapPointer);
-
-_Check_return_
-extern "C" int __cdecl _CrtIsValidPointer(
-    _In_opt_ void const* _Pointer,
-    _In_     unsigned int _Size,
-    _In_     int          _ReadWrite
-    )
-{
-    return 1;
-}
-
-_LCRT_DEFINE_IAT_SYMBOL(_CrtIsValidPointer);
-
-extern "C" void __cdecl _CrtMemCheckpoint(
-    _Out_ _CrtMemState * _State
-    )
-{
-
-}
-
-_LCRT_DEFINE_IAT_SYMBOL(_CrtMemCheckpoint);
-
-extern "C" int __cdecl _CrtMemDifference(
-    _Out_ _CrtMemState * _State,
-    _In_  _CrtMemState const* _OldState,
-    _In_  _CrtMemState const* _NewState
-    )
-{
-    return 0;
-}
-
-_LCRT_DEFINE_IAT_SYMBOL(_CrtMemDifference);
-
-extern "C" void __cdecl _CrtMemDumpAllObjectsSince(
-    _In_opt_ _CrtMemState const* _State
-    )
-{
-}
-
-_LCRT_DEFINE_IAT_SYMBOL(_CrtMemDumpAllObjectsSince);
-
-extern "C" void __cdecl _CrtMemDumpStatistics(
-    _In_ _CrtMemState const* _State
-    )
-{
-
-}
-
-_LCRT_DEFINE_IAT_SYMBOL(_CrtMemDumpStatistics);
-
-_Check_return_
-extern "C" int __cdecl _CrtReportBlockType(
-    _In_opt_ void const* _Block
-    )
-{
-    return -1;
-}
-
-_LCRT_DEFINE_IAT_SYMBOL(_CrtReportBlockType);
-
-
-extern "C" long __cdecl _CrtSetBreakAlloc(
-    _In_ long _NewValue
-)
-{
-    return 0;
-}
-
-_LCRT_DEFINE_IAT_SYMBOL(_CrtSetBreakAlloc);
 
 extern "C" int __cdecl _CrtSetDbgFlag(
     _In_ int _NewFlag
@@ -298,43 +184,238 @@ extern "C" int __cdecl _CrtSetDbgFlag(
 
 _LCRT_DEFINE_IAT_SYMBOL(_CrtSetDbgFlag);
 
-
-
-extern "C" _CRT_REPORT_HOOK __cdecl _CrtGetReportHook(void)
-{
-    return nullptr;
-}
-
-_LCRT_DEFINE_IAT_SYMBOL(_CrtGetReportHook);
-
-extern "C" _CRT_REPORT_HOOK __cdecl _CrtSetReportHook(
-    _In_opt_ _CRT_REPORT_HOOK _PFnNewHook
+extern "C" void __cdecl _CrtDoForAllClientObjects(
+    _CrtDoForAllClientObjectsCallback const callback,
+    void*                             const context
     )
 {
+
+}
+
+_LCRT_DEFINE_IAT_SYMBOL(_CrtDoForAllClientObjects);
+
+extern "C" int __cdecl _CrtIsValidPointer(
+    void const*  const p,
+    unsigned int const size_in_bytes,
+    int          const read_write
+    )
+{
+    UNREFERENCED_PARAMETER(size_in_bytes);
+    UNREFERENCED_PARAMETER(read_write);
+
+    return p != nullptr;
+}
+
+_LCRT_DEFINE_IAT_SYMBOL(_CrtIsValidPointer);
+
+extern "C" int __cdecl _CrtIsValidHeapPointer(void const* const block)
+{
+    if (!block)
+        return FALSE;
+
+    return TRUE;
+}
+
+_LCRT_DEFINE_IAT_SYMBOL(_CrtIsValidHeapPointer);
+
+
+extern "C" int __cdecl _CrtIsMemoryBlock(
+    void const* const block,
+    unsigned    const size,
+    long*       const request_number,
+    char**      const file_name,
+    int*        const line_number
+    )
+{
+    if (request_number)
+        *request_number = 0;
+
+    if (file_name)
+        *file_name = nullptr;
+
+    if (line_number)
+        *line_number = 0;
+
+    if (!block)
+        return FALSE;
+
+    return TRUE;
+}
+
+_LCRT_DEFINE_IAT_SYMBOL(_CrtIsMemoryBlock);
+
+extern "C" int _CrtReportBlockType(void const* const block)
+{
+    return -1;
+}
+
+_LCRT_DEFINE_IAT_SYMBOL(_CrtReportBlockType);
+
+extern "C" _CRT_DUMP_CLIENT __cdecl _CrtGetDumpClient(void)
+{
     return nullptr;
 }
 
-_LCRT_DEFINE_IAT_SYMBOL(_CrtSetReportHook);
+_LCRT_DEFINE_IAT_SYMBOL(_CrtGetDumpClient);
 
-extern "C" int __cdecl _CrtSetReportHook2(
-    _In_     int              _Mode,
-    _In_opt_ _CRT_REPORT_HOOK _PFnNewHook
+extern "C" _CRT_DUMP_CLIENT __cdecl _CrtSetDumpClient(_CRT_DUMP_CLIENT const new_client)
+{
+    return nullptr;
+}
+
+_LCRT_DEFINE_IAT_SYMBOL(_CrtSetDumpClient);
+
+extern "C" void __cdecl _CrtMemCheckpoint(_CrtMemState* const state)
+{
+
+}
+
+_LCRT_DEFINE_IAT_SYMBOL(_CrtMemCheckpoint);
+
+extern "C" int __cdecl _CrtMemDifference(
+    _CrtMemState*       const state,
+    _CrtMemState const* const old_state,
+    _CrtMemState const* const new_state
     )
 {
     return 0;
 }
 
-_LCRT_DEFINE_IAT_SYMBOL(_CrtSetReportHook2);
+_LCRT_DEFINE_IAT_SYMBOL(_CrtMemDifference);
 
-extern "C" int __cdecl _CrtSetReportHookW2(
-    _In_     int               _Mode,
-    _In_opt_ _CRT_REPORT_HOOKW _PFnNewHook
-    )
+
+extern "C" void __cdecl _CrtMemDumpAllObjectsSince(_CrtMemState const* const state)
 {
-    return 0;
 }
 
-_LCRT_DEFINE_IAT_SYMBOL(_CrtSetReportHookW2);
+_LCRT_DEFINE_IAT_SYMBOL(_CrtMemDumpAllObjectsSince);
 
+
+extern "C" int __cdecl _CrtDumpMemoryLeaks(void)
+{
+    return FALSE;
+}
+
+_LCRT_DEFINE_IAT_SYMBOL(_CrtDumpMemoryLeaks);
+
+extern "C" void __cdecl _CrtMemDumpStatistics(_CrtMemState const* const state)
+{
+
+}
+
+_LCRT_DEFINE_IAT_SYMBOL(_CrtMemDumpStatistics);
+
+
+
+
+//-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+//
+// Aligned Allocation
+//
+//-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+// These functions are equivalent to the normal aligned allocation functions in
+// alignment.cpp, but these functions (suffixed with _dbg instead of _base) utilize
+// the debug heap and accept the file name and line number as arguments.  Consult
+// alignment.cpp for more information on the behavior of these functions.
+
+
+extern "C" void* __cdecl _aligned_malloc_dbg(
+    size_t      const size,
+    size_t      const alignment,
+    char const* const file_name,
+    int         const line_number
+    )
+{
+    return _aligned_malloc(size, alignment);
+}
+
+_LCRT_DEFINE_IAT_SYMBOL(_aligned_malloc_dbg);
+
+extern "C" void* __cdecl _aligned_offset_malloc_dbg(
+    size_t      const size,
+    size_t            alignment,
+    size_t      const offset,
+    char const* const file_name,
+    int         const line_number
+    )
+{
+    return _aligned_offset_malloc(size, alignment, offset);
+}
+
+_LCRT_DEFINE_IAT_SYMBOL(_aligned_offset_malloc_dbg);
+
+extern "C" void* __cdecl _aligned_realloc_dbg(
+    void*       const block,
+    size_t      const size,
+    size_t      const alignment,
+    char const* const file_name,
+    int         const line_number
+    )
+{
+    return _aligned_realloc(block, size, alignment);
+}
+
+_LCRT_DEFINE_IAT_SYMBOL(_aligned_realloc_dbg);
+
+extern "C" void* __cdecl _aligned_recalloc_dbg(
+    void*       const block,
+    size_t      const count,
+    size_t      const size,
+    size_t      const alignment,
+    char const* const file_name,
+    int         const line_number
+    )
+{
+    return _aligned_recalloc(block, count, size, alignment);
+}
+
+_LCRT_DEFINE_IAT_SYMBOL(_aligned_recalloc_dbg);
+
+extern "C" void* __cdecl _aligned_offset_realloc_dbg(
+    void * block,
+    size_t size,
+    size_t alignment,
+    size_t offset,
+    const char * file_name,
+    int line_number
+    )
+{
+    return _aligned_offset_realloc(block, size, alignment, offset);
+}
+
+_LCRT_DEFINE_IAT_SYMBOL(_aligned_offset_realloc_dbg);
+
+extern "C" size_t __cdecl _aligned_msize_dbg(
+    void*  const block,
+    size_t       alignment,
+    size_t const offset
+    )
+{
+    return _aligned_msize(block, alignment, offset);
+}
+
+_LCRT_DEFINE_IAT_SYMBOL(_aligned_msize_dbg);
+
+extern "C" void* __cdecl _aligned_offset_recalloc_dbg(
+    void*       const block,
+    size_t      const count,
+    size_t      const element_size,
+    size_t      const alignment,
+    size_t      const offset,
+    char const* const file_name,
+    int         const line_number
+    )
+{
+    return _aligned_offset_recalloc(block, count, element_size, alignment, offset);
+}
+
+_LCRT_DEFINE_IAT_SYMBOL(_aligned_offset_recalloc_dbg);
+
+extern "C" void __cdecl _aligned_free_dbg(void* const block)
+{
+    _aligned_free(block);
+}
+
+_LCRT_DEFINE_IAT_SYMBOL(_aligned_free_dbg);
 
 #endif
