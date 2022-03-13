@@ -3,7 +3,7 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ExtractItem Include="\objr\arm64\softmemtag.obj">
-      <LibFile>$(VCToolsInstallDir)lib\$(PlatformShortName)\libvcruntime.lib</LibFile>
+      <LibFile>$(VCToolsInstallDir)lib\$(PlatformShortName)\vcruntime.lib</LibFile>
       <OutDir>$(IntDir)objr\libvcruntime\</OutDir>
     </ExtractItem>
   </ItemGroup>

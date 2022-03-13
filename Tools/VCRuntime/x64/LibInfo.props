@@ -15,7 +15,7 @@
   </ItemGroup>
   <ItemGroup>
     <ExtractItem Include="\objr\amd64\softmemtag.obj">
-      <LibFile>$(VCToolsInstallDir)lib\$(PlatformShortName)\libvcruntime.lib</LibFile>
+      <LibFile>$(VCToolsInstallDir)lib\$(PlatformShortName)\vcruntime.lib</LibFile>
       <OutDir>$(IntDir)objr\libvcruntime\</OutDir>
     </ExtractItem>
   </ItemGroup>
