@@ -25,6 +25,7 @@
       <!--避免使用tlsGuards，因为VC-LTL能确保不会使用那些动态的。此外避免高版本依赖-->
       <AdditionalOptions>/Zc:tlsGuards- %(AdditionalOptions)</AdditionalOptions>
       <SupportJustMyCode>false</SupportJustMyCode>
+      <GuardEHContMetadata>true</GuardEHContMetadata>
     </ClCompile>
   </ItemDefinitionGroup>
   <!--从兼容性考虑，继续向上搜索 Directory.Build.props-->
