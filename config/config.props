@@ -44,7 +44,7 @@
     <VCLTLSupportPlatformToolsetNormal Condition="('$(VCLTLSupportPlatformToolsetNormal)'=='') And ('$(PlatformToolset)'=='LLVM-MSVC_v141_xp')">true</VCLTLSupportPlatformToolsetNormal>
     <VCLTLSupportPlatformToolsetNormal Condition="('$(VCLTLSupportPlatformToolsetNormal)'=='') And ('$(PlatformToolset)'=='LLVM-MSVC_v142')">true</VCLTLSupportPlatformToolsetNormal>
     <VCLTLSupportPlatformToolsetNormal Condition="('$(VCLTLSupportPlatformToolsetNormal)'=='') And ('$(PlatformToolset)'=='LLVM-MSVC_v143')">true</VCLTLSupportPlatformToolsetNormal>
-    
+    <VCLTLSupportPlatformToolsetNormal Condition="('$(VCLTLSupportPlatformToolsetNormal)'=='') And ('$(PlatformToolset)'=='Intel C++ Compiler 2022')">true</VCLTLSupportPlatformToolsetNormal>
     
     
 
