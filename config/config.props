@@ -37,7 +37,16 @@
     <VCLTLSupportPlatformToolsetNormal Condition="('$(VCLTLSupportPlatformToolsetNormal)'=='') And ('$(PlatformToolset)'=='LLVM_v140')">true</VCLTLSupportPlatformToolsetNormal>
     <VCLTLSupportPlatformToolsetNormal Condition="('$(VCLTLSupportPlatformToolsetNormal)'=='') And ('$(PlatformToolset)'=='LLVM_v141')">true</VCLTLSupportPlatformToolsetNormal>
     <VCLTLSupportPlatformToolsetNormal Condition="('$(VCLTLSupportPlatformToolsetNormal)'=='') And ('$(PlatformToolset)'=='LLVM_v142')">true</VCLTLSupportPlatformToolsetNormal>
-
+    <VCLTLSupportPlatformToolsetNormal Condition="('$(VCLTLSupportPlatformToolsetNormal)'=='') And ('$(PlatformToolset)'=='LLVM-MSVC')">true</VCLTLSupportPlatformToolsetNormal>
+    <VCLTLSupportPlatformToolsetNormal Condition="('$(VCLTLSupportPlatformToolsetNormal)'=='') And ('$(PlatformToolset)'=='LLVM-MSVC_v140')">true</VCLTLSupportPlatformToolsetNormal>
+    <VCLTLSupportPlatformToolsetNormal Condition="('$(VCLTLSupportPlatformToolsetNormal)'=='') And ('$(PlatformToolset)'=='LLVM-MSVC_v140_xp')">true</VCLTLSupportPlatformToolsetNormal>
+    <VCLTLSupportPlatformToolsetNormal Condition="('$(VCLTLSupportPlatformToolsetNormal)'=='') And ('$(PlatformToolset)'=='LLVM-MSVC_v141')">true</VCLTLSupportPlatformToolsetNormal>
+    <VCLTLSupportPlatformToolsetNormal Condition="('$(VCLTLSupportPlatformToolsetNormal)'=='') And ('$(PlatformToolset)'=='LLVM-MSVC_v141_xp')">true</VCLTLSupportPlatformToolsetNormal>
+    <VCLTLSupportPlatformToolsetNormal Condition="('$(VCLTLSupportPlatformToolsetNormal)'=='') And ('$(PlatformToolset)'=='LLVM-MSVC_v142')">true</VCLTLSupportPlatformToolsetNormal>
+    <VCLTLSupportPlatformToolsetNormal Condition="('$(VCLTLSupportPlatformToolsetNormal)'=='') And ('$(PlatformToolset)'=='LLVM-MSVC_v143')">true</VCLTLSupportPlatformToolsetNormal>
+    
+    
+    
 
     <VCLTLSupportPlatformToolset Condition="('$(VCLTLSupportPlatformToolsetWinXP)'=='true') Or ('$(VCLTLSupportPlatformToolsetNormal)'=='true')">true</VCLTLSupportPlatformToolset>
 
