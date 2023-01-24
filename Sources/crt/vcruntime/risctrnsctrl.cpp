@@ -8,7 +8,9 @@
 *   EH.
 ****/
 
-//#include <vcruntime_internal.h>
+#if 0
+#include <vcruntime_internal.h>
+#endif
 #include <eh.h>
 #include <ehassert.h>
 #include <ehdata.h>
@@ -17,8 +19,9 @@
 #include <trnsctrl.h>
 #include "ehhelpers.h"
 #include <winnt.h>
-
+#if 1
 #include "framework.h"
+#endif
 
 #if !defined(RENAME_EH_EXTERN_HYBRID)
 #define RENAME_EH_EXTERN_HYBRID(x) x
@@ -32,16 +35,13 @@
 #define _ImageBase        (((_ptd_msvcrt_win6_shared*)__vcrt_getptd())->_ImageBase)
 #else
 #include <ptd_downlevel.h>
-
 #define _ImageBaseWin6        (((_ptd_msvcrt_win6_shared*)__vcrt_getptd())->_ImageBase)
 #define _ImageBasedownlevel   (__LTL_get_ptd_downlevel(TRUE)->_ImageBase)
 #define _ImageBase (__LTL_GetOsMinVersion() >= MakeMiniVersion(6,0) ? _ImageBaseWin6 : _ImageBasedownlevel)
-
 #endif
-
 extern "C" uintptr_t __cdecl _GetImageBase()
 {
-    return _ImageBase;    
+    return _ImageBase;
 }
 
 extern "C" void __cdecl _SetImageBase(uintptr_t ImageBaseToRestore)
@@ -59,10 +59,8 @@ extern "C" void __cdecl _SetImageBase(uintptr_t ImageBaseToRestore)
 #define _ThrowImageBase        (((_ptd_msvcrt_win6_shared*)__vcrt_getptd())->_ThrowImageBase)
 #else
 #include <ptd_downlevel.h>
-
 #define _ThrowImageBaseWin6        (((_ptd_msvcrt_win6_shared*)__vcrt_getptd())->_ThrowImageBase)
 #define _ThrowImageBasedownlevel   (__LTL_get_ptd_downlevel(TRUE)->_ThrowImageBase)
-
 #define _ThrowImageBase (__LTL_GetOsMinVersion() >= MakeMiniVersion(6,0) ? _ThrowImageBaseWin6 : _ThrowImageBasedownlevel)
 #endif
 
@@ -78,13 +76,11 @@ extern "C" void __cdecl _SetThrowImageBase(uintptr_t NewThrowImageBase)
 
 #endif
 
-#if _VCRT_BUILD_FH4
-
-#if WindowsTargetPlatformMinVersion >= WindowsTargetPlatformWindows6
+#if 1
+#if _VCRT_BUILD_FH4 && WindowsTargetPlatformMinVersion >= WindowsTargetPlatformWindows6
 thread_local int VC_LTL_UCRT_CatchStateInParent = INVALID_CATCH_SPECIFIC_STATE;
-#endif
-
-#endif
+#endif // _VCRT_BUILD_FH4 && WindowsTargetPlatformMinVersion >= WindowsTargetPlatformWindows6
+#endif // 1
 
 #if _EH_RELATIVE_FUNCINFO
 #if _VCRT_BUILD_FH4
@@ -296,6 +292,34 @@ void RENAME_EH_EXTERN(__FrameHandler3)::FrameUnwindToEmptyState(
 }
 #endif
 
+#if 0
+//
+// __CxxFrameHandler3 - Real entry point to the runtime
+//                                              __CxxFrameHandler2 is an alias for __CxxFrameHandler3
+//                                              since they are compatible in VC version of CRT
+//                      These functions should be separated out if a change makes
+//                                              __CxxFrameHandler3 incompatible with __CxxFrameHandler2
+//
+extern "C" DECLSPEC_GUARD_SUPPRESS EXCEPTION_DISPOSITION __cdecl RENAME_EH_EXTERN_HYBRID(__CxxFrameHandler3)(
+    EHExceptionRecord  *pExcept,         // Information for this exception
+    EHRegistrationNode RN,               // Dynamic information for this frame
+    CONTEXT            *pContext,        // Context info
+    DispatcherContext  *pDC              // More dynamic info for this frame
+) {
+    FuncInfo                *pFuncInfo;
+    EXCEPTION_DISPOSITION   result;
+    EHRegistrationNode      EstablisherFrame = RN;
+
+    _ImageBase = pDC->ImageBase;
+#ifdef _ThrowImageBase
+    _ThrowImageBase = (uintptr_t)pExcept->params.pThrowImageBase;
+#endif
+    pFuncInfo = (FuncInfo*)(_ImageBase +*(PULONG)pDC->HandlerData);
+    result = __InternalCxxFrameHandlerWrapper<RENAME_EH_EXTERN(__FrameHandler3)>(pExcept, &EstablisherFrame, pContext, pDC, pFuncInfo, 0, nullptr, FALSE);
+    return result;
+}
+#endif // 0
+
 #if _VCRT_BUILD_FH4 && WindowsTargetPlatformMinVersion < __MakeVersion(10, 0, 19041)
 extern "C" DECLSPEC_GUARD_SUPPRESS EXCEPTION_DISPOSITION __cdecl RENAME_EH_EXTERN_HYBRID(__CxxFrameHandler4)(
     EHExceptionRecord  *pExcept,         // Information for this exception
@@ -315,13 +339,43 @@ extern "C" DECLSPEC_GUARD_SUPPRESS EXCEPTION_DISPOSITION __cdecl RENAME_EH_EXTER
 
     FH4::DecompFuncInfo(buffer, FuncInfo, pDC->ImageBase, pDC->FunctionEntry->BeginAddress);
 
-    result = __InternalCxxFrameHandler<RENAME_EH_EXTERN(__FrameHandler4)>(pExcept, &EstablisherFrame, pContext, pDC, &FuncInfo, 0, nullptr, FALSE);
+    result = __InternalCxxFrameHandlerWrapper<RENAME_EH_EXTERN(__FrameHandler4)>(pExcept, &EstablisherFrame, pContext, pDC, &FuncInfo, 0, nullptr, FALSE);
     return result;
 }
 
 _LCRT_DEFINE_IAT_SYMBOL(RENAME_EH_EXTERN_HYBRID(__CxxFrameHandler4));
-
 #endif // _VCRT_BUILD_FH4
+
+#if !defined(_CHPE_X86_ARM64_EH_)
+
+#if 0
+//
+// __CxxFrameHandler2 - Remove after compiler is updated
+//
+extern "C" DECLSPEC_GUARD_SUPPRESS EXCEPTION_DISPOSITION __cdecl __CxxFrameHandler2(
+    EHExceptionRecord  *pExcept,         // Information for this exception
+    EHRegistrationNode RN,               // Dynamic information for this frame
+    CONTEXT            *pContext,        // Context info
+    DispatcherContext  *pDC              // More dynamic info for this frame
+)
+{
+    return __CxxFrameHandler3(pExcept, RN, pContext, pDC);
+}
+#endif
+
+#if 0
+extern "C" DECLSPEC_GUARD_SUPPRESS EXCEPTION_DISPOSITION __cdecl __CxxFrameHandler(
+    EHExceptionRecord  *pExcept,         // Information for this exception
+    EHRegistrationNode RN,               // Dynamic information for this frame
+    CONTEXT            *pContext,        // Context info
+    DispatcherContext  *pDC              // More dynamic info for this frame
+)
+{
+    return __CxxFrameHandler3(pExcept, RN, pContext, pDC);
+}
+#endif // 0
+
+#endif
 
 // Call the SEH to EH translator.
 template <class T>
@@ -338,6 +392,7 @@ static int SehTransFilter(
 
         UNREFERENCED_PARAMETER(curState);
         _pForeignExcept = pExcept;
+        _ImageBase = pDC->ImageBase;
 #ifdef _ThrowImageBase
         _ThrowImageBase = (uintptr_t)((EHExceptionRecord *)ExPtrs->ExceptionRecord)->params.pThrowImageBase;
 #endif
@@ -345,13 +400,13 @@ static int SehTransFilter(
 #if _VCRT_BUILD_FH4
         if constexpr (std::is_same_v<T, RENAME_EH_EXTERN(__FrameHandler4)>)
         {
-            // For FH4, the catch state from rethrow is transient and only readable one time before being reset. 
+            // For FH4, the catch state from rethrow is transient and only readable one time before being reset.
             // This path reprocesses a throw which means the transient state needs to be set again so the correct state is used.
             CatchStateInParent = curState;
         }
 #endif
 
-        __InternalCxxFrameHandler<T>((EHExceptionRecord *)ExPtrs->ExceptionRecord,
+        __InternalCxxFrameHandlerWrapper<T>((EHExceptionRecord *)ExPtrs->ExceptionRecord,
                                    pRN,
                                    pContext,
                                    pDC,
@@ -422,6 +477,19 @@ BOOL _CallSETranslator<RENAME_EH_EXTERN(__FrameHandler4)>(
     );
 #endif // _VCRT_BUILD_FH4
 
+#if 0
+template
+BOOL _CallSETranslator<RENAME_EH_EXTERN(__FrameHandler3)>(
+    EHExceptionRecord                           *pExcept,    // The exception to be translated
+    EHRegistrationNode                          *pRN,        // Dynamic info of function with catch
+    CONTEXT                                     *pContext,   // Context info
+    DispatcherContext                           *pDC,        // More dynamic info of function with catch (ignored)
+    RENAME_EH_EXTERN(__FrameHandler3)::FuncInfo *pFuncInfo,  // Static info of function with catch
+    ULONG                                       CatchDepth,  // How deeply nested in catch blocks are we?
+    EHRegistrationNode                          *pMarkerRN,  // Marker for parent context
+    __ehstate_t                                 curState     // Current state
+);
+#endif
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -636,7 +704,7 @@ void RENAME_EH_EXTERN(__FrameHandler4)::UnwindNestedFrames(
     ExceptionRecord.ExceptionInformation[7] = (ULONG_PTR)recursive;
     // Used for translated Exceptions
     ExceptionRecord.ExceptionInformation[8] = EH_MAGIC_NUMBER1;
-    // Used in __InternalCxxFrameHandler to detected if it's being
+    // Used in __InternalCxxFrameHandler to detect if it's being
     // called from _UnwindNestedFrames.
 
     // TODO: make these contiguous
@@ -672,5 +740,81 @@ void RENAME_EH_EXTERN(__FrameHandler4)::UnwindNestedFrames(
         (PUNWIND_HISTORY_TABLE)pDC->HistoryTable);
 }
 #endif // _VCRT_BUILD_FH4
+
+#if 0
+void RENAME_EH_EXTERN(__FrameHandler3)::UnwindNestedFrames(
+    EHRegistrationNode  *pFrame,            // Unwind up to (but not including) this frame
+    EHExceptionRecord   *pExcept,           // The exception that initiated this unwind
+    CONTEXT             *pContext,          // Context info for current exception
+    EHRegistrationNode  *pEstablisher,
+    void                *Handler,
+    FuncInfo            *pFuncInfo,
+    __ehstate_t         TargetUnwindState,
+    __ehstate_t         /*CatchState*/,
+    HandlerType*        /*pCatch*/,
+    DispatcherContext   *pDC,
+    BOOLEAN             recursive
+    )
+{
+    static const EXCEPTION_RECORD ExceptionTemplate = // A generic exception record
+    {
+        STATUS_UNWIND_CONSOLIDATE,         // STATUS_UNWIND_CONSOLIDATE
+        EXCEPTION_NONCONTINUABLE,          // Exception flags (we don't do resume)
+        nullptr,                           // Additional record (none)
+        nullptr,                           // Address of exception (OS fills in)
+        15,                                // Number of parameters
+        {   EH_MAGIC_NUMBER1,              // Our version control magic number
+            0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0
+        }                                  // pThrowInfo
+    };
+
+    EXCEPTION_RECORD ExceptionRecord = ExceptionTemplate;
+    ExceptionRecord.ExceptionInformation[0] = (ULONG_PTR)CxxCallCatchBlock;
+                // Address of call back function
+    ExceptionRecord.ExceptionInformation[1] = (ULONG_PTR)pEstablisher;
+                // Used by callback function
+    ExceptionRecord.ExceptionInformation[2] = (ULONG_PTR)Handler;
+                // Used by callback function to call catch block
+    ExceptionRecord.ExceptionInformation[3] = (ULONG_PTR)TargetUnwindState;
+                // Used by CxxFrameHandler to unwind to target_state
+    ExceptionRecord.ExceptionInformation[4] = (ULONG_PTR)pContext;
+                // used to set pCurrentExContext in callback function
+    ExceptionRecord.ExceptionInformation[5] = (ULONG_PTR)pFuncInfo;
+                // Used in callback function to set state on stack to -2
+    ExceptionRecord.ExceptionInformation[6] = (ULONG_PTR)pExcept;
+                // Used for passing current Exception
+    ExceptionRecord.ExceptionInformation[7] = (ULONG_PTR)recursive;
+                // Used for translated Exceptions
+    ExceptionRecord.ExceptionInformation[8] = EH_MAGIC_NUMBER1;
+                // Used in __InternalCxxFrameHandler to detect if it's being
+                // called from _UnwindNestedFrames.
+
+#if defined(_M_ARM64EC)
+
+    if (RtlIsEcCode(pDC->ControlPc)) {
+        ExceptionRecord.ExceptionInformation[10] = static_cast<ULONG_PTR>(-1);
+    }
+
+#elif defined(_M_ARM_NT) || defined(_M_ARM64) || defined(_CHPE_X86_ARM64_EH_)
+
+    ExceptionRecord.ExceptionInformation[10] = static_cast<ULONG_PTR>(-1);
+                // ARM/ARM64-specific: used to hold a pointer to the non-volatile
+                // registers
+
+#elif !defined(_M_X64)
+
+#error Unknown processor architecture.
+
+#endif
+
+    RtlUnwindEx((void *)*pFrame,
+                (void *)pDC->ControlPc,    // Address where control left function
+                &ExceptionRecord,
+                nullptr,
+                pDC->ContextRecord,
+                (PUNWIND_HISTORY_TABLE)pDC->HistoryTable);
+}
+#endif // 0
 
 #endif // _EH_RELATIVE_FUNCINFO

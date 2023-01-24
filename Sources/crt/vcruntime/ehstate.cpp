@@ -16,19 +16,30 @@
 #include <trnsctrl.h>
 #include <type_traits>
 #include "ehhelpers.h"
+#include <windows.h>
 
 #if _EH_RELATIVE_FUNCINFO
-#if defined(_M_ARM_NT) || defined(_M_ARM64) || defined(_CHPE_X86_ARM64_EH_)
+#if defined(_M_ARM_NT) || defined(_M_ARM64) || defined(_CHPE_X86_ARM64_EH_) || defined(_M_ARM64EC)
 static uintptr_t adjustIp(DispatcherContext *pDC, uintptr_t Ip)
 {
-    //
-    // If this context came from an unwind to a call, then the ControlPc points
-    // to a return address, which could put us at the start of a neighboring
-    // scope. To correct for this, back the PC up by the minimum instruction
-    // size to ensure we are in the same scope as the original call opcode.
-    //
+#if defined(_M_ARM64EC)
+    if(RtlIsEcCode(Ip)) {
+        PDISPATCHER_CONTEXT_ARM64EC pECDC;
+        pECDC = (PDISPATCHER_CONTEXT_ARM64EC) pDC;
 
-    if (pDC->ControlPcIsUnwound) {
+        if(pECDC->ControlPcIsUnwound != FALSE) {
+            Ip -= 4;
+        }
+    }
+#else
+
+   //
+   // If this context came from an unwind to a call, then the ControlPc points
+   // to a return address, which could put us at the start of a neighboring
+   // scope. To correct for this, back the PC up by the minimum instruction
+   // size to ensure we are in the same scope as the original call opcode.
+   //
+   if (pDC->ControlPcIsUnwound) {
 
 #if defined(_M_ARM_NT)
 
@@ -38,10 +49,11 @@ static uintptr_t adjustIp(DispatcherContext *pDC, uintptr_t Ip)
 
         Ip -= 4;
 
-#endif
+#endif // _M_ARM_NT
 
     }
 
+#endif // _M_ARM64EC
     return Ip;
 }
 
@@ -50,7 +62,7 @@ static uintptr_t adjustIp(DispatcherContext* /*pDC*/, uintptr_t Ip)
 {
     return Ip;
 }
-#endif
+#endif // (_M_ARM_NT) || defined(_M_ARM64) || defined(_CHPE_X86_ARM64_EH_) || defined(_M_ARM64EC)
 
 __ehstate_t RENAME_EH_EXTERN(__FrameHandler4)::StateFromIp(
     FuncInfo            *pFuncInfo,
@@ -209,6 +221,7 @@ void RENAME_EH_EXTERN(__FrameHandler3)::SetState(
 }
 #endif
 
+#else
 #if 0
 __ehstate_t RENAME_EH_EXTERN(__FrameHandler3)::GetCurrentState(
     EHRegistrationNode  *pRN,
@@ -237,6 +250,5 @@ void RENAME_EH_EXTERN(__FrameHandler3)::SetState(
 {
     pRN->state = newState;
 }
-#endif
-
+#endif // 0
 #endif

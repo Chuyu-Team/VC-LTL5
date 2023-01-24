@@ -13,11 +13,9 @@
 #define _pForeignExcept   (*((EHExceptionRecord **)&(((_ptd_msvcrt_win6_shared*)RENAME_BASE_PTD(__vcrt_getptd)())->_pForeignException)))
 #else
 #include <ptd_downlevel.h>
-
 #define _pForeignExceptWin6   (*((EHExceptionRecord **)&(((_ptd_msvcrt_win6_shared*)RENAME_BASE_PTD(__vcrt_getptd)())->_pForeignException)))
 #define _pForeignExceptdownlevel  (*((EHExceptionRecord **)&(__LTL_get_ptd_downlevel(TRUE)->_pForeignException)))
 #define _pForeignExcept (__LTL_GetOsMinVersion() >= MakeMiniVersion(6, 0) ? _pForeignExceptWin6 : _pForeignExceptdownlevel)
-
 #endif
 
 #endif
@@ -27,11 +25,9 @@
 #elif WindowsTargetPlatformMinVersion >= WindowsTargetPlatformWindows6
 #define pFrameInfoChain   (*((FRAMEINFO **)    &(((_ptd_msvcrt_win6_shared*)RENAME_BASE_PTD(__vcrt_getptd)())->_pFrameInfoChain)))
 #elif WindowsTargetPlatformMinVersion >= WindowsTargetPlatformWindowsXP
-
 #define pFrameInfoChainWin6   (*((FRAMEINFO **)    &(((_ptd_msvcrt_win6_shared*)RENAME_BASE_PTD(__vcrt_getptd)())->_pFrameInfoChain)))
 #define pFrameInfoChainWinXP   (*((FRAMEINFO **)    &(((_ptd_msvcrt_winxp*)RENAME_BASE_PTD(__vcrt_getptd)())->_pFrameInfoChain)))
 #define pFrameInfoChain (__LTL_GetOsMinVersion() >= MakeMiniVersion(6, 0) ? pFrameInfoChainWin6 : pFrameInfoChainWinXP)
-
 #endif
 
 // Pre-V4 managed exception code
@@ -40,12 +36,15 @@
 // V4 and later managed exception code
 #define MANAGED_EXCEPTION_CODE_V4  0XE0434352
 
-//extern "C" void
-//__except_validate_context_record(
-//    _In_ PCONTEXT ContextRecord
-//    );
+#if 0
+extern "C" void
+__except_validate_context_record(
+    _In_ PCONTEXT ContextRecord
+    );
+#else
 //这个函数仅仅是验证内存是否在堆栈中，而且要开启 guard ICall才行，所以直接砍掉吧
 #define __except_validate_context_record(ContextRecord)
+#endif
 
 extern "C" _VCRTIMP void * __AdjustPointer(
     void *,
@@ -95,7 +94,7 @@ extern "C" _VCRTIMP int __cdecl RENAME_EH_EXTERN(__TypeMatch)(
 //
 
 template<class T>
-EXCEPTION_DISPOSITION __InternalCxxFrameHandler(
+EXCEPTION_DISPOSITION __InternalCxxFrameHandlerWrapper(
     EHExceptionRecord    *pExcept,
     EHRegistrationNode   *pRN,
     CONTEXT              *pContext,

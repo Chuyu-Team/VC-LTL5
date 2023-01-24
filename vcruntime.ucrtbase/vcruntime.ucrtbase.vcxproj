@@ -822,6 +822,7 @@
     <ClCompile Include="..\Sources\crt\i386\chandler4.c">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'!='Static|Win32' and '$(Configuration)|$(Platform)'!='DStatic|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\Sources\crt\vcruntime\c11_atomic_support.c" />
     <ClCompile Include="..\Sources\crt\vcruntime\chandler_noexcept.cpp">
       <ExcludedFromBuild Condition="'$(Platform)' != 'x64' and '$(Platform)' != 'ARM' and '$(Platform)' != 'ARM64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(WindowsTargetPlatformMinVersionBuild)' &gt;= '17134'">true</ExcludedFromBuild>

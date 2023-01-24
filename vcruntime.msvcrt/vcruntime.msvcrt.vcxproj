@@ -676,6 +676,7 @@
       <ExcludedFromBuild Condition="'$(Platform)' != 'Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="('$(Configuration)'=='Dynamic' or '$(Configuration)'=='DDynamic') and '$(WindowsTargetPlatformMinVersionBuild)' &gt;= '6000'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\Sources\crt\vcruntime\c11_atomic_support.c" />
     <ClCompile Include="..\Sources\crt\vcruntime\chandler_noexcept.cpp">
       <ExcludedFromBuild Condition="'$(Platform)' != 'x64' and '$(Platform)' != 'ARM' and '$(Platform)' != 'ARM64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(WindowsTargetPlatformMinVersionBuild)' &gt;= '17134'">true</ExcludedFromBuild>
@@ -724,12 +725,12 @@
       <ExcludedFromBuild Condition="'$(WindowsTargetPlatformMinVersionBuild)' &gt;= '6000'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="setjmp.cpp">
-		<OmitFramePointers>true</OmitFramePointers>
+      <OmitFramePointers>true</OmitFramePointers>
     </ClCompile>
     <ClCompile Include="setjmpex.cpp">
-		<OmitFramePointers>true</OmitFramePointers>
-		<ExcludedFromBuild Condition="'$(Platform)' == 'Win32'">true</ExcludedFromBuild>
-	</ClCompile>
+      <OmitFramePointers>true</OmitFramePointers>
+      <ExcludedFromBuild Condition="'$(Platform)' == 'Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="vcruntime_IAT.cpp" />
     <ClCompile Include="VC_LTL_Config.c">
       <ForcedIncludeFiles>

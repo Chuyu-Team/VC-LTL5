@@ -17,7 +17,11 @@
 #include <setjmp.h>
 #include <trnsctrl.h>
 
+#if 0
+#include "../ehhelpers.h"
+#else
 #include "ehhelpers.h"
+#endif
 
 #include <Windows.h>
 
@@ -43,12 +47,12 @@
 #define IS_DISPATCHING(Flag) ((Flag & EXCEPTION_UNWIND) == 0)
 #define IS_TARGET_UNWIND(Flag) (Flag & EXCEPTION_TARGET_UNWIND)
 
-#ifndef pFrameInfoChain
-
-#if _CRT_NTDDI_MIN >= NTDDI_WIN6
+#ifdef pFrameInfoChain
+#elif WindowsTargetPlatformMinVersion >= __MakeVersion(10, 0, 10240)
+#define pFrameInfoChain   (*((FRAMEINFO **)    &(RENAME_BASE_PTD(__vcrt_getptd)()->_pFrameInfoChain)))
+#elif WindowsTargetPlatformMinVersion >= WindowsTargetPlatformWindows6
 #define pFrameInfoChain   (*((FRAMEINFO **)    &(((_ptd_msvcrt_win6_shared*)__acrt_getptd())->_pFrameInfoChain)))
 #else
-
 static __inline void* __fastcall pFrameInfoChain_fun()
 {
     auto ptd = __acrt_getptd();
@@ -67,10 +71,7 @@ static __inline void* __fastcall pFrameInfoChain_fun()
 
     return &(((_ptd_msvcrt_win6_shared*)ptd)->_pFrameInfoChain);
 }
-
 #define pFrameInfoChain   (*((FRAMEINFO **)  pFrameInfoChain_fun()))
-#endif
-
 #endif
 
 #if 0
@@ -240,7 +241,7 @@ extern "C" _VCRTIMP __declspec(naked) DECLSPEC_GUARD_SUPPRESS EXCEPTION_DISPOSIT
 
     EHTRACE_FMT1("pRN = 0x%p", pRN);
 
-    result = __InternalCxxFrameHandler<RENAME_EH_EXTERN(__FrameHandler3)>( pExcept, pRN, (PCONTEXT)pContext, pDC, pFuncInfo, 0, nullptr, FALSE );
+    result = __InternalCxxFrameHandlerWrapper<RENAME_EH_EXTERN(__FrameHandler3)>( pExcept, pRN, (PCONTEXT)pContext, pDC, pFuncInfo, 0, nullptr, FALSE );
 
     EHTRACE_HANDLER_EXIT(result);
 
@@ -294,7 +295,7 @@ extern "C" _VCRTIMP __declspec(naked) DECLSPEC_GUARD_SUPPRESS EXCEPTION_DISPOSIT
 
     EHTRACE_FMT1("pRN = 0x%p", pRN);
 
-    result = __InternalCxxFrameHandler<RENAME_EH_EXTERN(__FrameHandler3)>( pExcept, pRN, (PCONTEXT)pContext, pDC, pFuncInfo, 0, nullptr, FALSE );
+    result = __InternalCxxFrameHandlerWrapper<RENAME_EH_EXTERN(__FrameHandler3)>( pExcept, pRN, (PCONTEXT)pContext, pDC, pFuncInfo, 0, nullptr, FALSE );
 
     EHTRACE_HANDLER_EXIT(result);
 
@@ -344,7 +345,7 @@ extern "C" _VCRTIMP __declspec(naked) DECLSPEC_GUARD_SUPPRESS EXCEPTION_DISPOSIT
 
     EHTRACE_FMT1("pRN = 0x%p", pRN);
 
-    result = __InternalCxxFrameHandler<RENAME_EH_EXTERN(__FrameHandler3)>( pExcept, pRN, (PCONTEXT)pContext, pDC, pFuncInfo, 0, nullptr, FALSE );
+    result = __InternalCxxFrameHandlerWrapper<RENAME_EH_EXTERN(__FrameHandler3)>( pExcept, pRN, (PCONTEXT)pContext, pDC, pFuncInfo, 0, nullptr, FALSE );
 
     EHTRACE_HANDLER_EXIT(result);
 
@@ -473,7 +474,7 @@ extern "C" EXCEPTION_DISPOSITION __cdecl _CatchGuardHandler(
     __security_check_cookie(pRN->RandomCookie ^ (UINT_PTR)pRN);
 
     EXCEPTION_DISPOSITION result =
-        __InternalCxxFrameHandler<RENAME_EH_EXTERN(__FrameHandler3)>( pExcept,
+        __InternalCxxFrameHandlerWrapper<RENAME_EH_EXTERN(__FrameHandler3)>( pExcept,
                                    pRN->pRN,
                                    (PCONTEXT)pContext,
                                    nullptr,
@@ -697,7 +698,7 @@ extern "C" EXCEPTION_DISPOSITION __cdecl _TranslatorGuardHandler(
         //
         // Check for a handler:
         //
-        __InternalCxxFrameHandler<RENAME_EH_EXTERN(__FrameHandler3)>( pExcept, pRN->pRN, (PCONTEXT)pContext, nullptr, pRN->pFuncInfo, pRN->CatchDepth, pRN->pMarkerRN, TRUE );
+        __InternalCxxFrameHandlerWrapper<RENAME_EH_EXTERN(__FrameHandler3)>( pExcept, pRN->pRN, (PCONTEXT)pContext, nullptr, pRN->pFuncInfo, pRN->CatchDepth, pRN->pMarkerRN, TRUE );
 
         if (!pRN->DidUnwind) {
             //
@@ -797,7 +798,6 @@ extern "C" _VCRTIMP FRAMEINFO * __cdecl _CreateFrameInfo(
 _LCRT_DEFINE_IAT_SYMBOL(_CreateFrameInfo);
 #endif
 
-
 /////////////////////////////////////////////////////////////////////////////
 //
 // _FindAndUnlinkFrame - Remove the frame information for this scope that was
@@ -828,5 +828,4 @@ extern "C" _VCRTIMP void __cdecl _FindAndUnlinkFrame(
 }
 
 _LCRT_DEFINE_IAT_SYMBOL(_FindAndUnlinkFrame);
-
 #endif

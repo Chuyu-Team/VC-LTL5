@@ -59,5 +59,8 @@
     <MASM Include="notify.x64.asm">
       <Filter>源文件\ltl</Filter>
     </MASM>
+    <ClCompile Include="..\Sources\crt\vcruntime\c11_atomic_support.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

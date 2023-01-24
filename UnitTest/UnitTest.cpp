@@ -746,6 +746,13 @@ namespace UnitTest
 				if (Symbol.GetLength() == 0)
 					continue;
 
+				// 内部私有符号全部忽略
+				if (Symbol.GetLength() > 2
+					&& Symbol[0]== '?' && Symbol[1] == '?')
+				{
+					continue;
+				}
+
 				//_NULL_THUNK_DATA 之类的全部跳过
 				if (Symbol[0] == 127
 					|| stricmp(Symbol, "__NULL_IMPORT_DESCRIPTOR") == 0
