@@ -99,12 +99,23 @@ VCToolsVersion = $$(VCToolsVersion)
 
 # 打印信息
 VC_LTL_Info = \
-$$escape_expand(\\n)**************************************** \
+$$escape_expand(\\n)####################################################################### \
+$$escape_expand(\\n)#                                                                     # \
+$$escape_expand(\\n)# 8b           d8  ,ad8888ba,         88     888888888888 88          # \
+$$escape_expand(\\n)# `8b         d8' d8"'    `"8b        88          88      88          # \
+$$escape_expand(\\n)#  `8b       d8' d8'                  88          88      88          # \
+$$escape_expand(\\n)#   `8b     d8'  88                   88          88      88          # \
+$$escape_expand(\\n)#    `8b   d8'   88          aaaaaaaa 88          88      88          # \
+$$escape_expand(\\n)#     `8b d8'    Y8,         """""""" 88          88      88          # \
+$$escape_expand(\\n)#      `888'      Y8a.    .a8P        88          88      88          # \
+$$escape_expand(\\n)#       `8'        `"Y8888Y"'         88888888888 88      88888888888 # \
+$$escape_expand(\\n)#                                                                     # \
+$$escape_expand(\\n)####################################################################### \
 $$escape_expand(\\n)VC-LTL Path : $$VC_LTL_Root \
 $$escape_expand(\\n)VC Tools Version : $$VCToolsVersion \
 $$escape_expand(\\n)WindowsTargetPlatformMinVersion : $$LTLWindowsTargetPlatformMinVersion \
 $$escape_expand(\\n)Platform : $$LTLPlatform \
-$$escape_expand(\\n)****************************************
+$$escape_expand(\\n)#######################################################################
 
 message($$VC_LTL_Info)
 
@@ -123,4 +134,3 @@ equals(CleanImport, true) {
 
 QMAKE_LIBS += \
     -L$$VC_LTL_Root/TargetPlatform/$$LTLWindowsTargetPlatformMinVersion/lib/$$LTLPlatform
-
