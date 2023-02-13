@@ -91,7 +91,7 @@
     </Otherwise>
   </Choose>
 
-  
+
   <PropertyGroup>
     <!--VC-LTL核心版本号，由于4.X并不兼容3.X。此值可以用于兼容性判断。-->
     <LTL_CoreVersion>5</LTL_CoreVersion>
@@ -103,13 +103,13 @@
     <SupportLTL Condition="('$(SupportLTL)'=='') And ('$(VCLTLSupportPlatform)'=='true')">true</SupportLTL>
 
     <SupportWinXP Condition=" ('$(SupportWinXP)'=='') And ('$(VCLTLSupportPlatformToolsetWinXP)'=='true')">true</SupportWinXP>
-    
+
     <!--arm、arm64必定不用支持XP-->
     <SupportWinXP Condition=" ('$(Platform)'=='arm') Or ('$(Platform)'=='arm64')">false</SupportWinXP>
 
     <VC_LTL_Include>$(VC_LTL_Root)TargetPlatform\header;$(VC_LTL_Root)TargetPlatform\$(LTLWindowsTargetPlatformMinVersion)\header</VC_LTL_Include>
     <VC_LTL_Library>$(VC_LTL_Root)TargetPlatform\$(LTLWindowsTargetPlatformMinVersion)\lib\$(Platform);$(IntDir)VC-LTL5.tmp\$(LTLWindowsTargetPlatformMinVersion)\$(Platform)</VC_LTL_Library>
-    
+
     <!--如果启用了干净导入表模式，那么额外附加CleanImport的路径-->
     <VC_LTL_Library Condition="'$(CleanImport)' == 'true' and Exists('$(VC_LTL_Root)TargetPlatform\$(LTLWindowsTargetPlatformMinVersion)\lib\$(Platform)\CleanImport')">$(VC_LTL_Root)TargetPlatform\$(LTLWindowsTargetPlatformMinVersion)\lib\$(Platform)\CleanImport;$(VC_LTL_Library)</VC_LTL_Library>
   </PropertyGroup>
@@ -130,7 +130,7 @@
     <ClCompile>
       <!--其实这些宏都不是必须的 vcruntime.h 中会自动加入这些-->
       <PreprocessorDefinitions>_Build_By_LTL=1;_LTL_Core_Version=$(LTL_CoreVersion);%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      
+
       <PreprocessorDefinitions Condition="'$(SupportWinXP)'=='true'">_ATL_XP_TARGETING=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <!--当兼容XP时，对于非 exe 的需要禁用线程安全初始化。避免XP中在DllMain中使用TLS而崩溃-->
       <AdditionalOptions Condition="'$(SupportWinXP)'=='true' and '$(ConfigurationType)'!='Application' ">/Zc:threadSafeInit- %(AdditionalOptions)</AdditionalOptions>
@@ -158,16 +158,19 @@
 
   <Target Name="VC_LTL_PlatformPrepareForBuild_Config" BeforeTargets="PrepareForBuild">
     <Message Text="
-  ###################################################################################################
-  #                                                                                                 #
-  #                 *         *      * *             *        * * * * *  *                          #
-  #                  *       *     *                 *            *      *                          #
-  #                   *     *     *       * * * * *  *            *      *                          #
-  #                    *   *       *                 *            *      *                          #
-  #                      *           * *             * * * *      *      * * * *                    #
-  #                                                                                                 #
-  ###################################################################################################
-  
+  ################################################################################
+  #                                                                              #
+  #     8b           d8  ,ad8888ba,         88     888888888888 88               #
+  #     `8b         d8&apos; d8&quot;&apos;    `&quot;8b        88          88      88               #
+  #      `8b       d8&apos; d8&apos;                  88          88      88               #
+  #       `8b     d8&apos;  88                   88          88      88               #
+  #        `8b   d8&apos;   88          aaaaaaaa 88          88      88               #
+  #         `8b d8&apos;    Y8,         &quot;&quot;&quot;&quot;&quot;&quot;&quot;&quot; 88          88      88               #
+  #          `888&apos;      Y8a.    .a8P        88          88      88               #
+  #           `8&apos;        `&quot;Y8888Y&quot;&apos;         88888888888 88      88888888888      #
+  #                                                                              #
+  ################################################################################
+
   VC-LTL Path      : $(VC_LTL_Root)
   VC Tools Version : $(VCToolsVersion)
   WindowsTargetPlatformMinVersion : $(LTLWindowsTargetPlatformMinVersion)
