@@ -94,27 +94,27 @@ RtlWow64EnableFsRedirectionEx(
 #endif
 
 
-#define _ACRT_APPLY_TO_LATE_BOUND_MODULES                                                                \
-    _APPLY(api_ms_win_core_datetime_l1_1_1,              "api-ms-win-core-datetime-l1-1-1"             ) \
-    _APPLY(api_ms_win_core_fibers_l1_1_1,                "api-ms-win-core-fibers-l1-1-1"               ) \
-    _APPLY(api_ms_win_core_file_l1_2_2,                  "api-ms-win-core-file-l1-2-2"                 ) \
-    _APPLY(api_ms_win_core_localization_l1_2_1,          "api-ms-win-core-localization-l1-2-1"         ) \
-    _APPLY(api_ms_win_core_localization_obsolete_l1_2_0, "api-ms-win-core-localization-obsolete-l1-2-0") \
-    _APPLY(api_ms_win_core_processthreads_l1_1_2,        "api-ms-win-core-processthreads-l1-1-2"       ) \
-    _APPLY(api_ms_win_core_string_l1_1_0,                "api-ms-win-core-string-l1-1-0"               ) \
-    _APPLY(api_ms_win_core_synch_l1_2_0,                 "api-ms-win-core-synch-l1-2-0"                ) \
-    _APPLY(api_ms_win_core_sysinfo_l1_2_1,               "api-ms-win-core-sysinfo-l1-2-1"              ) \
-    _APPLY(api_ms_win_core_winrt_l1_1_0,                 "api-ms-win-core-winrt-l1-1-0"                ) \
-    _APPLY(api_ms_win_core_xstate_l2_1_0,                "api-ms-win-core-xstate-l2-1-0"               ) \
-    _APPLY(api_ms_win_rtcore_ntuser_window_l1_1_0,       "api-ms-win-rtcore-ntuser-window-l1-1-0"      ) \
-    _APPLY(api_ms_win_security_systemfunctions_l1_1_0,   "api-ms-win-security-systemfunctions-l1-1-0"  ) \
-    _APPLY(ext_ms_win_ntuser_dialogbox_l1_1_0,           "ext-ms-win-ntuser-dialogbox-l1-1-0"          ) \
-    _APPLY(ext_ms_win_ntuser_windowstation_l1_1_0,       "ext-ms-win-ntuser-windowstation-l1-1-0"      ) \
-    _APPLY(advapi32,                                     "advapi32"                                    ) \
-    _APPLY(kernel32,                                     "kernel32"                                    ) \
-    _APPLY(ntdll,                                        "ntdll"                                       ) \
-    _APPLY(api_ms_win_appmodel_runtime_l1_1_2,           "api-ms-win-appmodel-runtime-l1-1-2"          ) \
-    _APPLY(user32,                                       "user32"                                      )
+#define _ACRT_APPLY_TO_LATE_BOUND_MODULES                                                                   \
+    _NO_APPLY(api_ms_win_core_datetime_l1_1_1,              "api-ms-win-core-datetime-l1-1-1"             ) \
+    _NO_APPLY(api_ms_win_core_fibers_l1_1_1,                "api-ms-win-core-fibers-l1-1-1"               ) \
+    _NO_APPLY(api_ms_win_core_file_l1_2_2,                  "api-ms-win-core-file-l1-2-2"                 ) \
+    _NO_APPLY(api_ms_win_core_localization_l1_2_1,          "api-ms-win-core-localization-l1-2-1"         ) \
+    _NO_APPLY(api_ms_win_core_localization_obsolete_l1_2_0, "api-ms-win-core-localization-obsolete-l1-2-0") \
+    _NO_APPLY(api_ms_win_core_processthreads_l1_1_2,        "api-ms-win-core-processthreads-l1-1-2"       ) \
+    _NO_APPLY(api_ms_win_core_string_l1_1_0,                "api-ms-win-core-string-l1-1-0"               ) \
+    _NO_APPLY(api_ms_win_core_synch_l1_2_0,                 "api-ms-win-core-synch-l1-2-0"                ) \
+    _NO_APPLY(api_ms_win_core_sysinfo_l1_2_1,               "api-ms-win-core-sysinfo-l1-2-1"              ) \
+    _NO_APPLY(api_ms_win_core_winrt_l1_1_0,                 "api-ms-win-core-winrt-l1-1-0"                ) \
+    _NO_APPLY(api_ms_win_core_xstate_l2_1_0,                "api-ms-win-core-xstate-l2-1-0"               ) \
+    _NO_APPLY(api_ms_win_rtcore_ntuser_window_l1_1_0,       "api-ms-win-rtcore-ntuser-window-l1-1-0"      ) \
+    _NO_APPLY(api_ms_win_security_systemfunctions_l1_1_0,   "api-ms-win-security-systemfunctions-l1-1-0"  ) \
+    _NO_APPLY(ext_ms_win_ntuser_dialogbox_l1_1_0,           "ext-ms-win-ntuser-dialogbox-l1-1-0"          ) \
+    _NO_APPLY(ext_ms_win_ntuser_windowstation_l1_1_0,       "ext-ms-win-ntuser-windowstation-l1-1-0"      ) \
+    _APPLY(advapi32,                                        "advapi32"                                    ) \
+    _APPLY(kernel32,                                        "kernel32"                                    ) \
+    _NO_APPLY(ntdll,                                        "ntdll"                                       ) \
+    _NO_APPLY(api_ms_win_appmodel_runtime_l1_1_2,           "api-ms-win-appmodel-runtime-l1-1-2"          ) \
+    _NO_APPLY(user32,                                       "user32"                                      )
 
 
 
@@ -128,21 +128,21 @@ RtlWow64EnableFsRedirectionEx(
     _NO_APPLY(FlsSetValue,                                 ({ api_ms_win_core_fibers_l1_1_1,                kernel32                                   })) \
     _NO_APPLY(GetActiveWindow,                             ({ api_ms_win_rtcore_ntuser_window_l1_1_0,       user32                                     })) \
     _NO_APPLY(GetDateFormatEx,                             ({ api_ms_win_core_datetime_l1_1_1,              kernel32                                   })) \
-    _APPLY(GetEnabledXStateFeatures,                       ({ api_ms_win_core_xstate_l2_1_0,                kernel32                                   })) \
+    _APPLY(GetEnabledXStateFeatures,                       ({ /*api_ms_win_core_xstate_l2_1_0,*/            kernel32                                   })) \
     _NO_APPLY(GetLastActivePopup,                          ({ ext_ms_win_ntuser_dialogbox_l1_1_0,           user32                                     })) \
     _NO_APPLY(GetLocaleInfoEx,                             ({ api_ms_win_core_localization_l1_2_1,          kernel32                                   })) \
     _NO_APPLY(GetProcessWindowStation,                     ({ ext_ms_win_ntuser_windowstation_l1_1_0,       user32                                     })) \
-    _APPLY(GetSystemTimePreciseAsFileTime,                 ({ api_ms_win_core_sysinfo_l1_2_1                                                           })) \
+    _APPLY(GetSystemTimePreciseAsFileTime,                 ({ /*api_ms_win_core_sysinfo_l1_2_1,*/           kernel32                                   })) \
     _NO_APPLY(GetTimeFormatEx,                             ({ api_ms_win_core_datetime_l1_1_1,              kernel32                                   })) \
     _NO_APPLY(GetUserDefaultLocaleName,                    ({ api_ms_win_core_localization_l1_2_1,          kernel32                                   })) \
     _NO_APPLY(GetUserObjectInformationW,                   ({ ext_ms_win_ntuser_windowstation_l1_1_0,       user32                                     })) \
-    _APPLY(GetXStateFeaturesMask,                          ({ api_ms_win_core_xstate_l2_1_0,                kernel32                                   })) \
+    _APPLY(GetXStateFeaturesMask,                          ({ /*api_ms_win_core_xstate_l2_1_0,*/            kernel32                                   })) \
     _NO_APPLY(InitializeCriticalSectionEx,                 ({ api_ms_win_core_synch_l1_2_0,                 kernel32                                   })) \
     _NO_APPLY(IsValidLocaleName,                           ({ api_ms_win_core_localization_l1_2_1,          kernel32                                   })) \
     _NO_APPLY(LCMapStringEx,                               ({ api_ms_win_core_localization_l1_2_1,          kernel32                                   })) \
-    _NO_APPLY_Vista(LCIDToLocaleName,                      ({ api_ms_win_core_localization_obsolete_l1_2_0, kernel32                                   })) \
-    _NO_APPLY_Vista(LocaleNameToLCID,                      ({ api_ms_win_core_localization_l1_2_1,          kernel32                                   })) \
-    _APPLY(LocateXStateFeature,                            ({ api_ms_win_core_xstate_l2_1_0,                kernel32                                   })) \
+    _NO_APPLY(LCIDToLocaleName,                            ({ api_ms_win_core_localization_obsolete_l1_2_0, kernel32                                   })) \
+    _NO_APPLY(LocaleNameToLCID,                            ({ api_ms_win_core_localization_l1_2_1,          kernel32                                   })) \
+    _APPLY(LocateXStateFeature,                            ({ /*api_ms_win_core_xstate_l2_1_0,*/            kernel32                                   })) \
     _NO_APPLY(MessageBoxA,                                 ({ ext_ms_win_ntuser_dialogbox_l1_1_0,           user32                                     })) \
     _NO_APPLY(MessageBoxW,                                 ({ ext_ms_win_ntuser_dialogbox_l1_1_0,           user32                                     })) \
     _NO_APPLY(RoInitialize,                                ({ api_ms_win_core_winrt_l1_1_0                                                             })) \
@@ -152,7 +152,7 @@ RtlWow64EnableFsRedirectionEx(
     _NO_APPLY(AppPolicyGetShowDeveloperDiagnostic,         ({ api_ms_win_appmodel_runtime_l1_1_2                                                       })) \
     _NO_APPLY(AppPolicyGetWindowingModel,                  ({ api_ms_win_appmodel_runtime_l1_1_2                                                       })) \
     _NO_APPLY(SetThreadStackGuarantee,                     ({ api_ms_win_core_processthreads_l1_1_2,        kernel32                                   })) \
-    _APPLY(SystemFunction036,                              ({ api_ms_win_security_systemfunctions_l1_1_0,   advapi32                                   }))
+    _APPLY(SystemFunction036,                              ({ /*api_ms_win_security_systemfunctions_l1_1_0,*/ advapi32                                 }))
 
 namespace
 {
