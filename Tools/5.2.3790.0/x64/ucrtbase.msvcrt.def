@@ -152,7 +152,7 @@ _creat
 ;_create_locale x
 ;_crt_at_quick_exit x
 ;_crt_atexit x
-_ctime32
+;_ctime32 w
 ;_ctime32_s
 _ctime64
 ;_ctime64_s
@@ -252,12 +252,12 @@ _fstat64
 ;_ftell_nolock
 ;_ftelli64 x
 ;_ftelli64_nolock
-_ftime32
+;_ftime32 w
 ;_ftime32_s
 _ftime64
 ;_ftime64_s
 _fullpath
-_futime32
+;_futime32 w
 _futime64
 ;_fwrite_nolock
 _gcvt
@@ -307,7 +307,7 @@ _getwche
 ;_getwche_nolock
 _getws
 ;_getws_s x
-_gmtime32
+;_gmtime32 w
 ;_gmtime32_s
 _gmtime64
 ;_gmtime64_s
@@ -445,7 +445,7 @@ _kbhit
 _lfind
 ;_lfind_s
 ;_loaddll x
-_localtime32
+;_localtime32 w
 ;_localtime32_s
 _localtime64
 ;_localtime64_s
@@ -611,7 +611,7 @@ _mkdir
 _mkgmtime64
 _mktemp
 ;_mktemp_s
-_mktime32
+;_mktime32 w
 _mktime64
 _msize
 _nextafter
@@ -655,7 +655,7 @@ _searchenv
 ;_set_FMA3_enable x
 ;_set_abort_behavior x
 ;_set_app_type x
-_set_controlfp
+;_set_controlfp x
 ;_set_doserrno
 ;_set_errno
 _set_error_mode
@@ -739,7 +739,7 @@ _swab
 _tell
 _telli64
 _tempnam
-_time32
+;_time32 w
 _time64
 ;_timespec32_get x
 ;_timespec64_get x
@@ -770,7 +770,7 @@ _unlink
 ;_unloaddll x
 ;_unlock_file x
 ;_unlock_locales x
-_utime32
+;_utime32 w
 _utime64
 _waccess
 ;_waccess_s
@@ -825,7 +825,7 @@ _wcsupr
 ;_wcsupr_s
 ;_wcsupr_s_l
 ;_wcsxfrm_l
-_wctime32
+;_wctime32 w
 ;_wctime32_s
 _wctime64
 ;_wctime64_s
@@ -913,7 +913,7 @@ _wtol
 ;_wtoll w
 ;_wtoll_l w
 _wunlink
-_wutime32
+;_wutime32 w
 _wutime64
 _y0
 _y1
@@ -1289,7 +1289,7 @@ system
 tan
 tanf
 tanh
-tanhf
+;tanhf x
 ;terminate w
 ;tgamma x
 ;tgammaf x
@@ -1370,6 +1370,16 @@ _XcptFilter
 __CppXcptFilter
 
 _mkgmtime
+_wutime
+_wctime
+_utime
+time
+mktime
+localtime
+gmtime
+_futime
+_ftime
+ctime
 
 ?_query_new_handler@@YAP6AH_K@ZXZ
 ?_set_new_handler@@YAP6AH_K@ZP6AH0@Z@Z

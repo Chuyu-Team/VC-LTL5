@@ -1228,7 +1228,9 @@
       <ExcludedFromBuild Condition="'$(WindowsTargetPlatformMinVersionBuild)' &gt;= '6000'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="ieee87.cpp">
-      <ExcludedFromBuild Condition="'$(Platform)'!='Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Platform)'=='Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Platform)'=='x64'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="initctype.cpp" />
     <ClCompile Include="localeconv.cpp" />
@@ -1259,6 +1261,11 @@
       <ExcludedFromBuild Condition="'$(WindowsTargetPlatformMinVersionBuild)' &gt;= '6000'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="strdate.cpp">
+      <ExcludedFromBuild Condition="'$(WindowsTargetPlatformMinVersionBuild)' &gt;= '6000'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="tanhf.cpp">
+      <ExcludedFromBuild>true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Platform)'=='x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(WindowsTargetPlatformMinVersionBuild)' &gt;= '6000'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="tmpfile.cpp">

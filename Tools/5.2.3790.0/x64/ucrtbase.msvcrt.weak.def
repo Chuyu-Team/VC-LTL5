@@ -198,9 +198,22 @@ _seh_filter_dll=__CppXcptFilter
 
 
 _loaddll=LoadLibraryA
+
+; Windows 2003
 _mkgmtime32=_mkgmtime
 
-;Winxp
+;Windows XP
+_localtime32=localtime
+_ctime32=ctime
+_wctime32=_wctime
+_gmtime32=gmtime
+_mktime32=mktime
+_ftime32=_ftime
+_futime32=_futime
+_utime32=_utime
+_wutime32=_wutime
+_time32=time
+
 _iswctype_l=iswctype
 
 _iswalpha_l=iswalpha

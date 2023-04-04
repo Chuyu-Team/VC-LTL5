@@ -795,6 +795,9 @@
     <ClCompile Include="..\Sources\ucrt\locale\LCMapStringW.cpp">
       <Filter>源文件\objs</Filter>
     </ClCompile>
+    <ClCompile Include="tanhf.cpp">
+      <Filter>源文件\WinXP\ltl</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="msvcrt_loadhelper.h">
