@@ -676,7 +676,6 @@
       <ExcludedFromBuild Condition="'$(Platform)' != 'Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="('$(Configuration)'=='Dynamic' or '$(Configuration)'=='DDynamic') and '$(WindowsTargetPlatformMinVersionBuild)' &gt;= '6000'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\Sources\crt\vcruntime\c11_atomic_support.c" />
     <ClCompile Include="..\Sources\crt\vcruntime\chandler_noexcept.cpp">
       <ExcludedFromBuild Condition="'$(Platform)' != 'x64' and '$(Platform)' != 'ARM' and '$(Platform)' != 'ARM64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(WindowsTargetPlatformMinVersionBuild)' &gt;= '17134'">true</ExcludedFromBuild>
@@ -696,6 +695,7 @@
       <LanguageStandard>stdcpp17</LanguageStandard>
       <ExcludedFromBuild Condition="'$(Platform)' != 'Win32' or '$(WindowsTargetPlatformMinVersionBuild)' &gt;= '10240'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\Sources\crt\vcruntime\ltl\c11_atomic_support.c" />
     <ClCompile Include="..\Sources\crt\vcruntime\mgdframe.cpp">
       <ExcludedFromBuild Condition="'$(Platform)' != 'x64' and '$(Platform)' != 'ARM' and '$(Platform)' != 'ARM64'">true</ExcludedFromBuild>
     </ClCompile>
