@@ -17,4 +17,4 @@ set ERROR_VC_LTL_NOT_SUPPORT_PLATFORM_TOOLSET=VC-LTL only supports Visual Studio
 
 set ERROR_VC_LTL_NOT_SUPPORT_PLATFORM=VC-LTL does not support %Platform% platform.
 
-set ERROR_VC_LTL_FILE_MISSING=VC-LTL can't find lib files, please download the binary files from https://github.com/Chuyu-Team/VC-LTL/releases/latest then continue.
+set ERROR_VC_LTL_FILE_MISSING=VC-LTL can't find lib files, please download the binary files from https://github.com/Chuyu-Team/VC-LTL5/releases/latest then continue.

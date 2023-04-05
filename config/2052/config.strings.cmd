@@ -17,4 +17,4 @@ set ERROR_VC_LTL_NOT_SUPPORT_PLATFORM_TOOLSET=VC-LTL½öÖ§³ÖVS 2015¡¢2017¡¢2019ÒÔ¼
 
 set ERROR_VC_LTL_NOT_SUPPORT_PLATFORM=VC-LTL CMD½Å±¾²»Ö§³ÖÌåÏµ : %Platform%
 
-set ERROR_VC_LTL_FILE_MISSING=VC-LTL²»ÕÒ²»µ½libÎÄ¼ş£¬Çë´Ó https://github.com/Chuyu-Team/VC-LTL/releases/latest ÏÂÔØÍêÕû¶ş½øÖÆÎÄ¼şÈ»ºó¼ÌĞø¡£
+set ERROR_VC_LTL_FILE_MISSING=VC-LTL²»ÕÒ²»µ½libÎÄ¼ş£¬Çë´Ó https://github.com/Chuyu-Team/VC-LTL5/releases/latest ÏÂÔØÍêÕû¶ş½øÖÆÎÄ¼şÈ»ºó¼ÌĞø¡£

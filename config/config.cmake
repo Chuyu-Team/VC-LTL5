@@ -178,7 +178,7 @@ if(${SupportLTL} STREQUAL "true")
 	endif()
 
 	if (NOT EXISTS ${VC_LTL_Root}/TargetPlatform/${LTLWindowsTargetPlatformMinVersion}/lib/${LTLPlatform})
-		message(FATAL_ERROR "VC-LTL can't find lib files, please download the binary files from https://github.com/Chuyu-Team/VC-LTL/releases/latest then continue.")
+		message(FATAL_ERROR "VC-LTL can't find lib files, please download the binary files from https://github.com/Chuyu-Team/VC-LTL5/releases/latest then continue.")
 	endif()
 
 	#打印VC-LTL图标

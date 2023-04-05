@@ -23,6 +23,6 @@
     <ERROR_VC_LTL_NOT_SUPPORT_MITIGATION>VC-LTL doesn't support the $(SpectreMitigation). It's recommended to upgrade to the latest VC-LTL and continue.</ERROR_VC_LTL_NOT_SUPPORT_MITIGATION>
     
     <!--LTL4000-->
-    <ERROR_VC_LTL_FILE_MISSING>VC-LTL cannot find the lib files, please reinstall the NuGet package, or download it again from https://github.com/Chuyu-Team/VC-LTL/releases/latest and continue.</ERROR_VC_LTL_FILE_MISSING>
+    <ERROR_VC_LTL_FILE_MISSING>VC-LTL cannot find the lib files, please reinstall the NuGet package, or download it again from https://github.com/Chuyu-Team/VC-LTL5/releases/latest and continue.</ERROR_VC_LTL_FILE_MISSING>
   </PropertyGroup>
 </Project>

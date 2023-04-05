@@ -85,7 +85,7 @@ isEmpty(WindowsTargetPlatformMinVersion) {
 
 
 !exists($$VC_LTL_Root/TargetPlatform/$$LTLWindowsTargetPlatformMinVersion/lib/$$LTLPlatform) {
-    error("VC-LTL: Cannot find lib files, please download latest pre-build packages from https://github.com/Chuyu-Team/VC-LTL/releases/latest")
+    error("VC-LTL: Cannot find lib files, please download latest pre-build packages from https://github.com/Chuyu-Team/VC-LTL5/releases/latest")
 }
 
 
