@@ -1,4 +1,4 @@
-LIBRARY msvcrt.dll
+ï»¿LIBRARY msvcrt.dll
 EXPORTS
 ;_Cbuild x
 ;_Cmulcc x
@@ -686,7 +686,7 @@ _splitpath
 ;_splitpath_s
 ;_stat32 x
 ;_stat32i64 x
-;_stat64 x ÏµÍ³Ô­°æ´æÔÚBug
+;_stat64 x ç³»ç»ŸåŸç‰ˆå­˜åœ¨Bug
 ;_stat64i32 x
 _statusfp
 ;_strcoll_l
@@ -1156,7 +1156,7 @@ ldiv
 ;llround x
 ;llroundf x
 ;llroundl x
-;localeconv x Win7µÄ½á¹¹Ìå²ÅÍêÕû
+;localeconv x Win7çš„ç»“æ„ä½“æ‰å®Œæ•´
 log
 log10
 log10f
@@ -1353,7 +1353,7 @@ wctomb
 
 
 
-;´¦ÓÚweakĞèÒª£¬ÀúÊ·º¯ÊıÃû³Æ¼ÌĞøÌá¹©£¬È»ºó weak Ìø×ª
+;å¤„äºweakéœ€è¦ï¼Œå†å²å‡½æ•°åç§°ç»§ç»­æä¾›ï¼Œç„¶å weak è·³è½¬
 _findfirst
 _findnext
 _findfirsti64
@@ -1390,7 +1390,7 @@ ctime
 
 
 
-;ÄÚ²¿Ê¹ÓÃµÄµÄµ¼³ö·ûºÅ
+;å†…éƒ¨ä½¿ç”¨çš„çš„å¯¼å‡ºç¬¦å·
 __argc DATA
 __argv DATA
 __wargv DATA

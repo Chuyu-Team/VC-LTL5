@@ -1,4 +1,4 @@
-LIBRARY wincorlib.dll
+﻿LIBRARY wincorlib.dll
 EXPORTS
 ?<Dispose>@Exception@Platform@@U$AAAXXZ
 ?<Dispose>@String@Platform@@U$AAAXXZ

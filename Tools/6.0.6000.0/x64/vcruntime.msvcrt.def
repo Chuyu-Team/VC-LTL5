@@ -1,4 +1,4 @@
-LIBRARY msvcrt.dll
+ï»¿LIBRARY msvcrt.dll
 EXPORTS
 ;_CreateFrameInfo x
 _CxxThrowException
@@ -75,7 +75,7 @@ wcsstr
 
 
 
-;ÄÚ²¿×ª·¢ĞèÒª
+;å†…éƒ¨è½¬å‘éœ€è¦
 _setjmp
 _setjmpex
 ?_set_se_translator@@YAP6AXIPEAU_EXCEPTION_POINTERS@@@ZP6AXI0@Z@Z
@@ -91,5 +91,5 @@ _setjmpex
 ?raw_name@type_info@@QEBAPEBDXZ     DATA
 
 
-; ÄÚ²¿ÓÃµ½µÄÒ»¸öº¯Êı
+; å†…éƒ¨ç”¨åˆ°çš„ä¸€ä¸ªå‡½æ•°
 _amsg_exit

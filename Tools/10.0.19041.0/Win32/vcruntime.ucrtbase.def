@@ -1,4 +1,4 @@
-LIBRARY ucrtbase.dll
+﻿LIBRARY ucrtbase.dll
 EXPORTS
 _CreateFrameInfo
 _CxxThrowException@8

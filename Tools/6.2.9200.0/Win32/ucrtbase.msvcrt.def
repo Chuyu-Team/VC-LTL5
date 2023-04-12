@@ -1,4 +1,4 @@
-LIBRARY msvcrt.dll
+ï»¿LIBRARY msvcrt.dll
 EXPORTS
 _CIacos
 _CIasin
@@ -157,11 +157,11 @@ _beginthreadex
 ;_byteswap_uint64 t
 ;_byteswap_ulong t
 ;_byteswap_ushort t
-;_c_exit t ËäÈ»Ö§³Ö£¬µ«ÊÇÎªÁË½â¾öËÀËøÒÔ¼° at_quick_exitËùÒÔ ²»ÔÚÊ¹ÓÃmsvcrtÄÚÖÃµÄ 
+;_c_exit t è™½ç„¶æ”¯æŒï¼Œä½†æ˜¯ä¸ºäº†è§£å†³æ­»é”ä»¥åŠ at_quick_exitæ‰€ä»¥ ä¸åœ¨ä½¿ç”¨msvcrtå†…ç½®çš„ 
 _cabs
 _callnewh
 ;_calloc_base w
-;_cexit t ËäÈ»Ö§³Ö£¬µ«ÊÇÎªÁË½â¾öËÀËøÒÔ¼° at_quick_exitËùÒÔ ²»ÔÚÊ¹ÓÃmsvcrtÄÚÖÃµÄ 
+;_cexit t è™½ç„¶æ”¯æŒï¼Œä½†æ˜¯ä¸ºäº†è§£å†³æ­»é”ä»¥åŠ at_quick_exitæ‰€ä»¥ ä¸åœ¨ä½¿ç”¨msvcrtå†…ç½®çš„ 
 _cgets
 _cgets_s
 _cgetws
@@ -229,7 +229,7 @@ _execv
 _execve
 _execvp
 _execvpe
-;_exit   x ËäÈ»Ö§³Ö£¬µ«ÊÇÎªÁË½â¾öËÀËøÒÔ¼° at_quick_exitËùÒÔ ²»ÔÚÊ¹ÓÃmsvcrtÄÚÖÃµÄ 
+;_exit   x è™½ç„¶æ”¯æŒï¼Œä½†æ˜¯ä¸ºäº†è§£å†³æ­»é”ä»¥åŠ at_quick_exitæ‰€ä»¥ ä¸åœ¨ä½¿ç”¨msvcrtå†…ç½®çš„ 
 _expand
 ;_fclose_nolock
 _fcloseall
@@ -728,7 +728,7 @@ _spawnvp
 _spawnvpe
 _splitpath
 _splitpath_s
-;_stat32 t msvcrt°æ±¾ÓĞBug
+;_stat32 t msvcrtç‰ˆæœ¬æœ‰Bug
 ;_stat32i64 t
 ;_stat64 t
 ;_stat64i32 t
@@ -1078,7 +1078,7 @@ div
 ;erfcl x
 ;erff x
 ;erfl x
-;exit t ËäÈ»Ö§³Ö£¬µ«ÊÇÎªÁË½â¾öËÀËøÒÔ¼° at_quick_exitËùÒÔ ²»ÔÚÊ¹ÓÃmsvcrtÄÚÖÃµÄ 
+;exit t è™½ç„¶æ”¯æŒï¼Œä½†æ˜¯ä¸ºäº†è§£å†³æ­»é”ä»¥åŠ at_quick_exitæ‰€ä»¥ ä¸åœ¨ä½¿ç”¨msvcrtå†…ç½®çš„ 
 exp
 ;exp2 x
 ;exp2f x
@@ -1381,7 +1381,7 @@ wctomb_s
 
 
 
-;´¦ÓÚweakĞèÒª£¬ÀúÊ·º¯ÊıÃû³Æ¼ÌĞøÌá¹©£¬È»ºó weak Ìø×ª
+;å¤„äºweakéœ€è¦ï¼Œå†å²å‡½æ•°åç§°ç»§ç»­æä¾›ï¼Œç„¶å weak è·³è½¬
 _findfirst
 _findnext
 _findfirsti64
@@ -1405,7 +1405,7 @@ __CppXcptFilter
 ?terminate@@YAXXZ
 
 
-;ÄÚ²¿Ê¹ÓÃµÄµÄµ¼³ö·ûºÅ
+;å†…éƒ¨ä½¿ç”¨çš„çš„å¯¼å‡ºç¬¦å·
 __argc DATA
 __argv DATA
 __wargv DATA

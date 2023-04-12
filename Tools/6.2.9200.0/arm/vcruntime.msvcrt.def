@@ -1,11 +1,11 @@
-LIBRARY msvcrt.dll
+ï»¿LIBRARY msvcrt.dll
 EXPORTS
 ;_CreateFrameInfo x
 _CxxThrowException
 ;_FindAndUnlinkFrame x
 ;_IsExceptionObjectToBeDestroyed x
 ;_SetWinRTOutOfMemoryExceptionCallback x
-;__AdjustPointer x ÍÆ²âÓ¦¸Ã³öÏÖÔÚ 8.1
+;__AdjustPointer x æ¨æµ‹åº”è¯¥å‡ºç°åœ¨ 8.1
 ;__BuildCatchObject x
 ;__BuildCatchObjectHelper x
 __C_specific_handler
@@ -74,7 +74,7 @@ wcsstr
 
 
 
-;Ä³Ğ©ÀÏ·ûºÅ£¬Í¨¹ıÄ³Ğ©ĞÎÊ½×ª»»µ½ÁËĞÂ·ûºÅ
+;æŸäº›è€ç¬¦å·ï¼Œé€šè¿‡æŸäº›å½¢å¼è½¬æ¢åˆ°äº†æ–°ç¬¦å·
 _setjmp
 _setjmpex
 ?set_unexpected@@YAP6AXXZP6AXXZ@Z
@@ -89,5 +89,5 @@ _setjmpex
 ?raw_name@type_info@@QBAPBDXZ     DATA
 
 
-; ÄÚ²¿ÓÃµ½µÄÒ»¸öº¯Êı
+; å†…éƒ¨ç”¨åˆ°çš„ä¸€ä¸ªå‡½æ•°
 _amsg_exit

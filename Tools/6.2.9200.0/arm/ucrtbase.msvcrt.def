@@ -1,4 +1,4 @@
-LIBRARY msvcrt.dll
+ï»¿LIBRARY msvcrt.dll
 EXPORTS
 ;_Cbuild x
 ;_Cmulcc x
@@ -1349,7 +1349,7 @@ wctomb_s
 
 
 
-;´¦ÓÚweakĞèÒª£¬ÀúÊ·º¯ÊıÃû³Æ¼ÌĞøÌá¹©£¬È»ºó weak Ìø×ª
+;å¤„äºweakéœ€è¦ï¼Œå†å²å‡½æ•°åç§°ç»§ç»­æä¾›ï¼Œç„¶å weak è·³è½¬
 _findfirst
 _findnext
 _findfirsti64
@@ -1372,7 +1372,7 @@ __CppXcptFilter
 ?set_terminate@@YAP6AXXZP6AXXZ@Z
 ?terminate@@YAXXZ
 
-;ÄÚ²¿Ê¹ÓÃµÄµÄµ¼³ö·ûºÅ
+;å†…éƒ¨ä½¿ç”¨çš„çš„å¯¼å‡ºç¬¦å·
 __argc DATA
 __argv DATA
 __wargv DATA

@@ -1,4 +1,4 @@
-LIBRARY wincorlib.dll
+ï»¿LIBRARY wincorlib.dll
 EXPORTS
 ?<Dispose>@Exception@Platform@@U$AAAXXZ
 ?<Dispose>@String@Platform@@U$AAAXXZ
@@ -261,7 +261,7 @@ EXPORTS
 
 
 
-;ÆäËû·ûºÅ£¬ÓÃÓëÌá¹©¼æÈİ
+;å…¶ä»–ç¬¦å·ï¼Œç”¨ä¸æä¾›å…¼å®¹
 ?EnableFactoryCache@@YGXXZ
 ?InitializeData@Details@Platform@@YGJH@Z
 ?UninitializeData@Details@Platform@@YGXH@Z
