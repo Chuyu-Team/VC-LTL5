@@ -204,4 +204,4 @@ Is the file size smaller? If you fail to compile, please refer to [4. FAQ](#4-fa
 
 ## Excursus - Third Party Licenses
 * [Visual Studio](https://visualstudio.microsoft.com/license-terms/)
-* [Windows Software Developer Kit](https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/)
+* [Microsoft.Windows.SDK.CRTSource](https://www.nuget.org/packages/Microsoft.Windows.SDK.CRTSource/10.0.22621.3/License)
