@@ -379,3 +379,4 @@ Static/
 *.id2
 *.xlsx
 SymbolCache/
+*.lastcodeanalysissucceeded

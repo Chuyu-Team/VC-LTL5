@@ -40,7 +40,8 @@ template<typename TCAHR> __forceinline errno_t __cdecl common_putenv_s(
 	auto cName = _tcslen(_Name);
 	auto cValue = _tcslen(_Value);
 
-	auto _EnvString = (TCAHR*)_malloca(cName + cValue + 2 * sizeof(TCAHR));
+	// 我们需要额外添加二个字符，一个用于存储连接符 '='，另外一个用于字符串终止符 '\0'。
+	auto _EnvString = (TCAHR*)_malloca((cName + cValue + 2) * sizeof(TCAHR));
 	if (!_EnvString)
 		return errno;
 
