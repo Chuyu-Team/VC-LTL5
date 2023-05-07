@@ -196,4 +196,4 @@ nmake /f Test.mak
 
 ## 附：第三方依赖项许可
 * [Visual Studio](https://visualstudio.microsoft.com/license-terms/)
-* [Windows Software Developer Kit](https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/)
+* [Microsoft.Windows.SDK.CRTSource](https://www.nuget.org/packages/Microsoft.Windows.SDK.CRTSource/10.0.22621.3/License)
