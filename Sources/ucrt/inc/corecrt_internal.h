@@ -1489,23 +1489,70 @@ __declspec(dllimport) void __cdecl _amsg_exit(
 
 __acrt_ptd* __cdecl __acrt_getptd_head(void);
 #ifdef __BuildWithMSVCRT
-__forceinline __acrt_ptd* __cdecl __acrt_getptd_noexit(void)
+__declspec(noinline) __inline __acrt_ptd* __cdecl __acrt_getptd_noexit(void)
 {
-    __acrt_ptd* ptd = (__acrt_ptd*)(((unsigned char*)_errno()) - FIELD_OFFSET(__acrt_ptd, _terrno));
+    // ptd->_thandle 一共有3中情况：
+    // 当 _thandle = -1，这表明此线程的ptd通过msvcrt.dll _beginthreadex 或者 __getptd_noexit 创建。
+    // 当 _thandle = 0，这表明此线程的ptd通过msvcrt.dll的DllMain创建。
+    // 当 _thandle = 其他，这可能是通过_beginthread启动的线程，它是实际有效的线程句柄。但是也有可能是内存申请失败了。
 
-    /*
-    当 _thandle = -1，这表明此线程的ptd通过msvcrt.dll begin_thread 或者 __getptd_noexit 创建。
-    当 _thandle = 0，这表明此线程的ptd通过msvcrt.dll的DllMain创建。
-    当 _thandle = 其他，这表明msvcrt.dll内部内存已经申请失败。
-    */
-    return (ptd->_thandle == (uintptr_t)-1/*Current Thread Handle*/ || ptd->_thandle == 0) ? ptd : (__acrt_ptd*)NULL;
+    // 我们不要再根据 ptd->_thandle 判断__getptd_noexit 内存是否申请失，因为我们必须考虑 _beginthread 创建的线程。
+    // 这时必须借助GetThreadId，可是它开销是惊人的，不容易做到快速判断。
+    // 结合总总情况，我们现在通过判断 _errno() 返回地址是否在msvcrt模块范围来判断 __getptd_noexit 是否发生内存申请失败。
+    // 具体Bug请参考：https://github.com/Chuyu-Team/VC-LTL5/issues/49
+    typedef struct _DllAddressInfo
+    {
+        uintptr_t uBaseAddress;
+        uintptr_t uEndAddress;
+    } DllAddressInfo;
+
+    static DllAddressInfo s_DllAddressCache;
+
+    if (s_DllAddressCache.uBaseAddress == 0)
+    {
+        DllAddressInfo _DllAddressInfo = { (uintptr_t)-1, (uintptr_t)-1};
+        MEMORY_BASIC_INFORMATION _BaseInfo;
+        if (VirtualQuery(&_amsg_exit, &_BaseInfo, sizeof(_BaseInfo)))
+        {
+            _DllAddressInfo.uBaseAddress = (uintptr_t)_BaseInfo.AllocationBase;
+            _DllAddressInfo.uEndAddress = (uintptr_t)_BaseInfo.BaseAddress + _BaseInfo.RegionSize;
+
+            for (; VirtualQuery((void*)(_DllAddressInfo.uEndAddress + 1), &_BaseInfo, sizeof(_BaseInfo));)
+            {
+                if (_DllAddressInfo.uBaseAddress != (uintptr_t)_BaseInfo.AllocationBase)
+                    break;
+
+                _DllAddressInfo.uEndAddress = (uintptr_t)_BaseInfo.BaseAddress + _BaseInfo.RegionSize;
+            }
+        }
+
+#if defined(_X86_) || defined(_ARM_)
+        static_assert(sizeof(s_DllAddressCache) == sizeof(LONGLONG), "");
+        InterlockedCompareExchange64((volatile LONGLONG*)&s_DllAddressCache, *(LONGLONG*)&_DllAddressInfo, 0);
+#elif defined(_IA64_) || defined(_AMD64_) || defined(_ARM64_)
+        // AMD 早期不支持 InterlockedCompareExchange128，所以不用……
+        InterlockedCompareExchange64((volatile LONGLONG*)&s_DllAddressCache.uEndAddress, _DllAddressInfo.uEndAddress, 0);
+        InterlockedCompareExchange64((volatile LONGLONG*)&s_DllAddressCache.uBaseAddress, _DllAddressInfo.uBaseAddress, 0);
+#else
+#error unsrpport!
+#endif
+    }
+
+    uintptr_t _p_errno_value = (uintptr_t)_errno();
+    if (_p_errno_value == 0 || (s_DllAddressCache.uBaseAddress <= _p_errno_value && _p_errno_value < s_DllAddressCache.uEndAddress))
+    {
+        return NULL;
+    }
+
+    __acrt_ptd* ptd = (__acrt_ptd*)(((unsigned char*)_p_errno_value) - FIELD_OFFSET(__acrt_ptd, _terrno));
+    return ptd;
 }
 #else
 __acrt_ptd* __cdecl __acrt_getptd_noexit(void);
 #endif
 
 #ifdef __BuildWithMSVCRT
-__forceinline __acrt_ptd* __cdecl __acrt_getptd(void)
+__declspec(noinline) __inline __acrt_ptd* __cdecl __acrt_getptd(void)
 {
     __acrt_ptd* ptd = __acrt_getptd_noexit();
 

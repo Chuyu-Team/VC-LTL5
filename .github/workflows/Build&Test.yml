@@ -139,7 +139,7 @@ jobs:
           $Env:PROCDUMP_PATH="$Env:GITHUB_WORKSPACE\Tools"
 
           # 编译单元测试项目
-          &msbuild UnitTest\UnitTest.vcxproj "-p:Configuration=Dynamic;Platform=Win32;SolutionDir=$Env:GITHUB_WORKSPACE\\"
+          &msbuild UnitTest\UnitTest.vcxproj "-p:Configuration=Static;Platform=Win32;SolutionDir=$Env:GITHUB_WORKSPACE\\"
           if($lastexitcode -ne 0)
           {
               throw "单元测试编译失败！退出代码：$lastexitcode"
@@ -147,7 +147,7 @@ jobs:
           
           $RunFaild = 0
 
-          &vstest.console Dynamic\UnitTest.dll "/logger:trx;LogFileName=UnitTest.trx" --Parallel "/Blame:CollectDump;CollectAlways=false;DumpType=full"
+          &vstest.console Static\UnitTest.dll "/logger:trx;LogFileName=UnitTest.trx" --Parallel "/Blame:CollectDump;CollectAlways=false;DumpType=full"
           if($lastexitcode -ne 0)
           {
               $RunFaild = 1
@@ -217,9 +217,9 @@ jobs:
         path: |
             TestResults/**/*.dmp
             TestResults/**/Sequence_*.xml
-            Dynamic\UnitTest.dll
-            Dynamic\UnitTest.pdb
-            Dynamic\*.log
+            Static\UnitTest.dll
+            Static\UnitTest.pdb
+            Static\*.log
             UnitTest/SymbolBuildTest/.test/**/Build.log
             *.7z
 
