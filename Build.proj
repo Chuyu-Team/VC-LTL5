@@ -41,6 +41,12 @@
   <Import Project="$(VCInstallDir)\Auxiliary\Build\Microsoft.VCToolsVersion.default.props" />
 
   <Target Name="Build">
+    <!--下载LibMaker-->
+    <DownloadFile
+      Condition="!Exists('$(MSBuildThisFileDirectory)Tools\LibMaker.exe')"
+      SourceUrl="https://github.com/Chuyu-Team/LibMaker/releases/download/v1.0.2/LibMaker.exe"
+      DestinationFolder="$(MSBuildThisFileDirectory)Tools" DestinationFileName="LibMaker.exe"/>
+      
     <!--提取所有需要编译的配置-->
     <MSBuild Projects="%(ProjectReferenceWork.Identity)" StopOnFirstFailure="True" Properties="_GetProjectAllConfiguration=true;ForceImportAfterCppTargets=$(MSBuildThisFileFullPath)" Targets="_GetProjectAllConfiguration">
       <Output TaskParameter="TargetOutputs" ItemName="%(ProjectReferenceWork.OutItemName)" />

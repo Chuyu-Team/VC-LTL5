@@ -380,3 +380,4 @@ Static/
 *.xlsx
 SymbolCache/
 *.lastcodeanalysissucceeded
+/Tools/LibMaker.exe
