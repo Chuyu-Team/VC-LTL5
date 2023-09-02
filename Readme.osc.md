@@ -75,7 +75,7 @@ VC-LTL 5.0开始，ABI与微软原版`兼容`，您可以直接使用现有的�
 | -------------- | --
 | Visual Studio  | NuGet 或者 [VC-LTL helper for Visual Studio.props](#31-在visual-studio中使用vc-ltl)
 | CMake          | [VC-LTL helper for cmake.cmake](#32-在cmake中使用vc-ltl)
-| NMake、CL      | [VC-LTL helper for nmake.cmd](#33-在nmake纯cl中使用vc-ltl)
+| NMake、CL      | [VC-LTL helper for nmake.cmd/VC-LTL helper for nmake.ps1](#33-在nmake纯cl中使用vc-ltl)
 | QMake          | VC-LTL helper for qmake.pri
 | Rust           | crate
 
@@ -158,12 +158,24 @@ add_subdirectory(src)
 
 将辅助脚本`VC-LTL helper for nmake.cmd`复制到你的工程目录。启动`vcvars32.bat/vcvars64.bat`执行此脚本即可，脚本将自动修改`include`以及`lib`环境变量。
 
-**示例：**
+**CMD 示例：**
 ```
 call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars32.bat"
 call "D:\VC-LTL\VC-LTL helper for nmake.cmd"
 
 nmake /f Test.mak
+```
+
+**powershell 示例：**
+```
+$BuiltInVsWhereExe = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe"
+$LatestVisualStudioRoot = & $BuiltInVsWhereExe -latest -prerelease -property installationPath
+
+# x86、amd64、arm、arm64
+& "$LatestVisualStudioRoot\Common7\Tools\Launch-VsDevShell.ps1" -arch x86
+& D:\VC-LTL\VC-LTL helper for nmake.ps1"
+
+& nmake /f Test.mak
 ```
 #### 3.3.2. 配置工程属性
 

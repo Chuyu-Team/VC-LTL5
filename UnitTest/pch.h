@@ -18,7 +18,7 @@
 #include <atlstr.h>
 #include "CppUnitTest.h"
 
-LSTATUS RunCmd(LPCWSTR FilePath, CString CmdString, CString* pOutString);
+LSTATUS RunCmd(LPCWSTR FilePath, CString CmdString, CString* pOutString, CString _szCurrentDirectory = CString());
 
 LSTATUS CreateFileByData(LPCWSTR FilePath, const void* Data, DWORD ccbData);
 
@@ -44,4 +44,39 @@ CString RunMSBuildTest(
 	LPCWSTR BuildProperty = nullptr,
 	CStringW* pTempRoot = nullptr
 	);
+
+class DllImportInfo
+{
+public:
+	CStringA DllName;
+	//所有CRT导入都是名称导入，所以我们直接把序号导入丢弃！
+	std::vector<CStringA> ImportNames;
+
+	DllImportInfo()
+	{
+	}
+
+	DllImportInfo(const DllImportInfo& value) = default;
+
+	DllImportInfo(DllImportInfo&& value)
+		: DllName(value.DllName)
+		, ImportNames(std::move(value.ImportNames))
+	{
+		value.DllName.Empty();
+	}
+};
+
+std::vector<DllImportInfo> GetDllImportInfo(LPCWSTR szWin32PEFilePath);
+
+inline const DllImportInfo* FindDllImport(const std::vector<DllImportInfo>& _oDllImportInfos, LPCSTR _szDllName)
+{
+	for (auto& Item : _oDllImportInfos)
+	{
+		if (stricmp(_szDllName, Item.DllName) == 0)
+		{
+			return &Item;
+		}
+	}
+	return nullptr;
+}
 #endif //PCH_H

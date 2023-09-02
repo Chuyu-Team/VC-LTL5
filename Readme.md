@@ -83,7 +83,7 @@ If you need to use the heap debugging, please disable VC-LTL.
 | -------------- | --
 | Visual Studio  | NuGet or [VC-LTL helper for Visual Studio.props](#31-using-vc-ltl-in-visual-studio)
 | CMake          | [VC-LTL helper for cmake.cmake](#32-using-vc-ltl-in-cmake)
-| NMake, CL      | [VC-LTL helper for nmake.cmd](#33-using-vc-ltl-in-nmakecl)
+| NMake, CL      | [VC-LTL helper for nmake.cmd/VC-LTL helper for nmake.ps1](#33-using-vc-ltl-in-nmakecl)
 | QMake          | VC-LTL helper for qmake.pri
 | Rust           | crate
 
@@ -167,13 +167,26 @@ If you download and unzip [VC-LTL Binary](https://github.com/Chuyu-Team/VC-LTL5/
 
 Copy `VC-LTL helper for nmake.cmd` to your project. Run `vcvars32.bat` or `vcvars64.bat` and execute this script. The script will automatically modify the `include` and `lib` environment variables.
 
-**Example:**
+**Example: cmd**
 ```
 call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars32.bat"
 call "D:\VC-LTL\VC-LTL helper for nmake.cmd"
 
 nmake /f Test.mak
 ```
+
+**Example: powershell**
+```
+$BuiltInVsWhereExe = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe"
+$LatestVisualStudioRoot = & $BuiltInVsWhereExe -latest -prerelease -property installationPath
+
+# x86、amd64、arm、arm64
+& "$LatestVisualStudioRoot\Common7\Tools\Launch-VsDevShell.ps1" -arch x86
+& D:\VC-LTL\VC-LTL helper for nmake.ps1"
+
+& nmake /f Test.mak
+```
+
 #### 3.3.2. Modify The Configuration
 
 > It's recommended to use `/MT` to compile the project when using VC-LTL.

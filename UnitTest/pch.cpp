@@ -4,7 +4,7 @@
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 // 当使用预编译的头时，需要使用此源文件，编译才能成功。
-LSTATUS RunCmd(LPCWSTR FilePath, CString CmdString, CString* pOutString)
+LSTATUS RunCmd(LPCWSTR FilePath, CString CmdString, CString* pOutString, CString _szCurrentDirectory)
 {
 	SECURITY_ATTRIBUTES sa;
 	HANDLE hRead, hWrite;
@@ -28,11 +28,12 @@ LSTATUS RunCmd(LPCWSTR FilePath, CString CmdString, CString* pOutString)
 	//关键步骤，CreateProcess函数参数意义请查阅MSDN
 	//auto TT= EXECDOSCMD.GetBuffer();
 
-	wchar_t SystempPath[MAX_PATH + 1];
+	if (_szCurrentDirectory.IsEmpty())
+	{
+		_szCurrentDirectory.ReleaseBufferSetLength(GetSystemDirectoryW(_szCurrentDirectory.GetBuffer(MAX_PATH), MAX_PATH));
+	}
 
-	GetSystemDirectoryW(SystempPath, _countof(SystempPath));
-
-	if (!CreateProcessW(FilePath, CmdString.GetBuffer(), NULL, NULL, TRUE, CREATE_UNICODE_ENVIRONMENT, NULL, SystempPath, &si, &pi))
+	if (!CreateProcessW(FilePath, CmdString.GetBuffer(), NULL, NULL, TRUE, CREATE_UNICODE_ENVIRONMENT, NULL, _szCurrentDirectory.GetString(), &si, &pi))
 	{
 		return GetLastError();
 	}

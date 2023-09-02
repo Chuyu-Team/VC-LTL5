@@ -110,27 +110,190 @@ typedef struct
 
 }SecondSec;
 
-class DllImportInfo
+
+template<class IMAGE_THUNK_DATA_T>
+static void BuildProcNames(PVOID pBase, PIMAGE_NT_HEADERS  pNtHeader, IMAGE_THUNK_DATA_T* pThunkData, std::vector<CStringA>& ProcNames)
 {
-public:
-	CStringA DllName;
-	//所有CRT导入都是名称导入，所以我们直接把序号导入丢弃！
-	std::vector<CStringA> ImportNames;
-
-	DllImportInfo()
+	for (; pThunkData->u1.AddressOfData; ++pThunkData)
 	{
+		if (pThunkData->u1.AddressOfData >> ((sizeof(pThunkData->u1.AddressOfData) * 8) - 1))
+		{
+			//不支持序号，直接忽略即可
+			//Ordinal.insert(pThunkData->u1.Ordinal & 0xffff);
+		}
+		else if (auto pImportByName = (PIMAGE_IMPORT_BY_NAME)YY::RtlImageRvaToVa(pNtHeader, pBase, pThunkData->u1.AddressOfData, NULL))
+		{
+			ProcNames.push_back(pImportByName->Name);
+		}
+		else
+		{
+			CStringW Error;
+			Error.Format(L"Error：无法加载偏移 %I64X /?\n", (long long)pThunkData->u1.AddressOfData);
+
+			Assert::Fail(Error);
+		}
+	}
+}
+
+#define IMAGE_FIRST_DIRECTORY(ntheader) (IMAGE_DATA_DIRECTORY*)((byte*)IMAGE_FIRST_SECTION(ntheader)-sizeof(IMAGE_DATA_DIRECTORY)*IMAGE_NUMBEROF_DIRECTORY_ENTRIES)
+
+template<class IMAGE_THUNK_DATA_T>
+static void BuildImport(PVOID pBase, PIMAGE_NT_HEADERS  pNtHeader, std::vector<DllImportInfo>& Infos)
+{
+	auto pDirectorys = IMAGE_FIRST_DIRECTORY(pNtHeader);
+
+	auto& Imort = pDirectorys[IMAGE_DIRECTORY_ENTRY_IMPORT];
+
+	auto pImport = (IMAGE_IMPORT_DESCRIPTOR*)YY::RtlImageRvaToVa(pNtHeader, pBase, Imort.VirtualAddress, NULL);
+
+	if (!pImport)
+	{
+		Assert::AreNotEqual((void*)pImport, (void*)nullptr);
+		return;
 	}
 
-	DllImportInfo(const DllImportInfo& value) = default;
-
-	DllImportInfo(DllImportInfo&& value)
-		: DllName(value.DllName)
-		, ImportNames(std::move(value.ImportNames))
+	for (; pImport->Name; ++pImport)
 	{
-		value.DllName.Empty();
+		auto DllName = (const char*)YY::RtlImageRvaToVa(pNtHeader, pBase, pImport->Name, NULL);
+
+		Assert::AreNotEqual(DllName, nullptr);
+
+		if (!DllName)
+		{
+			continue;
+		}
+
+		DllImportInfo Info;
+		Info.DllName = DllName;
+
+		auto pThunkData = (IMAGE_THUNK_DATA_T*)YY::RtlImageRvaToVa(pNtHeader, pBase, pImport->OriginalFirstThunk, NULL);
+
+		Assert::AreNotEqual((void*)pThunkData, (void*)nullptr);
+
+		if (!pThunkData)
+		{
+			//wprintf(L"Error：程序无法读取 dllname = %S OriginalFirstThunk Rva= 0x%.8X。\n", DllName, pImport->OriginalFirstThunk);
+
+			continue;
+		}
+
+
+		BuildProcNames(pBase, pNtHeader, pThunkData, Info.ImportNames);
+
+		Infos.push_back(std::move(Info));
+
+	}
+}
+
+template<class IMAGE_THUNK_DATA_T>
+static void BuildDelayImport(PVOID pBase, PIMAGE_NT_HEADERS  pNtHeader, std::vector<DllImportInfo>& Infos)
+{
+	auto pDirectorys = IMAGE_FIRST_DIRECTORY(pNtHeader);
+
+	auto& Imort = pDirectorys[IMAGE_DIRECTORY_ENTRY_DELAY_IMPORT];
+
+	if (Imort.VirtualAddress == 0)
+		return;
+
+	auto pImport = (IMAGE_DELAYLOAD_DESCRIPTOR*)YY::RtlImageRvaToVa(pNtHeader, pBase, Imort.VirtualAddress, NULL);
+
+	Assert::AreNotEqual((void*)pImport, (void*)nullptr);
+
+	if (!pImport)
+	{
+		//wprintf(L"Warning：无法加载导入表。\n");
+		return;
 	}
 
-};
+	for (; pImport->DllNameRVA; ++pImport)
+	{
+		auto DllName = (const char*)YY::RtlImageRvaToVa(pNtHeader, pBase, pImport->DllNameRVA, NULL);
+
+		Assert::AreNotEqual(DllName, nullptr);
+
+		if (!DllName)
+		{
+			//wprintf(L"Error：程序无法读取 Rva= 0x%.8X。\n", pImport->DllNameRVA);
+
+			continue;
+		}
+
+		DllImportInfo Info;
+		Info.DllName = DllName;
+
+
+		auto pThunkData = (IMAGE_THUNK_DATA_T*)YY::RtlImageRvaToVa(pNtHeader, pBase, pImport->ImportNameTableRVA, NULL);
+
+		Assert::AreNotEqual((void*)pThunkData, (void*)nullptr);
+
+		if (!pThunkData)
+		{
+			//wprintf(L"Error：程序无法读取 dllname = %S OriginalFirstThunk Rva= 0x%.8X。\n", DllName, pImport->ImportNameTableRVA);
+
+			continue;
+		}
+
+		BuildProcNames(pBase, pNtHeader, pThunkData, Info.ImportNames);
+
+		Infos.push_back(std::move(Info));
+
+	}
+}
+
+std::vector<DllImportInfo> GetDllImportInfo(LPCWSTR szWin32PEFilePath)
+{
+	std::vector<DllImportInfo> Infos;
+
+	PVOID pBase = nullptr;
+
+	do
+	{
+		auto hFile = CreateFileW(szWin32PEFilePath, GENERIC_READ, FILE_SHARE_READ | FILE_SHARE_DELETE, NULL, OPEN_EXISTING, 0, 0);
+
+		if (hFile == INVALID_HANDLE_VALUE)
+		{
+			break;
+		}
+
+		auto hMap = CreateFileMappingW(hFile, NULL, PAGE_READONLY, 0, 0, NULL);
+		if (hMap != NULL)
+		{
+			pBase = (PVOID)MapViewOfFile(hMap, FILE_MAP_READ, 0, 0, 0);
+
+			CloseHandle(hMap);
+		}
+
+		CloseHandle(hFile);
+
+	} while (false);
+
+	if (pBase == nullptr)
+		return Infos;
+
+
+	auto pNtHeader = YY::RtlImageNtHeader((PVOID)pBase);
+
+	switch (pNtHeader->FileHeader.Machine)
+	{
+	case IMAGE_FILE_MACHINE_I386:
+	case IMAGE_FILE_MACHINE_ARMNT:
+		BuildImport<IMAGE_THUNK_DATA32>(pBase, pNtHeader, Infos);
+		BuildDelayImport<IMAGE_THUNK_DATA32>(pBase, pNtHeader, Infos);
+		break;
+	case IMAGE_FILE_MACHINE_AMD64:
+	case IMAGE_FILE_MACHINE_ARM64:
+		BuildImport<IMAGE_THUNK_DATA64>(pBase, pNtHeader, Infos);
+		BuildDelayImport<IMAGE_THUNK_DATA64>(pBase, pNtHeader, Infos);
+		break;
+	default:
+		Assert::Fail();
+		break;
+	}
+	if(pBase)
+		UnmapViewOfFile(pBase);
+
+	return Infos;
+}
 
 
 namespace UnitTest
@@ -550,15 +713,7 @@ namespace UnitTest
 
 
 					//关键的来自DLL的函数是否被导入
-					const DllImportInfo* pInfo = nullptr;
-					for (auto& Item : DllImportInfos)
-					{
-						if (stricmp(Info.DllName, Item.DllName) == 0)
-						{
-							pInfo = &Item;
-							break;
-						}
-					}
+					const DllImportInfo* pInfo = FindDllImport(DllImportInfos, Info.DllName);
 
 					Assert::IsNotNull(pInfo, ErrorExt);
 
@@ -852,186 +1007,6 @@ namespace UnitTest
 			return ExclusionSymbols;
 		}
 
-		template<class IMAGE_THUNK_DATA_T>
-		static void BuildProcNames(PVOID pBase, PIMAGE_NT_HEADERS  pNtHeader, IMAGE_THUNK_DATA_T* pThunkData, std::vector<CStringA>& ProcNames)
-		{
-			for (; pThunkData->u1.AddressOfData; ++pThunkData)
-			{
-				if (pThunkData->u1.AddressOfData >> ((sizeof(pThunkData->u1.AddressOfData) * 8) - 1))
-				{
-					//不支持序号，直接忽略即可
-					//Ordinal.insert(pThunkData->u1.Ordinal & 0xffff);
-				}
-				else if (auto pImportByName = (PIMAGE_IMPORT_BY_NAME)YY::RtlImageRvaToVa(pNtHeader, pBase, pThunkData->u1.AddressOfData, NULL))
-				{
-					ProcNames.push_back(pImportByName->Name);
-				}
-				else
-				{
-					CStringW Error;
-					Error.Format(L"Error：无法加载偏移 %I64X /?\n", (long long)pThunkData->u1.AddressOfData);
 
-					Assert::Fail(Error);
-				}
-			}
-		}
-
-#define IMAGE_FIRST_DIRECTORY(ntheader) (IMAGE_DATA_DIRECTORY*)((byte*)IMAGE_FIRST_SECTION(ntheader)-sizeof(IMAGE_DATA_DIRECTORY)*IMAGE_NUMBEROF_DIRECTORY_ENTRIES)
-
-		template<class IMAGE_THUNK_DATA_T>
-		static void BuildImport(PVOID pBase, PIMAGE_NT_HEADERS  pNtHeader, std::vector<DllImportInfo>& Infos)
-		{
-			auto pDirectorys = IMAGE_FIRST_DIRECTORY(pNtHeader);
-
-			auto& Imort = pDirectorys[IMAGE_DIRECTORY_ENTRY_IMPORT];
-
-			auto pImport = (IMAGE_IMPORT_DESCRIPTOR*)YY::RtlImageRvaToVa(pNtHeader, pBase, Imort.VirtualAddress, NULL);
-
-			if (!pImport)
-			{
-				Assert::AreNotEqual((void*)pImport, (void*)nullptr);
-				return;
-			}
-
-			for (; pImport->Name; ++pImport)
-			{
-				auto DllName = (const char*)YY::RtlImageRvaToVa(pNtHeader, pBase, pImport->Name, NULL);
-
-				Assert::AreNotEqual(DllName, nullptr);
-
-				if (!DllName)
-				{
-					continue;
-				}
-
-				DllImportInfo Info;
-				Info.DllName = DllName;
-
-				auto pThunkData = (IMAGE_THUNK_DATA_T*)YY::RtlImageRvaToVa(pNtHeader, pBase, pImport->OriginalFirstThunk, NULL);
-
-				Assert::AreNotEqual((void*)pThunkData, (void*)nullptr);
-
-				if (!pThunkData)
-				{
-					//wprintf(L"Error：程序无法读取 dllname = %S OriginalFirstThunk Rva= 0x%.8X。\n", DllName, pImport->OriginalFirstThunk);
-
-					continue;
-				}
-
-
-				BuildProcNames(pBase, pNtHeader, pThunkData, Info.ImportNames);
-
-				Infos.push_back(std::move(Info));
-
-			}
-		}
-
-		template<class IMAGE_THUNK_DATA_T>
-		static void BuildDelayImport(PVOID pBase, PIMAGE_NT_HEADERS  pNtHeader, std::vector<DllImportInfo>& Infos)
-		{
-			auto pDirectorys = IMAGE_FIRST_DIRECTORY(pNtHeader);
-
-			auto& Imort = pDirectorys[IMAGE_DIRECTORY_ENTRY_DELAY_IMPORT];
-
-			if (Imort.VirtualAddress == 0)
-				return;
-
-			auto pImport = (IMAGE_DELAYLOAD_DESCRIPTOR*)YY::RtlImageRvaToVa(pNtHeader, pBase, Imort.VirtualAddress, NULL);
-
-			Assert::AreNotEqual((void*)pImport, (void*)nullptr);
-
-			if (!pImport)
-			{
-				//wprintf(L"Warning：无法加载导入表。\n");
-				return;
-			}
-
-			for (; pImport->DllNameRVA; ++pImport)
-			{
-				auto DllName = (const char*)YY::RtlImageRvaToVa(pNtHeader, pBase, pImport->DllNameRVA, NULL);
-
-				Assert::AreNotEqual(DllName, nullptr);
-
-				if (!DllName)
-				{
-					//wprintf(L"Error：程序无法读取 Rva= 0x%.8X。\n", pImport->DllNameRVA);
-
-					continue;
-				}
-
-				DllImportInfo Info;
-				Info.DllName = DllName;
-				
-
-				auto pThunkData = (IMAGE_THUNK_DATA_T*)YY::RtlImageRvaToVa(pNtHeader, pBase, pImport->ImportNameTableRVA, NULL);
-
-				Assert::AreNotEqual((void*)pThunkData, (void*)nullptr);
-
-				if (!pThunkData)
-				{
-					//wprintf(L"Error：程序无法读取 dllname = %S OriginalFirstThunk Rva= 0x%.8X。\n", DllName, pImport->ImportNameTableRVA);
-
-					continue;
-				}
-
-				BuildProcNames(pBase, pNtHeader, pThunkData, Info.ImportNames);
-
-				Infos.push_back(std::move(Info));
-
-			}
-		}
-
-		static std::vector<DllImportInfo> GetDllImportInfo(LPCWSTR szWin32PEFilePath)
-		{
-			std::vector<DllImportInfo> Infos;
-
-			PVOID pBase = nullptr;
-
-			do
-			{
-				auto hFile = CreateFileW(szWin32PEFilePath, GENERIC_READ, FILE_SHARE_READ | FILE_SHARE_DELETE, NULL, OPEN_EXISTING, 0, 0);
-
-				if (hFile == INVALID_HANDLE_VALUE)
-				{
-					break;
-				}
-
-				auto hMap = CreateFileMappingW(hFile, NULL, PAGE_READONLY, 0, 0, NULL);
-				if (hMap != NULL)
-				{
-					pBase = (PVOID)MapViewOfFile(hMap, FILE_MAP_READ, 0, 0, 0);
-
-					CloseHandle(hMap);
-				}
-				
-				CloseHandle(hFile);
-				
-			} while (false);
-
-			if (pBase == nullptr)
-				return Infos;
-
-
-			auto pNtHeader = YY::RtlImageNtHeader((PVOID)pBase);
-
-			switch (pNtHeader->FileHeader.Machine)
-			{
-			case IMAGE_FILE_MACHINE_I386:
-			case IMAGE_FILE_MACHINE_ARMNT:
-				BuildImport<IMAGE_THUNK_DATA32>(pBase, pNtHeader, Infos);
-				BuildDelayImport<IMAGE_THUNK_DATA32>(pBase, pNtHeader, Infos);
-				break;
-			case IMAGE_FILE_MACHINE_AMD64:
-			case IMAGE_FILE_MACHINE_ARM64:
-				BuildImport<IMAGE_THUNK_DATA64>(pBase, pNtHeader, Infos);
-				BuildDelayImport<IMAGE_THUNK_DATA64>(pBase, pNtHeader, Infos);
-				break;
-			default:
-				Assert::Fail();
-				break;
-			}
-
-			return Infos;
-		}
 	};
 }

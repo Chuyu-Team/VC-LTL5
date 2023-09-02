@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="源文件\VC-LTL_HelperUnitTest">
+      <UniqueIdentifier>{230941b5-bba7-46d5-af25-4a94dbe32338}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\VC-LTL_HelperUnitTest\PowerShell">
+      <UniqueIdentifier>{b703a832-2244-49d9-bbf4-0c184418df34}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="UnitTest.cpp">
@@ -30,10 +36,21 @@
     <ClCompile Include="ptdTest.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="VC-LTL_HelperUnitTest\PowerShell\PowerShellUnitTest.cpp">
+      <Filter>源文件\VC-LTL_HelperUnitTest\PowerShell</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
       <Filter>头文件</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="VC-LTL_HelperUnitTest\PowerShell\PowerShellBuildUnitTest.ps1">
+      <Filter>源文件\VC-LTL_HelperUnitTest\PowerShell</Filter>
+    </None>
+    <None Include="VC-LTL_HelperUnitTest\PowerShell\PowerShellInitUnitTest.ps1">
+      <Filter>源文件\VC-LTL_HelperUnitTest\PowerShell</Filter>
+    </None>
   </ItemGroup>
 </Project>
