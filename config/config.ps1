@@ -2,7 +2,7 @@
 #  请不要直接使用此脚本，应该使用VC-LTL helper for nmake.ps1
 #
 
-Function private:FoundBestTargetPlatformDefault
+Function FoundBestTargetPlatformDefault
 {
     if($LTLPlatform -ieq "arm64")
     {
@@ -18,7 +18,7 @@ Function private:FoundBestTargetPlatformDefault
     }
 }
 
-Function private:FoundBestTargetPlatform
+Function FoundBestTargetPlatform
 {
     if($env:WindowsTargetPlatformMinVersion.Length -eq 0)
     {
@@ -126,22 +126,88 @@ if(-not (Test-Path "$env:VC_LTL_Root\TargetPlatform\$LTLWindowsTargetPlatformMin
     return
 }
 
-Write-Host "#######################################################################"
-Write-Host "#                                                                     #"
-Write-Host "# 8b           d8  ,ad8888ba,         88     888888888888 88          #"
-Write-Host "# `8b         d8' d8`"'      `"8b        88          88      88          #"
-Write-Host "#  `8b       d8' d8'                   88          88      88          #"
-Write-Host "#   `8b     d8'  88                    88          88      88          #"
-Write-Host "#    `8b   d8'   88           aaaaaaaa 88          88      88          #"
-Write-Host "#     `8b d8'    Y8,          `"`"`"`"`"`"`"`" 88          88      88          #"
-Write-Host "#      `888'      Y8a.     .a8P        88          88      88          #"
-Write-Host "#       `8'         `"Y8888Y`"'          88888888888 88      88888888888 #"
-Write-Host "#                                                                     #"
-Write-Host "#######################################################################"
-Write-Host "VC-LTL Path : $env:VC_LTL_Root"
-Write-Host "VC Tools Version : $env:VCToolsVersion"
-Write-Host "WindowsTargetPlatformMinVersion : $LTLWindowsTargetPlatformMinVersion"
-Write-Host "Platform : $LTLPlatform"
+#line 1
+Write-Host "#######################################################################" -BackgroundColor White -ForegroundColor Black
+#line 2
+Write-Host "#                                                                     #" -BackgroundColor White -ForegroundColor Black
+#line 3
+Write-Host -NoNewline "# “ -BackgroundColor White -ForegroundColor Black
+Write-Host -NoNewline "8b           d8" -ForegroundColor Red -BackgroundColor White
+Write-Host -NoNewline "  ,ad8888ba,         " -ForegroundColor Blue -BackgroundColor White
+Write-Host -NoNewline "88     " -ForegroundColor Green -BackgroundColor White
+Write-Host -NoNewline "888888888888" -ForegroundColor DarkYellow -BackgroundColor White
+Write-Host -NoNewline " 88          " -ForegroundColor Cyan -BackgroundColor White
+Write-Host "#" -BackgroundColor White -ForegroundColor Black
+#line 4
+Write-Host  -NoNewline "#  " -BackgroundColor White -ForegroundColor Black
+Write-Host  -NoNewline "`8b         d8" -BackgroundColor White -ForegroundColor Red
+Write-Host  -NoNewline "' d8`"'     `"8b        " -ForegroundColor Blue -BackgroundColor White
+Write-Host  -NoNewline "88          " -ForegroundColor Green -BackgroundColor White
+Write-Host  -NoNewline "88      " -ForegroundColor DarkYellow -BackgroundColor White
+Write-Host  -NoNewline "88          " -ForegroundColor Cyan -BackgroundColor White
+Write-Host "#"  -BackgroundColor White -ForegroundColor Black
+#line 5
+Write-Host  -NoNewline "#" -BackgroundColor White -ForegroundColor Black
+Write-Host  -NoNewline "   `8b       d8'" -BackgroundColor White -ForegroundColor Red
+Write-Host  -NoNewline " d8'                  " -ForegroundColor Blue -BackgroundColor White
+Write-Host  -NoNewline "88          " -ForegroundColor Green -BackgroundColor White
+Write-Host  -NoNewline "88      " -ForegroundColor DarkYellow -BackgroundColor White
+Write-Host  -NoNewline "88          " -ForegroundColor Cyan -BackgroundColor White
+Write-Host "#"  -BackgroundColor White -ForegroundColor Black
+#line 6
+Write-Host  -NoNewline "#" -BackgroundColor White -ForegroundColor Black
+Write-Host  -NoNewline "    `8b     d8'  " -BackgroundColor White -ForegroundColor Red
+Write-Host  -NoNewline "88                   " -ForegroundColor Blue -BackgroundColor White
+Write-Host  -NoNewline "88          " -ForegroundColor Green -BackgroundColor White
+Write-Host  -NoNewline "88      " -ForegroundColor DarkYellow -BackgroundColor White
+Write-Host  -NoNewline "88          " -ForegroundColor Cyan -BackgroundColor White
+Write-Host "#"  -BackgroundColor White -ForegroundColor Black
+#line 7
+Write-Host  -NoNewline "#" -BackgroundColor White -ForegroundColor Black
+Write-Host  -NoNewline "     `8b   d8'   " -BackgroundColor White -ForegroundColor Red
+Write-Host  -NoNewline "88          " -ForegroundColor Blue -BackgroundColor White
+Write-Host  -NoNewline "aaaaaaaa " -ForegroundColor DarkMagenta -BackgroundColor White
+Write-Host  -NoNewline "88          " -ForegroundColor Green -BackgroundColor White
+Write-Host  -NoNewline "88      " -ForegroundColor DarkYellow -BackgroundColor White
+Write-Host  -NoNewline "88          " -ForegroundColor Cyan -BackgroundColor White
+Write-Host "#"  -BackgroundColor White -ForegroundColor Black
+#line 8
+Write-Host  -NoNewline "#" -BackgroundColor White -ForegroundColor Black
+Write-Host  -NoNewline "      `8b d8'    " -BackgroundColor White -ForegroundColor Red
+Write-Host  -NoNewline "Y8,         " -ForegroundColor Blue -BackgroundColor White
+Write-Host  -NoNewline "`"`"`"`"`"`"`"`" " -ForegroundColor DarkMagenta -BackgroundColor White
+Write-Host  -NoNewline "88          " -ForegroundColor Green -BackgroundColor White
+Write-Host  -NoNewline "88      " -ForegroundColor DarkYellow -BackgroundColor White
+Write-Host  -NoNewline "88          " -ForegroundColor Cyan -BackgroundColor White
+Write-Host "#"  -BackgroundColor White -ForegroundColor Black
+#line 9
+Write-Host  -NoNewline "#" -BackgroundColor White -ForegroundColor Black
+Write-Host  -NoNewline "       `888'      " -BackgroundColor White -ForegroundColor Red
+Write-Host  -NoNewline "Y8a.    .a8P        " -ForegroundColor Blue -BackgroundColor White
+Write-Host  -NoNewline "88          " -ForegroundColor Green -BackgroundColor White
+Write-Host  -NoNewline "88      " -ForegroundColor DarkYellow -BackgroundColor White
+Write-Host  -NoNewline "88          " -ForegroundColor Cyan -BackgroundColor White
+Write-Host "#"  -BackgroundColor White -ForegroundColor Black
+#line 10
+Write-Host  -NoNewline "#" -BackgroundColor White -ForegroundColor Black
+Write-Host  -NoNewline "        `8'         " -BackgroundColor White -ForegroundColor Red
+Write-Host  -NoNewline "`"Y8888Y`"'         " -ForegroundColor Blue -BackgroundColor White
+Write-Host  -NoNewline "88888888888 " -ForegroundColor Green -BackgroundColor White
+Write-Host  -NoNewline "88      " -ForegroundColor DarkYellow -BackgroundColor White
+Write-Host  -NoNewline "88888888888 " -ForegroundColor Cyan -BackgroundColor White
+Write-Host "#"  -BackgroundColor White -ForegroundColor Black
+#line 11
+Write-Host "#                                                                     #" -BackgroundColor White -ForegroundColor Black
+#line 12
+Write-Host "#######################################################################" -BackgroundColor White -ForegroundColor Black
+Write-Host  -NoNewline  "VC-LTL Path : " -ForegroundColor Red
+Write-Host  "$env:VC_LTL_Root"-ForegroundColor Green
+Write-Host  -NoNewline  "VC Tools Version : " -ForegroundColor Red
+Write-Host  "$env:VCToolsVersion" -ForegroundColor Green
+Write-Host  -NoNewline  "WindowsTargetPlatformMinVersion : " -ForegroundColor Red
+Write-Host  "$LTLWindowsTargetPlatformMinVersion" -ForegroundColor Green
+Write-Host  -NoNewline  "Platform : " -ForegroundColor Red
+Write-Host  "$LTLPlatform" -ForegroundColor Green
 
 $env:INCLUDE="$env:VC_LTL_Root\TargetPlatform\header;$env:VC_LTL_Root\$LTLWindowsTargetPlatformMinVersion\header;$env:INCLUDE"
 $env:LIB="$env:VC_LTL_Root\TargetPlatform\$LTLWindowsTargetPlatformMinVersion\lib\$LTLPlatform;$env:LIB"
