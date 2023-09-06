@@ -2,7 +2,7 @@
 #  请不要直接使用此脚本，应该使用VC-LTL helper for nmake.ps1
 #
 
-Function FoundBestTargetPlatformDefault
+Function private:FoundBestTargetPlatformDefault
 {
     if($LTLPlatform -ieq "arm64")
     {
@@ -18,7 +18,7 @@ Function FoundBestTargetPlatformDefault
     }
 }
 
-Function FoundBestTargetPlatform
+Function private:FoundBestTargetPlatform
 {
     if($env:WindowsTargetPlatformMinVersion.Length -eq 0)
     {
@@ -85,7 +85,7 @@ if($env:INCLUDE.Length -eq 0)
 
 if($env:LIB.Length -eq 0)
 {
-    Write-Error $lang.ERROR_VC_LTL_CANNOT_FOUND_INCLUDE_ENV
+    Write-Error $lang.ERROR_VC_LTL_CANNOT_FOUND_LIB_ENV
     return
 }
 
