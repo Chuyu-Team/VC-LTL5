@@ -35,8 +35,9 @@ fn main() {
         return;
     }
 
-    let package_root =
-        std::env::var("CARGO_MANIFEST_DIR").expect("CARGO_MANIFEST_DIR should be set by cargo.");
+    let vcltl_root = std::env::var("VCLTL_ROOT")
+        .or_else(|_| std::env::var("CARGO_MANIFEST_DIR"))
+        .expect("VCLTL_ROOT or CARGO_MANIFEST_DIR should be set.");
     let target_arch = std::env::var("CARGO_CFG_TARGET_ARCH")
         .expect("CARGO_CFG_TARGET_ARCH should be set by cargo.");
 
@@ -85,7 +86,7 @@ fn main() {
 
     let library_folder = &format!(
         "{}/TargetPlatform/{}/lib/{}",
-        package_root, version_string, target_platform
+        vcltl_root, version_string, target_platform
     );
 
     if !std::path::Path::new(library_folder).exists() {
@@ -103,7 +104,7 @@ fn main() {
         format!("#          *           * *             * * * *      *      * * * *    #"),
         format!("#                                                                     #"),
         format!("#######################################################################"),
-        format!("VC-LTL Path : {}", package_root),
+        format!("VC-LTL Path : {}", vcltl_root),
         format!("WindowsTargetPlatformMinVersion : {}", version_string),
         format!("Platform : {}", target_platform),
     ] {
