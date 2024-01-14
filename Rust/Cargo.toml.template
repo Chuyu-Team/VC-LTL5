@@ -11,3 +11,9 @@ license-file = "LICENSE"
 repository = "https://github.com/Chuyu-Team/VC-LTL5"
 
 [dependencies]
+
+[features]
+default = ["vista"]
+xp = []
+vista = ["xp"]
+win7 = ["vista"]
