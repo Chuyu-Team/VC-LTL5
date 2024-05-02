@@ -39,6 +39,9 @@
     <ClCompile Include="VC-LTL_HelperUnitTest\PowerShell\PowerShellUnitTest.cpp">
       <Filter>源文件\VC-LTL_HelperUnitTest\PowerShell</Filter>
     </ClCompile>
+    <ClCompile Include="C11ThreadsUnitTest.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">

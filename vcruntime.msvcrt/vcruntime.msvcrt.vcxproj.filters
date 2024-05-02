@@ -101,6 +101,9 @@
     <ClCompile Include="..\Sources\crt\vcruntime\ltl\c11_atomic_support.c">
       <Filter>源文件\ltl</Filter>
     </ClCompile>
+    <ClCompile Include="..\Sources\crt\vcruntime\ltl\threads.cpp">
+      <Filter>源文件\ltl</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <MASM Include="i386\exsup.asm">

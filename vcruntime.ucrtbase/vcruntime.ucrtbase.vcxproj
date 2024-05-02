@@ -835,6 +835,9 @@
       <ExcludedFromBuild Condition="'$(Platform)' != 'x64' or '$(WindowsTargetPlatformMinVersionBuild)' &gt;= '19041'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\Sources\crt\vcruntime\ltl\c11_atomic_support.c" />
+    <ClCompile Include="..\Sources\crt\vcruntime\ltl\threads.cpp">
+      <RemoveUnreferencedCodeData>false</RemoveUnreferencedCodeData>
+    </ClCompile>
     <ClCompile Include="..\Sources\crt\vcruntime\risctrnsctrl.cpp">
       <LanguageStandard>stdcpp17</LanguageStandard>
       <ExcludedFromBuild Condition="'$(Platform)' != 'x64' or '$(WindowsTargetPlatformMinVersionBuild)' &gt;= '19041'">true</ExcludedFromBuild>

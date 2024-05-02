@@ -76,9 +76,9 @@
   <!-- VC-LTL Rust crate 编译准备 -->
   <Target Name="PrepareToCompileRustLanguageSupport">
     <ItemGroup>
-      <RustTargetPlatform_x86 Include="$(SolutionDir)TargetPlatform\6.0.6000.0\lib\Win32\*ucrt.*;$(SolutionDir)TargetPlatform\6.0.6000.0\lib\Win32\*vcruntime.*;" />
-      <RustTargetPlatform_x64 Include="$(SolutionDir)TargetPlatform\6.0.6000.0\lib\x64\*ucrt.*;$(SolutionDir)TargetPlatform\6.0.6000.0\lib\x64\*vcruntime.*;" />
-      <RustTargetPlatform_arm64 Include="$(SolutionDir)TargetPlatform\10.0.10240.0\lib\ARM64\*ucrt.*;$(SolutionDir)TargetPlatform\10.0.10240.0\lib\ARM64\*vcruntime.*;" />
+      <RustTargetPlatform_x86 Include="$(SolutionDir)TargetPlatform\6.0.6000.0\lib\Win32\*ucrt.lib;$(SolutionDir)TargetPlatform\6.0.6000.0\lib\Win32\*vcruntime.lib;" />
+      <RustTargetPlatform_x64 Include="$(SolutionDir)TargetPlatform\6.0.6000.0\lib\x64\*ucrt.lib;$(SolutionDir)TargetPlatform\6.0.6000.0\lib\x64\*vcruntime.lib;" />
+      <RustTargetPlatform_arm64 Include="$(SolutionDir)TargetPlatform\10.0.10240.0\lib\ARM64\*ucrt.lib;$(SolutionDir)TargetPlatform\10.0.10240.0\lib\ARM64\*vcruntime.lib;" />
       <RustTargetPlatform_Common Include="$(SolutionDir)Readme.md;$(SolutionDir)LICENSE;" />
     </ItemGroup>
 

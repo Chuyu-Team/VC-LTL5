@@ -73,15 +73,12 @@ LSTATUS RunCmd(LPCWSTR FilePath, CString CmdString, CString* pOutString, CString
 
 	CloseHandle(pi.hThread);
 	CloseHandle(pi.hProcess);
-
-	//*OutString._Mylast() = NULL;
 	if (pOutString)
 	{
-		*pOutString = OutString;
+		const auto _iUtf8Length = OutString.GetLength();
+		auto _iUtf16Length = MultiByteToWideChar(CP_UTF8, 0, OutString.GetString(), _iUtf8Length, pOutString->GetBuffer(_iUtf8Length), _iUtf8Length);
+		pOutString->ReleaseBufferSetLength(_iUtf16Length);
 	}
-
-
-	//EXECDOSCMD.
 	return lStatus;
 }
 

@@ -162,6 +162,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="C11ThreadsUnitTest.cpp" />
     <ClCompile Include="detect_mismatch_UnitTest.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DStatic|Win32'">Create</PrecompiledHeader>
