@@ -213,7 +213,10 @@ Is the file size smaller? If you fail to compile, please refer to [4. FAQ](#4-fa
 * VC++ 目录 - 库目录 - 【√ 从父项或项目默认设置继承(I)】
 
 ## 5. Known Issues
-* VC-LTL的Debug模式不支持堆调试功能，如果您需要使用这些功能，可以针对Debug配置关闭VC-LTL。
+* [Bug 22](https://github.com/Chuyu-Team/VC-LTL5/issues/22), VC-LTL的Debug模式不支持堆调试功能也无法使用ASAN
+  - 如果您需要使用这些功能，可以针对Debug配置关闭VC-LTL。
+* [Bug 60](https://github.com/Chuyu-Team/VC-LTL5/issues/60), msvcrt模式下locale相关函数（如setlocale、std::locale）无法指定为区域为 `.utf8`
+  - 如果需求如此必须使用，建议使用VC-LTL的UCRT模式（使用后将依赖ucrtbase.dll），如果不想依赖DLL就直接静态链接微软原版CRT吧。
 
 ## Excursus - Third Party Licenses
 * [Visual Studio](https://visualstudio.microsoft.com/license-terms/)
