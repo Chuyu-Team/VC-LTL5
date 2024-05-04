@@ -25,12 +25,21 @@
     <tags>初雨团队 Chuyu YY native nativepackage</tags>
     <repository type="git" url="https://github.com/Chuyu-Team/VC-LTL5.git" branch="master" commit="$commit$" />
     <dependencies>
-      <dependency id="YY.NuGet.Import.Helper" version="1.0.0.4" />
+      <group targetFramework="native">
+        <dependency id="YY.NuGet.Import.Helper" version="1.0.0.4" />
+      </group>
+      <group targetFramework="net8.0-windows7.0">
+        <!--虽然YY-Thunks从1.0.10-Beta2开始才解决Windows Vista、Windows 7的一些API缺失问题。
+        但是1.0.10-Beta3开始直接支持在.NET AOT使用
+        -->
+        <dependency id="YY-Thunks" version="[1.0.10-Beta3,)"/>
+      </group>
+      <group targetFramework="net8.0-windows8.0">
+      </group>
     </dependencies>
   </metadata>
   <files>
-    <file src=".\logo-small.png" target="images\logo-small.png" />
-    <file src=".\VC-LTL.props" target="build\native\VC-LTL.props"/>
+    <file src=".\**\*" target=".\" exclude=".\*.nuspec"/>
     <file src="..\config\**" target="build\native\config\" exclude="..\config\config.cmake;..\config\config.cmd;..\config\config.pri;..\config\1033\config.strings.cmd;..\config\2052\config.strings.cmd;"/>
     <file src="..\TargetPlatform\**" target="build\native\TargetPlatform\" exclude="**\*.idb"/>
   </files>

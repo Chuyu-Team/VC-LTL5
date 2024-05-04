@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Target Name="Dot_NET_Import_VC-LTL_907ECCAB-58CA-4C11-B809-B53585C6BFE1" BeforeTargets="SetupOSSpecificProps">
+    <PropertyGroup>
+      <LTLPlatform></LTLPlatform>
+      <LTLPlatform Condition="'$(RuntimeIdentifier)'=='win-arm64'">ARM64</LTLPlatform>
+      <LTLPlatform Condition="'$(RuntimeIdentifier)'=='win-arm'">ARM</LTLPlatform>
+      <LTLPlatform Condition="'$(RuntimeIdentifier)'=='win-x64'">x64</LTLPlatform>
+      <LTLPlatform Condition="'$(RuntimeIdentifier)'=='win-x86'">x86</LTLPlatform>
+
+
+      <!--默认兼容到Windows Vista-->
+      <LTLSupportedOSPlatformVersion>6.0.6000.0</LTLSupportedOSPlatformVersion>
+      <LTLSupportedOSPlatformVersion Condition=" '$(TargetPlatformMinVersion)'!=''">$(TargetPlatformMinVersion)</LTLSupportedOSPlatformVersion>
+      <LTLWindowsTargetPlatformMinVersion></LTLWindowsTargetPlatformMinVersion>
+      <LTLWindowsTargetPlatformMinVersion Condition="'$(LTLWindowsTargetPlatformMinVersion)' == '' and $([MSBuild]::VersionGreaterThanOrEquals($(LTLSupportedOSPlatformVersion), 10.0.19041.0))">10.0.19041.0</LTLWindowsTargetPlatformMinVersion>
+      <LTLWindowsTargetPlatformMinVersion Condition="'$(LTLWindowsTargetPlatformMinVersion)' == '' and $([MSBuild]::VersionGreaterThanOrEquals($(LTLSupportedOSPlatformVersion), 10.0.0.0))">10.0.10240.0</LTLWindowsTargetPlatformMinVersion>
+      <LTLWindowsTargetPlatformMinVersion Condition="'$(LTLWindowsTargetPlatformMinVersion)' == '' and '$(LTLPlatform)'=='ARM64'">10.0.10240.0</LTLWindowsTargetPlatformMinVersion>
+      <LTLWindowsTargetPlatformMinVersion Condition="'$(LTLWindowsTargetPlatformMinVersion)' == '' and $([MSBuild]::VersionGreaterThanOrEquals($(LTLSupportedOSPlatformVersion), 8.0))">6.2.9200.0</LTLWindowsTargetPlatformMinVersion>
+      <LTLWindowsTargetPlatformMinVersion Condition="'$(LTLWindowsTargetPlatformMinVersion)' == '' and '$(LTLPlatform)'=='ARM'">6.2.9200.0</LTLWindowsTargetPlatformMinVersion>
+      <LTLWindowsTargetPlatformMinVersion Condition="'$(LTLWindowsTargetPlatformMinVersion)' == '' and $([MSBuild]::VersionGreaterThanOrEquals($(LTLSupportedOSPlatformVersion), 6.0))">6.0.6000.0</LTLWindowsTargetPlatformMinVersion>
+      <LTLWindowsTargetPlatformMinVersion Condition="'$(LTLWindowsTargetPlatformMinVersion)' == '' and '$(LTLPlatform)'=='x64'">5.2.3790.0</LTLWindowsTargetPlatformMinVersion>
+      <LTLWindowsTargetPlatformMinVersion Condition="'$(LTLWindowsTargetPlatformMinVersion)' == '' and '$(LTLPlatform)'=='x86'">5.1.2600.0</LTLWindowsTargetPlatformMinVersion>
+    </PropertyGroup>
+    <ItemGroup Condition="'$(LTLWindowsTargetPlatformMinVersion)' != '' and '$(LTLPlatform)' != ''">
+      <AdditionalNativeLibraryDirectories Include="$(MSBuildThisFileDirectory)..\native\TargetPlatform\$(LTLWindowsTargetPlatformMinVersion)\lib\$(LTLPlatform)\CleanImport" />
+      <AdditionalNativeLibraryDirectories Include="$(MSBuildThisFileDirectory)..\native\TargetPlatform\$(LTLWindowsTargetPlatformMinVersion)\lib\$(LTLPlatform)" />
+    </ItemGroup>
+  </Target>
+</Project>
