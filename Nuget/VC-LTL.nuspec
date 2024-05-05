@@ -29,12 +29,12 @@
         <dependency id="YY.NuGet.Import.Helper" version="1.0.0.4" />
       </group>
       <group targetFramework="net8.0-windows7.0">
-        <!--虽然YY-Thunks从1.0.10-Beta2开始才解决Windows Vista、Windows 7的一些API缺失问题。
-        但是1.0.10-Beta3开始直接支持在.NET AOT使用
+        <!--
+        YY-Thunks 1.0.10-Beta2开始才解决Windows XP、Windows Vista、Windows 7的API缺失问题
+        YY-Thunks 1.0.10-Beta3开始直接支持在.NET Native AOT使用
+        YY-Thunks 1.0.10-Beta4开始解决兼容XP时PE头部的最小系统版本不更新问题
         -->
-        <dependency id="YY-Thunks" version="[1.0.10-Beta3,)"/>
-      </group>
-      <group targetFramework="net8.0-windows8.0">
+        <dependency id="YY-Thunks" version="[1.0.10-Beta4,)"/>
       </group>
     </dependencies>
   </metadata>
