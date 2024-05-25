@@ -67,10 +67,11 @@ static wchar_t* __fastcall MultiByteToWideCharHelper(UINT CodePage, LPCCH lpMult
 
 //
 #if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows7
+__EXPAND_MSVCRT_FUN(localeconv);
+
 extern "C" lconv* __cdecl localeconv(void)
 {
-    __EXPAND_MSVCRT_FUN(localeconv);
-
+    auto pMSVCRT_localeconv = try_get_localeconv();
     if (pMSVCRT_localeconv == nullptr)
     {
         //正常不应该为空！！

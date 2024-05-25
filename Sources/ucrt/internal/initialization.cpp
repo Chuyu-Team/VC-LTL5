@@ -1,4 +1,4 @@
-//
+ï»¿//
 // initialization.cpp
 //
 //      Copyright (c) Microsoft Corporation.  All rights reserved.
@@ -12,6 +12,10 @@
 #include <corecrt_internal_stdio.h>
 #include <stdlib.h>
 #include <stdio.h>
+
+#if WindowsTargetPlatformMinVersion < __MakeVersion(10, 0, 10240)
+bool __cdecl __LTL_ThunksInit();
+#endif
 
 extern "C" {
 
@@ -192,7 +196,7 @@ static bool __cdecl uninitialize_allocated_io_buffers(bool const /* terminating 
     _free_crt(__acrt_stderr_buffer);
     __acrt_stderr_buffer = nullptr;
 
-#if 0 //msvcrt.dl»áÊÍ·ÅËûÃÇ
+#if 0 //msvcrt.dlä¼šé‡Šæ”¾ä»–ä»¬
     _free_crt(__argv);
     __argv = nullptr;
 
@@ -229,6 +233,9 @@ static __acrt_initializer const __acrt_initializers[] =
     // Global pointers are stored in encoded form; they must be dynamically
     // initialized to the encoded nullptr value before they are used by the CRT.
     { initialize_pointers,                     nullptr                                  },
+#if WindowsTargetPlatformMinVersion < __MakeVersion(10, 0, 10240)
+    { __LTL_ThunksInit,                        nullptr                                  },
+#endif
     // Enclaves only require initializers for supported features.
 #ifndef _UCRT_ENCLAVE_BUILD
     { __acrt_initialize_winapi_thunks,         __acrt_uninitialize_winapi_thunks        },

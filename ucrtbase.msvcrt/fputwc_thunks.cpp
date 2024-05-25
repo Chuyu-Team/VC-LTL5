@@ -6,12 +6,11 @@
 
 extern "C" __declspec(dllimport) extern _iobuf _iob[20];
 
+__EXPAND_MSVCRT_FUN(fputc);
 
 static int __cdecl fputc_msvcrt(int const c, FILE* const stream)
 {
-	__EXPAND_MSVCRT_FUN(fputc);
-
-	if (auto pfputc_msvcrt = __Get_MSVCRT_FUN(fputc))
+	if (auto pfputc_msvcrt = try_get_fputc())
 	{
 		return pfputc_msvcrt(c, stream);
 	}
@@ -19,20 +18,21 @@ static int __cdecl fputc_msvcrt(int const c, FILE* const stream)
 	return EOF;
 }
 
+__EXPAND_MSVCRT_FUN(fputwc);
 
 static wint_t __cdecl fputwc_msvcrt(
 	wchar_t _Character,
 	FILE* _Stream)
 {
-	__EXPAND_MSVCRT_FUN(fputwc);
-
-	if (auto pfputwc_msvcrt = __Get_MSVCRT_FUN(fputwc))
+	if (auto pfputwc_msvcrt = try_get_fputwc())
 	{
 		return pfputwc_msvcrt(_Character, _Stream);
 	}
 
 	return WEOF;
 }
+
+__EXPAND_MSVCRT_FUN(fwrite);
 
 static size_t __cdecl fwrite_msvcrt(
     void const* const buffer,
@@ -41,9 +41,7 @@ static size_t __cdecl fwrite_msvcrt(
     FILE*       const stream
     )
 {
-	__EXPAND_MSVCRT_FUN(fwrite);
-
-	if (auto pfwrite_msvcrt = __Get_MSVCRT_FUN(fwrite))
+	if (auto pfwrite_msvcrt = try_get_fwrite())
 	{
 		return pfwrite_msvcrt(buffer, size, count, stream);
 	}

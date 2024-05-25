@@ -9,13 +9,17 @@ static _HANDLE_MATH_ERROR user_matherr;
 
 extern "C" void __cdecl __setusermatherr(
 	_HANDLE_MATH_ERROR pf
+	);
+
+__EXPAND_MSVCRT_FUN(__setusermatherr);
+
+extern "C" void __cdecl __setusermatherr(
+	_HANDLE_MATH_ERROR pf
 	)
 {
 	//继续调用msvcrt版本是为了能接管 msvcrt的user_matherr，但是有一个问题，如果其他人调用了 __setusermatherr，这会覆盖msvcrt的user_matherr
 	//二者会发生不一致……这类问题无法一种健全的解决方案，但是可以暂不处理
-	__EXPAND_MSVCRT_FUN(__setusermatherr);
-
-	if (auto p_setusermatherr_msvcrt = __Get_MSVCRT_FUN(__setusermatherr))
+	if (auto p_setusermatherr_msvcrt = try_get___setusermatherr())
 	{
 		p_setusermatherr_msvcrt(pf);
 	}

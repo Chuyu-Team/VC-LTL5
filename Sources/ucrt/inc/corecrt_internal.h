@@ -1488,7 +1488,38 @@ __declspec(dllimport) void __cdecl _amsg_exit(
 
 
 __acrt_ptd* __cdecl __acrt_getptd_head(void);
-#ifdef __BuildWithMSVCRT
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
+__declspec(noinline) __inline bool __fastcall IsPointerInMsvcrtDll(const void* p)
+{
+    if (!p)
+        return false;
+
+    static uintptr_t s_pBegin;
+    static uintptr_t s_pEnd;
+
+    if (s_pBegin == (uintptr_t)0 || s_pEnd == (uintptr_t)0)
+    {
+        MEMORY_BASIC_INFORMATION _BaseInfo;
+        if (VirtualQuery(&_amsg_exit, &_BaseInfo, sizeof(_BaseInfo)) == 0)
+        {
+            return false;
+        }
+        auto _pBegin = (char*)_BaseInfo.AllocationBase;
+        auto _pEnd = (char*)_BaseInfo.AllocationBase + _BaseInfo.RegionSize;
+        for (; VirtualQuery(_pEnd + 1, &_BaseInfo, sizeof(_BaseInfo));)
+        {
+            if (_pBegin != _BaseInfo.AllocationBase)
+                break;
+
+            _pEnd = (char*)_BaseInfo.BaseAddress + _BaseInfo.RegionSize;
+        }
+        s_pBegin = (uintptr_t)_pBegin;
+        s_pEnd = (uintptr_t)_pEnd;
+    }
+
+    return s_pBegin <= (uintptr_t)p && (uintptr_t)p < s_pEnd;
+}
+
 __declspec(noinline) __inline __acrt_ptd* __cdecl __acrt_getptd_noexit(void)
 {
     // ptd->_thandle 一共有3中情况：
@@ -1500,46 +1531,9 @@ __declspec(noinline) __inline __acrt_ptd* __cdecl __acrt_getptd_noexit(void)
     // 这时必须借助GetThreadId，可是它开销是惊人的，不容易做到快速判断。
     // 结合总总情况，我们现在通过判断 _errno() 返回地址是否在msvcrt模块范围来判断 __getptd_noexit 是否发生内存申请失败。
     // 具体Bug请参考：https://github.com/Chuyu-Team/VC-LTL5/issues/49
-    typedef struct _DllAddressInfo
-    {
-        uintptr_t uBaseAddress;
-        uintptr_t uEndAddress;
-    } DllAddressInfo;
 
-    static DllAddressInfo s_DllAddressCache;
-
-    if (s_DllAddressCache.uBaseAddress == 0)
-    {
-        DllAddressInfo _DllAddressInfo = { (uintptr_t)-1, (uintptr_t)-1};
-        MEMORY_BASIC_INFORMATION _BaseInfo;
-        if (VirtualQuery(&_amsg_exit, &_BaseInfo, sizeof(_BaseInfo)))
-        {
-            _DllAddressInfo.uBaseAddress = (uintptr_t)_BaseInfo.AllocationBase;
-            _DllAddressInfo.uEndAddress = (uintptr_t)_BaseInfo.BaseAddress + _BaseInfo.RegionSize;
-
-            for (; VirtualQuery((void*)(_DllAddressInfo.uEndAddress + 1), &_BaseInfo, sizeof(_BaseInfo));)
-            {
-                if (_DllAddressInfo.uBaseAddress != (uintptr_t)_BaseInfo.AllocationBase)
-                    break;
-
-                _DllAddressInfo.uEndAddress = (uintptr_t)_BaseInfo.BaseAddress + _BaseInfo.RegionSize;
-            }
-        }
-
-#if defined(_X86_) || defined(_ARM_)
-        static_assert(sizeof(s_DllAddressCache) == sizeof(LONGLONG), "");
-        InterlockedCompareExchange64((volatile LONGLONG*)&s_DllAddressCache, *(LONGLONG*)&_DllAddressInfo, 0);
-#elif defined(_IA64_) || defined(_AMD64_) || defined(_ARM64_)
-        // AMD 早期不支持 InterlockedCompareExchange128，所以不用……
-        InterlockedCompareExchange64((volatile LONGLONG*)&s_DllAddressCache.uEndAddress, _DllAddressInfo.uEndAddress, 0);
-        InterlockedCompareExchange64((volatile LONGLONG*)&s_DllAddressCache.uBaseAddress, _DllAddressInfo.uBaseAddress, 0);
-#else
-#error unsrpport!
-#endif
-    }
-
-    uintptr_t _p_errno_value = (uintptr_t)_errno();
-    if (_p_errno_value == 0 || (s_DllAddressCache.uBaseAddress <= _p_errno_value && _p_errno_value < s_DllAddressCache.uEndAddress))
+    auto _p_errno_value = (unsigned char*)_errno();
+    if (_p_errno_value == 0 || IsPointerInMsvcrtDll(_p_errno_value))
     {
         return NULL;
     }
@@ -1551,7 +1545,7 @@ __declspec(noinline) __inline __acrt_ptd* __cdecl __acrt_getptd_noexit(void)
 __acrt_ptd* __cdecl __acrt_getptd_noexit(void);
 #endif
 
-#ifdef __BuildWithMSVCRT
+#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows10_10240
 __declspec(noinline) __inline __acrt_ptd* __cdecl __acrt_getptd(void)
 {
     __acrt_ptd* ptd = __acrt_getptd_noexit();
