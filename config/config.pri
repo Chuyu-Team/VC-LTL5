@@ -1,4 +1,4 @@
-#
+﻿#
 #  请不要直接使用此配置，应该使用VC-LTL helper for qmake.pri
 #
 
@@ -31,12 +31,6 @@ isEmpty(LTLPlatform) {
 
 equals(LTLPlatform, x86) {
     LTLPlatform = Win32
-}
-
-# 环境变量选项
-CleanImport = $$CleanImport
-isEmpty(CleanImport){
-    CleanImport=false
 }
 
 # 环境变量选项
@@ -124,13 +118,6 @@ message($$VC_LTL_Info)
 QMAKE_INCDIR += \
 	$$VC_LTL_Root/TargetPlatform/header \
     $$VC_LTL_Root/TargetPlatform/$$LTLWindowsTargetPlatformMinVersion/header
-
-equals(CleanImport, true) {
-    exists($$VC_LTL_Root/TargetPlatform/$$LTLWindowsTargetPlatformMinVersion/lib/$$LTLPlatform/CleanImport) {
-        QMAKE_LIBS += \
-            -L$$VC_LTL_Root/TargetPlatform/$$LTLWindowsTargetPlatformMinVersion/lib/$$LTLPlatform/CleanImport
-    }
-}
 
 QMAKE_LIBS += \
     -L$$VC_LTL_Root/TargetPlatform/$$LTLWindowsTargetPlatformMinVersion/lib/$$LTLPlatform

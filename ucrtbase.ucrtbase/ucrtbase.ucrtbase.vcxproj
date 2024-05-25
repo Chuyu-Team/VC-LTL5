@@ -833,11 +833,9 @@
     <Exec Command="%22$(SolutionDir)Tools\LibMaker.exe%22 CreateWeaks /MACHINE:$(PlatformShortName) /def:%22$(SolutionDir)Tools\Shared\ucrtbase.debug.weak.def%22 /out:%22$(IntDir)objs\weak%22" Condition="'$(UseDebugLibraries)' == 'true'" />
     <Exec Command="lib %22$(IntDir)ucrt_CleanImport.lib%22 %22$(IntDir)objs\weak\*%22" Condition="'$(UseDebugLibraries)' == 'true'" />
   </Target>
-  <Target Name="CopyFiles" AfterTargets="_Lib" Inputs="$(UniversalCRTSdkDir)Lib\$(WindowsTargetPlatformVersion)\ucrt\$(PlatformShortName)\ucrt.lib" Outputs="$(OutDir)libucrt.lib;$(OutDir)CleanImport\ucrt.lib;$(OutDir)CleanImport\libucrt.lib" Condition="'$(Configuration)' == 'Static'">
-    <Copy SourceFiles="$(UniversalCRTSdkDir)Lib\$(WindowsTargetPlatformVersion)\ucrt\$(PlatformShortName)\ucrt.lib" DestinationFiles="$(OutDir)libucrt.lib" />
-    <!--顺道再产生干净导入表模式-->
-    <MakeDir Directories="$(OutDir)CleanImport" />
-    <Copy SourceFiles="$(IntDir)ucrt_CleanImport.lib" DestinationFiles="$(OutDir)CleanImport\ucrt.lib" />
-    <Copy SourceFiles="$(IntDir)ucrt_CleanImport.lib" DestinationFiles="$(OutDir)CleanImport\libucrt.lib" />
+  <Target Name="CopyFiles" AfterTargets="_Lib" Inputs="$(IntDir)ucrt_CleanImport.lib" Outputs="$(OutDir)ucrt.lib;$(OutDir)libucrt.lib" Condition="'$(Configuration)' == 'Static'">
+    <!--复制干净导入表的UCRT库-->
+    <Copy SourceFiles="$(IntDir)ucrt_CleanImport.lib" DestinationFiles="$(OutDir)ucrt.lib" />
+    <Copy SourceFiles="$(IntDir)ucrt_CleanImport.lib" DestinationFiles="$(OutDir)libucrt.lib" />
   </Target>
 </Project>

@@ -212,10 +212,3 @@ Write-Host  "$LTLPlatform" -ForegroundColor Green
 $env:INCLUDE="$env:VC_LTL_Root\TargetPlatform\header;$env:VC_LTL_Root\TargetPlatform\$LTLWindowsTargetPlatformMinVersion\header;$env:INCLUDE"
 $env:LIB="$env:VC_LTL_Root\TargetPlatform\$LTLWindowsTargetPlatformMinVersion\lib\$LTLPlatform;$env:LIB"
 
-if($CleanImport -ieq "true")
-{
-    if(Test-Path "$env:VC_LTL_Root\TargetPlatform\$LTLWindowsTargetPlatformMinVersion\lib\$LTLPlatform\CleanImport")
-    {
-        $env:LIB="$env:VC_LTL_Root\TargetPlatform\$LTLWindowsTargetPlatformMinVersion\lib\$LTLPlatform\CleanImport;$env:LIB"
-    }
-}

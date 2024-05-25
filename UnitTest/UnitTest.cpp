@@ -546,7 +546,7 @@ namespace UnitTest
 		{
 			DllImportInfo Info;
 
-			Info.DllName = L"api-ms-win-crt-runtime-l1-1-0.dll";
+			Info.DllName = L"ucrtbase.dll";
 			Info.ImportNames.push_back(L"_beginthread");
 
 			TestLib(
@@ -629,55 +629,6 @@ namespace UnitTest
 				{ L"DDynamic", L"DStatic" },
 				{ L"10.0.10240.0", L"10.0.19041.0" },
 				Info
-				);
-		}
-
-
-		TEST_METHOD(ucrt_ucrt清洁模式所有符号可以被链接)
-		{
-			DllImportInfo Info;
-
-			Info.DllName = L"ucrtbase.dll";
-			Info.ImportNames.push_back(L"_beginthread");
-
-			TestLib(
-				CurrentUniversalCRTSdkDir LR"(ucrt\x86\ucrt.lib)",
-				L"ucrt",
-				L"Win32",
-				{ L"Dynamic", L"Static" },
-				{ L"10.0.10240.0", L"10.0.19041.0" },
-				Info,
-				L"CleanImport=true"
-				);
-
-			TestLib(
-				CurrentUniversalCRTSdkDir LR"(ucrt\x64\ucrt.lib)",
-				L"ucrt",
-				L"x64",
-				{ L"Dynamic", L"Static" },
-				{ L"10.0.10240.0", L"10.0.19041.0" },
-				Info,
-				L"CleanImport=true"
-				);
-
-			TestLib(
-				CurrentUniversalCRTSdkDir LR"(ucrt\arm\ucrt.lib)",
-				L"ucrt",
-				L"arm",
-				{ L"Dynamic", L"Static" },
-				{ L"10.0.10240.0", L"10.0.19041.0" },
-				Info,
-				L"CleanImport=true"
-				);
-
-			TestLib(
-				CurrentUniversalCRTSdkDir LR"(ucrt\arm64\ucrt.lib)",
-				L"ucrt",
-				L"arm64",
-				{ L"Dynamic", L"Static" },
-				{ L"10.0.10240.0", L"10.0.19041.0" },
-				Info,
-				L"CleanImport=true"
 				);
 		}
 	private:

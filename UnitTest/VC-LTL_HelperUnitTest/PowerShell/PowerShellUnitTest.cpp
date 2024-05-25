@@ -102,57 +102,5 @@ namespace UnitTest
 				}
 			}
 		}
-
-		TEST_METHOD(CleanImport生效检查)
-		{
-			struct CheckConfig
-			{
-				LPCWSTR szPlatform;
-				LPCWSTR szAppend;
-				std::vector<LPCSTR> IncludeDllNames;
-				std::vector<LPCSTR> ExcludeDllNames;
-			};
-
-			static const CheckConfig _oConfigList[] =
-			{
-				// 默认情况不开启 CleanImport，会依赖 api-ms-win-crt-stdio
-				{L"x86", L" -WindowsTargetPlatformMinVersion 10.0.10240.0", {"ucrtbase.dll", "api-ms-win-crt-stdio-l1-1-0.dll"}, {"vcruntime140.dll"}},
-				// 显式指定关闭 CleanImport，会依赖 api-ms-win-crt-stdio
-				{L"x86", L" -WindowsTargetPlatformMinVersion 10.0.10240.0 -CleanImport false", {"ucrtbase.dll", "api-ms-win-crt-stdio-l1-1-0.dll"}, {"vcruntime140.dll"}},
-				// 开启时不依赖 api-ms-win-crt-stdio
-				{L"x86", L" -WindowsTargetPlatformMinVersion 10.0.10240.0 -CleanImport true", {"ucrtbase.dll"}, {"vcruntime140.dll", "api-ms-win-crt-stdio-l1-1-0.dll"}},
-			};
-
-			for (auto& _oConfig : _oConfigList)
-			{
-				CString _szOutDir = szTestDllPath;
-				_szOutDir += LR"(out\HelperForPowerShellCleanImportUnitTest\)";
-				_szOutDir += _oConfig.szPlatform;
-
-				CString _szCmd;
-				_szCmd.Format(LR"(powershell.exe -File "%wsPowerShellBuildUnitTest.ps1" -arch %ws -OutDir "%ws")", szPSRootPath.GetString(), _oConfig.szPlatform, _szOutDir.GetString());
-				
-				_szCmd += _oConfig.szAppend;
-				
-				CString _szOut;
-				auto _lStatus = RunCmd(nullptr, _szCmd, &_szOut);
-				Assert::AreEqual(_lStatus, (LSTATUS)ERROR_SUCCESS);
-
-				auto _oImportInfo = GetDllImportInfo(_szOutDir + LR"(\NMakeExample.exe)");
-
-
-				for (auto _szIncludeDllName : _oConfig.IncludeDllNames)
-				{
-					auto _pInfo = FindDllImport(_oImportInfo, _szIncludeDllName);
-					Assert::IsNotNull(_pInfo, CStringW(_oConfig.szPlatform) + L" Include:" + _szIncludeDllName);
-				}
-
-				for (auto _szExcludeDllName : _oConfig.ExcludeDllNames)
-				{
-					auto _pInfo = FindDllImport(_oImportInfo, _szExcludeDllName);
-					Assert::IsNull(_pInfo, CStringW(_oConfig.szPlatform) + L" Exclude:" + _szExcludeDllName);
-				}
-			}
-		}
 	};
 }

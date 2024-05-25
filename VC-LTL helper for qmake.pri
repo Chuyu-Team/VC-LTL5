@@ -1,4 +1,4 @@
-Release {
+﻿Release {
 
 # 作者：GPBeta（https://github.com/GPBeta），mingkuang（https://github.com/mingkuang-Chuyu）
 # 修改日期：2021-08-20
@@ -29,9 +29,6 @@ Release {
 
 # 控制TargetPlatform版本，目前可用版本为 6.0.6000.0（默认）    6.2.9200.0     10.0.10240.0    10.0.19041.0
 # WindowsTargetPlatformMinVersion = 10.0.10240.0
-
-# 启用干净的导入表，消除 ucrt apiset(如：api-ms-win-crt-time-l1-1-0.dll)，满足强迫症患者。
-# CleanImport=true
 
 # -----------------------------------------------------------------------------------------------------------------------------------------------------
 
