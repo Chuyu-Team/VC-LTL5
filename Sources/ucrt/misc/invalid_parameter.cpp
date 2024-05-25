@@ -15,11 +15,9 @@ static _invalid_parameter_handler __acrt_invalid_parameter_handler = nullptr;
 
 #if WindowsTargetPlatformMinVersion >= WindowsTargetPlatformWindows10_10240
 #define _thread_local_iph _get_thread_local_invalid_parameter_handler()
-#elif WindowsTargetPlatformMinVersion >= WindowsTargetPlatformWindows6
-static thread_local _invalid_parameter_handler _thread_local_iph;
 #else
 #include <ptd_downlevel.h>
-#define _thread_local_iph (__LTL_get_ptd_downlevel(TRUE)->_thread_local_iph)
+#define _thread_local_iph (__LTL_get_ptd_downlevel()->_thread_local_iph)
 #endif
 
 #if defined _M_X64 && !defined _UCRT_ENCLAVE_BUILD

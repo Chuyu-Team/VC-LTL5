@@ -47,7 +47,7 @@ using namespace FH4;
 #include <ptd_downlevel.h>
 
 #define cxxReThrowWin6   (((_ptd_msvcrt_win6_shared*)RENAME_BASE_PTD(__vcrt_getptd)())->_cxxReThrow)
-#define cxxReThrowdownlevel (__LTL_get_ptd_downlevel(TRUE)->_cxxReThrow)
+#define cxxReThrowdownlevel (__LTL_get_ptd_downlevel()->_cxxReThrow)
 #define cxxReThrow (__LTL_GetOsMinVersion() >= MakeMiniVersion(6,0) ? cxxReThrowWin6 : cxxReThrowdownlevel)
 #endif
 

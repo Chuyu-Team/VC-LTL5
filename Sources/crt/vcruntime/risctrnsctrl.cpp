@@ -36,7 +36,7 @@
 #else
 #include <ptd_downlevel.h>
 #define _ImageBaseWin6        (((_ptd_msvcrt_win6_shared*)__vcrt_getptd())->_ImageBase)
-#define _ImageBasedownlevel   (__LTL_get_ptd_downlevel(TRUE)->_ImageBase)
+#define _ImageBasedownlevel   (__LTL_get_ptd_downlevel()->_ImageBase)
 #define _ImageBase (__LTL_GetOsMinVersion() >= MakeMiniVersion(6,0) ? _ImageBaseWin6 : _ImageBasedownlevel)
 #endif
 extern "C" uintptr_t __cdecl _GetImageBase()
@@ -60,7 +60,7 @@ extern "C" void __cdecl _SetImageBase(uintptr_t ImageBaseToRestore)
 #else
 #include <ptd_downlevel.h>
 #define _ThrowImageBaseWin6        (((_ptd_msvcrt_win6_shared*)__vcrt_getptd())->_ThrowImageBase)
-#define _ThrowImageBasedownlevel   (__LTL_get_ptd_downlevel(TRUE)->_ThrowImageBase)
+#define _ThrowImageBasedownlevel   (__LTL_get_ptd_downlevel()->_ThrowImageBase)
 #define _ThrowImageBase (__LTL_GetOsMinVersion() >= MakeMiniVersion(6,0) ? _ThrowImageBaseWin6 : _ThrowImageBasedownlevel)
 #endif
 
@@ -75,12 +75,6 @@ extern "C" void __cdecl _SetThrowImageBase(uintptr_t NewThrowImageBase)
 }
 
 #endif
-
-#if 1
-#if _VCRT_BUILD_FH4 && WindowsTargetPlatformMinVersion >= WindowsTargetPlatformWindows6
-thread_local int VC_LTL_UCRT_CatchStateInParent = INVALID_CATCH_SPECIFIC_STATE;
-#endif // _VCRT_BUILD_FH4 && WindowsTargetPlatformMinVersion >= WindowsTargetPlatformWindows6
-#endif // 1
 
 #if _EH_RELATIVE_FUNCINFO
 #if _VCRT_BUILD_FH4

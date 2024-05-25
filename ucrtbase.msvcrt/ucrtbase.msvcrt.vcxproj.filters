@@ -765,9 +765,6 @@
     <ClCompile Include="..\Sources\ucrt\stdlib\rand_s.cpp">
       <Filter>源文件\WinXP</Filter>
     </ClCompile>
-    <ClCompile Include="..\Sources\crt\ptd_downlevel.cpp">
-      <Filter>头文件\ltl</Filter>
-    </ClCompile>
     <ClCompile Include="..\Sources\ucrt\locale\GetStringTypeA.cpp">
       <Filter>源文件\objs</Filter>
     </ClCompile>
@@ -804,6 +801,9 @@
       <Filter>头文件\ltl</Filter>
     </ClInclude>
     <ClInclude Include="msvcrt_build_type.h">
+      <Filter>头文件\ltl</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sources\crt\ptd_downlevel.h">
       <Filter>头文件\ltl</Filter>
     </ClInclude>
   </ItemGroup>

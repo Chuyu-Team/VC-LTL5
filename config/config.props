@@ -132,8 +132,10 @@
       <PreprocessorDefinitions>_Build_By_LTL=1;_LTL_Core_Version=$(LTL_CoreVersion);%(PreprocessorDefinitions)</PreprocessorDefinitions>
 
       <PreprocessorDefinitions Condition="'$(SupportWinXP)'=='true'">_ATL_XP_TARGETING=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <!--当兼容XP时，对于非 exe 的需要禁用线程安全初始化。避免XP中在DllMain中使用TLS而崩溃-->
+      <!--YY-Thunks 1.0.10-Beta8开始已经为Windows XP添加了完整的Tls支持，所以无需在`/Zc:threadSafeInit-`。
+      当兼容XP时，对于非 exe 的需要禁用线程安全初始化。避免XP中在DllMain中使用TLS而崩溃
       <AdditionalOptions Condition="'$(SupportWinXP)'=='true' and '$(ConfigurationType)'!='Application' ">/Zc:threadSafeInit- %(AdditionalOptions)</AdditionalOptions>
+      -->
     </ClCompile>
     <Link Condition="'$(SupportWinXP)'=='true'">
       <MinimumRequiredVersion Condition=" '$(PlatformShortName)'=='x86' ">5.01</MinimumRequiredVersion>

@@ -14,7 +14,7 @@
 #else
 #include <ptd_downlevel.h>
 #define _pForeignExceptWin6   (*((EHExceptionRecord **)&(((_ptd_msvcrt_win6_shared*)RENAME_BASE_PTD(__vcrt_getptd)())->_pForeignException)))
-#define _pForeignExceptdownlevel  (*((EHExceptionRecord **)&(__LTL_get_ptd_downlevel(TRUE)->_pForeignException)))
+#define _pForeignExceptdownlevel  (*((EHExceptionRecord **)&(__LTL_get_ptd_downlevel()->_pForeignException)))
 #define _pForeignExcept (__LTL_GetOsMinVersion() >= MakeMiniVersion(6, 0) ? _pForeignExceptWin6 : _pForeignExceptdownlevel)
 #endif
 

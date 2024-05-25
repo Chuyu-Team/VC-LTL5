@@ -658,9 +658,6 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\Sources\crt\ptd_downlevel.cpp">
-      <ExcludedFromBuild Condition="'$(WindowsTargetPlatformMinVersionBuild)' &gt;= '6000'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="..\Sources\ltl\debug_heap.cpp">
       <ExcludedFromBuild Condition="'$(UseDebugLibraries)' != 'true'">true</ExcludedFromBuild>
     </ClCompile>
@@ -1296,6 +1293,7 @@
     <ClCompile Include="_file.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Sources\crt\ptd_downlevel.h" />
     <ClInclude Include="msvcrt_build_type.h" />
     <ClInclude Include="msvcrt_loadhelper.h" />
   </ItemGroup>

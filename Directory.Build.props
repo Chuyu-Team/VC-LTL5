@@ -18,8 +18,6 @@
       <EnableEnhancedInstructionSet Condition="'$(Platform)' == 'Win32'">NoExtensions</EnableEnhancedInstructionSet>
       <DisableSpecificWarnings>4200;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <!--最低支持目标为XP 2003时，则还需要禁用threadSafeInit-->
-      <AdditionalOptions Condition="'$(WindowsTargetPlatformMinVersionBuild)' &gt;= '6000'">/Zc:threadSafeInit- %(AdditionalOptions)</AdditionalOptions>
       <!--禁用FH4，因为早期版本 2015 2017都是没有这个功能的，实际上，微软自己也是禁用的。-->
       <AdditionalOptions Condition="'$(Platform)'=='x64'">/d2FH4- %(AdditionalOptions)</AdditionalOptions>
       <!--避免使用tlsGuards，因为VC-LTL能确保不会使用那些动态的。此外避免高版本依赖-->

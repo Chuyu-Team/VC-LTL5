@@ -209,10 +209,11 @@ typedef struct RENAME_BASE_PTD(__vcrt_ptd)
     uintptr_t          _ThrowImageBase;
     void*              _pForeignException;
 
-    //2015 没有这个
-    //int                _CatchStateInParent;   // Used to link together the catch funclet with the parent. During dispatch contains state associated
+#if WindowsTargetPlatformMinVersion >= __MakeVersion(10, 0, 19041)
+    int                _CatchStateInParent;   // Used to link together the catch funclet with the parent. During dispatch contains state associated
                                               // with catch in the parent. During unwind represents the current unwind state that is resumed to
                                               // during collided unwind and used to look for handlers of the throwing dtor.
+#endif
     #elif defined _M_IX86
     void*              _pFrameInfoChain;
     #endif

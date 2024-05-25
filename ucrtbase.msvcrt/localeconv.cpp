@@ -87,14 +87,8 @@ extern "C" lconv* __cdecl localeconv(void)
 
     auto _Page = ___lc_codepage_func();
 
-#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
-    //低于Vista，那么无法安全的使用 thread_local
-    static lconv_with_static_buffer ThreadBuffer[0x4000];
-
-    auto& Current = ThreadBuffer[(GetCurrentThreadId() >> 1) % __crt_countof(ThreadBuffer)];
-#else
+    // 由YY-Thunks为Windows XP提供完整的thread_local支持
     static thread_local lconv_with_static_buffer Current;
-#endif
 
     if (Current.decimal_point != pOrglconv->decimal_point)
     {
