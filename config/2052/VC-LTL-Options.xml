@@ -37,12 +37,6 @@
       Category="VC_LTL"
       DisplayName="启用VC-LTL"
       Description="允许当前项目启用VC-LTL，此选项一般用于验证某些问题时使用，非特殊情况建议始终保持开启。"/>
-
-    <BoolProperty
-      Name="CleanImport"
-      Category="VC_LTL"
-      DisplayName="启用干净的导入表"
-      Description="消除 ucrt apiset(如：api-ms-win-crt-time-l1-1-0.dll)，满足强迫症患者。"/>
     
     <EnumProperty
       Name="WindowsTargetPlatformMinVersion"
