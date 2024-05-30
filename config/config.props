@@ -18,80 +18,52 @@
     <LTL_LANGID Condition="('$(LTL_LANGID)' == '') or (!Exists('$(MSBuildThisFileDirectory)$(LTL_LANGID)'))">1033</LTL_LANGID>
   </PropertyGroup>
   <PropertyGroup>
-    <!--XP Mode-->
-    <VCLTLSupportPlatformToolsetWinXP Condition="('$(VCLTLSupportPlatformToolsetWinXP)'=='') And ('$(PlatformToolset)'=='v140_xp')">true</VCLTLSupportPlatformToolsetWinXP>
-    <VCLTLSupportPlatformToolsetWinXP Condition="('$(VCLTLSupportPlatformToolsetWinXP)'=='') And ('$(PlatformToolset)'=='v141_xp')">true</VCLTLSupportPlatformToolsetWinXP>
-    <VCLTLSupportPlatformToolsetWinXP Condition="('$(VCLTLSupportPlatformToolsetWinXP)'=='') And ('$(PlatformToolset)'=='LLVM-vs2014_xp')">true</VCLTLSupportPlatformToolsetWinXP>
-    <VCLTLSupportPlatformToolsetWinXP Condition="('$(VCLTLSupportPlatformToolsetWinXP)'=='') And ('$(PlatformToolset)'=='LLVM_v140_xp')">true</VCLTLSupportPlatformToolsetWinXP>
-    <VCLTLSupportPlatformToolsetWinXP Condition="('$(VCLTLSupportPlatformToolsetWinXP)'=='') And ('$(PlatformToolset)'=='LLVM_v141_xp')">true</VCLTLSupportPlatformToolsetWinXP>
+    <LTLWindowsTargetPlatformMinVersion></LTLWindowsTargetPlatformMinVersion>
+    <!--兼容一下以前的XP模式-->
+    <LTLWindowsTargetPlatformMinVersion Condition="('$(Platform)'=='Win32') And ('$(LTLWindowsTargetPlatformMinVersion)'=='') And (('$(SupportWinXP)'=='true') Or ($(PlatformToolset.IndexOf('_xp')) != -1))">5.1.2600.0</LTLWindowsTargetPlatformMinVersion>
+    <LTLWindowsTargetPlatformMinVersion Condition="('$(Platform)'=='x64') And ('$(LTLWindowsTargetPlatformMinVersion)'=='') And (('$(SupportWinXP)'=='true') Or ($(PlatformToolset.IndexOf('_xp')) != -1))">5.2.3790.0</LTLWindowsTargetPlatformMinVersion>
 
-    <VCLTLSupportPlatformToolsetNormal Condition="('$(VCLTLSupportPlatformToolsetNormal)'=='') And ('$(PlatformToolset)'=='v140')">true</VCLTLSupportPlatformToolsetNormal>
-    <VCLTLSupportPlatformToolsetNormal Condition="('$(VCLTLSupportPlatformToolsetNormal)'=='') And ('$(PlatformToolset)'=='v140_clang_c2')">true</VCLTLSupportPlatformToolsetNormal>
-    <VCLTLSupportPlatformToolsetNormal Condition="('$(VCLTLSupportPlatformToolsetNormal)'=='') And ('$(PlatformToolset)'=='v140_clang_3_7')">true</VCLTLSupportPlatformToolsetNormal>
-    <VCLTLSupportPlatformToolsetNormal Condition="('$(VCLTLSupportPlatformToolsetNormal)'=='') And ('$(PlatformToolset)'=='v141')">true</VCLTLSupportPlatformToolsetNormal>
-    <VCLTLSupportPlatformToolsetNormal Condition="('$(VCLTLSupportPlatformToolsetNormal)'=='') And ('$(PlatformToolset)'=='v141_clang_c2')">true</VCLTLSupportPlatformToolsetNormal>
-    <VCLTLSupportPlatformToolsetNormal Condition="('$(VCLTLSupportPlatformToolsetNormal)'=='') And ('$(PlatformToolset)'=='v142')">true</VCLTLSupportPlatformToolsetNormal>
-    <VCLTLSupportPlatformToolsetNormal Condition="('$(VCLTLSupportPlatformToolsetNormal)'=='') And ('$(PlatformToolset)'=='v143')">true</VCLTLSupportPlatformToolsetNormal>
-    <VCLTLSupportPlatformToolsetNormal Condition="('$(VCLTLSupportPlatformToolsetNormal)'=='') And ('$(PlatformToolset)'=='ClangCL')">true</VCLTLSupportPlatformToolsetNormal>
-    <VCLTLSupportPlatformToolsetNormal Condition="('$(VCLTLSupportPlatformToolsetNormal)'=='') And ('$(PlatformToolset)'=='LLVM-vs2014')">true</VCLTLSupportPlatformToolsetNormal>
-    <VCLTLSupportPlatformToolsetNormal Condition="('$(VCLTLSupportPlatformToolsetNormal)'=='') And ('$(PlatformToolset)'=='LLVM_v140')">true</VCLTLSupportPlatformToolsetNormal>
-    <VCLTLSupportPlatformToolsetNormal Condition="('$(VCLTLSupportPlatformToolsetNormal)'=='') And ('$(PlatformToolset)'=='LLVM_v141')">true</VCLTLSupportPlatformToolsetNormal>
-    <VCLTLSupportPlatformToolsetNormal Condition="('$(VCLTLSupportPlatformToolsetNormal)'=='') And ('$(PlatformToolset)'=='LLVM_v142')">true</VCLTLSupportPlatformToolsetNormal>
-    <VCLTLSupportPlatformToolsetNormal Condition="('$(VCLTLSupportPlatformToolsetNormal)'=='') And ('$(PlatformToolset)'=='Intel C++ Compiler 2022')">true</VCLTLSupportPlatformToolsetNormal>
+    <!--配置默认值-->
+    <LTLWindowsTargetPlatformMinVersion Condition="('$(Platform)'=='Win32' or '$(Platform)'=='x64') And ('$(LTLWindowsTargetPlatformMinVersion)'=='') And ('$(WindowsTargetPlatformMinVersion)'=='')">6.0.6000.0</LTLWindowsTargetPlatformMinVersion>
+    <LTLWindowsTargetPlatformMinVersion Condition="('$(Platform)'=='arm') And ('$(LTLWindowsTargetPlatformMinVersion)'=='') And ('$(WindowsTargetPlatformMinVersion)'=='')">6.2.9200.0</LTLWindowsTargetPlatformMinVersion>
+    <LTLWindowsTargetPlatformMinVersion Condition="('$(Platform)'=='arm64') And ('$(LTLWindowsTargetPlatformMinVersion)'=='') And ('$(WindowsTargetPlatformMinVersion)'=='')">10.0.10240.0</LTLWindowsTargetPlatformMinVersion>
 
-    <VCLTLSupportPlatformToolset Condition="('$(VCLTLSupportPlatformToolsetWinXP)'=='true') Or ('$(VCLTLSupportPlatformToolsetNormal)'=='true')">true</VCLTLSupportPlatformToolset>
+    <!--匹配最佳版本-->
+    <LTLWindowsTargetPlatformMinVersion Condition="('$(Platform)'=='Win32') And ('$(LTLWindowsTargetPlatformMinVersion)'=='') And ('$(WindowsTargetPlatformMinVersion)'!='') And ($([System.Version]::Parse('6.0.0.0').CompareTo($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)')))) > 0)">5.1.2600.0</LTLWindowsTargetPlatformMinVersion>
+    <LTLWindowsTargetPlatformMinVersion Condition="('$(Platform)'=='x64') And ('$(LTLWindowsTargetPlatformMinVersion)'=='') And ('$(WindowsTargetPlatformMinVersion)'!='') And ($([System.Version]::Parse('6.0.0.0').CompareTo($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)')))) > 0)">5.2.3790.0</LTLWindowsTargetPlatformMinVersion>
+    <LTLWindowsTargetPlatformMinVersion Condition="('$(Platform)'=='Win32' or '$(Platform)'=='x64') And ('$(LTLWindowsTargetPlatformMinVersion)'=='') And ('$(WindowsTargetPlatformMinVersion)'!='') And ($([System.Version]::Parse('6.2.0.0').CompareTo($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)')))) > 0)">6.0.6000.0</LTLWindowsTargetPlatformMinVersion>
+    <LTLWindowsTargetPlatformMinVersion Condition="('$(Platform)'=='Win32' or '$(Platform)'=='x64' or '$(Platform)'=='arm') And ('$(LTLWindowsTargetPlatformMinVersion)'=='') And ('$(WindowsTargetPlatformMinVersion)'!='') And ($([System.Version]::Parse('10.0.0.0').CompareTo($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)')))) > 0)">6.2.9200.0</LTLWindowsTargetPlatformMinVersion>
+    <LTLWindowsTargetPlatformMinVersion Condition="('$(LTLWindowsTargetPlatformMinVersion)'=='') And ('$(WindowsTargetPlatformMinVersion)'!='') And ($([System.Version]::Parse('10.0.19041.0').CompareTo($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)')))) > 0)">10.0.10240.0</LTLWindowsTargetPlatformMinVersion>
+    <LTLWindowsTargetPlatformMinVersion Condition="('$(LTLWindowsTargetPlatformMinVersion)'=='') And ('$(WindowsTargetPlatformMinVersion)'!='')">10.0.19041.0</LTLWindowsTargetPlatformMinVersion>
+    <LTLWindowsTargetPlatformMinVersion Condition="('$(LTLWindowsTargetPlatformMinVersion)'=='')">6.0.6000.0</LTLWindowsTargetPlatformMinVersion>
+
+    <!--检测VC-LTL支持的平台工具集-->
+    <VCLTLSupportPlatformToolset></VCLTLSupportPlatformToolset>
+    <VCLTLSupportPlatformToolset Condition="('$(VCLTLSupportPlatformToolset)'=='') And ('$(PlatformToolset)'=='v140_xp')">true</VCLTLSupportPlatformToolset>
+    <VCLTLSupportPlatformToolset Condition="('$(VCLTLSupportPlatformToolset)'=='') And ('$(PlatformToolset)'=='v141_xp')">true</VCLTLSupportPlatformToolset>
+    <VCLTLSupportPlatformToolset Condition="('$(VCLTLSupportPlatformToolset)'=='') And ('$(PlatformToolset)'=='LLVM-vs2014_xp')">true</VCLTLSupportPlatformToolset>
+    <VCLTLSupportPlatformToolset Condition="('$(VCLTLSupportPlatformToolset)'=='') And ('$(PlatformToolset)'=='LLVM_v140_xp')">true</VCLTLSupportPlatformToolset>
+    <VCLTLSupportPlatformToolset Condition="('$(VCLTLSupportPlatformToolset)'=='') And ('$(PlatformToolset)'=='LLVM_v141_xp')">true</VCLTLSupportPlatformToolset>
+
+    <VCLTLSupportPlatformToolset Condition="('$(VCLTLSupportPlatformToolset)'=='') And ('$(PlatformToolset)'=='v140')">true</VCLTLSupportPlatformToolset>
+    <VCLTLSupportPlatformToolset Condition="('$(VCLTLSupportPlatformToolset)'=='') And ('$(PlatformToolset)'=='v140_clang_c2')">true</VCLTLSupportPlatformToolset>
+    <VCLTLSupportPlatformToolset Condition="('$(VCLTLSupportPlatformToolset)'=='') And ('$(PlatformToolset)'=='v140_clang_3_7')">true</VCLTLSupportPlatformToolset>
+    <VCLTLSupportPlatformToolset Condition="('$(VCLTLSupportPlatformToolset)'=='') And ('$(PlatformToolset)'=='v141')">true</VCLTLSupportPlatformToolset>
+    <VCLTLSupportPlatformToolset Condition="('$(VCLTLSupportPlatformToolset)'=='') And ('$(PlatformToolset)'=='v141_clang_c2')">true</VCLTLSupportPlatformToolset>
+    <VCLTLSupportPlatformToolset Condition="('$(VCLTLSupportPlatformToolset)'=='') And ('$(PlatformToolset)'=='v142')">true</VCLTLSupportPlatformToolset>
+    <VCLTLSupportPlatformToolset Condition="('$(VCLTLSupportPlatformToolset)'=='') And ('$(PlatformToolset)'=='v143')">true</VCLTLSupportPlatformToolset>
+    <VCLTLSupportPlatformToolset Condition="('$(VCLTLSupportPlatformToolset)'=='') And ('$(PlatformToolset)'=='ClangCL')">true</VCLTLSupportPlatformToolset>
+    <VCLTLSupportPlatformToolset Condition="('$(VCLTLSupportPlatformToolset)'=='') And ('$(PlatformToolset)'=='LLVM-vs2014')">true</VCLTLSupportPlatformToolset>
+    <VCLTLSupportPlatformToolset Condition="('$(VCLTLSupportPlatformToolset)'=='') And ('$(PlatformToolset)'=='LLVM_v140')">true</VCLTLSupportPlatformToolset>
+    <VCLTLSupportPlatformToolset Condition="('$(VCLTLSupportPlatformToolset)'=='') And ('$(PlatformToolset)'=='LLVM_v141')">true</VCLTLSupportPlatformToolset>
+    <VCLTLSupportPlatformToolset Condition="('$(VCLTLSupportPlatformToolset)'=='') And ('$(PlatformToolset)'=='LLVM_v142')">true</VCLTLSupportPlatformToolset>
+    <VCLTLSupportPlatformToolset Condition="('$(VCLTLSupportPlatformToolset)'=='') And ('$(PlatformToolset)'=='Intel C++ Compiler 2022')">true</VCLTLSupportPlatformToolset>
 
     <!--VC-LTL仅支持x86、x64、arm、arm64-->
+    <VCLTLSupportPlatform></VCLTLSupportPlatform>
     <VCLTLSupportPlatform Condition="('$(Platform)'=='Win32') Or ('$(Platform)'=='x64') Or ('$(Platform)'=='arm') Or ('$(Platform)'=='arm64')">true</VCLTLSupportPlatform>
   </PropertyGroup>
-
-  <PropertyGroup>
-    <LTLWindowsTargetPlatformMinVersionBuild></LTLWindowsTargetPlatformMinVersionBuild>
-    <LTLWindowsTargetPlatformMinVersionBuild Condition=" '$(WindowsTargetPlatformMinVersion)'!=''">$([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)').Build)</LTLWindowsTargetPlatformMinVersionBuild>
-    <LTLWindowsTargetPlatformMinVersionBuild Condition=" '$(LTLWindowsTargetPlatformMinVersionBuild)'=='' and '$(SupportLTL)'=='ucrt'">10240</LTLWindowsTargetPlatformMinVersionBuild>
-    <!--兼容一下以前的Windows XP模式-->
-    <LTLWindowsTargetPlatformMinVersionBuild Condition=" '$(LTLWindowsTargetPlatformMinVersionBuild)'=='' and ('$(VCLTLSupportPlatformToolsetWinXP)' == 'true' or '$(SupportWinXP)' == 'true')">2600</LTLWindowsTargetPlatformMinVersionBuild>
-    <LTLWindowsTargetPlatformMinVersionBuild Condition=" '$(LTLWindowsTargetPlatformMinVersionBuild)'==''">6000</LTLWindowsTargetPlatformMinVersionBuild>
-  </PropertyGroup>
-
-  <!--搜索最适合的UCRT版本-->
-  <Choose>
-    <When Condition="'$(LTLWindowsTargetPlatformMinVersionBuild)' >= '19041'">
-      <PropertyGroup>
-        <LTLWindowsTargetPlatformMinVersion>10.0.19041.0</LTLWindowsTargetPlatformMinVersion>
-      </PropertyGroup>
-    </When>
-    <When Condition="'$(Platform)'=='arm64' or '$(LTLWindowsTargetPlatformMinVersionBuild)' >= '10240'">
-      <PropertyGroup>
-        <LTLWindowsTargetPlatformMinVersion>10.0.10240.0</LTLWindowsTargetPlatformMinVersion>
-      </PropertyGroup>
-    </When>
-    <When Condition="'$(Platform)'=='arm' or '$(LTLWindowsTargetPlatformMinVersionBuild)' >= '9200'">
-      <PropertyGroup>
-        <LTLWindowsTargetPlatformMinVersion>6.2.9200.0</LTLWindowsTargetPlatformMinVersion>
-      </PropertyGroup>
-    </When>
-    <When Condition="'$(LTLWindowsTargetPlatformMinVersionBuild)' >= '6000'">
-      <PropertyGroup>
-        <LTLWindowsTargetPlatformMinVersion>6.0.6000.0</LTLWindowsTargetPlatformMinVersion>
-      </PropertyGroup>
-    </When>
-    <When Condition="'$(Platform)'=='x64'">
-      <PropertyGroup>
-        <SupportWinXP>true</SupportWinXP>
-        <LTLWindowsTargetPlatformMinVersion>5.2.3790.0</LTLWindowsTargetPlatformMinVersion>
-      </PropertyGroup>
-    </When>
-    <Otherwise>
-      <!--其他情况，统一为5.1.2600.0-->
-      <PropertyGroup>
-        <SupportWinXP>true</SupportWinXP>
-        <LTLWindowsTargetPlatformMinVersion>5.1.2600.0</LTLWindowsTargetPlatformMinVersion>
-      </PropertyGroup>
-    </Otherwise>
-  </Choose>
-
-
+  
   <PropertyGroup>
     <!--VC-LTL核心版本号，由于4.X并不兼容3.X。此值可以用于兼容性判断。-->
     <LTL_CoreVersion>5</LTL_CoreVersion>
@@ -102,10 +74,8 @@
     <SupportLTL Condition="('$(SupportLTL)'!='false') And (('$(DriverTargetPlatform)'=='Universal') Or ('$(VCLTLSupportPlatformToolset)' != 'true'))">false</SupportLTL>
     <SupportLTL Condition="('$(SupportLTL)'=='') And ('$(VCLTLSupportPlatform)'=='true')">true</SupportLTL>
 
-    <SupportWinXP Condition=" ('$(SupportWinXP)'=='') And ('$(VCLTLSupportPlatformToolsetWinXP)'=='true')">true</SupportWinXP>
-
-    <!--arm、arm64必定不用支持XP-->
-    <SupportWinXP Condition=" ('$(Platform)'=='arm') Or ('$(Platform)'=='arm64')">false</SupportWinXP>
+    <SupportWinXP></SupportWinXP>
+    <SupportWinXP Condition="($([System.Version]::Parse('6.0.0.0').CompareTo($([System.Version]::Parse('$(LTLWindowsTargetPlatformMinVersion)')))) > 0)">true</SupportWinXP>
 
     <VC_LTL_Include>$(VC_LTL_Root)TargetPlatform\header;$(VC_LTL_Root)TargetPlatform\$(LTLWindowsTargetPlatformMinVersion)\header</VC_LTL_Include>
     <VC_LTL_Library>$(VC_LTL_Root)TargetPlatform\$(LTLWindowsTargetPlatformMinVersion)\lib\$(Platform);$(IntDir)VC-LTL5.tmp\$(LTLWindowsTargetPlatformMinVersion)\$(Platform)</VC_LTL_Library>
