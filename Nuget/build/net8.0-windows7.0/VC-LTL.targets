@@ -6,8 +6,7 @@
       <LTLPlatform Condition="'$(RuntimeIdentifier)'=='win-arm64'">ARM64</LTLPlatform>
       <LTLPlatform Condition="'$(RuntimeIdentifier)'=='win-arm'">ARM</LTLPlatform>
       <LTLPlatform Condition="'$(RuntimeIdentifier)'=='win-x64'">x64</LTLPlatform>
-      <LTLPlatform Condition="'$(RuntimeIdentifier)'=='win-x86'">x86</LTLPlatform>
-
+      <LTLPlatform Condition="'$(RuntimeIdentifier)'=='win-x86'">Win32</LTLPlatform>
 
       <!--默认兼容到Windows Vista-->
       <LTLSupportedOSPlatformVersion>6.0.6000.0</LTLSupportedOSPlatformVersion>
@@ -20,7 +19,7 @@
       <LTLWindowsTargetPlatformMinVersion Condition="'$(LTLWindowsTargetPlatformMinVersion)' == '' and '$(LTLPlatform)'=='ARM'">6.2.9200.0</LTLWindowsTargetPlatformMinVersion>
       <LTLWindowsTargetPlatformMinVersion Condition="'$(LTLWindowsTargetPlatformMinVersion)' == '' and $([MSBuild]::VersionGreaterThanOrEquals($(LTLSupportedOSPlatformVersion), 6.0))">6.0.6000.0</LTLWindowsTargetPlatformMinVersion>
       <LTLWindowsTargetPlatformMinVersion Condition="'$(LTLWindowsTargetPlatformMinVersion)' == '' and '$(LTLPlatform)'=='x64'">5.2.3790.0</LTLWindowsTargetPlatformMinVersion>
-      <LTLWindowsTargetPlatformMinVersion Condition="'$(LTLWindowsTargetPlatformMinVersion)' == '' and '$(LTLPlatform)'=='x86'">5.1.2600.0</LTLWindowsTargetPlatformMinVersion>
+      <LTLWindowsTargetPlatformMinVersion Condition="'$(LTLWindowsTargetPlatformMinVersion)' == '' and '$(LTLPlatform)'=='Win32'">5.1.2600.0</LTLWindowsTargetPlatformMinVersion>
     </PropertyGroup>
     <ItemGroup Condition="'$(LTLWindowsTargetPlatformMinVersion)' != '' and '$(LTLPlatform)' != ''">
       <AdditionalNativeLibraryDirectories Include="$(MSBuildThisFileDirectory)..\native\TargetPlatform\$(LTLWindowsTargetPlatformMinVersion)\lib\$(LTLPlatform)" />
