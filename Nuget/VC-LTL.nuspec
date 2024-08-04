@@ -3,7 +3,6 @@
   <metadata minClientVersion="2.5">
     <id>VC-LTL</id>
     <version>$version$</version>
-    <title>VC-LTL for Visual Studio 2015, 2017, 2019, 2022</title>
     <summary>VC-LTL for Visual Studio 2015, 2017, 2019, 2022，编译精巧的程序原来如此简单。</summary>
     <authors>YY</authors>
     <owners>初雨团队</owners>
@@ -26,11 +25,11 @@
     <repository type="git" url="https://github.com/Chuyu-Team/VC-LTL5.git" branch="master" commit="$commit$" />
     <dependencies>
       <group targetFramework="native">
-        <dependency id="YY.NuGet.Import.Helper" version="1.0.0.4" />
-        <dependency id="YY-Thunks" version="1.1.2-Beta4"/>
+        <dependency id="YY.NuGet.Import.Helper" version="1.0.1" />
+        <dependency id="YY-Thunks" version="1.1.2-Beta7"/>
       </group>
       <group targetFramework="net8.0-windows7.0">
-        <dependency id="YY-Thunks" version="1.1.2-Beta4"/>
+        <dependency id="YY-Thunks" version="1.1.2-Beta7"/>
       </group>
     </dependencies>
   </metadata>

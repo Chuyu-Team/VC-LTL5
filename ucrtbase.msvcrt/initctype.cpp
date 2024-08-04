@@ -23,15 +23,8 @@ struct lc_locale_name_buffer
 
 EXTERN_C wchar_t** __cdecl ___lc_locale_name_func(void)
 {
-#if WindowsTargetPlatformMinVersion < WindowsTargetPlatformWindows6
-	//XP系统 thread_local 存在限制，所以我们需要在本地弄一份很大的数组，对于这个场景很显然我们不需要太强大散列支持
-	static lc_locale_name_buffer ThreadBuffer[0x4000];
-
-	auto& Current = ThreadBuffer[(GetCurrentThreadId() >> 1) % __crt_countof(ThreadBuffer)];
-#else
-	static thread_local lc_locale_name_buffer Current;
-#endif
-		
+    // 由YY-Thunks 为Windows XP提供完整的TLS支持
+	static thread_local lc_locale_name_buffer Current;		
 
 	auto lc_handle = ___lc_handle_func();
 
