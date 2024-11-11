@@ -7,11 +7,11 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
 
     - name: 恢复编译产物
       id: ltlBinCache
-      uses: actions/cache@v2
+      uses: actions/cache@v4
       with:
         path: |
             TargetPlatform/**/*.lib
@@ -21,7 +21,7 @@ jobs:
     - name: 恢复缓存
       if: steps.ltlBinCache.outputs.cache-hit != 'true'
       id: ltlCache
-      uses: actions/cache@v2
+      uses: actions/cache@v4
       with:
         path: Tools/**/libucrt_shared.lib
         key: ltl_${{ hashFiles('**/Build_libucrt_shared.cmd') }}
@@ -191,7 +191,7 @@ jobs:
     - name: 匹配Redist缓存
       if: contains(github.ref, 'tags/')
       id: ltlRedistCache
-      uses: actions/cache@v2
+      uses: actions/cache@v4
       with:
         path: VC-LTL*-Redist.7z
         key: ltl_Redist_${{ hashFiles('Redist/**/*.dll') }}
@@ -203,14 +203,14 @@ jobs:
       run: |
            del VC-LTL-${{env.BuildVersion}}-Redist.7z /Q /F
 
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v4
       with:
         path: |
             *.nupkg
             *.7z
 
     # 失败时我们收集一些信息，用于诊断
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: ErrorLog
