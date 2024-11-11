@@ -1,4 +1,4 @@
-﻿cmake_minimum_required(VERSION 3.5.2)
+﻿cmake_minimum_required(VERSION 3.13)
 
 #
 #  VC-LTL自动化加载配置，建议你将此文件单独复制到你的工程再使用，该文件能自动识别当前环境是否存在VC-LTL，并且自动应用。
@@ -27,6 +27,8 @@
 #控制TargetPlatform版本，目前可用版本为5.1.2600.0     6.0.6000.0（默认）    6.2.9200.0     10.0.10240.0    10.0.19041.0
 #set(WindowsTargetPlatformMinVersion "10.0.10240.0")
 
+#(PR#70 引入)，默认关，开启后将使用cmake `INTERFACE`能力，然后单独`target_link_directories(工程名称 VC_LTL)` 即可引用
+#option(VC_LTL_EnableCMakeInterface "VC_LTL_EnableCMakeInterface" on)
 ####################################################################################################################################################
 
 if(NOT VC_LTL_Root)
