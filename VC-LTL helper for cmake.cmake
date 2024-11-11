@@ -26,7 +26,7 @@
 
 #控制TargetPlatform版本，目前可用版本为5.1.2600.0     6.0.6000.0（默认）    6.2.9200.0     10.0.10240.0    10.0.19041.0
 #set(WindowsTargetPlatformMinVersion "10.0.10240.0")
-
+option(USE_VC_LTL5_PRIVATE "USE_VC_LTL5_PRIVATE" OFF)
 ####################################################################################################################################################
 
 if(NOT VC_LTL_Root)
@@ -81,5 +81,7 @@ if(NOT VC_LTL_Root)
 endif()
 
 if(VC_LTL_Root)
-    include("${VC_LTL_Root}\\config\\config.cmake")
+    if(EXISTS "${VC_LTL_Root}\\config\\config.cmake")
+        include("${VC_LTL_Root}\\config\\config.cmake")
+    endif()
 endif()
