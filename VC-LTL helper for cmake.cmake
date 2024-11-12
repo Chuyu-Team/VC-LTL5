@@ -26,7 +26,8 @@
 
 #控制TargetPlatform版本，目前可用版本为5.1.2600.0     6.0.6000.0（默认）    6.2.9200.0     10.0.10240.0    10.0.19041.0
 #set(WindowsTargetPlatformMinVersion "10.0.10240.0")
-option(USE_VC_LTL5_PRIVATE "USE_VC_LTL5_PRIVATE" OFF)
+#开启后 include_directories/target_link_directories 额外追加 `INTERFACE` 参数
+option(VC_LTL_EnableCMakeInterface "VC_LTL_EnableCMakeInterface" OFF)
 ####################################################################################################################################################
 
 if(NOT VC_LTL_Root)

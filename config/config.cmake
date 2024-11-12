@@ -216,7 +216,7 @@ if(${SupportLTL} STREQUAL "true")
 
 	#message("INCLUDE " $ENV{INCLUDE})
 	#message("LIB " $ENV{LIB})
-	if(USE_VC_LTL5_PRIVATE)
+	if(VC_LTL_EnableCMakeInterface)
 		add_library(VC_LTL5 INTERFACE)
 		target_include_directories(VC_LTL5 SYSTEM BEFORE INTERFACE ${VC_LTL_Include})
 		target_link_directories(VC_LTL5 INTERFACE ${VC_LTL_Library})
