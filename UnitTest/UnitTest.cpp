@@ -330,14 +330,14 @@ namespace UnitTest
 				);
 
 			
-			TestLib(
-				VCToolsInstallDir LR"(lib\arm\vcruntime.lib)",
-				L"vcruntime",
-				L"arm",
-				{ L"Dynamic", L"Static" },
-				{ L"6.2.9200.0" },
-				Info
-				);
+			//TestLib(
+			//	VCToolsInstallDir LR"(lib\arm\vcruntime.lib)",
+			//	L"vcruntime",
+			//	L"arm",
+			//	{ L"Dynamic", L"Static" },
+			//	{ L"6.2.9200.0" },
+			//	Info
+			//	);
 		}
 		
 		TEST_METHOD(vcruntime_msvcrt_Debug模式所有符号可以被链接)
@@ -368,14 +368,14 @@ namespace UnitTest
 				);
 
 			
-			TestLib(
-				VCToolsInstallDir LR"(lib\arm\vcruntimed.lib)",
-				L"vcruntime",
-				L"arm",
-				{ L"DDynamic", L"DStatic" },
-				{ L"6.2.9200.0" },
-				Info
-				);
+			//TestLib(
+			//	VCToolsInstallDir LR"(lib\arm\vcruntimed.lib)",
+			//	L"vcruntime",
+			//	L"arm",
+			//	{ L"DDynamic", L"DStatic" },
+			//	{ L"6.2.9200.0" },
+			//	Info
+			//	);
 		}
 
 		TEST_METHOD(vcruntime_ucrt模式所有符号可以被链接)
@@ -403,14 +403,14 @@ namespace UnitTest
 				Info
 				);
 
-			TestLib(
-				VCToolsInstallDir LR"(lib\arm\vcruntime.lib)",
-				L"vcruntime",
-				L"arm",
-				{ L"Dynamic", L"Static" },
-				{ L"10.0.10240.0", L"10.0.19041.0" },
-				Info
-				);
+			//TestLib(
+			//	VCToolsInstallDir LR"(lib\arm\vcruntime.lib)",
+			//	L"vcruntime",
+			//	L"arm",
+			//	{ L"Dynamic", L"Static" },
+			//	{ L"10.0.10240.0", L"10.0.19041.0" },
+			//	Info
+			//	);
 
 			TestLib(
 				VCToolsInstallDir LR"(lib\arm64\vcruntime.lib)",
@@ -448,14 +448,14 @@ namespace UnitTest
 				Info
 				);
 			
-			TestLib(
-				VCToolsInstallDir LR"(lib\arm\vcruntimed.lib)",
-				L"vcruntime",
-				L"arm",
-				{ L"DDynamic", L"DStatic" },
-				{ L"10.0.10240.0", L"10.0.19041.0" },
-				Info
-				);
+			//TestLib(
+			//	VCToolsInstallDir LR"(lib\arm\vcruntimed.lib)",
+			//	L"vcruntime",
+			//	L"arm",
+			//	{ L"DDynamic", L"DStatic" },
+			//	{ L"10.0.10240.0", L"10.0.19041.0" },
+			//	Info
+			//	);
 
 			TestLib(
 				VCToolsInstallDir LR"(lib\arm64\vcruntimed.lib)",
@@ -495,14 +495,14 @@ namespace UnitTest
 				);
 
 
-			TestLib(
-				CurrentUniversalCRTSdkDir LR"(ucrt\arm\ucrt.lib)",
-				L"ucrt",
-				L"arm",
-				{ L"Dynamic", L"Static" },
-				{ L"6.2.9200.0" },
-				Info
-				);
+			//TestLib(
+			//	CurrentUniversalCRTSdkDir LR"(ucrt\arm\ucrt.lib)",
+			//	L"ucrt",
+			//	L"arm",
+			//	{ L"Dynamic", L"Static" },
+			//	{ L"6.2.9200.0" },
+			//	Info
+			//	);
 		}
 		
 		TEST_METHOD(ucrt_msvcrt_Debug模式所有符号可以被链接)
@@ -532,14 +532,14 @@ namespace UnitTest
 				);
 
 
-			TestLib(
-				CurrentUniversalCRTSdkDir LR"(ucrt\arm\ucrtd.lib)",
-				L"ucrt",
-				L"arm",
-				{ L"DDynamic", L"DStatic" },
-				{ L"6.2.9200.0" },
-				Info
-				);
+			//TestLib(
+			//	CurrentUniversalCRTSdkDir LR"(ucrt\arm\ucrtd.lib)",
+			//	L"ucrt",
+			//	L"arm",
+			//	{ L"DDynamic", L"DStatic" },
+			//	{ L"6.2.9200.0" },
+			//	Info
+			//	);
 		}
 
 		TEST_METHOD(ucrt_ucrt模式所有符号可以被链接)
@@ -567,14 +567,14 @@ namespace UnitTest
 				Info
 				);
 
-			TestLib(
-				CurrentUniversalCRTSdkDir LR"(ucrt\arm\ucrt.lib)",
-				L"ucrt",
-				L"arm",
-				{ L"Dynamic", L"Static" },
-				{ L"10.0.10240.0", L"10.0.19041.0" },
-				Info
-				);
+			//TestLib(
+			//	CurrentUniversalCRTSdkDir LR"(ucrt\arm\ucrt.lib)",
+			//	L"ucrt",
+			//	L"arm",
+			//	{ L"Dynamic", L"Static" },
+			//	{ L"10.0.10240.0", L"10.0.19041.0" },
+			//	Info
+			//	);
 
 			TestLib(
 				CurrentUniversalCRTSdkDir LR"(ucrt\arm64\ucrt.lib)",
@@ -613,14 +613,14 @@ namespace UnitTest
 				Info
 				);
 
-			TestLib(
-				CurrentUniversalCRTSdkDir LR"(ucrt\arm\ucrtd.lib)",
-				L"ucrt",
-				L"arm",
-				{ L"DDynamic", L"DStatic" },
-				{ L"10.0.10240.0", L"10.0.19041.0" },
-				Info
-				);
+			//TestLib(
+			//	CurrentUniversalCRTSdkDir LR"(ucrt\arm\ucrtd.lib)",
+			//	L"ucrt",
+			//	L"arm",
+			//	{ L"DDynamic", L"DStatic" },
+			//	{ L"10.0.10240.0", L"10.0.19041.0" },
+			//	Info
+			//	);
 			
 			TestLib(
 				CurrentUniversalCRTSdkDir LR"(ucrt\arm64\ucrtd.lib)",

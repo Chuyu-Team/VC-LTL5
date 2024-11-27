@@ -63,15 +63,15 @@ namespace UnitTest
 				BuildProperty
 			);
 
-			RunTest(
-				pTestCode,
-				cbTestCode,
-				DetectName,
-				L"arm",
-				{ L"Dynamic", L"Static", L"DDynamic", L"DStatic" },
-				{ L"6.2.9200.0", L"10.0.10240.0", L"10.0.19041.0" },
-				BuildProperty
-			);
+			//RunTest(
+			//	pTestCode,
+			//	cbTestCode,
+			//	DetectName,
+			//	L"arm",
+			//	{ L"Dynamic", L"Static", L"DDynamic", L"DStatic" },
+			//	{ L"6.2.9200.0", L"10.0.10240.0", L"10.0.19041.0" },
+			//	BuildProperty
+			//);
 
 			RunTest(
 				pTestCode,

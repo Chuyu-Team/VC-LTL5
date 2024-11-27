@@ -113,7 +113,7 @@
 
     <Copy SourceFiles="$(UniversalCRTSdkDir)Redist\$(WindowsTargetPlatformVersion)\ucrt\DLLs\x86\ucrtbase.dll" DestinationFiles="$(SolutionDir)Redist\x86\CRT\ucrtbase.dll" />
     <Copy SourceFiles="$(UniversalCRTSdkDir)Redist\$(WindowsTargetPlatformVersion)\ucrt\DLLs\x64\ucrtbase.dll" DestinationFiles="$(SolutionDir)Redist\x64\CRT\ucrtbase.dll" />
-    <Copy SourceFiles="$(UniversalCRTSdkDir)Redist\$(WindowsTargetPlatformVersion)\ucrt\DLLs\arm\ucrtbase.dll" DestinationFiles="$(SolutionDir)Redist\arm\CRT\ucrtbase.dll" Condition="Exists('$(UniversalCRTSdkDir)Redist\$(WindowsTargetPlatformVersion)\ucrt\DLLs\arm\ucrtbase.dll')"/>
+    <!--<Copy SourceFiles="$(UniversalCRTSdkDir)Redist\$(WindowsTargetPlatformVersion)\ucrt\DLLs\arm\ucrtbase.dll" DestinationFiles="$(SolutionDir)Redist\arm\CRT\ucrtbase.dll" Condition="Exists('$(UniversalCRTSdkDir)Redist\$(WindowsTargetPlatformVersion)\ucrt\DLLs\arm\ucrtbase.dll')"/>-->
     <Copy SourceFiles="$(UniversalCRTSdkDir)Redist\$(WindowsTargetPlatformVersion)\ucrt\DLLs\arm64\ucrtbase.dll" DestinationFiles="$(SolutionDir)Redist\arm64\CRT\ucrtbase.dll" Condition="Exists('$(UniversalCRTSdkDir)Redist\$(WindowsTargetPlatformVersion)\ucrt\DLLs\arm64\ucrtbase.dll')"/>
 
     <ItemGroup>
@@ -128,7 +128,7 @@
 
     <Copy SourceFiles="@(CRTx86)" DestinationFolder="$(SolutionDir)Redist\x86\CRT"/>
     <Copy SourceFiles="@(CRTx64)" DestinationFolder="$(SolutionDir)Redist\x64\CRT"/>
-    <Copy SourceFiles="@(CRTarm)" DestinationFolder="$(SolutionDir)Redist\arm\CRT"/>
+    <!--<Copy SourceFiles="@(CRTarm)" DestinationFolder="$(SolutionDir)Redist\arm\CRT"/>-->
     <Copy SourceFiles="@(CRTarm64)" DestinationFolder="$(SolutionDir)Redist\arm64\CRT"/>
 
     <ItemGroup>
@@ -140,7 +140,7 @@
 
     <Copy SourceFiles="@(CXXAMPx86)" DestinationFolder="$(SolutionDir)Redist\x86\CXXAMP" />
     <Copy SourceFiles="@(CXXAMPx64)" DestinationFolder="$(SolutionDir)Redist\x64\CXXAMP" />
-    <Copy SourceFiles="@(CXXAMParm)" DestinationFolder="$(SolutionDir)Redist\arm\CXXAMP" />
+    <!--<Copy SourceFiles="@(CXXAMParm)" DestinationFolder="$(SolutionDir)Redist\arm\CXXAMP" />-->
     <Copy SourceFiles="@(CXXAMParm64)" DestinationFolder="$(SolutionDir)Redist\arm64\CXXAMP" />
 
 
@@ -153,7 +153,7 @@
 
     <Copy SourceFiles="@(OPENMPx86)" DestinationFolder="$(SolutionDir)Redist\x86\OPENMP" />
     <Copy SourceFiles="@(OPENMPx64)" DestinationFolder="$(SolutionDir)Redist\x64\OPENMP" />
-    <Copy SourceFiles="@(OPENMParm)" DestinationFolder="$(SolutionDir)Redist\arm\OPENMP" />
+    <!--<Copy SourceFiles="@(OPENMParm)" DestinationFolder="$(SolutionDir)Redist\arm\OPENMP" />-->
     <Copy SourceFiles="@(OPENMParm64)" DestinationFolder="$(SolutionDir)Redist\arm64\OPENMP" />
 
 
@@ -166,7 +166,7 @@
 
     <Copy SourceFiles="@(MFCx86)" DestinationFolder="$(SolutionDir)Redist\x86\MFC" />
     <Copy SourceFiles="@(MFCx64)" DestinationFolder="$(SolutionDir)Redist\x64\MFC" />
-    <Copy SourceFiles="@(MFCarm)" DestinationFolder="$(SolutionDir)Redist\arm\MFC" />
+    <!--<Copy SourceFiles="@(MFCarm)" DestinationFolder="$(SolutionDir)Redist\arm\MFC" />-->
     <Copy SourceFiles="@(MFCarm64)" DestinationFolder="$(SolutionDir)Redist\arm64\MFC" />
 
     <ItemGroup>
@@ -178,7 +178,7 @@
 
     <Copy SourceFiles="@(MFCLOCx86)" DestinationFolder="$(SolutionDir)Redist\x86\MFCLOC" />
     <Copy SourceFiles="@(MFCLOCx64)" DestinationFolder="$(SolutionDir)Redist\x64\MFCLOC" />
-    <Copy SourceFiles="@(MFCLOCarm)" DestinationFolder="$(SolutionDir)Redist\arm\MFCLOC" />
+    <!--<Copy SourceFiles="@(MFCLOCarm)" DestinationFolder="$(SolutionDir)Redist\arm\MFCLOC" />-->
     <Copy SourceFiles="@(MFCLOCarm64)" DestinationFolder="$(SolutionDir)Redist\arm64\MFCLOC" />
 
 
@@ -194,9 +194,9 @@
   </Target>
   
   <Target Name="_GetProjectAllConfiguration" Returns="@(AllProjectReferenceConfigurations)">
-    <!--故意过滤Debug配置-->
+    <!--故意过滤Debug配置 与 ARM配置，因为ARM的人实在是太少了。-->
     <CreateItem
-      Condition="'%(ProjectConfiguration.Configuration)' != 'Debug'"
+      Condition="'%(ProjectConfiguration.Configuration)' != 'Debug' and '%(ProjectConfiguration.Platform)' != 'ARM'"
       Include="$(MSBuildProjectFullPath)"
       AdditionalMetadata="Configuration=%(ProjectConfiguration.Configuration);Platform=%(ProjectConfiguration.Platform);WindowsTargetPlatformMinVersion=%(ProjectConfiguration.WindowsTargetPlatformMinVersion);AdditionalProperties=Configuration=%(ProjectConfiguration.Configuration)%3BPlatform=%(ProjectConfiguration.Platform)%3BWindowsTargetPlatformMinVersion=%(ProjectConfiguration.WindowsTargetPlatformMinVersion)">
       <Output TaskParameter="Include" ItemName="AllProjectReferenceConfigurations"/>
