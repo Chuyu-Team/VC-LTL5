@@ -57,6 +57,11 @@
     <VCLTLSupportPlatformToolset Condition="('$(VCLTLSupportPlatformToolset)'=='') And ('$(PlatformToolset)'=='LLVM_v140')">true</VCLTLSupportPlatformToolset>
     <VCLTLSupportPlatformToolset Condition="('$(VCLTLSupportPlatformToolset)'=='') And ('$(PlatformToolset)'=='LLVM_v141')">true</VCLTLSupportPlatformToolset>
     <VCLTLSupportPlatformToolset Condition="('$(VCLTLSupportPlatformToolset)'=='') And ('$(PlatformToolset)'=='LLVM_v142')">true</VCLTLSupportPlatformToolset>
+    <VCLTLSupportPlatformToolset Condition="('$(VCLTLSupportPlatformToolset)'=='') And ('$(PlatformToolset)'=='LLVM_v143')">true</VCLTLSupportPlatformToolset>
+    <VCLTLSupportPlatformToolset Condition="('$(VCLTLSupportPlatformToolset)'=='') And ('$(PlatformToolset)'=='LLVM-MSVC_v140')">true</VCLTLSupportPlatformToolset>
+    <VCLTLSupportPlatformToolset Condition="('$(VCLTLSupportPlatformToolset)'=='') And ('$(PlatformToolset)'=='LLVM-MSVC_v141')">true</VCLTLSupportPlatformToolset>
+    <VCLTLSupportPlatformToolset Condition="('$(VCLTLSupportPlatformToolset)'=='') And ('$(PlatformToolset)'=='LLVM-MSVC_v142')">true</VCLTLSupportPlatformToolset>
+    <VCLTLSupportPlatformToolset Condition="('$(VCLTLSupportPlatformToolset)'=='') And ('$(PlatformToolset)'=='LLVM-MSVC_v143')">true</VCLTLSupportPlatformToolset>
     <VCLTLSupportPlatformToolset Condition="('$(VCLTLSupportPlatformToolset)'=='') And ('$(PlatformToolset)'=='Intel C++ Compiler 2022')">true</VCLTLSupportPlatformToolset>
 
     <!--VC-LTL仅支持x86、x64、arm、arm64-->
