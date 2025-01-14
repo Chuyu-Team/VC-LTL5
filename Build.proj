@@ -40,7 +40,7 @@
   
   <Import Project="$(VCInstallDir)\Auxiliary\Build\Microsoft.VCToolsVersion.default.props" />
     
-  <Target Name="DownloadTools" BeforeTargets="Build;PackRedist">
+  <Target Name="DownloadTools" BeforeTargets="Build">
     <!--下载LibMaker-->
     <DownloadFile
       Condition="!Exists('$(MSBuildThisFileDirectory)Tools\LibMaker.exe')"
@@ -70,15 +70,15 @@
     <MSBuild Projects="@(WindowsTargetPlatformMinVersionItem)" StopOnFirstFailure="True" Targets="Build_libucrt_shared" BuildInParallel="True" Properties="$(GlobalProperties)"/>
     
     <!--启动实际编译-->
-    <MSBuild Projects="@(ProjectReference)" StopOnFirstFailure="True" BuildInParallel="True" Properties="$(GlobalProperties)"/>
+    <MSBuild Projects="@(ProjectReference)" StopOnFirstFailure="True" BuildInParallel="True" Properties="$(GlobalProperties)"/>    
   </Target>
 
   <!-- VC-LTL Rust crate 编译准备 -->
   <Target Name="PrepareToCompileRustLanguageSupport">
     <ItemGroup>
-      <RustTargetPlatform_x86 Include="$(SolutionDir)TargetPlatform\6.0.6000.0\lib\Win32\*ucrt.lib;$(SolutionDir)TargetPlatform\6.0.6000.0\lib\Win32\*vcruntime.lib;" />
-      <RustTargetPlatform_x64 Include="$(SolutionDir)TargetPlatform\6.0.6000.0\lib\x64\*ucrt.lib;$(SolutionDir)TargetPlatform\6.0.6000.0\lib\x64\*vcruntime.lib;" />
-      <RustTargetPlatform_arm64 Include="$(SolutionDir)TargetPlatform\10.0.10240.0\lib\ARM64\*ucrt.lib;$(SolutionDir)TargetPlatform\10.0.10240.0\lib\ARM64\*vcruntime.lib;" />
+      <RustTargetPlatform_x86 Include="$(SolutionDir)TargetPlatform\6.0.6000.0\lib\Win32\**\*ucrt.lib;$(SolutionDir)TargetPlatform\6.0.6000.0\lib\Win32\**\*vcruntime.lib;" />
+      <RustTargetPlatform_x64 Include="$(SolutionDir)TargetPlatform\6.0.6000.0\lib\x64\**\*ucrt.lib;$(SolutionDir)TargetPlatform\6.0.6000.0\lib\x64\**\*vcruntime.lib;" />
+      <RustTargetPlatform_arm64 Include="$(SolutionDir)TargetPlatform\10.0.10240.0\lib\ARM64\**\*ucrt.lib;$(SolutionDir)TargetPlatform\10.0.10240.0\lib\ARM64\**\*vcruntime.lib;" />
       <RustTargetPlatform_Common Include="$(SolutionDir)Readme.md;$(SolutionDir)LICENSE;" />
     </ItemGroup>
 
@@ -95,102 +95,6 @@
     </PropertyGroup>
     <Delete Files="$(MSBuildThisFileDirectory)$(ZipFileName)"/>
     <Exec Command="7z.exe a $(ZipFileName) config _msvcrt.h %22VC-LTL helper for *%22 TargetPlatform Readme.md Readme.osc.md Install.cmd -xr!*.objs.lib -xr!*.idb" WorkingDirectory="$(MSBuildThisFileDirectory)"/>
-  </Target>
-
-  <Target Name="PackRedist">
-    <PropertyGroup>
-      <ZipFileName Condition="'$(TagVersion)' == ''">VC-LTL-Redist.7z</ZipFileName>
-      <ZipFileName Condition="'$(TagVersion)' != ''">VC-LTL-$(TagVersion)-Redist.7z</ZipFileName>
-    </PropertyGroup>
-
-    <!--生成Redist相关文件-->
-    <PropertyGroup>
-      <ExcludeCRT2>**\vccorlib140.dll;**\vcruntime140.dll</ExcludeCRT2>
-    </PropertyGroup>
-    <!--生成移除了API Set的CRT DLL-->
-    <RemoveDir Directories="$(SolutionDir)Redist" Condition="Exists('$(SolutionDir)Redist')"/>
-    <MakeDir Directories="$(SolutionDir)Redist" />
-
-    <Copy SourceFiles="$(UniversalCRTSdkDir)Redist\$(WindowsTargetPlatformVersion)\ucrt\DLLs\x86\ucrtbase.dll" DestinationFiles="$(SolutionDir)Redist\x86\CRT\ucrtbase.dll" />
-    <Copy SourceFiles="$(UniversalCRTSdkDir)Redist\$(WindowsTargetPlatformVersion)\ucrt\DLLs\x64\ucrtbase.dll" DestinationFiles="$(SolutionDir)Redist\x64\CRT\ucrtbase.dll" />
-    <!--<Copy SourceFiles="$(UniversalCRTSdkDir)Redist\$(WindowsTargetPlatformVersion)\ucrt\DLLs\arm\ucrtbase.dll" DestinationFiles="$(SolutionDir)Redist\arm\CRT\ucrtbase.dll" Condition="Exists('$(UniversalCRTSdkDir)Redist\$(WindowsTargetPlatformVersion)\ucrt\DLLs\arm\ucrtbase.dll')"/>-->
-    <Copy SourceFiles="$(UniversalCRTSdkDir)Redist\$(WindowsTargetPlatformVersion)\ucrt\DLLs\arm64\ucrtbase.dll" DestinationFiles="$(SolutionDir)Redist\arm64\CRT\ucrtbase.dll" Condition="Exists('$(UniversalCRTSdkDir)Redist\$(WindowsTargetPlatformVersion)\ucrt\DLLs\arm64\ucrtbase.dll')"/>
-
-    <ItemGroup>
-      <CRTExcludeList Include="$(VCInstallDir)\Redist\MSVC\$(VCToolsRedistVersion)\*\Microsoft.VC*.CRT\vcruntime*.dll"/>
-      <CRTExcludeList Include="$(VCInstallDir)\Redist\MSVC\$(VCToolsRedistVersion)\*\Microsoft.VC*.CRT\vccorlib*.dll"/>
-
-      <CRTx86 Include="$(VCInstallDir)\Redist\MSVC\$(VCToolsRedistVersion)\x86\Microsoft.VC*.CRT\*.dll" Exclude="@(CRTExcludeList)"/>
-      <CRTx64 Include="$(VCInstallDir)\Redist\MSVC\$(VCToolsRedistVersion)\x64\Microsoft.VC*.CRT\*.dll" Exclude="@(CRTExcludeList)"/>
-      <CRTarm Include="$(VCInstallDir)\Redist\MSVC\$(VCToolsRedistVersion)\arm\Microsoft.VC*.CRT\*.dll" Exclude="@(CRTExcludeList)"/>
-      <CRTarm64 Include="$(VCInstallDir)\Redist\MSVC\$(VCToolsRedistVersion)\arm64\Microsoft.VC*.CRT\*.dll" Exclude="@(CRTExcludeList)"/>
-    </ItemGroup>
-
-    <Copy SourceFiles="@(CRTx86)" DestinationFolder="$(SolutionDir)Redist\x86\CRT"/>
-    <Copy SourceFiles="@(CRTx64)" DestinationFolder="$(SolutionDir)Redist\x64\CRT"/>
-    <!--<Copy SourceFiles="@(CRTarm)" DestinationFolder="$(SolutionDir)Redist\arm\CRT"/>-->
-    <Copy SourceFiles="@(CRTarm64)" DestinationFolder="$(SolutionDir)Redist\arm64\CRT"/>
-
-    <ItemGroup>
-      <CXXAMPx86 Include="$(VCInstallDir)\Redist\MSVC\$(VCToolsRedistVersion)\x86\Microsoft.VC*.CXXAMP\*.dll" />
-      <CXXAMPx64 Include="$(VCInstallDir)\Redist\MSVC\$(VCToolsRedistVersion)\x64\Microsoft.VC*.CXXAMP\*.dll" />
-      <CXXAMParm Include="$(VCInstallDir)\Redist\MSVC\$(VCToolsRedistVersion)\arm\Microsoft.VC*.CXXAMP\*.dll" />
-      <CXXAMParm64 Include="$(VCInstallDir)\Redist\MSVC\$(VCToolsRedistVersion)\arm64\Microsoft.VC*.CXXAMP\*.dll" />
-    </ItemGroup>
-
-    <Copy SourceFiles="@(CXXAMPx86)" DestinationFolder="$(SolutionDir)Redist\x86\CXXAMP" />
-    <Copy SourceFiles="@(CXXAMPx64)" DestinationFolder="$(SolutionDir)Redist\x64\CXXAMP" />
-    <!--<Copy SourceFiles="@(CXXAMParm)" DestinationFolder="$(SolutionDir)Redist\arm\CXXAMP" />-->
-    <Copy SourceFiles="@(CXXAMParm64)" DestinationFolder="$(SolutionDir)Redist\arm64\CXXAMP" />
-
-
-    <ItemGroup>
-      <OPENMPx86 Include="$(VCInstallDir)\Redist\MSVC\$(VCToolsRedistVersion)\x86\Microsoft.VC*.OPENMP\*.dll" />
-      <OPENMPx64 Include="$(VCInstallDir)\Redist\MSVC\$(VCToolsRedistVersion)\x64\Microsoft.VC*.OPENMP\*.dll" />
-      <OPENMParm Include="$(VCInstallDir)\Redist\MSVC\$(VCToolsRedistVersion)\arm\Microsoft.VC*.OPENMP\*.dll" />
-      <OPENMParm64 Include="$(VCInstallDir)\Redist\MSVC\$(VCToolsRedistVersion)\arm64\Microsoft.VC*.OPENMP\*.dll" />
-    </ItemGroup>
-
-    <Copy SourceFiles="@(OPENMPx86)" DestinationFolder="$(SolutionDir)Redist\x86\OPENMP" />
-    <Copy SourceFiles="@(OPENMPx64)" DestinationFolder="$(SolutionDir)Redist\x64\OPENMP" />
-    <!--<Copy SourceFiles="@(OPENMParm)" DestinationFolder="$(SolutionDir)Redist\arm\OPENMP" />-->
-    <Copy SourceFiles="@(OPENMParm64)" DestinationFolder="$(SolutionDir)Redist\arm64\OPENMP" />
-
-
-    <ItemGroup>
-      <MFCx86 Include="$(VCInstallDir)\Redist\MSVC\$(VCToolsRedistVersion)\x86\Microsoft.VC*.MFC\*.dll" />
-      <MFCx64 Include="$(VCInstallDir)\Redist\MSVC\$(VCToolsRedistVersion)\x64\Microsoft.VC*.MFC\*.dll" />
-      <MFCarm Include="$(VCInstallDir)\Redist\MSVC\$(VCToolsRedistVersion)\arm\Microsoft.VC*.MFC\*.dll" />
-      <MFCarm64 Include="$(VCInstallDir)\Redist\MSVC\$(VCToolsRedistVersion)\arm64\Microsoft.VC*.MFC\*.dll" />
-    </ItemGroup>
-
-    <Copy SourceFiles="@(MFCx86)" DestinationFolder="$(SolutionDir)Redist\x86\MFC" />
-    <Copy SourceFiles="@(MFCx64)" DestinationFolder="$(SolutionDir)Redist\x64\MFC" />
-    <!--<Copy SourceFiles="@(MFCarm)" DestinationFolder="$(SolutionDir)Redist\arm\MFC" />-->
-    <Copy SourceFiles="@(MFCarm64)" DestinationFolder="$(SolutionDir)Redist\arm64\MFC" />
-
-    <ItemGroup>
-      <MFCLOCx86 Include="$(VCInstallDir)\Redist\MSVC\$(VCToolsRedistVersion)\x86\Microsoft.VC*.MFCLOC\*.dll" />
-      <MFCLOCx64 Include="$(VCInstallDir)\Redist\MSVC\$(VCToolsRedistVersion)\x64\Microsoft.VC*.MFCLOC\*.dll" />
-      <MFCLOCarm Include="$(VCInstallDir)\Redist\MSVC\$(VCToolsRedistVersion)\arm\Microsoft.VC*.MFCLOC\*.dll" />
-      <MFCLOCarm64 Include="$(VCInstallDir)\Redist\MSVC\$(VCToolsRedistVersion)\arm64\Microsoft.VC*.MFCLOC\*.dll" />
-    </ItemGroup>
-
-    <Copy SourceFiles="@(MFCLOCx86)" DestinationFolder="$(SolutionDir)Redist\x86\MFCLOC" />
-    <Copy SourceFiles="@(MFCLOCx64)" DestinationFolder="$(SolutionDir)Redist\x64\MFCLOC" />
-    <!--<Copy SourceFiles="@(MFCLOCarm)" DestinationFolder="$(SolutionDir)Redist\arm\MFCLOC" />-->
-    <Copy SourceFiles="@(MFCLOCarm64)" DestinationFolder="$(SolutionDir)Redist\arm64\MFCLOC" />
-
-
-    <!--移除APISet-->
-    <ItemGroup>
-      <RedistFiles Include="$(SolutionDir)Redist\**\*.dll"/>
-    </ItemGroup>
-    <Exec Command="%22$(MSBuildThisFileDirectory)Tools\LibMaker.exe%22 RemoveAPISet %22%(RedistFiles.identity)%22 %22$(MSBuildThisFileDirectory)Tools\ApiSetMap.txt%22" WorkingDirectory="$(MSBuildThisFileDirectory)"/>
-
-
-    <Delete Files="$(MSBuildThisFileDirectory)$(ZipFileName)"/>
-    <Exec Command="7z.exe a $(ZipFileName) Redist" WorkingDirectory="$(MSBuildThisFileDirectory)"/>
   </Target>
   
   <Target Name="_GetProjectAllConfiguration" Returns="@(AllProjectReferenceConfigurations)">

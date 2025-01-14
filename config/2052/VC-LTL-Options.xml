@@ -37,7 +37,13 @@
       Category="VC_LTL"
       DisplayName="启用VC-LTL"
       Description="允许当前项目启用VC-LTL，此选项一般用于验证某些问题时使用，非特殊情况建议始终保持开启。"/>
-    
+
+    <BoolProperty
+     Name="VC_LTL_EnableNewStyleRuntimeDlls"
+     Category="VC_LTL"
+     DisplayName="开启新式Dlls依赖"
+     Description="实验性功能！开启后，对于使用`/MD`构建项目将依赖ucrtbase.dll，使用后你可能需要下载VC-LTL.Redist.Dlls.zip（感谢msvcr14x项目提供兼容XP系统的ucrtbase.dll）。"/>
+
     <EnumProperty
       Name="WindowsTargetPlatformMinVersion"
       Category="VC_LTL"

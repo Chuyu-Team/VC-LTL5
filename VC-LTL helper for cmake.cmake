@@ -29,6 +29,9 @@
 
 #(PR#70 引入)，默认关，开启后将使用cmake `INTERFACE`能力，然后单独`target_link_directories(工程名称 VC_LTL)` 即可引用
 #option(VC_LTL_EnableCMakeInterface "VC_LTL_EnableCMakeInterface" on)
+
+#(Fea #64 引入)，实验性功能！开启后，对于使用`/MD`构建项目将依赖ucrtbase.dll，使用后你可能需要下载VC-LTL.Redist.Dlls.zip（感谢msvcr14x项目提供兼容XP系统的ucrtbase.dll）。
+#option(VC_LTL_EnableNewStyleRuntimeDlls "VC_LTL_EnableNewStyleRuntimeDlls" on)
 ####################################################################################################################################################
 
 if(NOT VC_LTL_Root)

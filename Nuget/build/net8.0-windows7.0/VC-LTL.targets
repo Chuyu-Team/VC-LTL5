@@ -22,7 +22,7 @@
       <LTLWindowsTargetPlatformMinVersion Condition="'$(LTLWindowsTargetPlatformMinVersion)' == '' and '$(LTLPlatform)'=='Win32'">5.1.2600.0</LTLWindowsTargetPlatformMinVersion>
     </PropertyGroup>
     <ItemGroup Condition="'$(LTLWindowsTargetPlatformMinVersion)' != '' and '$(LTLPlatform)' != ''">
-      <AdditionalNativeLibraryDirectories Include="$(MSBuildThisFileDirectory)..\native\TargetPlatform\$(LTLWindowsTargetPlatformMinVersion)\lib\$(LTLPlatform)" />
+      <AdditionalNativeLibraryDirectories Include="$(MSBuildThisFileDirectory)..\native\TargetPlatform\$(LTLWindowsTargetPlatformMinVersion)\lib\$(LTLPlatform);$(MSBuildThisFileDirectory)..\native\TargetPlatform\$(LTLWindowsTargetPlatformMinVersion)\lib\$(LTLPlatform)\Shared" />
     </ItemGroup>
   </Target>
 </Project>

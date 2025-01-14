@@ -113,6 +113,10 @@ $$escape_expand(\\n)############################################################
 
 message($$VC_LTL_Info)
 
+VC_LTL_MD_SharedVersion = $$LTLWindowsTargetPlatformMinVersion
+equals(VC_LTL_EnableNewStyleRuntimeDlls, true) {
+  VC_LTL_MD_SharedVersion = 10.0.10240.0
+}
 
 # 修改头文件及库搜索路径
 QMAKE_INCDIR += \
@@ -120,4 +124,5 @@ QMAKE_INCDIR += \
     $$VC_LTL_Root/TargetPlatform/$$LTLWindowsTargetPlatformMinVersion/header
 
 QMAKE_LIBS += \
-    -L$$VC_LTL_Root/TargetPlatform/$$LTLWindowsTargetPlatformMinVersion/lib/$$LTLPlatform
+    -L$$VC_LTL_Root/TargetPlatform/$$LTLWindowsTargetPlatformMinVersion/lib/$$LTLPlatform \
+    -L$$VC_LTL_Root/TargetPlatform/$$VC_LTL_MD_SharedVersion/lib/$$LTLPlatform/Shared

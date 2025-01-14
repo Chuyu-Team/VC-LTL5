@@ -82,8 +82,11 @@
     <SupportWinXP></SupportWinXP>
     <SupportWinXP Condition="($([System.Version]::Parse('6.0.0.0').CompareTo($([System.Version]::Parse('$(LTLWindowsTargetPlatformMinVersion)')))) > 0)">true</SupportWinXP>
 
+    <VC_LTL_MD_SharedVersion>$(LTLWindowsTargetPlatformMinVersion)</VC_LTL_MD_SharedVersion>
+    <VC_LTL_MD_SharedVersion Condition="('$(VC_LTL_EnableNewStyleRuntimeDlls)' == 'true') and ($([System.Version]::Parse('10.0.0.0').CompareTo($([System.Version]::Parse('$(LTLWindowsTargetPlatformMinVersion)')))) > 0)">10.0.10240.0</VC_LTL_MD_SharedVersion>
+    
     <VC_LTL_Include>$(VC_LTL_Root)TargetPlatform\header;$(VC_LTL_Root)TargetPlatform\$(LTLWindowsTargetPlatformMinVersion)\header</VC_LTL_Include>
-    <VC_LTL_Library>$(VC_LTL_Root)TargetPlatform\$(LTLWindowsTargetPlatformMinVersion)\lib\$(Platform);$(IntDir)VC-LTL5.tmp\$(LTLWindowsTargetPlatformMinVersion)\$(Platform)</VC_LTL_Library>
+    <VC_LTL_Library>$(VC_LTL_Root)TargetPlatform\$(LTLWindowsTargetPlatformMinVersion)\lib\$(Platform);$(VC_LTL_Root)TargetPlatform\$(VC_LTL_MD_SharedVersion)\lib\$(Platform)\Shared;$(IntDir)VC-LTL5.tmp\$(LTLWindowsTargetPlatformMinVersion)\$(Platform)</VC_LTL_Library>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(SupportLTL)'=='true' or '$(SupportLTL)'=='ucrt'">

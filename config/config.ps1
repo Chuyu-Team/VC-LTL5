@@ -209,6 +209,15 @@ Write-Host  "$LTLWindowsTargetPlatformMinVersion" -ForegroundColor Green
 Write-Host  -NoNewline  "Platform : " -ForegroundColor Red
 Write-Host  "$LTLPlatform" -ForegroundColor Green
 
+$private:VC_LTL_MD_SharedVersion = $LTLWindowsTargetPlatformMinVersion 
+if($env:VC_LTL_EnableNewStyleRuntimeDlls -ieq "true")
+{
+    if($LTLWindowsTargetPlatformMinVersion -lt [Version]::new("10.0.10240.0"))
+    {
+        $private:VC_LTL_MD_SharedVersion = "10.0.10240.0" 
+    }
+}
+
 $env:INCLUDE="$env:VC_LTL_Root\TargetPlatform\header;$env:VC_LTL_Root\TargetPlatform\$LTLWindowsTargetPlatformMinVersion\header;$env:INCLUDE"
-$env:LIB="$env:VC_LTL_Root\TargetPlatform\$LTLWindowsTargetPlatformMinVersion\lib\$LTLPlatform;$env:LIB"
+$env:LIB="$env:VC_LTL_Root\TargetPlatform\$LTLWindowsTargetPlatformMinVersion\lib\$LTLPlatform;$env:VC_LTL_Root\TargetPlatform\$VC_LTL_MD_SharedVersion\lib\$LTLPlatform\Shared;$env:LIB"
 
