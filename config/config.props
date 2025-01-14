@@ -18,24 +18,24 @@
     <LTL_LANGID Condition="('$(LTL_LANGID)' == '') or (!Exists('$(MSBuildThisFileDirectory)$(LTL_LANGID)'))">1033</LTL_LANGID>
   </PropertyGroup>
   <PropertyGroup>
-    <LTLWindowsTargetPlatformMinVersion></LTLWindowsTargetPlatformMinVersion>
+    <InternalLTLCRTVersion></InternalLTLCRTVersion>
     <!--兼容一下以前的XP模式-->
-    <LTLWindowsTargetPlatformMinVersion Condition="('$(Platform)'=='Win32') And ('$(LTLWindowsTargetPlatformMinVersion)'=='') And (('$(SupportWinXP)'=='true') Or ($(PlatformToolset.IndexOf('_xp')) != -1))">5.1.2600.0</LTLWindowsTargetPlatformMinVersion>
-    <LTLWindowsTargetPlatformMinVersion Condition="('$(Platform)'=='x64') And ('$(LTLWindowsTargetPlatformMinVersion)'=='') And (('$(SupportWinXP)'=='true') Or ($(PlatformToolset.IndexOf('_xp')) != -1))">5.2.3790.0</LTLWindowsTargetPlatformMinVersion>
+    <InternalLTLCRTVersion Condition="('$(Platform)'=='Win32') And ('$(InternalLTLCRTVersion)'=='') And (('$(SupportWinXP)'=='true') Or ($(PlatformToolset.IndexOf('_xp')) != -1))">5.1.2600.0</InternalLTLCRTVersion>
+    <InternalLTLCRTVersion Condition="('$(Platform)'=='x64') And ('$(InternalLTLCRTVersion)'=='') And (('$(SupportWinXP)'=='true') Or ($(PlatformToolset.IndexOf('_xp')) != -1))">5.2.3790.0</InternalLTLCRTVersion>
 
     <!--配置默认值-->
-    <LTLWindowsTargetPlatformMinVersion Condition="('$(Platform)'=='Win32' or '$(Platform)'=='x64') And ('$(LTLWindowsTargetPlatformMinVersion)'=='') And ('$(WindowsTargetPlatformMinVersion)'=='')">6.0.6000.0</LTLWindowsTargetPlatformMinVersion>
-    <LTLWindowsTargetPlatformMinVersion Condition="('$(Platform)'=='arm') And ('$(LTLWindowsTargetPlatformMinVersion)'=='') And ('$(WindowsTargetPlatformMinVersion)'=='')">6.2.9200.0</LTLWindowsTargetPlatformMinVersion>
-    <LTLWindowsTargetPlatformMinVersion Condition="('$(Platform)'=='arm64') And ('$(LTLWindowsTargetPlatformMinVersion)'=='') And ('$(WindowsTargetPlatformMinVersion)'=='')">10.0.10240.0</LTLWindowsTargetPlatformMinVersion>
+    <InternalLTLCRTVersion Condition="('$(Platform)'=='Win32' or '$(Platform)'=='x64') And ('$(InternalLTLCRTVersion)'=='') And ('$(WindowsTargetPlatformMinVersion)'=='')">6.0.6000.0</InternalLTLCRTVersion>
+    <InternalLTLCRTVersion Condition="('$(Platform)'=='arm') And ('$(InternalLTLCRTVersion)'=='') And ('$(WindowsTargetPlatformMinVersion)'=='')">6.2.9200.0</InternalLTLCRTVersion>
+    <InternalLTLCRTVersion Condition="('$(Platform)'=='arm64') And ('$(InternalLTLCRTVersion)'=='') And ('$(WindowsTargetPlatformMinVersion)'=='')">10.0.10240.0</InternalLTLCRTVersion>
 
     <!--匹配最佳版本-->
-    <LTLWindowsTargetPlatformMinVersion Condition="('$(Platform)'=='Win32') And ('$(LTLWindowsTargetPlatformMinVersion)'=='') And ('$(WindowsTargetPlatformMinVersion)'!='') And ($([System.Version]::Parse('6.0.0.0').CompareTo($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)')))) > 0)">5.1.2600.0</LTLWindowsTargetPlatformMinVersion>
-    <LTLWindowsTargetPlatformMinVersion Condition="('$(Platform)'=='x64') And ('$(LTLWindowsTargetPlatformMinVersion)'=='') And ('$(WindowsTargetPlatformMinVersion)'!='') And ($([System.Version]::Parse('6.0.0.0').CompareTo($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)')))) > 0)">5.2.3790.0</LTLWindowsTargetPlatformMinVersion>
-    <LTLWindowsTargetPlatformMinVersion Condition="('$(Platform)'=='Win32' or '$(Platform)'=='x64') And ('$(LTLWindowsTargetPlatformMinVersion)'=='') And ('$(WindowsTargetPlatformMinVersion)'!='') And ($([System.Version]::Parse('6.2.0.0').CompareTo($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)')))) > 0)">6.0.6000.0</LTLWindowsTargetPlatformMinVersion>
-    <LTLWindowsTargetPlatformMinVersion Condition="('$(Platform)'=='Win32' or '$(Platform)'=='x64' or '$(Platform)'=='arm') And ('$(LTLWindowsTargetPlatformMinVersion)'=='') And ('$(WindowsTargetPlatformMinVersion)'!='') And ($([System.Version]::Parse('10.0.0.0').CompareTo($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)')))) > 0)">6.2.9200.0</LTLWindowsTargetPlatformMinVersion>
-    <LTLWindowsTargetPlatformMinVersion Condition="('$(LTLWindowsTargetPlatformMinVersion)'=='') And ('$(WindowsTargetPlatformMinVersion)'!='') And ($([System.Version]::Parse('10.0.19041.0').CompareTo($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)')))) > 0)">10.0.10240.0</LTLWindowsTargetPlatformMinVersion>
-    <LTLWindowsTargetPlatformMinVersion Condition="('$(LTLWindowsTargetPlatformMinVersion)'=='') And ('$(WindowsTargetPlatformMinVersion)'!='')">10.0.19041.0</LTLWindowsTargetPlatformMinVersion>
-    <LTLWindowsTargetPlatformMinVersion Condition="('$(LTLWindowsTargetPlatformMinVersion)'=='')">6.0.6000.0</LTLWindowsTargetPlatformMinVersion>
+    <InternalLTLCRTVersion Condition="('$(Platform)'=='Win32') And ('$(InternalLTLCRTVersion)'=='') And ('$(WindowsTargetPlatformMinVersion)'!='') And ($([System.Version]::Parse('6.0.0.0').CompareTo($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)')))) > 0)">5.1.2600.0</InternalLTLCRTVersion>
+    <InternalLTLCRTVersion Condition="('$(Platform)'=='x64') And ('$(InternalLTLCRTVersion)'=='') And ('$(WindowsTargetPlatformMinVersion)'!='') And ($([System.Version]::Parse('6.0.0.0').CompareTo($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)')))) > 0)">5.2.3790.0</InternalLTLCRTVersion>
+    <InternalLTLCRTVersion Condition="('$(Platform)'=='Win32' or '$(Platform)'=='x64') And ('$(InternalLTLCRTVersion)'=='') And ('$(WindowsTargetPlatformMinVersion)'!='') And ($([System.Version]::Parse('6.2.0.0').CompareTo($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)')))) > 0)">6.0.6000.0</InternalLTLCRTVersion>
+    <InternalLTLCRTVersion Condition="('$(Platform)'=='Win32' or '$(Platform)'=='x64' or '$(Platform)'=='arm') And ('$(InternalLTLCRTVersion)'=='') And ('$(WindowsTargetPlatformMinVersion)'!='') And ($([System.Version]::Parse('10.0.0.0').CompareTo($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)')))) > 0)">6.2.9200.0</InternalLTLCRTVersion>
+    <InternalLTLCRTVersion Condition="('$(InternalLTLCRTVersion)'=='') And ('$(WindowsTargetPlatformMinVersion)'!='') And ($([System.Version]::Parse('10.0.19041.0').CompareTo($([System.Version]::Parse('$(WindowsTargetPlatformMinVersion)')))) > 0)">10.0.10240.0</InternalLTLCRTVersion>
+    <InternalLTLCRTVersion Condition="('$(InternalLTLCRTVersion)'=='') And ('$(WindowsTargetPlatformMinVersion)'!='')">10.0.19041.0</InternalLTLCRTVersion>
+    <InternalLTLCRTVersion Condition="('$(InternalLTLCRTVersion)'=='')">6.0.6000.0</InternalLTLCRTVersion>
 
     <!--检测VC-LTL支持的平台工具集-->
     <VCLTLSupportPlatformToolset></VCLTLSupportPlatformToolset>
@@ -73,20 +73,23 @@
     <!--VC-LTL核心版本号，由于4.X并不兼容3.X。此值可以用于兼容性判断。-->
     <LTL_CoreVersion>5</LTL_CoreVersion>
     <VC_LTL_Root>$([MSBuild]::NormalizePath('$(MSBuildThisFileDirectory)..\'))</VC_LTL_Root>
-    <LTL_Mode Condition=" '$(DisableAdvancedSupport)'=='true' ">Light</LTL_Mode>
-    <LTL_Mode Condition=" '$(DisableAdvancedSupport)'!='true' ">Advanced</LTL_Mode>
 
-    <SupportLTL Condition="('$(SupportLTL)'!='false') And (('$(DriverTargetPlatform)'=='Universal') Or ('$(VCLTLSupportPlatformToolset)' != 'true'))">false</SupportLTL>
-    <SupportLTL Condition="('$(SupportLTL)'=='') And ('$(VCLTLSupportPlatform)'=='true')">true</SupportLTL>
+    <InternalSupportLTL>$(SupportLTL)</InternalSupportLTL>
+    <InternalSupportLTL Condition="('$(InternalSupportLTL)'!='false') And (('$(DriverTargetPlatform)'=='Universal') Or ('$(VCLTLSupportPlatformToolset)' != 'true'))">false</InternalSupportLTL>
+    <InternalSupportLTL Condition="('$(InternalSupportLTL)'=='') And ('$(VCLTLSupportPlatform)'=='true')">true</InternalSupportLTL>
 
-    <SupportWinXP></SupportWinXP>
-    <SupportWinXP Condition="($([System.Version]::Parse('6.0.0.0').CompareTo($([System.Version]::Parse('$(LTLWindowsTargetPlatformMinVersion)')))) > 0)">true</SupportWinXP>
+    <InternalSupportLTL Condition="('$(InternalSupportLTL)'=='true') And ($([System.Version]::Parse('$(InternalLTLCRTVersion)').CompareTo($([System.Version]::Parse('10.0.0.0')))) >= 0)">ucrt</InternalSupportLTL>
+    <InternalSupportLTL Condition="'$(InternalSupportLTL)'=='true'">msvcrt</InternalSupportLTL>
+    <InternalSupportLTL Condition="('$(InternalSupportLTL)'=='msvcrt') and ('$(Platform)'=='arm64')">ucrt</InternalSupportLTL>
 
-    <VC_LTL_Include>$(VC_LTL_Root)TargetPlatform\header;$(VC_LTL_Root)TargetPlatform\$(LTLWindowsTargetPlatformMinVersion)\header</VC_LTL_Include>
-    <VC_LTL_Library>$(VC_LTL_Root)TargetPlatform\$(LTLWindowsTargetPlatformMinVersion)\lib\$(Platform);$(IntDir)VC-LTL5.tmp\$(LTLWindowsTargetPlatformMinVersion)\$(Platform)</VC_LTL_Library>
+    <InternalLTLCRTVersion Condition="('$(InternalSupportLTL)'=='msvcrt') and ($([System.Version]::Parse('$(InternalLTLCRTVersion)').CompareTo($([System.Version]::Parse('10.0.0.0')))) >= 0)">6.2.9200.0</InternalLTLCRTVersion>
+    <InternalLTLCRTVersion Condition="('$(InternalSupportLTL)'=='ucrt') and ($([System.Version]::Parse('$(InternalLTLCRTVersion)').CompareTo($([System.Version]::Parse('10.0.0.0')))) &lt; 0)">10.0.10240.0</InternalLTLCRTVersion>
+
+    <VC_LTL_Include>$(VC_LTL_Root)TargetPlatform\header;$(VC_LTL_Root)TargetPlatform\$(InternalLTLCRTVersion)\header</VC_LTL_Include>
+    <VC_LTL_Library>$(VC_LTL_Root)TargetPlatform\$(InternalLTLCRTVersion)\lib\$(Platform);$(IntDir)VC-LTL5.tmp\$(InternalLTLCRTVersion)\$(Platform)</VC_LTL_Library>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" '$(SupportLTL)'=='true' or '$(SupportLTL)'=='ucrt'">
+  <PropertyGroup Condition=" '$(InternalSupportLTL)'=='msvcrt' or '$(InternalSupportLTL)'=='ucrt'">
     <IncludePath>$(VC_LTL_Include);$(IncludePath)</IncludePath>
     <LibraryPath>$(VC_LTL_Library);$(LibraryPath)</LibraryPath>
 
@@ -98,28 +101,18 @@
     <VC_LibraryPath_x64 Condition=" '$(VC_LibraryPath_x64)'!='' ">$(VC_LTL_Library);$(VC_LibraryPath_x64)</VC_LibraryPath_x64>
   </PropertyGroup>
 
-  <ItemDefinitionGroup Condition=" '$(SupportLTL)'=='ucrt' or '$(SupportLTL)'=='true'">
+  <ItemDefinitionGroup Condition=" '$(InternalSupportLTL)'=='msvcrt' or '$(InternalSupportLTL)'=='ucrt'">
     <ClCompile>
       <!--其实这些宏都不是必须的 vcruntime.h 中会自动加入这些-->
       <PreprocessorDefinitions>_Build_By_LTL=1;_LTL_Core_Version=$(LTL_CoreVersion);%(PreprocessorDefinitions)</PreprocessorDefinitions>
-
-      <PreprocessorDefinitions Condition="'$(SupportWinXP)'=='true'">_ATL_XP_TARGETING=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <!--YY-Thunks 1.0.10-Beta8开始已经为Windows XP添加了完整的Tls支持，所以无需在`/Zc:threadSafeInit-`。
-      当兼容XP时，对于非 exe 的需要禁用线程安全初始化。避免XP中在DllMain中使用TLS而崩溃
-      <AdditionalOptions Condition="'$(SupportWinXP)'=='true' and '$(ConfigurationType)'!='Application' ">/Zc:threadSafeInit- %(AdditionalOptions)</AdditionalOptions>
-      -->
     </ClCompile>
-    <Link Condition="'$(SupportWinXP)'=='true'">
-      <MinimumRequiredVersion Condition=" '$(PlatformShortName)'=='x86' ">5.01</MinimumRequiredVersion>
-      <MinimumRequiredVersion Condition=" '$(PlatformShortName)'=='x64' ">5.02</MinimumRequiredVersion>
-    </Link>
   </ItemDefinitionGroup>
   <PropertyGroup>
     <src_vc_vccorlib_path Condition="'$(src_vc_vccorlib_path)' == '' and '$(VCToolsInstallDir)' != ''">$(VCToolsInstallDir)lib\$(PlatformShortName)\vccorlib.lib</src_vc_vccorlib_path>
     <src_vc_vccorlib_path Condition="'$(src_vc_vccorlib_path)' == '' and '$(VCInstallDir)' != '' and '$(Platform)' == 'Win32'">$(VCInstallDir)lib\vccorlib.lib</src_vc_vccorlib_path>
     <src_vc_vccorlib_path Condition="'$(src_vc_vccorlib_path)' == '' and '$(VCInstallDir)' != ''">$(VCInstallDir)lib\$(PlatformShortName)\vccorlib.lib</src_vc_vccorlib_path>
-    <patch_vc_vccorlib_path>$(VC_LTL_Root)TargetPlatform\$(LTLWindowsTargetPlatformMinVersion)\lib\$(Platform)\vccorlib140.pacth.lib</patch_vc_vccorlib_path>
-    <dst_vc_vccorlib_path>$(IntDir)VC-LTL5.tmp\$(LTLWindowsTargetPlatformMinVersion)\$(Platform)\vccorlib.lib</dst_vc_vccorlib_path>
+    <patch_vc_vccorlib_path>$(VC_LTL_Root)TargetPlatform\$(InternalLTLCRTVersion)\lib\$(Platform)\vccorlib140.pacth.lib</patch_vc_vccorlib_path>
+    <dst_vc_vccorlib_path>$(IntDir)VC-LTL5.tmp\$(InternalLTLCRTVersion)\$(Platform)\vccorlib.lib</dst_vc_vccorlib_path>
   </PropertyGroup>
 
   <ItemGroup>
@@ -147,28 +140,15 @@
 
   VC-LTL Path      : $(VC_LTL_Root)
   VC Tools Version : $(VCToolsVersion)
-  WindowsTargetPlatformMinVersion : $(LTLWindowsTargetPlatformMinVersion)
+  $(InternalSupportLTL) Mode : $(InternalLTLCRTVersion)
   Platform         : $(Platform)
-" Importance="high" Condition="('$(SupportLTL)'=='true') Or ('$(SupportLTL)'=='ucrt')"/>
-    <!--
-    <Warning Code="LTL2000" Text="$(ERROR_VC_LTL_NOT_SUPPORT_DEBUG)" Condition="'$(UseDebugLibraries)'=='true'" />
-    -->
-    <!--
-    <Warning Code="LTL2001" Text="$(ERROR_VC_LTL_NOT_SUPPORT_MFC)" Condition="'$(UseOfMFC)'!='false'" />
-    -->
+" Importance="high" Condition="('$(InternalSupportLTL)'=='true') Or ('$(InternalSupportLTL)'=='ucrt')"/>
     <Warning Code="LTL2002" Text="$(ERROR_VC_LTL_NOT_SUPPORT_PLATFORM)" Condition="'$(VCLTLSupportPlatform)'!='true'"/>
     <Warning Code="LTL2003" Text="$(ERROR_VC_LTL_NOT_SUPPORT_PLATFORM_TOOLSET)" Condition="'$(VCLTLSupportPlatformToolset)' !='true'"/>
     <Warning Code="LTL2004" Text="$(ERROR_VC_LTL_NOT_SUPPORT_UNIVERSAL_DRIVER)" Condition="'$(DriverTargetPlatform)'=='Universal'"/>
-
-    <!--
-    <Warning Code="LTL3000" Text="$(ERROR_VC_LTL_NOT_SUPPORT_VC_TOOLS_VERSION)" Condition="('$(SupportLTL)'=='true') And ('$(VCLTLFoundToolsVersion)'=='false')" />
-    <Warning Code="LTL3001" Text="$(ERROR_VC_LTL_NOT_SUPPORT_UCRT_VERSION)" Condition="('$(SupportLTL)'=='true') And ('$(VC-LTLFoundTargetUniversalCRTVersion)'=='false')" />
-    <Warning Code="LTL3002" Text="$(ERROR_VC_LTL_NOT_SUPPORT_WINXP_IN_UCRT_MODE)" Condition=" ('$(SupportLTL)'=='ucrt') And ('$(SupportWinXP)'=='true')"/>
-    <Warning Code="LTL3003" Text="$(ERROR_VC_LTL_NOT_SUPPORT_MITIGATION)" Condition=" ('$(SupportLTL)'=='true') And ('$(VCLTLLibDirMod)'!='$(VCLibDirMod)')"/>
-    -->
-    <Error Code="LTL4000" Text="$(ERROR_VC_LTL_FILE_MISSING)" Condition=" ('$(SupportLTL)'=='true' and '$(SupportLTL)'=='ucrt') And (!(Exists('$(VC_LTL_Root)TargetPlatform\$(LTLWindowsTargetPlatformMinVersion)\lib\$(Platform)')))"/>
+    <Error Code="LTL4000" Text="$(ERROR_VC_LTL_FILE_MISSING)" Condition=" ('$(InternalSupportLTL)'=='true' and '$(InternalSupportLTL)'=='ucrt') And (!(Exists('$(VC_LTL_Root)TargetPlatform\$(InternalLTLCRTVersion)\lib\$(Platform)')))"/>
   </Target>
-  <Target Name="Build_vccorlib_lib" AfterTargets="BeforeLink" BeforeTargets="Link" Condition="('$(SupportLTL)'=='true' Or ('$(SupportLTL)'=='ucrt')) and '$(src_vc_vccorlib_path)'!= '' and Exists('$(src_vc_vccorlib_path)') and Exists('$(patch_vc_vccorlib_path)')"
+  <Target Name="Build_vccorlib_lib" AfterTargets="BeforeLink" BeforeTargets="Link" Condition="('$(InternalSupportLTL)'=='true' Or ('$(InternalSupportLTL)'=='ucrt')) and '$(src_vc_vccorlib_path)'!= '' and Exists('$(src_vc_vccorlib_path)') and Exists('$(patch_vc_vccorlib_path)')"
           Inputs="$(src_vc_vccorlib_path);$(patch_vc_vccorlib_path)"
           Outputs="$(dst_vc_vccorlib_path)">
     <Copy SourceFiles="$(src_vc_vccorlib_path)" DestinationFiles="$(dst_vc_vccorlib_path)" OverwriteReadOnlyFiles="true"/>
