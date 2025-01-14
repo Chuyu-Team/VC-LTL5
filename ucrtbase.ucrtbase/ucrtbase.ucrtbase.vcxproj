@@ -319,14 +319,14 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dynamic|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <AllProjectIncludesArePublic>true</AllProjectIncludesArePublic>
-    <OutDir>$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\lib\$(Platform)\</OutDir>
+    <OutDir>$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\lib\$(Platform)\Shared\</OutDir>
     <TargetName>ucrt</TargetName>
     <IntDir>$(Platform)\$(Configuration)\$(WindowsTargetPlatformMinVersion)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DDynamic|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <AllProjectIncludesArePublic>true</AllProjectIncludesArePublic>
-    <OutDir>$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\lib\$(Platform)\</OutDir>
+    <OutDir>$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\lib\$(Platform)\Shared\</OutDir>
     <TargetName>ucrtd</TargetName>
     <IntDir>$(Platform)\$(Configuration)\$(WindowsTargetPlatformMinVersion)\</IntDir>
   </PropertyGroup>
@@ -334,7 +334,7 @@
     <TargetName>ucrt</TargetName>
     <LinkIncremental>false</LinkIncremental>
     <AllProjectIncludesArePublic>true</AllProjectIncludesArePublic>
-    <OutDir>$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\lib\$(Platform)\</OutDir>
+    <OutDir>$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\lib\$(Platform)\Shared\</OutDir>
     <IntDir>$(Platform)\$(Configuration)\$(WindowsTargetPlatformMinVersion)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dynamic|ARM64'">
@@ -342,13 +342,13 @@
     <TargetName>ucrt</TargetName>
     <LinkIncremental>false</LinkIncremental>
     <AllProjectIncludesArePublic>true</AllProjectIncludesArePublic>
-    <OutDir>$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\lib\$(Platform)\</OutDir>
+    <OutDir>$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\lib\$(Platform)\Shared\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DDynamic|ARM'">
     <TargetName>ucrtd</TargetName>
     <LinkIncremental>false</LinkIncremental>
     <AllProjectIncludesArePublic>true</AllProjectIncludesArePublic>
-    <OutDir>$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\lib\$(Platform)\</OutDir>
+    <OutDir>$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\lib\$(Platform)\Shared\</OutDir>
     <IntDir>$(Platform)\$(Configuration)\$(WindowsTargetPlatformMinVersion)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DDynamic|ARM64'">
@@ -356,7 +356,7 @@
     <TargetName>ucrtd</TargetName>
     <LinkIncremental>false</LinkIncremental>
     <AllProjectIncludesArePublic>true</AllProjectIncludesArePublic>
-    <OutDir>$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\lib\$(Platform)\</OutDir>
+    <OutDir>$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\lib\$(Platform)\Shared\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Static|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -403,14 +403,14 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dynamic|x64'">
     <LinkIncremental>false</LinkIncremental>
     <AllProjectIncludesArePublic>true</AllProjectIncludesArePublic>
-    <OutDir>$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\lib\$(Platform)\</OutDir>
+    <OutDir>$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\lib\$(Platform)\Shared\</OutDir>
     <TargetName>ucrt</TargetName>
     <IntDir>$(Platform)\$(Configuration)\$(WindowsTargetPlatformMinVersion)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DDynamic|x64'">
     <LinkIncremental>false</LinkIncremental>
     <AllProjectIncludesArePublic>true</AllProjectIncludesArePublic>
-    <OutDir>$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\lib\$(Platform)\</OutDir>
+    <OutDir>$(SolutionDir)TargetPlatform\$(WindowsTargetPlatformMinVersion)\lib\$(Platform)\Shared\</OutDir>
     <TargetName>ucrtd</TargetName>
     <IntDir>$(Platform)\$(Configuration)\$(WindowsTargetPlatformMinVersion)\</IntDir>
   </PropertyGroup>
@@ -826,7 +826,7 @@
   <Target Name="Build_ucrtbase_lib" AfterTargets="AfterClCompile" Inputs="$(UniversalCRTSdkDir)Lib\$(WindowsTargetPlatformVersion)\ucrt\$(PlatformShortName)\ucrt.lib;$(SolutionDir)Tools\Shared\ucrtbase.debug.weak.def" Outputs="$(IntDir)ucrt_CleanImport.lib">
     <Exec Command="%22$(SolutionDir)Tools\LibMaker.exe%22 ExportDef %22$(UniversalCRTSdkDir)Lib\$(WindowsTargetPlatformVersion)\ucrt\$(PlatformShortName)\ucrt.lib%22 /MACHINE:$(PlatformShortName) /OUT:%22$(IntDir)ucrtbase.def%22" />
     <Exec Command="lib /def:%22$(IntDir)ucrtbase.def%22 /out:%22$(IntDir)ucrt_CleanImport.lib%22 /MACHINE:$(PlatformShortName)" />
-    <Exec Command="%22$(SolutionDir)Tools\LibMaker.exe%22 CopyLibType %22$(IntDir)ucrt_CleanImport.lib%22 %22$(UniversalCRTSdkDir)Lib\$(WindowsTargetPlatformVersion)\ucrt\$(PlatformShortName)\ucrt.lib%22" Condition="'$(Platform)' == 'Win32'"/>
+    <Exec Command="%22$(SolutionDir)Tools\LibMaker.exe%22 CopyLibType %22$(IntDir)ucrt_CleanImport.lib%22 %22$(UniversalCRTSdkDir)Lib\$(WindowsTargetPlatformVersion)\ucrt\$(PlatformShortName)\ucrt.lib%22" Condition="'$(Platform)' == 'Win32'" />
     <RemoveDir Directories="$(IntDir)objs\weak" />
     <MakeDir Directories="$(IntDir)objs\weak" />
     <!--如果编译调试版，那么添加那些调试版的转发-->

@@ -78,11 +78,12 @@ echo VC Tools Version : %VCToolsVersion%
 echo WindowsTargetPlatformMinVersion : %LTLWindowsTargetPlatformMinVersion%
 echo Platform : %LTLPlatform%
 
-
+set VC_LTL_MD_SharedVersion=%LTLWindowsTargetPlatformMinVersion%
+if /i "%VC_LTL_EnableNewStyleRuntimeDlls%" == "true" (set VC_LTL_MD_SharedVersion=10.0.10240.0)
 
 ::ÐÞ¸ÄInclude
 set INCLUDE=%VC_LTL_Root%TargetPlatform\header;%VC_LTL_Root%TargetPlatform\%LTLWindowsTargetPlatformMinVersion%\header;%INCLUDE%
-set LIB=%VC_LTL_Root%TargetPlatform\%LTLWindowsTargetPlatformMinVersion%\lib\%LTLPlatform%;%LIB%
+set LIB=%VC_LTL_Root%TargetPlatform\%LTLWindowsTargetPlatformMinVersion%\lib\%LTLPlatform%;%VC_LTL_Root%TargetPlatform\%VC_LTL_MD_SharedVersion%\lib\%LTLPlatform%\Shared;%LIB%
 
 goto:eof
 

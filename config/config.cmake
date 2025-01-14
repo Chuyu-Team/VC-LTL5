@@ -204,8 +204,15 @@ if(${SupportLTL} STREQUAL "true")
 	message(" Platform             :" ${LTLPlatform})
 	message("")
 
+    set(VC_LTL_MD_SharedVersion ${LTLWindowsTargetPlatformMinVersion})
+    if(VC_LTL_EnableNewStyleRuntimeDlls)
+      if(${LTLWindowsTargetPlatformMinVersion} VERSION_LESS 10.0.10240.0)
+        set(VC_LTL_MD_SharedVersion "10.0.10240.0")
+      endif()
+    endif()
+
     set(VC_LTL_Include ${VC_LTL_Root}/TargetPlatform/header;${VC_LTL_Root}/TargetPlatform/${LTLWindowsTargetPlatformMinVersion}/header)
-    set(VC_LTL_Library ${VC_LTL_Root}/TargetPlatform/${LTLWindowsTargetPlatformMinVersion}/lib/${LTLPlatform})
+    set(VC_LTL_Library ${VC_LTL_Root}/TargetPlatform/${LTLWindowsTargetPlatformMinVersion}/lib/${LTLPlatform};${VC_LTL_Root}/TargetPlatform/${VC_LTL_MD_SharedVersion}/lib/${LTLPlatform}/Shared)
 
 	#message("INCLUDE " $ENV{INCLUDE})
 	#message("LIB " $ENV{LIB})
