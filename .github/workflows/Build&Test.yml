@@ -37,7 +37,9 @@ jobs:
           # Procdump工具，用于单元测试崩溃诊断
           Invoke-WebRequest -Uri https://download.sysinternals.com/files/Procdump.zip  -OutFile Tools\Procdump.zip
           &7z e Tools\Procdump.zip "-o$Env:GITHUB_WORKSPACE\Tools"
-
+          
+          Invoke-WebRequest -Uri https://github.com/Chuyu-Team/msvcr14x/releases/latest/download/VC-LTL.Redist.Dlls.zip  -OutFile VC-LTL.Redist.Dlls.zip
+          Invoke-WebRequest -Uri https://github.com/Chuyu-Team/msvcr14x/releases/latest/download/VC-LTL.Redist.PDBs.zip  -OutFile VC-LTL.Redist.PDBs.zip
           
           $ProgramFiles = ${env:ProgramFiles(x86)}
 
@@ -85,6 +87,9 @@ jobs:
           {
               $BuildVersion = $env:GITHUB_REF.Remove(0, 11);
               echo "BuildVersion=$BuildVersion" >> $env:GITHUB_ENV
+
+              $Prerelease = $BuildVersion.contains("-");
+              echo "Prerelease=$Prerelease" >> $env:GITHUB_ENV
 
               # github的内置版本有Bug，此行必须添加，否则无法获得内容
               git fetch --depth=1 origin +refs/tags/*:refs/tags/*
@@ -172,11 +177,6 @@ jobs:
           ::生成二进制包
           msbuild Build.proj -p:TagVersion=${{env.BuildVersion}} -t:Pack
           if %ERRORLEVEL% NEQ 0 exit /B %ERRORLEVEL%
-
-          :: 打包Redist
-          if "${{env.BuildVersion}}" NEQ "" (
-              msbuild Build.proj -p:TagVersion=${{env.BuildVersion}} -t:PackRedist
-          )
           
           if %ERRORLEVEL% NEQ 0 exit /B %ERRORLEVEL%
 
@@ -188,26 +188,12 @@ jobs:
 
           if %ERRORLEVEL% NEQ 0 exit /B %ERRORLEVEL%
 
-    - name: 匹配Redist缓存
-      if: contains(github.ref, 'tags/')
-      id: ltlRedistCache
-      uses: actions/cache@v4
-      with:
-        path: VC-LTL*-Redist.7z
-        key: ltl_Redist_${{ hashFiles('Redist/**/*.dll') }}
-
-    - name: 文件清理
-      if: steps.ltlRedistCache.outputs.cache-hit == 'true'
-      working-directory: ${{github.workspace}}
-      shell: cmd
-      run: |
-           del VC-LTL-${{env.BuildVersion}}-Redist.7z /Q /F
-
     - uses: actions/upload-artifact@v4
       with:
         path: |
             *.nupkg
             *.7z
+            VC-LTL.Redist.*.zip
 
     # 失败时我们收集一些信息，用于诊断
     - uses: actions/upload-artifact@v4
@@ -222,16 +208,18 @@ jobs:
             Static\*.log
             UnitTest/SymbolBuildTest/.test/**/Build.log
             *.7z
+            VC-LTL.Redist.*.zip
 
     - uses: xresloader/upload-to-github-release@v1
       if: contains(github.ref, 'tags/')
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        file: "VC-LTL-*.7z"
+        file: "VC-LTL-*.7z;VC-LTL.Redist.*.zip"
         overwrite: true
         tags: true
         draft: false
+        prerelease: ${{env.Prerelease}}
 
     - uses: actions-rs/toolchain@v1
       with:

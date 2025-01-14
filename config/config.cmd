@@ -1,4 +1,4 @@
-@echo off
+::@echo off
 ::
 ::  请不要直接使用此脚本，应该使用VC-LTL helper for nmake.cmd
 ::
@@ -7,6 +7,10 @@ call:InitMuiStrings
 
 
 if /i "%VC_LTL_Helper_Load%" == "true" goto:eof
+
+set InternalSupportLTL=%SupportLTL%
+if /i "%InternalSupportLTL%" == "false" goto:eof
+if /i "%InternalSupportLTL%" == "" (set InternalSupportLTL=true)
 
 set "VC_LTL_Root=%~dp0"
 set "VC_LTL_Root=%VC_LTL_Root:~0,-7%"
@@ -52,12 +56,18 @@ set LTLPlatform=%Platform%
 
 if "%LTLPlatform%" == "" set LTLPlatform=Win32
 if /i "%LTLPlatform%" == "x86" set LTLPlatform=Win32
+if /i "%LTLPlatform%" == "arm64" set InternalSupportLTL=ucrt
 
 call:FoundBestTargetPlatform
 
+if /i "%InternalSupportLTL%" == "true" if "%InternalLTLCRTVersion:~0,3%"=="10." (set InternalSupportLTL=ucrt)
+if /i "%InternalSupportLTL%" == "true" (set InternalSupportLTL=msvcrt)
 
+if /i "%InternalSupportLTL%" == "msvcrt" if "%InternalLTLCRTVersion:~0,3%"=="10." (set InternalLTLCRTVersion=6.2.9200.0)
+if /i "%InternalSupportLTL%" == "ucrt" if not "%InternalLTLCRTVersion:~0,3%"=="10." (set InternalLTLCRTVersion=10.0.10240.0)
 
-if not exist "%VC_LTL_Root%TargetPlatform\%LTLWindowsTargetPlatformMinVersion%\lib\%LTLPlatform%" echo %ERROR_VC_LTL_FILE_MISSING%&&goto:eof
+if not exist "%VC_LTL_Root%TargetPlatform\%InternalLTLCRTVersion%\lib\%LTLPlatform%" echo %ERROR_VC_LTL_FILE_MISSING%&&goto:eof
+
 
 
 echo #######################################################################
@@ -75,14 +85,14 @@ echo #######################################################################
 
 echo VC-LTL Path : %VC_LTL_Root%
 echo VC Tools Version : %VCToolsVersion%
-echo WindowsTargetPlatformMinVersion : %LTLWindowsTargetPlatformMinVersion%
+echo %InternalSupportLTL% Mode : %InternalLTLCRTVersion%
 echo Platform : %LTLPlatform%
 
 
 
 ::修改Include
-set INCLUDE=%VC_LTL_Root%TargetPlatform\header;%VC_LTL_Root%TargetPlatform\%LTLWindowsTargetPlatformMinVersion%\header;%INCLUDE%
-set LIB=%VC_LTL_Root%TargetPlatform\%LTLWindowsTargetPlatformMinVersion%\lib\%LTLPlatform%;%LIB%
+set INCLUDE=%VC_LTL_Root%TargetPlatform\header;%VC_LTL_Root%TargetPlatform\%InternalLTLCRTVersion%\header;%INCLUDE%
+set LIB=%VC_LTL_Root%TargetPlatform\%InternalLTLCRTVersion%\lib\%LTLPlatform%;%LIB%
 
 goto:eof
 
@@ -90,43 +100,43 @@ goto:eof
 ::搜索最佳TargetPlatform
 :FoundBestTargetPlatform
 
-set LTLWindowsTargetPlatformMinVersion=%WindowsTargetPlatformMinVersion%
+set InternalLTLCRTVersion=%WindowsTargetPlatformMinVersion%
 
-if "%LTLWindowsTargetPlatformMinVersion%" == "" goto FoundBestTargetPlatformDefault
+if "%InternalLTLCRTVersion%" == "" goto FoundBestTargetPlatformDefault
 
-for /f "tokens=3 delims=." %%i in ('echo %LTLWindowsTargetPlatformMinVersion%') do set LTLWindowsTargetPlatformMinVersionBuild=%%i
+for /f "tokens=3 delims=." %%i in ('echo %InternalLTLCRTVersion%') do set LTLWindowsTargetPlatformMinVersionBuild=%%i
 
 if "%LTLWindowsTargetPlatformMinVersionBuild%" == "" goto FoundBestTargetPlatformDefault
 
-if %LTLWindowsTargetPlatformMinVersionBuild% GEQ 19041 set LTLWindowsTargetPlatformMinVersion=10.0.19041.0&&goto:eof
+if %LTLWindowsTargetPlatformMinVersionBuild% GEQ 19041 set InternalLTLCRTVersion=10.0.19041.0&&goto:eof
 
-if %LTLWindowsTargetPlatformMinVersionBuild% GEQ 10240 set LTLWindowsTargetPlatformMinVersion=10.0.10240.0&&goto:eof
-if /i "%LTLPlatform%" == "arm64" set LTLWindowsTargetPlatformMinVersion=10.0.10240.0&&goto:eof
+if %LTLWindowsTargetPlatformMinVersionBuild% GEQ 10240 set InternalLTLCRTVersion=10.0.10240.0&&goto:eof
+if /i "%LTLPlatform%" == "arm64" set InternalLTLCRTVersion=10.0.10240.0&&goto:eof
 
-if %LTLWindowsTargetPlatformMinVersionBuild% GEQ 9200 set LTLWindowsTargetPlatformMinVersion=6.2.9200.0&&goto:eof
-if /i "%LTLPlatform%" == "arm" set LTLWindowsTargetPlatformMinVersion=6.2.9200.0&&goto:eof
+if %LTLWindowsTargetPlatformMinVersionBuild% GEQ 9200 set InternalLTLCRTVersion=6.2.9200.0&&goto:eof
+if /i "%LTLPlatform%" == "arm" set InternalLTLCRTVersion=6.2.9200.0&&goto:eof
 
-if %LTLWindowsTargetPlatformMinVersionBuild% GEQ 6000 set LTLWindowsTargetPlatformMinVersion=6.0.6000.0&&goto:eof
+if %LTLWindowsTargetPlatformMinVersionBuild% GEQ 6000 set InternalLTLCRTVersion=6.0.6000.0&&goto:eof
 
-if /i "%LTLPlatform%" == "x64" set LTLWindowsTargetPlatformMinVersion=5.2.3790.0&&goto:eof
+if /i "%LTLPlatform%" == "x64" set InternalLTLCRTVersion=5.2.3790.0&&goto:eof
 
 ::兜底
-set LTLWindowsTargetPlatformMinVersion=5.1.2600.0
+set InternalLTLCRTVersion=5.1.2600.0
 
 goto:eof
 
 :FoundBestTargetPlatformDefault
 
-if /i "%LTLPlatform%" == "arm64" set LTLWindowsTargetPlatformMinVersion=10.0.10240.0&&goto:eof
+if /i "%LTLPlatform%" == "arm64" set InternalLTLCRTVersion=10.0.10240.0&&goto:eof
 
-if /i "%LTLPlatform%" == "arm" set LTLWindowsTargetPlatformMinVersion=6.2.9200.0&&goto:eof
+if /i "%LTLPlatform%" == "arm" set InternalLTLCRTVersion=6.2.9200.0&&goto:eof
 
 ::兼容以前的XP模式
-if /i "%SupportWinXP%" NEQ "true" set LTLWindowsTargetPlatformMinVersion=6.0.6000.0&&goto:eof
+if /i "%SupportWinXP%" NEQ "true" set InternalLTLCRTVersion=6.0.6000.0&&goto:eof
 
-if /i "%LTLPlatform%" == "x64" set LTLWindowsTargetPlatformMinVersion=5.2.3790.0&&goto:eof
+if /i "%LTLPlatform%" == "x64" set InternalLTLCRTVersion=5.2.3790.0&&goto:eof
 
-set LTLWindowsTargetPlatformMinVersion=5.1.2600.0
+set InternalLTLCRTVersion=5.1.2600.0
 
 goto:eof
 

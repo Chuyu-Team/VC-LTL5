@@ -27,15 +27,15 @@ Function FoundBestTargetPlatform
 
     $CurrentWindowsTargetPlatformMinVersion = [Version]::new($env:WindowsTargetPlatformMinVersion)
 
-    if($CurrentWindowsTargetPlatformMinVersion -gt [Version]::new("10.0.10240.0"))
+    if($CurrentWindowsTargetPlatformMinVersion -ge [Version]::new("10.0.19041.0"))
     {
         return "10.0.19041.0"
     }
-    elseif($LTLPlatform -ieq "arm64")
+    elseif($CurrentWindowsTargetPlatformMinVersion -ge [Version]::new("10.0.0.0"))
     {
         return "10.0.10240.0"
     }
-    elseif($CurrentWindowsTargetPlatformMinVersion -gt [Version]::new("6.2.9200.0"))
+    elseif($LTLPlatform -ieq "arm64")
     {
         return "10.0.10240.0"
     }
@@ -43,11 +43,11 @@ Function FoundBestTargetPlatform
     {
         return "6.2.9200.0"
     }
-    elseif($CurrentWindowsTargetPlatformMinVersion -gt [Version]::new("6.0.6000.0"))
+    elseif($CurrentWindowsTargetPlatformMinVersion -ge [Version]::new("6.2.0.0"))
     {
         return "6.2.9200.0"
     }
-    elseif($CurrentWindowsTargetPlatformMinVersion -gt [Version]::new("5.2.3790.0"))
+    elseif($CurrentWindowsTargetPlatformMinVersion -ge [Version]::new("6.0.0.0"))
     {
         return "6.0.6000.0"
     }
@@ -64,6 +64,16 @@ Function FoundBestTargetPlatform
 if($env:VC_LTL_Helper_Load -ieq "true")
 {
     return
+}
+
+$private:InternalSupportLTL=$env:SupportLTL
+if($InternalSupportLTL -ieq "false")
+{
+    return
+}
+if($InternalSupportLTL.Length -eq 0)
+{
+    $InternalSupportLTL="true"
 }
 
 $private:LCID=[globalization.cultureinfo]::CurrentUICulture.LCID
@@ -112,15 +122,47 @@ if($LTLPlatform -eq "")
     return
 }
 
+if($LTLPlatform -ieq "arm64")
+{
+    $InternalSupportLTL="ucrt"
+}
+
 # VC-LTL核心版本号，由于4.X并不兼容3.X。此值可以用于兼容性判断。
 $env:LTL_CoreVersion=5
 
 $env:VC_LTL_Helper_Load="true"
 
 # 搜索最佳TargetPlatform
-$private:LTLWindowsTargetPlatformMinVersion = FoundBestTargetPlatform 
+$private:InternalLTLCRTVersion = FoundBestTargetPlatform 
+$private:CurrentInternalLTLCRTVersion = [Version]::new($InternalLTLCRTVersion)
 
-if(-not (Test-Path "$env:VC_LTL_Root\TargetPlatform\$LTLWindowsTargetPlatformMinVersion\lib\$LTLPlatform"))
+if($InternalSupportLTL -ieq "true")
+{
+    if ($CurrentInternalLTLCRTVersion -ge [Version]::new("10.0.0.0"))
+    {
+        $InternalSupportLTL = "ucrt"
+    }
+    else
+    {
+        $InternalSupportLTL = "msvcrt"
+    }
+}
+elseif($InternalSupportLTL -ieq "msvcrt")
+{
+    if ($CurrentInternalLTLCRTVersion -ge [Version]::new("10.0.0.0"))
+    {
+        $InternalLTLCRTVersion = "6.2.9200.0"
+    }
+}
+elseif($InternalSupportLTL -ieq "ucrt")
+{
+    if ($CurrentInternalLTLCRTVersion -lt [Version]::new("10.0.0.0"))
+    {
+        $InternalLTLCRTVersion = "10.0.10240.0"
+    }
+}
+
+if(-not (Test-Path "$env:VC_LTL_Root\TargetPlatform\$InternalLTLCRTVersion\lib\$LTLPlatform"))
 {
     Write-Error $lang.ERROR_VC_LTL_FILE_MISSING
     return
@@ -204,11 +246,11 @@ Write-Host  -NoNewline  "VC-LTL Path : " -ForegroundColor Red
 Write-Host  "$env:VC_LTL_Root"-ForegroundColor Green
 Write-Host  -NoNewline  "VC Tools Version : " -ForegroundColor Red
 Write-Host  "$env:VCToolsVersion" -ForegroundColor Green
-Write-Host  -NoNewline  "WindowsTargetPlatformMinVersion : " -ForegroundColor Red
-Write-Host  "$LTLWindowsTargetPlatformMinVersion" -ForegroundColor Green
+Write-Host  -NoNewline  "$InternalSupportLTL Mode : " -ForegroundColor Red
+Write-Host  "$InternalLTLCRTVersion" -ForegroundColor Green
 Write-Host  -NoNewline  "Platform : " -ForegroundColor Red
 Write-Host  "$LTLPlatform" -ForegroundColor Green
 
-$env:INCLUDE="$env:VC_LTL_Root\TargetPlatform\header;$env:VC_LTL_Root\TargetPlatform\$LTLWindowsTargetPlatformMinVersion\header;$env:INCLUDE"
-$env:LIB="$env:VC_LTL_Root\TargetPlatform\$LTLWindowsTargetPlatformMinVersion\lib\$LTLPlatform;$env:LIB"
+$env:INCLUDE="$env:VC_LTL_Root\TargetPlatform\header;$env:VC_LTL_Root\TargetPlatform\$InternalLTLCRTVersion\header;$env:INCLUDE"
+$env:LIB="$env:VC_LTL_Root\TargetPlatform\$InternalLTLCRTVersion\lib\$LTLPlatform;$env:LIB"
 

@@ -26,42 +26,26 @@
                   HasConfigurationCondition="true"/>
     </Rule.DataSource>
 
-    <BoolProperty
-      Name="DisableAdvancedSupport"
-      Category="VC_LTL"
-      DisplayName="启用 VC-LTL 轻量模式"
-      Description="开启 VC-LTL 轻量模式，轻量模式更加注重体积控制，但是CRT规范将会维持在 Visual Studio 2008。如果你需要高度兼容微软 UCRT，那么请不要打开此选项！！！" />
-    
-     <BoolProperty
+    <EnumProperty
       Name="SupportLTL"
       Category="VC_LTL"
       DisplayName="启用VC-LTL"
-      Description="允许当前项目启用VC-LTL，此选项一般用于验证某些问题时使用，非特殊情况建议始终保持开启。"/>
-    
-    <EnumProperty
-      Name="WindowsTargetPlatformMinVersion"
-      Category="VC_LTL"
-      DisplayName="目标CRT版本"
-      Description="选择合适的链接目标，默认优化到msvcrt 6.0.6000.0。">
+      Description="ucrt模式体积更小，但是依赖ucrtbase.dll，该文件不保证早期平台一定存在。感谢msvcr14x项目提供兼容XP系统的ucrtbase.dll。">
       <EnumValue
-        Name="5.1.2600.0"
-        DisplayName="msvcrt 5.1.2600.0（Windows XP/2003以及更高版本）"/>
+        Name="false"
+        DisplayName="禁用"/>
 
       <EnumValue
-        Name="6.0.6000.0"
-        DisplayName="msvcrt 6.0.6000.0（Windows Vista/2008以及更高版本）"/>
-
-      <EnumValue
-        Name="6.2.9200.0"
-        DisplayName="msvcrt 6.2.9600.0（Windows 8/RT/2012以及更高版本）"/>
-
-      <EnumValue
-        Name="10.0.10240.0"
-        DisplayName="UCRT 10.0.10240.0（Windows 10 10240以及更高版本）"/>
+        Name="true"
+        DisplayName="自动（默认）"/>
       
       <EnumValue
-        Name="10.0.19041.0"
-        DisplayName="UCRT 10.0.19041.0（Windows 10 19041以及更高版本）"/>
+        Name="msvcrt"
+        DisplayName="msvcrt模式"/>
+
+      <EnumValue
+        Name="ucrt"
+        DisplayName="ucrt模式"/>
     </EnumProperty>
   </Rule>
 </ProjectSchemaDefinitions>

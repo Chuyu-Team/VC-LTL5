@@ -50,7 +50,7 @@ namespace UnitTest
 				auto _lStatus = RunCmd(nullptr, _szCmd, &_szOut);
 				Assert::AreEqual(_lStatus, (LSTATUS)ERROR_SUCCESS);
 
-				auto _nIndex = _szOut.Find(CString(L"WindowsTargetPlatformMinVersion : ") + _oConfig.szOutput);
+				auto _nIndex = _szOut.Find(CString(L"Mode : ") + _oConfig.szOutput);
 				Assert::AreNotEqual(_nIndex, -1, CString(L"未找到：") + _oConfig.szOutput);
 			}
 		}
