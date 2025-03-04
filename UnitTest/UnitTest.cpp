@@ -873,6 +873,12 @@ namespace UnitTest
 				{
 					continue;
 				}
+
+                // xmm浮点数立即数
+                if (strnicmp(Symbol, "__xmm@", 6) == 0)
+                {
+                    continue;
+                }
 				Symbols.push_back(Symbol);
 			}
 
