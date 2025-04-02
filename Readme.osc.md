@@ -148,6 +148,22 @@ add_subdirectory(src)
 
 > 建议使用`/MT`编译代码。如需支持XP，请修改`VC-LTL helper for cmake.cmake`启用 `set(WindowsTargetPlatformMinVersion "5.1.2600.0")`，除此之外建议您安装YY-Thunks。
 
+#### 3.2.3. 也可以使用 FetchContent
+
+```
+include(FetchContent)
+
+FetchContent_Declare(
+    VC-LTL5
+    URL https://github.com/Chuyu-Team/VC-LTL5/releases/download/v5.2.1/VC-LTL-Binary.7z
+    URL_HASH SHA256=0b0b17b7a4ed993701208b2eaeba91f3acf2f1b5402430b52ac7bfbca2519464
+    DOWNLOAD_EXTRACT_TIMESTAMP ON
+)
+FetchContent_MakeAvailable(VC-LTL5)
+# set(WindowsTargetPlatformMinVersion "10.0.19041.0")
+include("${vc-ltl5_SOURCE_DIR}/VC-LTL helper for cmake.cmake")
+```
+
 ### 3.3. 在NMake/纯CL中使用VC-LTL
 
 假如，你将[VC-LTL Binary](https://github.com/Chuyu-Team/VC-LTL5/releases/latest)下载并解压至`D:\Src\VC-LTL`（具体位置无任何要求），双击`D:\Src\VC-LTL\Install.cmd`即可。
