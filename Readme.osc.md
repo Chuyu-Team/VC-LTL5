@@ -97,97 +97,151 @@ VC-LTL 5.0开始，ABI与微软原版`兼容`，您可以直接使用现有的�
 ## 3. 使用方法
 下面我们将进入主题，我们给大家准备了丰富的[VC-LTL示例](https://github.com/Chuyu-Team/vc-ltl-samples)供大家参考，也欢迎加入我们的QQ群（633710173）。
 
+### 3.1. Vistual Studio C++项目如何使用？
+1. 项目右键 “管理 NuGet 程序包”。NuGet搜索框中输入：`VC-LTL`，搜索后点击安装。
+2. C/C++ - 代码生成 -【运行库】调整为【多线程 (/MT)】
+  - 如果需要支持XP，请项目右键 - 属性 - YY-Thunks - 最小兼容系统版本，设置为5.1.2600.0。
+3. 重新编译代码
 
-### 3.1. 在Visual Studio中使用VC-LTL
-
-#### 3.1.1. 引用VC-LTL
-
-##### 3.1.1.1. 通过NuGet引用（推荐）
-
-在 项目右键，选择“管理 NuGet 程序包”，然后搜索 `VC-LTL` 并选择适合您的版本，最后点击安装即可。
+> 温馨提示：NuGet版VC-LTL会自动依赖YY-Thunks，您无需手动安装YY-Thunks。
 
 ![InstallByNuGet](https://raw.githubusercontent.com/wiki/Chuyu-Team/VC-LTL/zh-Hans/image/InstallByNuGet.png)
 
-##### 3.1.1.2. 通过注册表引用
-假如，你将[VC-LTL Binary](https://github.com/Chuyu-Team/VC-LTL5/releases/latest)下载并解压至`D:\Src\VC-LTL`（具体位置无任何要求），双击`D:\Src\VC-LTL\Install.cmd`即可。
+![ConfigurationProject](https://raw.githubusercontent.com/wiki/Chuyu-Team/VC-LTL/zh-Hans/image/ConfigurationProject.png)
 
-> 脚本会在`HKCU\Code\VC-LTL`创建注册表。
+![AppBuildByVC-LTL](https://raw.githubusercontent.com/wiki/Chuyu-Team/VC-LTL/image/AppWithLTL.png)
 
-将属性表`VC-LTL helper for Visual Studio.props`复制到你的工程目录，你可以打开属性管理器（视图 - 属性管理器），然后Release配置上右键`添加现有属性表`，然后选择`VC-LTL helper for Visual Studio.props`即可。
+### 3.2. Vistual Studio .NET Native AOT项目如何使用？
+1. 给`TargetFramework`添加`Windows`系统平台，比如修改为`net8.0-windows`或者`net9.0-windows`。
+2. 项目右键 `管理 NuGet 程序包`。NuGet搜索框中输入：`VC-LTL`，搜索后点击安装。
+3. 如果需要支持XP，请将项目属性`WindowsSupportedOSPlatformVersion`调整为`5.1`。大致如下：
+    ```xml
+    <Project Sdk="Microsoft.NET.Sdk">
+        <PropertyGroup>
+            <!-- ... -->
+            <TargetFramework>net8.0-windows</TargetFramework>
+            <SupportedOSPlatformVersion>5.1</SupportedOSPlatformVersion>
+            <!-- ... -->
+        </PropertyGroup>
+      <!--...-->
+    </Project>
+    ```
+4. 重新编译代码
+
+> 温馨提示：NuGet版VC-LTL会自动依赖YY-Thunks，您无需手动安装YY-Thunks。
+
+![InstallByNuGet](https://raw.githubusercontent.com/wiki/Chuyu-Team/VC-LTL/zh-Hans/image/InstallByNuGet.png)
+
+![AppBuildByVC-LTL](https://raw.githubusercontent.com/wiki/Chuyu-Team/VC-LTL/image/AppWithLTL.png)
+
+### 3.3. CMake项目如何使用？
+1. 在CMake根目录创建`Directory.Build.props`，内容如下：
+    ```xml
+    <?xml version="1.0" encoding="utf-8"?>
+    <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+      <ItemGroup Condition="'$(MSBuildProjectExtension)' == '.vcxproj'">
+        <ProjectCapability Include="PackageReferences" />
+      </ItemGroup>
+      <PropertyGroup Condition="'$(MSBuildProjectExtension)' == '.vcxproj'">
+        <NuGetTargetMoniker Condition="'$(NuGetTargetMoniker)' == ''">native,Version=v0.0</NuGetTargetMoniker>
+        <RuntimeIdentifiers Condition="'$(RuntimeIdentifiers)' == ''">win;win-x86;win-x64;win-arm;win-arm64</RuntimeIdentifiers>
+
+        <!--将项目最小支持到Windows XP，可根据自己的情况设置-->
+        <WindowsTargetPlatformMinVersion>5.1.2600</WindowsTargetPlatformMinVersion>
+      </PropertyGroup>
+      <ItemGroup Condition="'$(MSBuildProjectExtension)' == '.vcxproj'">
+        <PackageReference Include="VC-LTL">
+          <!--根据自己的情况选择VC-LTL版本-->
+          <Version>5.1.1</Version>
+        </PackageReference>      
+      </ItemGroup>
+      <!--从兼容性考虑，继续向上搜索 Directory.Build.props-->
+      <PropertyGroup>
+        <DirectoryBuildPropsPath>$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))</DirectoryBuildPropsPath>
+      </PropertyGroup>
+      <Import Project="$(DirectoryBuildPropsPath)" Condition="'$(DirectoryBuildPropsPath)' != ''"/>
+    </Project>
+    ```
+2. 将VS作为Gen启动编译过程，代码如下：
+    ```
+    # Gen必须选择Visual Studio系列，因为Visual Studio才支持nuget。
+    # 假设输出目录为build\x86-Release，自己可根据情况修改。
+    cmake -G "Visual Studio 17 2022" -A Win32 -DCMAKE_CONFIGURATION_TYPES:STRING=Release -DCMAKE_INSTALL_PREFIX:PATH=.\build\x86-Release .
+
+    # 注意尾部的 `-- -r`，该命令是还原nuget包，此时会自动下载VC-LTL，并且配置到工程。
+    cmake --build .\build\x86-Release --config Release -- -r
+
+    cmake --install .\build\x86-Release --config Release
+    ```
+3. 重新编译代码
+
+> 温馨提示：NuGet版VC-LTL会自动依赖YY-Thunks，您无需手动安装YY-Thunks。
+
+![AppBuildByVC-LTL](https://raw.githubusercontent.com/wiki/Chuyu-Team/VC-LTL/image/AppWithLTL.png)
+
+### 3.4. 我不喜欢NuGet，如何纯手工配置链接器参数？
+#### 3.4.1. 纯手工配置Vistual Studio C++项目
+1. 下载VC-LTL。假如，你将[VC-LTL Binary](https://github.com/Chuyu-Team/VC-LTL5/releases/latest)下载并解压至`D:\Src\VC-LTL`（具体位置无任何要求），双击`D:\Src\VC-LTL\Install.cmd`即可。
+  - 脚本会在`HKCU\Code\VC-LTL`创建注册表。
+2. 添加VC-LTL配置文件。将属性表`VC-LTL helper for Visual Studio.props`复制到你的工程目录，你可以打开属性管理器（视图 - 属性管理器），然后Release配置上右键`添加现有属性表`，然后选择`VC-LTL helper for Visual Studio.props`即可。
+3. 根据安装[YY-Thunks文档](https://github.com/Chuyu-Team/YY-Thunks/blob/master/Readme.osc.md)配置YY-Thunks。
+4. C/C++ - 代码生成 -【运行库】调整为【多线程 (/MT)】
+  - 如果需要支持XP，项目右键 - 属性 - YY-Thunks 中，自行调整YY-Thunks等级，允许 Windows 2000、Windows XP 以及 Windows Vista（默认）。
+5. 重新编译代码
 
 ![AddShared](https://raw.githubusercontent.com/wiki/Chuyu-Team/VC-LTL/zh-Hans/image/AddShared.png)
 
-#### 3.1.2. 配置工程属性
-* C/C++ - 代码生成 -【运行库】调整为【多线程 (/MT)】
-
 ![ConfigurationProject](https://raw.githubusercontent.com/wiki/Chuyu-Team/VC-LTL/zh-Hans/image/ConfigurationProject.png)
 
-> 建议使用`/MT`编译代码。如需支持XP，请右键项目 - 属性 - NuGet程序包设置 - VC-LTL - 目标CRT版本 －`msvcrt 5.1.2600.0`，除此之外建议您安装YY-Thunks。
-
-### 3.2. 在CMake中使用VC-LTL
-
-假如，你将[VC-LTL Binary](https://github.com/Chuyu-Team/VC-LTL5/releases/latest)下载并解压至`D:\Src\VC-LTL`（具体位置无任何要求），双击`D:\Src\VC-LTL\Install.cmd`即可。
-
-> 脚本会在`HKCU\Code\VC-LTL`创建注册表。
-
-#### 3.2.1. 添加VC-LTL配置文件
-
-将模块文件`VC-LTL helper for cmake.cmake`复制到你的工程目录（顶层CMakeLists.txt同级目录）。然后在`CMakeLists.txt`中添加一行 `include("VC-LTL helper for cmake.cmake")` 即可。
-
-**示例：**
-```
-cmake_minimum_required(VERSION 3.5.2)
-project(ltltest)
-
-include("VC-LTL helper for cmake.cmake")
-
-add_subdirectory(src)
-```
-
-#### 3.2.2. 调整配置工程
-
-> 建议使用`/MT`编译代码。如需支持XP，请修改`VC-LTL helper for cmake.cmake`启用 `set(WindowsTargetPlatformMinVersion "5.1.2600.0")`，除此之外建议您安装YY-Thunks。
-
-### 3.3. 在NMake/纯CL中使用VC-LTL
-
-假如，你将[VC-LTL Binary](https://github.com/Chuyu-Team/VC-LTL5/releases/latest)下载并解压至`D:\Src\VC-LTL`（具体位置无任何要求），双击`D:\Src\VC-LTL\Install.cmd`即可。
-
-> 脚本会在`HKCU\Code\VC-LTL`创建注册表。
-
-#### 3.3.1. 运行VC-LTL辅助脚本
-
-将辅助脚本`VC-LTL helper for nmake.cmd`复制到你的工程目录。启动`vcvars32.bat/vcvars64.bat`执行此脚本即可，脚本将自动修改`include`以及`lib`环境变量。
-
-**CMD 示例：**
-```
-call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars32.bat"
-call "D:\VC-LTL\VC-LTL helper for nmake.cmd"
-
-nmake /f Test.mak
-```
-
-**powershell 示例：**
-```
-$BuiltInVsWhereExe = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe"
-$LatestVisualStudioRoot = & $BuiltInVsWhereExe -latest -prerelease -property installationPath
-
-# x86、amd64、arm、arm64
-& "$LatestVisualStudioRoot\Common7\Tools\Launch-VsDevShell.ps1" -arch x86
-& D:\VC-LTL\VC-LTL helper for nmake.ps1"
-
-& nmake /f Test.mak
-```
-#### 3.3.2. 配置工程属性
-
-> 建议使用`/MT`编译代码。如需支持XP，请修改`VC-LTL helper for nmake.cmd`启用 `set WindowsTargetPlatformMinVersion=5.1.2600.0`，除此之外建议您安装YY-Thunks。
-
-
-### 3.4. 重新编译
-现在会引用msvcrt.dll或者ucrtbase.dll，体积小了很多。如果你编译不通过，可以先参考 [4. 常见问题](#4-常见问题)。如果还是不通过可以反馈，共同改进VC-LTL。
-
-> 使用VC-LTL 5.0编译时推荐采用`/MT`编译，依赖的静态库不需要重新编译。
-
 ![AppBuildByVC-LTL](https://raw.githubusercontent.com/wiki/Chuyu-Team/VC-LTL/image/AppWithLTL.png)
+
+#### 3.4.2. 纯手工配置CMake项目
+1. 下载VC-LTL。假如，你将[VC-LTL Binary](https://github.com/Chuyu-Team/VC-LTL5/releases/latest)下载并解压至`D:\Src\VC-LTL`（具体位置无任何要求），双击`D:\Src\VC-LTL\Install.cmd`即可。
+  - 脚本会在`HKCU\Code\VC-LTL`创建注册表。
+2. 添加VC-LTL配置文件。将模块文件`VC-LTL helper for cmake.cmake`复制到你的工程目录（顶层CMakeLists.txt同级目录）。然后在`CMakeLists.txt`中添加一行 `include("VC-LTL helper for cmake.cmake")` 即可。
+
+    **示例：**
+    ```
+    cmake_minimum_required(VERSION 3.5.2)
+    project(ltltest)
+
+    include("VC-LTL helper for cmake.cmake")
+
+    add_subdirectory(src)
+    ```
+3. 根据安装[YY-Thunks文档](https://github.com/Chuyu-Team/YY-Thunks/blob/master/Readme.osc.md)配置YY-Thunks。
+4. 调整配置工程。建议使用`/MT`编译代码。
+  - 如需支持XP，请修改`VC-LTL helper for cmake.cmake`启用 `set(WindowsTargetPlatformMinVersion "5.1.2600.0")`。
+5. 重新编译代码
+
+#### 3.4.3. 在NMake/纯CL中使用VC-LTL
+1. 下载VC-LTL。假如，你将[VC-LTL Binary](https://github.com/Chuyu-Team/VC-LTL5/releases/latest)下载并解压至`D:\Src\VC-LTL`（具体位置无任何要求），双击`D:\Src\VC-LTL\Install.cmd`即可。
+  - 脚本会在`HKCU\Code\VC-LTL`创建注册表。
+2. 根据安装[YY-Thunks文档](https://github.com/Chuyu-Team/YY-Thunks/blob/master/Readme.osc.md)配置YY-Thunks。
+3. 运行VC-LTL辅助脚本。将辅助脚本`VC-LTL helper for nmake.cmd`复制到你的工程目录。启动`vcvars32.bat/vcvars64.bat`执行此脚本即可，脚本将自动修改`include`以及`lib`环境变量。
+
+    **CMD 示例：**
+    ```
+    call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars32.bat"
+    call "D:\VC-LTL\VC-LTL helper for nmake.cmd"
+
+    nmake /f Test.mak
+    ```
+
+    **powershell 示例：**
+    ```
+    $BuiltInVsWhereExe = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe"
+    $LatestVisualStudioRoot = & $BuiltInVsWhereExe -latest -prerelease -property installationPath
+
+    # x86、amd64、arm、arm64
+    & "$LatestVisualStudioRoot\Common7\Tools\Launch-VsDevShell.ps1" -arch x86
+    & D:\VC-LTL\VC-LTL helper for nmake.ps1"
+
+    & nmake /f Test.mak
+    ```
+4. 配置工程属性。建议使用`/MT`编译代码。
+  - 如需支持XP，请修改`VC-LTL helper for nmake.cmd`启用 `set WindowsTargetPlatformMinVersion=5.1.2600.0`。
+5. 重新编译代码
 
 ## 4. 常见问题
 ### 4.1. 未共享到msvcrt.dll/ucrtbase.dll

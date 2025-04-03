@@ -106,99 +106,139 @@ later, even in the environment which installed no hotfixes.
 ## 3. How to used?
 We will enter the theme, we have prepared a rich [VC-LTL Samples](https://github.com/Chuyu-Team/vc-ltl-samples) for your reference, and welcome to join our QQ group (633710173).
 
-### 3.1. Using VC-LTL in Visual Studio
-
-#### 3.1.1. Choose reference mode
-
-##### 3.1.1.1. Reference via NuGet (recommend)
-
-Right-click on the project and select "Manage NuGet Packages", then search for `VC-LTL` and choose the version that suits you, and finally click Install.
+### 3.1. Using VC-LTL in Visual Studio C++ Project
+1. Right-click on the project and select "Manage NuGet Packages". Search for `VC-LTL` and choose the version that suits you, and finally click Install.
+2. C/C++ - Code Generation -`Runtime Library` adjust to `Multi-threaded (/MT)`
+  - For XP support, Right click on the project, Properties - NuGet Packages Settings - YY-Thunks - 最小兼容系统版本 - 5.1.2600.0.
+3. Rebuild the project
 
 ![InstallByNuGet](https://raw.githubusercontent.com/wiki/Chuyu-Team/VC-LTL/en/image/InstallByNuGet.png)
 
-##### 3.1.1.2. Reference via Registry
-If you download and unzip [VC-LTL Binary](https://github.com/Chuyu-Team/VC-LTL5/releases/latest) to `D:\Src\VC-LTL`, please double-click `D:\Src\VC-LTL\Install.cmd`.
+![ConfigurationProject](https://raw.githubusercontent.com/wiki/Chuyu-Team/VC-LTL/en/image/ConfigurationProject.png)
 
-> The script will save the information in the registry `HKCU\Code\VC-LTL`.
+![AppBuildByVC-LTL](https://raw.githubusercontent.com/wiki/Chuyu-Team/VC-LTL/image/AppWithLTL.png)
 
-Copy `VC-LTL helper for Visual Studio.props` to your project, then open the Property Manager ( View - Property Manager ) and right-click on the Release Configuration, click on `Add Existing Property Sheet...`, and finally select `VC-LTL helper for Visual Studio.props`.
+### 3.2. Using VC-LTL in Visual Studio .NET Native AOT Project
+1. `TargetFramework` property to add `Windows` system platform, e.g. `net8.0-windows` or `net9.0-windows`.
+2. Right-click on the project and select "Manage NuGet Packages". Search for `VC-LTL` and choose the version that suits you, and finally click Install.
+3. For XP support, please add project `WindowsSupportedOSPlatformVersion` = `5.1`, for example:
+    ```xml
+    <Project Sdk="Microsoft.NET.Sdk">
+        <PropertyGroup>
+            <!-- ... -->
+            <TargetFramework>net8.0-windows</TargetFramework>
+            <SupportedOSPlatformVersion>5.1</SupportedOSPlatformVersion>
+            <!-- ... -->
+        </PropertyGroup>
+      <!--...-->
+    </Project>
+    ```
+4. Rebuild the project
+
+![InstallByNuGet](https://raw.githubusercontent.com/wiki/Chuyu-Team/VC-LTL/en/image/InstallByNuGet.png)
+
+![AppBuildByVC-LTL](https://raw.githubusercontent.com/wiki/Chuyu-Team/VC-LTL/image/AppWithLTL.png)
+
+### 3.3. Using VC-LTL in CMake
+1. Create file `Directory.Build.props` in source directory, and add the following code:
+    ```xml
+    <?xml version="1.0" encoding="utf-8"?>
+    <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+      <ItemGroup Condition="'$(MSBuildProjectExtension)' == '.vcxproj'">
+        <ProjectCapability Include="PackageReferences" />
+      </ItemGroup>
+      <PropertyGroup Condition="'$(MSBuildProjectExtension)' == '.vcxproj'">
+        <NuGetTargetMoniker Condition="'$(NuGetTargetMoniker)' == ''">native,Version=v0.0</NuGetTargetMoniker>
+        <RuntimeIdentifiers Condition="'$(RuntimeIdentifiers)' == ''">win;win-x86;win-x64;win-arm;win-arm64</RuntimeIdentifiers>
+
+        <!--Turn on Windows XP support, and you can choose according to your situation.-->
+        <WindowsTargetPlatformMinVersion>5.1.2600</WindowsTargetPlatformMinVersion>
+      </PropertyGroup>
+      <ItemGroup Condition="'$(MSBuildProjectExtension)' == '.vcxproj'">
+        <PackageReference Include="VC-LTL">
+          <!--VC-LTL Version-->
+          <Version>5.1.1</Version>
+        </PackageReference>      
+      </ItemGroup>
+      <!--从兼容性考虑，继续向上搜索 Directory.Build.props-->
+      <PropertyGroup>
+        <DirectoryBuildPropsPath>$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))</DirectoryBuildPropsPath>
+      </PropertyGroup>
+      <Import Project="$(DirectoryBuildPropsPath)" Condition="'$(DirectoryBuildPropsPath)' != ''"/>
+    </Project>
+    ```
+2. Start Build, for example:
+    ```
+    # The Gen parameter must be use `Visual Studio`, as Visual Studio only supports nuget.
+    # Assuming that the output dir is `.build\x86-Release`, you can modify it as needed.
+    cmake -G "Visual Studio 17 2022" -A Win32 -DCMAKE_CONFIGURATION_TYPES:STRING=Release -DCMAKE_INSTALL_PREFIX:PATH=.\build\x86-Release .
+
+    # Note the `-- -r` at the end, which is the command to restore the nuget package.
+    cmake --build .\build\x86-Release --config Release -- -r
+
+    cmake --install .\build\x86-Release --config Release
+    ```
+3. Rebuild the project
+
+### 3.4. I don't want to use NuGet, how do I configure the project manually?
+#### 3.4.1. Using VC-LTL in Visual Studio C++ Project
+1. Download VC-LTL. If you download and unzip [VC-LTL Binary](https://github.com/Chuyu-Team/VC-LTL5/releases/latest) to `D:\Src\VC-LTL`, please double-click `D:\Src\VC-LTL\Install.cmd`.
+  - The script will save the information in the registry `HKCU\Code\VC-LTL`.
+2. Add VC-LTL Module File. Copy `VC-LTL helper for Visual Studio.props` to your project, then open the Property Manager ( View - Property Manager ) and right-click on the Release Configuration, click on `Add Existing Property Sheet...`, and finally select `VC-LTL helper for Visual Studio.props`.
+3. Configure YY-Thunks according to the installation [YY-Thunks documentation](https://github.com/Chuyu-Team/YY-Thunks/blob/master/Readme.md).
+4. C/C++ - Code Generation -`Runtime Library` adjust to `Multi-threaded (/MT)`
+  - For XP support, please Right click on the project, Properties - NuGet Packages Settings - YY-Thunks - 最小兼容系统版本 - 5.1.2600.0.
+5. Rebuild the project
 
 ![AddShared](https://raw.githubusercontent.com/wiki/Chuyu-Team/VC-LTL/en/image/AddShared.png)
 
-#### 3.1.2. Configure Project Properties
-* C/C++ - Code Generation -`Runtime Library` adjust to `Multi-threaded (/MT)`
+#### 3.4.2. Using VC-LTL in CMake
+1. Download VC-LTL. If you download and unzip [VC-LTL Binary](https://github.com/Chuyu-Team/VC-LTL5/releases/latest) to `D:\Src\VC-LTL`, please double-click `D:\Src\VC-LTL\Install.cmd`.
+  - The script will save the information in the registry `HKCU\Code\VC-LTL`.
+2. Add VC-LTL Module File. Copy `VC-LTL helper for cmake.cmake` to your project. Then add `include("VC-LTL helper for cmake.cmake")` to `CMakeLists.txt`.
 
-![ConfigurationProject](https://raw.githubusercontent.com/wiki/Chuyu-Team/VC-LTL/en/image/ConfigurationProject.png)
+    **Example:**
+    ```
+    cmake_minimum_required(VERSION 3.5.2)
+    project(ltltest)
 
-> For XP support, please Right click on the project, Properties - NuGet Packages Settings - VC-LTL - Target CRT version - "msvcrt 5.1.2600.0".
-In addition, it is recommended that you install YY-Thunks.
+    include("VC-LTL helper for cmake.cmake")
 
-### 3.2. Using VC-LTL in CMake
-If you download and unzip [VC-LTL Binary](https://github.com/Chuyu-Team/VC-LTL5/releases/latest) to `D:\Src\VC-LTL`, please double-click `D:\Src\VC-LTL\Install.cmd`.
+    add_subdirectory(src)
+    ```
+3. Configure YY-Thunks according to the installation [YY-Thunks documentation](https://github.com/Chuyu-Team/YY-Thunks/blob/master/Readme.md).
+4. Recommended to use `/MT` to compile the project when using VC-LTL.
+  - For XP support, please modify `VC-LTL helper for cmake.cmake` to enable `set(WindowsTargetPlatformMinVersion "5.1.2600.0")`. 
+5. Rebuild the project
 
-> The script will save the information in the registry `HKCU\Code\VC-LTL`.
+#### 3.4.3. Using VC-LTL in NMake/CL
+1. Download VC-LTL. If you download and unzip [VC-LTL Binary](https://github.com/Chuyu-Team/VC-LTL5/releases/latest) to `D:\Src\VC-LTL`, please double-click `D:\Src\VC-LTL\Install.cmd`.
+  - The script will save the information in the registry `HKCU\Code\VC-LTL`.
+2. Configure YY-Thunks according to the installation [YY-Thunks documentation](https://github.com/Chuyu-Team/YY-Thunks/blob/master/Readme.md).
+3. Copy `VC-LTL helper for nmake.cmd` to your project. Run `vcvars32.bat` or `vcvars64.bat` and execute this script. The script will automatically modify the `include` and `lib` environment variables.
 
-#### 3.2.1. Add VC-LTL Module File
+    **Example: cmd**
+    ```
+    call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars32.bat"
+    call "D:\VC-LTL\VC-LTL helper for nmake.cmd"
 
-Copy `VC-LTL helper for cmake.cmake` to your project. Then add `include("VC-LTL helper for cmake.cmake")` to `CMakeLists.txt`.
+    nmake /f Test.mak
+    ```
 
-**Example:**
-```
-cmake_minimum_required(VERSION 3.5.2)
-project(ltltest)
+    **Example: powershell**
+    ```
+    $BuiltInVsWhereExe = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe"
+    $LatestVisualStudioRoot = & $BuiltInVsWhereExe -latest -prerelease -property installationPath
 
-include("VC-LTL helper for cmake.cmake")
+    # x86、amd64、arm、arm64
+    & "$LatestVisualStudioRoot\Common7\Tools\Launch-VsDevShell.ps1" -arch x86
+    & D:\VC-LTL\VC-LTL helper for nmake.ps1"
 
-add_subdirectory(src)
-```
-
-#### 3.2.2. Modify The Configuration
-
-> It's recommended to use `/MT` to compile the project when using VC-LTL.
-For XP support, please modify `VC-LTL helper for cmake.cmake` to enable `set(WindowsTargetPlatformMinVersion "5.1.2600.0")`.
-In addition, it is recommended that you install YY-Thunks.
-
-### 3.3. Using VC-LTL in NMake/CL
-
-#### 3.3.1. Run VC-LTL Cmd Script
-If you download and unzip [VC-LTL Binary](https://github.com/Chuyu-Team/VC-LTL5/releases/latest) to `D:\Src\VC-LTL`, please double-click `D:\Src\VC-LTL\Install.cmd`.
-
-> The script will save the information in the registry `HKCU\Code\VC-LTL`.
-
-Copy `VC-LTL helper for nmake.cmd` to your project. Run `vcvars32.bat` or `vcvars64.bat` and execute this script. The script will automatically modify the `include` and `lib` environment variables.
-
-**Example: cmd**
-```
-call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars32.bat"
-call "D:\VC-LTL\VC-LTL helper for nmake.cmd"
-
-nmake /f Test.mak
-```
-
-**Example: powershell**
-```
-$BuiltInVsWhereExe = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe"
-$LatestVisualStudioRoot = & $BuiltInVsWhereExe -latest -prerelease -property installationPath
-
-# x86、amd64、arm、arm64
-& "$LatestVisualStudioRoot\Common7\Tools\Launch-VsDevShell.ps1" -arch x86
-& D:\VC-LTL\VC-LTL helper for nmake.ps1"
-
-& nmake /f Test.mak
-```
-
-#### 3.3.2. Modify The Configuration
-
-> It's recommended to use `/MT` to compile the project when using VC-LTL.
-For XP support, please modify `VC-LTL helper for nmake.cmd` to enable `set WindowsTargetPlatformMinVersion=5.1.2600.0`.
-In addition, it is recommended that you install YY-Thunks.
-
-### 3.4. Rebuild
-Is the file size smaller? If you fail to compile, please refer to [4. FAQ](#4-faq). You can also feedback and work together to improve VC-LTL.
-
-> It is recommended to use `/MT` to compile when compiling with VC-LTL 5.0, and the dependent static libraries does not need to be recompiled.
-
-![AppBuildByVC-LTL](https://raw.githubusercontent.com/wiki/Chuyu-Team/VC-LTL/image/AppWithLTL.png)
+    & nmake /f Test.mak
+    ```
+4. Recommended to use `/MT` to compile the project when using VC-LTL.
+  - For XP support, please modify `VC-LTL helper for nmake.cmd` to enable `set WindowsTargetPlatformMinVersion=5.1.2600.0`.
+5. Rebuild the project
 
 ## 4. FAQ
 ### 4.1. 未共享到msvcrt.dll/ucrtbase.dll
