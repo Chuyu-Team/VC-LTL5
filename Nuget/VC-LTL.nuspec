@@ -26,10 +26,10 @@
     <dependencies>
       <group targetFramework="native">
         <dependency id="YY.NuGet.Import.Helper" version="1.0.1" />
-        <dependency id="YY-Thunks" version="1.1.6"/>
+        <dependency id="YY-Thunks" version="1.1.7-Beta4"/>
       </group>
       <group targetFramework="net8.0-windows7.0">
-        <dependency id="YY-Thunks" version="1.1.6"/>
+        <dependency id="YY-Thunks" version="1.1.7-Beta4"/>
       </group>
     </dependencies>
   </metadata>
