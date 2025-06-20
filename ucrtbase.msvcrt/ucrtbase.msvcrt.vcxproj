@@ -1216,6 +1216,7 @@
     <ClCompile Include="ftime.cpp">
       <ExcludedFromBuild Condition="'$(WindowsTargetPlatformMinVersionBuild)' &gt;= '6000'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="fwrite.cpp" />
     <ClCompile Include="gcvt.cpp">
       <ExcludedFromBuild Condition="'$(WindowsTargetPlatformMinVersionBuild)' &gt;= '6000'">true</ExcludedFromBuild>
     </ClCompile>

@@ -795,6 +795,9 @@
     <ClCompile Include="tanhf.cpp">
       <Filter>源文件\WinXP\ltl</Filter>
     </ClCompile>
+    <ClCompile Include="fwrite.cpp">
+      <Filter>源文件\ltl</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="msvcrt_loadhelper.h">

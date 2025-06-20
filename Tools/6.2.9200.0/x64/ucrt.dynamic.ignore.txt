@@ -4,7 +4,6 @@ _ftelli64_nolock
 __imp__ftell_nolock
 __imp__getc_nolock
 __imp__ungetch_nolock
-_fwrite_nolock
 __imp__fread_nolock
 _getche_nolock
 __imp__getwc_nolock
@@ -14,7 +13,6 @@ __imp__ungetc_nolock
 __conio_common_vcwscanf
 _putch_nolock
 __imp__putwch_nolock
-__imp__fflush_nolock
 __imp__fgetwc_nolock
 
 _getch_nolock
@@ -52,13 +50,11 @@ _getwc_nolock
 _getwche_nolock
 _fgetwc_nolock
 _putwch_nolock
-__imp__fwrite_nolock
 __imp__getwch_nolock
 _ftell_nolock
-_fflush_nolock
 _fseek_nolock
 __imp__fputwc_nolock
 _ungetc_nolock
 
-;Î¢ÈíBug
+;å¾®è½¯Bug
 _mbcasemap

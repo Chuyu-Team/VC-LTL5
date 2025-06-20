@@ -1,7 +1,5 @@
 __imp___getche_nolock
 __getche_nolock
-__imp___fwrite_nolock
-__fwrite_nolock
 __imp___fputwc_nolock
 __fputwc_nolock
 __imp___ungetwch_nolock
@@ -13,12 +11,10 @@ __fread_nolock
 
 __imp___ftelli64_nolock
 __ftelli64_nolock
-;Î¢ÈíBug
+;å¾®è½¯Bug
 __mbcasemap
 __imp___getwc_nolock
 __getwc_nolock
-__imp___fflush_nolock
-__fflush_nolock
 __imp___putwc_nolock
 __putwc_nolock
 __imp___getch_nolock

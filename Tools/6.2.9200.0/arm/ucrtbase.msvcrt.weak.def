@@ -3,7 +3,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;                                                                                                     ;
 ;                                                                                                     ;
-;  armÎ»×ª·¢Æ÷Ä£¿éÎÄ¼ş£¬ÓÉÓÚĞÂ°æ±¾CRT¸ü¸ÄÁËÄ³Ğ©º¯ÊıµÄÉùÃ÷£¬Òò´Ë¶¨Òå´ËÎÄ¼ş½«ĞÂº¯Êıµ÷ÓÃ×Ô¶¯×ª·¢µ½ÀÏº¯Êı  ;
+;  armä½è½¬å‘å™¨æ¨¡å—æ–‡ä»¶ï¼Œç”±äºæ–°ç‰ˆæœ¬CRTæ›´æ”¹äº†æŸäº›å‡½æ•°çš„å£°æ˜ï¼Œå› æ­¤å®šä¹‰æ­¤æ–‡ä»¶å°†æ–°å‡½æ•°è°ƒç”¨è‡ªåŠ¨è½¬å‘åˆ°è€å‡½æ•°  ;
 ;                                                                                                     ;
 ;                                                                                                     ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -13,145 +13,145 @@
 [Symbols]
 _W_Gettnames=_Gettnames
 
-;_findfirstÒÑ¾­¸ÄÃûÎª_findfirst32
+;_findfirstå·²ç»æ”¹åä¸º_findfirst32
 _findfirst32=_findfirst
 
-;_findnextÒÑ¾­¸ÄÃûÎª_findnext32
+;_findnextå·²ç»æ”¹åä¸º_findnext32
 _findnext32=_findnext
 
-;_findfirsti64ÒÑ¾­¸ÄÃûÎª_findfirst32i64
+;_findfirsti64å·²ç»æ”¹åä¸º_findfirst32i64
 _findfirst32i64=_findfirsti64
 
-;_findnexti64ÒÑ¾­¸ÄÃûÎª_findnext32i64
+;_findnexti64å·²ç»æ”¹åä¸º_findnext32i64
 _findnext32i64=_findnexti64
 
-;_wfindfirstÒÑ¾­¸ÄÃûÎª_wfindfirst32
+;_wfindfirstå·²ç»æ”¹åä¸º_wfindfirst32
 _wfindfirst32=_wfindfirst
 
-;_wfindnextÒÑ¾­¸ÄÃûÎª_wfindnext32
+;_wfindnextå·²ç»æ”¹åä¸º_wfindnext32
 _wfindnext32=_wfindnext
 
-;_wfindfirsti64ÒÑ¾­¸ÄÃûÎª_wfindfirst32i64
+;_wfindfirsti64å·²ç»æ”¹åä¸º_wfindfirst32i64
 _wfindfirst32i64=_wfindfirsti64
 
-;_wfindnexti64ÒÑ¾­¸ÄÃûÎª_wfindnext32i64
+;_wfindnexti64å·²ç»æ”¹åä¸º_wfindnext32i64
 _wfindnext32i64=_wfindnexti64
 
-;_fstatÒÑ¾­¸ÄÃûÎª_fstat32
+;_fstatå·²ç»æ”¹åä¸º_fstat32
 _fstat32=_fstat
 
-;_fstati64ÒÑ¾­¸ÄÃûÎª_fstat32i64
+;_fstati64å·²ç»æ”¹åä¸º_fstat32i64
 _fstat32i64=_fstati64
 
-;_statÒÑ¾­¸ÄÃûÎª_stat32
+;_statå·²ç»æ”¹åä¸º_stat32
 ;_stat32=_stat
 
-;_stati64ÒÑ¾­¸ÄÃûÎª_stat32i64
+;_stati64å·²ç»æ”¹åä¸º_stat32i64
 ;_stat32i64=_stati64
 
-;_wstatÒÑ¾­¸ÄÃûÎª_wstat32
+;_wstatå·²ç»æ”¹åä¸º_wstat32
 ;_wstat32=_wstat
 
-;_wstati64ÒÑ¾­¸ÄÃûÎª_wstat32i64
+;_wstati64å·²ç»æ”¹åä¸º_wstat32i64
 ;_wstat32i64=_wstati64
 
 copysignf=_copysignf
-;_copysignÒÑ¾­¸ÄÃûÎªcopysign
+;_copysignå·²ç»æ”¹åä¸ºcopysign
 copysign=_copysign
 
-;_hypotÒÑ¾­¸ÄÃûÎªhypot
+;_hypotå·²ç»æ”¹åä¸ºhypot
 ;https://msdn.microsoft.com/zh-cn/library/a9yb3dbt.aspx
 hypot=_hypot
 
-;_nextafterÒÑ¾­¸ÄÃûÎªnextafter
+;_nextafterå·²ç»æ”¹åä¸ºnextafter
 ;https://msdn.microsoft.com/zh-cn/library/h0dff77w.aspx
 nextafter=_nextafter
 
-;nexttowardÓë_nextafterµÈ¼Û
+;nexttowardä¸_nextafterç­‰ä»·
 ;https://msdn.microsoft.com/zh-cn/library/h0dff77w.aspx
 nexttoward=_nextafter
 
-;nextafterlÓë_nextafterµÈ¼Û£¨double == long double£©
+;nextafterlä¸_nextafterç­‰ä»·ï¼ˆdouble == long doubleï¼‰
 nextafterl=_nextafter
 
-;nexttowardlÓë_nextafterµÈ¼Û£¨double == long double£©
+;nexttowardlä¸_nextafterç­‰ä»·ï¼ˆdouble == long doubleï¼‰
 nexttowardl=_nextafter
 
-;wcstollÓë_wcstoi64µÈ¼Û£¨long long == __int64£©
+;wcstollä¸_wcstoi64ç­‰ä»·ï¼ˆlong long == __int64ï¼‰
 wcstoll=_wcstoi64
 
-;_wcstoll_lÓë_wcstoi64_lµÈ¼Û£¨long long == __int64£©
+;_wcstoll_lä¸_wcstoi64_lç­‰ä»·ï¼ˆlong long == __int64ï¼‰
 _wcstoll_l=_wcstoi64_l
 
-;wcstoullÓë_wcstoui64µÈ¼Û£¨unsigned long long == unsigned __int64£©
+;wcstoullä¸_wcstoui64ç­‰ä»·ï¼ˆunsigned long long == unsigned __int64ï¼‰
 wcstoull=_wcstoui64
 
-;_wcstoull_lÓë_wcstoui64_lµÈ¼Û£¨unsigned long long == unsigned __int64£©
+;_wcstoull_lä¸_wcstoui64_lç­‰ä»·ï¼ˆunsigned long long == unsigned __int64ï¼‰
 _wcstoull_l=_wcstoui64_l
 
-;_wtollÓë_wtoi64µÈ¼Û£¨long long == __int64£©
+;_wtollä¸_wtoi64ç­‰ä»·ï¼ˆlong long == __int64ï¼‰
 _wtoll=_wtoi64
 
-;_wtoll_lÓë_wtoi64_lµÈ¼Û£¨long long == __int64£©
+;_wtoll_lä¸_wtoi64_lç­‰ä»·ï¼ˆlong long == __int64ï¼‰
 _wtoll_l=_wtoi64_l
 
-;atollÓë_atoi64µÈ¼Û£¨long long == __int64£©
+;atollä¸_atoi64ç­‰ä»·ï¼ˆlong long == __int64ï¼‰
 atoll=_atoi64
 
-;_atoll_lÓë_atoi64_lµÈ¼Û£¨long long == __int64£©
+;_atoll_lä¸_atoi64_lç­‰ä»·ï¼ˆlong long == __int64ï¼‰
 _atoll_l=_atoi64_l
 
-;strtollÓë_strtoi64µÈ¼Û£¨long long == __int64£©
+;strtollä¸_strtoi64ç­‰ä»·ï¼ˆlong long == __int64ï¼‰
 strtoll=_strtoi64
 
-;_strtoll_lÓë_strtoi64_lµÈ¼Û£¨long long == __int64£©
+;_strtoll_lä¸_strtoi64_lç­‰ä»·ï¼ˆlong long == __int64ï¼‰
 _strtoll_l=_strtoi64_l
 
-;strtoullÓë_strtoui64µÈ¼Û£¨unsignedlong long == unsigned __int64£©
+;strtoullä¸_strtoui64ç­‰ä»·ï¼ˆunsignedlong long == unsigned __int64ï¼‰
 strtoull=_strtoui64
 
-;_strtoull_lÓë_strtoui64_lµÈ¼Û£¨unsignedlong long == unsigned __int64£©
+;_strtoull_lä¸_strtoui64_lç­‰ä»·ï¼ˆunsignedlong long == unsigned __int64ï¼‰
 _strtoull_l=_strtoui64_l
 
-;strtoimaxÓë_strtoi64µÈ¼Û£¨intmax_t == long long£©
+;strtoimaxä¸_strtoi64ç­‰ä»·ï¼ˆintmax_t == long longï¼‰
 strtoimax=_strtoi64
 
-;_strtoimax_lÓë_strtoi64_lµÈ¼Û£¨intmax_t == long long£©
+;_strtoimax_lä¸_strtoi64_lç­‰ä»·ï¼ˆintmax_t == long longï¼‰
 _strtoimax_l=_strtoi64_l
 
-;strtoumaxÓë_strtoui64µÈ¼Û£¨uintmax_t == unsigned long long£©
+;strtoumaxä¸_strtoui64ç­‰ä»·ï¼ˆuintmax_t == unsigned long longï¼‰
 strtoumax=_strtoui64
 
-;_strtoumax_lÓë_strtoui64_lµÈ¼Û£¨uintmax_t == unsigned long long£©
+;_strtoumax_lä¸_strtoui64_lç­‰ä»·ï¼ˆuintmax_t == unsigned long longï¼‰
 _strtoumax_l=_strtoui64_l
 
-;wcstoimaxÓë_wcstoi64µÈ¼Û£¨intmax_t == long long£©
+;wcstoimaxä¸_wcstoi64ç­‰ä»·ï¼ˆintmax_t == long longï¼‰
 wcstoimax=_wcstoi64
 
-;_wcstoimax_lÓë_wcstoi64_lµÈ¼Û£¨intmax_t == long long£©
+;_wcstoimax_lä¸_wcstoi64_lç­‰ä»·ï¼ˆintmax_t == long longï¼‰
 _wcstoimax_l=_wcstoi64_l
 
-;wcstoumaxÓë_wcstoui64µÈ¼Û£¨uintmax_t == unsigned long long£©
+;wcstoumaxä¸_wcstoui64ç­‰ä»·ï¼ˆuintmax_t == unsigned long longï¼‰
 wcstoumax=_wcstoui64
 
-;_wcstoumax_lÓë_wcstoui64_lµÈ¼Û£¨uintmax_t == unsigned long long£©
+;_wcstoumax_lä¸_wcstoui64_lç­‰ä»·ï¼ˆuintmax_t == unsigned long longï¼‰
 _wcstoumax_l=_wcstoui64_l
 
 
-;cabslÓë_cabsµÈ¼Û£¨long double == double£©
+;cabslä¸_cabsç­‰ä»·ï¼ˆlong double == doubleï¼‰
 cabs=_cabs
 cabsl=_cabs
 
-;copysignlÓë_copysignµÈ¼Û£¨long double == double£©
+;copysignlä¸_copysignç­‰ä»·ï¼ˆlong double == doubleï¼‰
 copysignl=_copysign
 
-;strtoldÓëstrtodµÈ¼Û£¨long double == double£©
+;strtoldä¸strtodç­‰ä»·ï¼ˆlong double == doubleï¼‰
 strtold=strtod
 
-;_strtold_lÓë_strtod_lµÈ¼Û£¨long double == double£©
+;_strtold_lä¸_strtod_lç­‰ä»·ï¼ˆlong double == doubleï¼‰
 _strtold_l=_strtod_l
 
-;£¨long double == double£©
+;ï¼ˆlong double == doubleï¼‰
 wcstold=wcstod
 _wcstold_l=_wcstod_l
 
@@ -160,7 +160,7 @@ imaxabs=_abs64
 llabs=_abs64
 
 
-;UCRTÄÚ²¿º¯Êı×ª·¢
+;UCRTå†…éƒ¨å‡½æ•°è½¬å‘
 _calloc_base=calloc
 _free_base=free
 _malloc_base=malloc
@@ -168,34 +168,34 @@ _realloc_base=realloc
 _msize_base=_msize
 _recalloc_base=_recalloc
 
-;UCRTÃû³ÆĞŞÕı
+;UCRTåç§°ä¿®æ­£
 _seh_filter_exe=_XcptFilter
 _seh_filter_dll=__CppXcptFilter
 
 
 
-;ĞÂ°æ±¾ÖĞ_query_new_handler¹æ·¶±ä³ÉÁËC
+;æ–°ç‰ˆæœ¬ä¸­_query_new_handlerè§„èŒƒå˜æˆäº†C
 _query_new_handler=?_query_new_handler@@YAP6AHI@ZXZ
 
 
-;ĞÂ°æ±¾ÖĞ_set_new_handler¹æ·¶±ä³ÉÁËC
+;æ–°ç‰ˆæœ¬ä¸­_set_new_handlerè§„èŒƒå˜æˆäº†C
 _set_new_handler=?_set_new_handler@@YAP6AHI@ZP6AHI@Z@Z
 
 
-;ĞÂ°æ±¾ÖĞ_query_new_mode¹æ·¶±ä³ÉÁËC
+;æ–°ç‰ˆæœ¬ä¸­_query_new_modeè§„èŒƒå˜æˆäº†C
 ;_query_new_mode=?_query_new_mode@@YAHXZ
 
 
-;ĞÂ°æ±¾ÖĞ_set_new_mode¹æ·¶±ä³ÉÁËC
+;æ–°ç‰ˆæœ¬ä¸­_set_new_modeè§„èŒƒå˜æˆäº†C
 _set_new_mode=?_set_new_mode@@YAHH@Z
 
-;ĞÂ°æ±¾ÖĞset_terminate ¹æ·¶±ä³ÉÁËC
+;æ–°ç‰ˆæœ¬ä¸­set_terminate è§„èŒƒå˜æˆäº†C
 set_terminate=?set_terminate@@YAP6AXXZP6AXXZ@Z
 
-;ĞÂ°æ±¾ÖĞterminate¹æ·¶±ä³ÉÁËC
+;æ–°ç‰ˆæœ¬ä¸­terminateè§„èŒƒå˜æˆäº†C
 terminate=?terminate@@YAXXZ
 
-; ÊıÑ§º¯Êı×ª·¢
+; æ•°å­¦å‡½æ•°è½¬å‘
 _acos_default=acos
 
 _asin_default=asin
@@ -231,3 +231,6 @@ __threadhandle=GetCurrentThread
 __threadid=GetCurrentThreadId
 
 __initialize_lconv_for_unsigned_char=__lconv_init
+
+; nolockç‰ˆæœ¬çº¯å å‘
+_fflush_nolock=fflush

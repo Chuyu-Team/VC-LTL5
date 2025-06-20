@@ -32,25 +32,6 @@ static wint_t __cdecl fputwc_msvcrt(
 	return WEOF;
 }
 
-__EXPAND_MSVCRT_FUN(fwrite);
-
-static size_t __cdecl fwrite_msvcrt(
-    void const* const buffer,
-    size_t      const size,
-    size_t      const count,
-    FILE*       const stream
-    )
-{
-	if (auto pfwrite_msvcrt = try_get_fwrite())
-	{
-		return pfwrite_msvcrt(buffer, size, count, stream);
-	}
-
-	
-	return 0;
-}
-
-
 extern "C" wint_t __cdecl fputwc(
 	wchar_t _Character,
 	FILE* _Stream)
@@ -101,31 +82,6 @@ extern "C"  wint_t __cdecl putwchar(
 _LCRT_DEFINE_IAT_SYMBOL(putwchar);
 
 
-extern "C" size_t __cdecl fwrite(
-    void const* const buffer,
-    size_t      const size,
-    size_t      const count,
-    FILE*       const stream
-    )
-{
-	if (stream == /*stdout*/&_iob[1] || stream == /*stderr*/&_iob[2])
-	{
-		_lock_file(stream);
-		auto Success = __acrt_stdio_begin_temporary_buffering_nolock(stream);
-		auto result = fwrite_msvcrt(buffer, size, count, stream);
-		__acrt_stdio_end_temporary_buffering_nolock(Success, stream);
-		_unlock_file(stream);
-
-		return result;
-	}
-	else
-	{
-		return fwrite_msvcrt(buffer, size, count, stream);
-	}
-}
-
-_LCRT_DEFINE_IAT_SYMBOL(fwrite);
-
 extern "C" int __cdecl fputc(int const c, FILE* const stream)
 {
 	if ((c & 0x80)
@@ -157,12 +113,8 @@ extern "C" int __cdecl fputc(int const c, FILE* const stream)
 		if (*buffer_used)
 		{
 			buffer[1] = c;
-			auto Success = __acrt_stdio_begin_temporary_buffering_nolock(stream);
-			auto result = fwrite_msvcrt(buffer, 1, 2, stream);
-			__acrt_stdio_end_temporary_buffering_nolock(Success, stream);
-
+			auto result = _fwrite_nolock(buffer, 1, 2, stream);
 			*buffer_used = false;
-
 
 			nRet = result ? c : EOF;
 		}
