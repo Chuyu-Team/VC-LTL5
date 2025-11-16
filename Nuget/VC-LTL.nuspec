@@ -15,7 +15,6 @@
 
   * 晚起的鸟儿也有虫虫吃，优雅的引用方式，仅添加一个属性表就能享受极致的体积体验。
   * 无缝使用最新C/C++库以及最新编译器，尽情的使用最新规范。神马异常流防护（guard:cf）、静态对象线程安全初始化（threadSafeInit）……统统放马过来吧！！
-  * 拥有比微软原版更好的兼容性，即使想兼容Windows XP RTM也可以安心的对新编译器说“Yes”。
   * 完全的开放代码，广泛的接受用户意见，希望大家能踊跃的 pull requests，为VC-LTL添砖加瓦。
 
 </description>
@@ -26,10 +25,8 @@
     <dependencies>
       <group targetFramework="native">
         <dependency id="YY.NuGet.Import.Helper" version="1.0.1" />
-        <dependency id="YY-Thunks" version="1.1.7"/>
       </group>
       <group targetFramework="net8.0-windows7.0">
-        <dependency id="YY-Thunks" version="1.1.7"/>
       </group>
     </dependencies>
   </metadata>

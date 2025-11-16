@@ -100,10 +100,8 @@ VC-LTL 5.0开始，ABI与微软原版`兼容`，您可以直接使用现有的�
 ### 3.1. Vistual Studio C++项目如何使用？
 1. 项目右键 “管理 NuGet 程序包”。NuGet搜索框中输入：`VC-LTL`，搜索后点击安装。
 2. C/C++ - 代码生成 -【运行库】调整为【多线程 (/MT)】
-  - 如果需要支持XP，请项目右键 - 属性 - YY-Thunks - 最小兼容系统版本，设置为5.1.2600.0。
+  - 如果需要支持XP，请安装YY-Thunks，然后再项目右键 - 属性 - YY-Thunks - 最小兼容系统版本，设置为5.1.2600.0。
 3. 重新编译代码
-
-> 温馨提示：NuGet版VC-LTL会自动依赖YY-Thunks，您无需手动安装YY-Thunks。
 
 ![InstallByNuGet](https://raw.githubusercontent.com/wiki/Chuyu-Team/VC-LTL/zh-Hans/image/InstallByNuGet.png)
 
@@ -114,7 +112,7 @@ VC-LTL 5.0开始，ABI与微软原版`兼容`，您可以直接使用现有的�
 ### 3.2. Vistual Studio .NET Native AOT项目如何使用？
 1. 给`TargetFramework`添加`Windows`系统平台，比如修改为`net8.0-windows`或者`net9.0-windows`。
 2. 项目右键 `管理 NuGet 程序包`。NuGet搜索框中输入：`VC-LTL`，搜索后点击安装。
-3. 如果需要支持XP，请将项目属性`WindowsSupportedOSPlatformVersion`调整为`5.1`。大致如下：
+3. 如果需要支持XP，请安装YY-Thunks并将项目属性`WindowsSupportedOSPlatformVersion`调整为`5.1`。大致如下：
     ```xml
     <Project Sdk="Microsoft.NET.Sdk">
         <PropertyGroup>
@@ -127,8 +125,6 @@ VC-LTL 5.0开始，ABI与微软原版`兼容`，您可以直接使用现有的�
     </Project>
     ```
 4. 重新编译代码
-
-> 温馨提示：NuGet版VC-LTL会自动依赖YY-Thunks，您无需手动安装YY-Thunks。
 
 ![InstallByNuGet](https://raw.githubusercontent.com/wiki/Chuyu-Team/VC-LTL/zh-Hans/image/InstallByNuGet.png)
 
@@ -175,7 +171,7 @@ VC-LTL 5.0开始，ABI与微软原版`兼容`，您可以直接使用现有的�
     ```
 3. 重新编译代码
 
-> 温馨提示：NuGet版VC-LTL会自动依赖YY-Thunks，您无需手动安装YY-Thunks。
+> 温馨提示：如果需要支持早期系统，请额外安装YY-Thunks。
 
 ![AppBuildByVC-LTL](https://raw.githubusercontent.com/wiki/Chuyu-Team/VC-LTL/image/AppWithLTL.png)
 
