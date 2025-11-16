@@ -122,7 +122,7 @@ We will enter the theme, we have prepared a rich [VC-LTL Samples](https://github
 ### 3.2. Using VC-LTL in Visual Studio .NET Native AOT Project
 1. `TargetFramework` property to add `Windows` system platform, e.g. `net8.0-windows` or `net9.0-windows`.
 2. Right-click on the project and select "Manage NuGet Packages". Search for `VC-LTL` and choose the version that suits you, and finally click Install.
-3. For XP support, please add project `WindowsSupportedOSPlatformVersion` = `5.1`, for example:
+3. For XP support, please install YY-Thunks and add project `WindowsSupportedOSPlatformVersion` = `5.1`, for example:
     ```xml
     <Project Sdk="Microsoft.NET.Sdk">
         <PropertyGroup>
