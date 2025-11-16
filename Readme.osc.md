@@ -69,6 +69,7 @@ VC-LTL 5.0开始，ABI与微软原版`兼容`，您可以直接使用现有的�
 * Visual Studio 2017（包含Clang with Microsoft CodeGen、Clang-LLVM）
 * Visual Studio 2019（包含Clang-LLVM）
 * Visual Studio 2022
+* Visual Studio 2026
 
 ### 2.3. 支持的编译工具
 |    编译工具    | 支持文件

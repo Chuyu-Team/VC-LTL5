@@ -100,7 +100,7 @@ if($env:LIB.Length -eq 0)
 }
 
 # 当前VisualStudio版本符合条件？
-if($env:VisualStudioVersion -notin "14.0","15.0","16.0","17.0")
+if($env:UCRTVersion.Length -eq 0)
 {
     Write-Error $lang.ERROR_VC_LTL_NOT_SUPPORT_PLATFORM_TOOLSET
     return

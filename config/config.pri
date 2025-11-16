@@ -5,20 +5,15 @@
 # VC-LTL核心版本号，由于4.X并不兼容3.X。此值可以用于兼容性判断。
 LTL_CoreVersion = 5
 
-# 默认VC工具集版本
-VisualStudioVersion = $$(VisualStudioVersion)
+UCRTVersion = $$(UCRTVersion)
 
 InternalSupportLTL = $$(SupportLTL)
 isEmpty(SupportLTL) {
     InternalSupportLTL = true
 }
 
-equals(VisualStudioVersion, 14.0) {
-} else:equals(VisualStudioVersion, 15.0) {
-} else:equals(VisualStudioVersion, 16.0) {
-} else:equals(VisualStudioVersion, 17.0) {
-} else {
-    error("VC-LTL: For Visual Studio 2015 , 2017, 2019 or 2022 only")
+isEmpty(UCRTVersion) {
+    error("VC-LTL: For Visual Studio 2015 - 2026 only")
 }
 
 

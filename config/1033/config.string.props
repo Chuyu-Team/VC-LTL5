@@ -9,7 +9,7 @@
     <!--LTL2002-->
     <ERROR_VC_LTL_NOT_SUPPORT_PLATFORM>VC-LTL is disabled because VC-LTL isn't compatible with $(PlatformShortName) platforms.</ERROR_VC_LTL_NOT_SUPPORT_PLATFORM>
     <!--LTL2003-->
-    <ERROR_VC_LTL_NOT_SUPPORT_PLATFORM_TOOLSET>VC-LTL is disabled because VC-LTL isn't compatible with the $(PlatformToolset) toolset. Please switch to Visual Studio 2015/2017/2019/2022 and continue.</ERROR_VC_LTL_NOT_SUPPORT_PLATFORM_TOOLSET>
+    <ERROR_VC_LTL_NOT_SUPPORT_PLATFORM_TOOLSET>VC-LTL is disabled because VC-LTL isn't compatible with the $(PlatformToolset) toolset. Please switch to Visual Studio 2015 - 2026 and continue.</ERROR_VC_LTL_NOT_SUPPORT_PLATFORM_TOOLSET>
     <!--LTL2004-->
     <ERROR_VC_LTL_NOT_SUPPORT_UNIVERSAL_DRIVER>VC-LTL is disabled because VC-LTL isn't compatible with Windows 10 Universal Driver.</ERROR_VC_LTL_NOT_SUPPORT_UNIVERSAL_DRIVER>
     

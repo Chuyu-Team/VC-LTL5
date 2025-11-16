@@ -39,30 +39,7 @@
 
     <!--检测VC-LTL支持的平台工具集-->
     <VCLTLSupportPlatformToolset></VCLTLSupportPlatformToolset>
-    <VCLTLSupportPlatformToolset Condition="('$(VCLTLSupportPlatformToolset)'=='') And ('$(PlatformToolset)'=='v140_xp')">true</VCLTLSupportPlatformToolset>
-    <VCLTLSupportPlatformToolset Condition="('$(VCLTLSupportPlatformToolset)'=='') And ('$(PlatformToolset)'=='v141_xp')">true</VCLTLSupportPlatformToolset>
-    <VCLTLSupportPlatformToolset Condition="('$(VCLTLSupportPlatformToolset)'=='') And ('$(PlatformToolset)'=='LLVM-vs2014_xp')">true</VCLTLSupportPlatformToolset>
-    <VCLTLSupportPlatformToolset Condition="('$(VCLTLSupportPlatformToolset)'=='') And ('$(PlatformToolset)'=='LLVM_v140_xp')">true</VCLTLSupportPlatformToolset>
-    <VCLTLSupportPlatformToolset Condition="('$(VCLTLSupportPlatformToolset)'=='') And ('$(PlatformToolset)'=='LLVM_v141_xp')">true</VCLTLSupportPlatformToolset>
-
-    <VCLTLSupportPlatformToolset Condition="('$(VCLTLSupportPlatformToolset)'=='') And ('$(PlatformToolset)'=='v140')">true</VCLTLSupportPlatformToolset>
-    <VCLTLSupportPlatformToolset Condition="('$(VCLTLSupportPlatformToolset)'=='') And ('$(PlatformToolset)'=='v140_clang_c2')">true</VCLTLSupportPlatformToolset>
-    <VCLTLSupportPlatformToolset Condition="('$(VCLTLSupportPlatformToolset)'=='') And ('$(PlatformToolset)'=='v140_clang_3_7')">true</VCLTLSupportPlatformToolset>
-    <VCLTLSupportPlatformToolset Condition="('$(VCLTLSupportPlatformToolset)'=='') And ('$(PlatformToolset)'=='v141')">true</VCLTLSupportPlatformToolset>
-    <VCLTLSupportPlatformToolset Condition="('$(VCLTLSupportPlatformToolset)'=='') And ('$(PlatformToolset)'=='v141_clang_c2')">true</VCLTLSupportPlatformToolset>
-    <VCLTLSupportPlatformToolset Condition="('$(VCLTLSupportPlatformToolset)'=='') And ('$(PlatformToolset)'=='v142')">true</VCLTLSupportPlatformToolset>
-    <VCLTLSupportPlatformToolset Condition="('$(VCLTLSupportPlatformToolset)'=='') And ('$(PlatformToolset)'=='v143')">true</VCLTLSupportPlatformToolset>
-    <VCLTLSupportPlatformToolset Condition="('$(VCLTLSupportPlatformToolset)'=='') And ('$(PlatformToolset)'=='ClangCL')">true</VCLTLSupportPlatformToolset>
-    <VCLTLSupportPlatformToolset Condition="('$(VCLTLSupportPlatformToolset)'=='') And ('$(PlatformToolset)'=='LLVM-vs2014')">true</VCLTLSupportPlatformToolset>
-    <VCLTLSupportPlatformToolset Condition="('$(VCLTLSupportPlatformToolset)'=='') And ('$(PlatformToolset)'=='LLVM_v140')">true</VCLTLSupportPlatformToolset>
-    <VCLTLSupportPlatformToolset Condition="('$(VCLTLSupportPlatformToolset)'=='') And ('$(PlatformToolset)'=='LLVM_v141')">true</VCLTLSupportPlatformToolset>
-    <VCLTLSupportPlatformToolset Condition="('$(VCLTLSupportPlatformToolset)'=='') And ('$(PlatformToolset)'=='LLVM_v142')">true</VCLTLSupportPlatformToolset>
-    <VCLTLSupportPlatformToolset Condition="('$(VCLTLSupportPlatformToolset)'=='') And ('$(PlatformToolset)'=='LLVM_v143')">true</VCLTLSupportPlatformToolset>
-    <VCLTLSupportPlatformToolset Condition="('$(VCLTLSupportPlatformToolset)'=='') And ('$(PlatformToolset)'=='LLVM-MSVC_v140')">true</VCLTLSupportPlatformToolset>
-    <VCLTLSupportPlatformToolset Condition="('$(VCLTLSupportPlatformToolset)'=='') And ('$(PlatformToolset)'=='LLVM-MSVC_v141')">true</VCLTLSupportPlatformToolset>
-    <VCLTLSupportPlatformToolset Condition="('$(VCLTLSupportPlatformToolset)'=='') And ('$(PlatformToolset)'=='LLVM-MSVC_v142')">true</VCLTLSupportPlatformToolset>
-    <VCLTLSupportPlatformToolset Condition="('$(VCLTLSupportPlatformToolset)'=='') And ('$(PlatformToolset)'=='LLVM-MSVC_v143')">true</VCLTLSupportPlatformToolset>
-    <VCLTLSupportPlatformToolset Condition="('$(VCLTLSupportPlatformToolset)'=='') And ('$(PlatformToolset)'=='Intel C++ Compiler 2022')">true</VCLTLSupportPlatformToolset>
+    <VCLTLSupportPlatformToolset Condition="'$(TargetUniversalCRTVersion)'!=''">true</VCLTLSupportPlatformToolset>
 
     <!--VC-LTL仅支持x86、x64、arm、arm64-->
     <VCLTLSupportPlatform></VCLTLSupportPlatform>
