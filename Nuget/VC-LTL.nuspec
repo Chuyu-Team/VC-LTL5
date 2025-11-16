@@ -3,7 +3,7 @@
   <metadata minClientVersion="2.5">
     <id>VC-LTL</id>
     <version>$version$</version>
-    <summary>VC-LTL for Visual Studio 2015, 2017, 2019, 2022，编译精巧的程序原来如此简单。</summary>
+    <summary>VC-LTL for Visual Studio 2015, 2017, 2019, 2022, 2026，编译精巧的程序原来如此简单。</summary>
     <authors>YY</authors>
     <owners>初雨团队</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>

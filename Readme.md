@@ -77,6 +77,7 @@ If you need to use the heap debugging, please disable VC-LTL.
 * Visual Studio 2017 (Support Clang with Microsoft CodeGen, Clang-LLVM)
 * Visual Studio 2019 (Support Clang-LLVM)
 * Visual Studio 2022
+* Visual Studio 2026
 
 ### 2.3. Supported Build Tools
 |   Build Tool   | Helper      

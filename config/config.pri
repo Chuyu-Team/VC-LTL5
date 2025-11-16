@@ -17,8 +17,9 @@ equals(VisualStudioVersion, 14.0) {
 } else:equals(VisualStudioVersion, 15.0) {
 } else:equals(VisualStudioVersion, 16.0) {
 } else:equals(VisualStudioVersion, 17.0) {
+} else:equals(VisualStudioVersion, 18.0) {
 } else {
-    error("VC-LTL: For Visual Studio 2015 , 2017, 2019 or 2022 only")
+    error("VC-LTL: For Visual Studio 2015 , 2017, 2019, 2022 or 2026 only")
 }
 
 

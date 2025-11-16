@@ -25,6 +25,7 @@ if "%VisualStudioVersion%" == "14.0" goto CheckPlatform
 if "%VisualStudioVersion%" == "15.0" goto CheckPlatform
 if "%VisualStudioVersion%" == "16.0" goto CheckPlatform
 if "%VisualStudioVersion%" == "17.0" goto CheckPlatform
+if "%VisualStudioVersion%" == "18.0" goto CheckPlatform
 
 echo %ERROR_VC_LTL_NOT_SUPPORT_PLATFORM_TOOLSET%&&goto:eof
 

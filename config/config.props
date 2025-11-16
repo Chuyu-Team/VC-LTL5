@@ -64,6 +64,10 @@
     <VCLTLSupportPlatformToolset Condition="('$(VCLTLSupportPlatformToolset)'=='') And ('$(PlatformToolset)'=='LLVM-MSVC_v143')">true</VCLTLSupportPlatformToolset>
     <VCLTLSupportPlatformToolset Condition="('$(VCLTLSupportPlatformToolset)'=='') And ('$(PlatformToolset)'=='Intel C++ Compiler 2022')">true</VCLTLSupportPlatformToolset>
 
+    <VCLTLSupportPlatformToolset Condition="('$(VCLTLSupportPlatformToolset)'=='') And ('$(PlatformToolset)'=='v145')">true</VCLTLSupportPlatformToolset>
+    <VCLTLSupportPlatformToolset Condition="('$(VCLTLSupportPlatformToolset)'=='') And ('$(PlatformToolset)'=='LLVM_v145')">true</VCLTLSupportPlatformToolset>
+    <VCLTLSupportPlatformToolset Condition="('$(VCLTLSupportPlatformToolset)'=='') And ('$(PlatformToolset)'=='LLVM-MSVC_v145')">true</VCLTLSupportPlatformToolset>
+
     <!--VC-LTL仅支持x86、x64、arm、arm64-->
     <VCLTLSupportPlatform></VCLTLSupportPlatform>
     <VCLTLSupportPlatform Condition="('$(Platform)'=='Win32') Or ('$(Platform)'=='x64') Or ('$(Platform)'=='arm') Or ('$(Platform)'=='arm64')">true</VCLTLSupportPlatform>
