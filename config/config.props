@@ -88,7 +88,7 @@
     <src_vc_vccorlib_path Condition="'$(src_vc_vccorlib_path)' == '' and '$(VCToolsInstallDir)' != ''">$(VCToolsInstallDir)lib\$(PlatformShortName)\vccorlib.lib</src_vc_vccorlib_path>
     <src_vc_vccorlib_path Condition="'$(src_vc_vccorlib_path)' == '' and '$(VCInstallDir)' != '' and '$(Platform)' == 'Win32'">$(VCInstallDir)lib\vccorlib.lib</src_vc_vccorlib_path>
     <src_vc_vccorlib_path Condition="'$(src_vc_vccorlib_path)' == '' and '$(VCInstallDir)' != ''">$(VCInstallDir)lib\$(PlatformShortName)\vccorlib.lib</src_vc_vccorlib_path>
-    <patch_vc_vccorlib_path>$(VC_LTL_Root)TargetPlatform\$(InternalLTLCRTVersion)\lib\$(Platform)\vccorlib140.pacth.lib</patch_vc_vccorlib_path>
+    <patch_vc_vccorlib_path>$(VC_LTL_Root)TargetPlatform\$(InternalLTLCRTVersion)\lib\$(Platform)\vccorlib140.patch.lib</patch_vc_vccorlib_path>
     <dst_vc_vccorlib_path>$(IntDir)VC-LTL5.tmp\$(InternalLTLCRTVersion)\$(Platform)\vccorlib.lib</dst_vc_vccorlib_path>
   </PropertyGroup>
 
